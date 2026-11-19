@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>El Toroide Cósmico de Itzhak Bentov — Estructura y Dinámica del Universo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Page and surfaces: Prussian midnight steps */
+      --background: #0a101d;
+      --surface-container-low: #0e1626;
+      --surface-container: #111b2e;
+      --surface-container-high: #17243c;
+
+      /* Text */
+      --on-surface: #f2ece1;
+      --on-surface-variant: #9ba8bf;
+
+      /* Borders */
+      --outline: #384d73;
+      --outline-variant: #21304d;
+
+      /* Accents */
+      --primary: #dfaa5b;
+      --on-primary: #0a101d;
+      --primary-container: #2b261c;
+      --on-primary-container: #f5dcb0;
+      --secondary: #687a99;
+      --tertiary: #7cc4e8;
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Data series */
+      --data-1: #dfaa5b;
+      --data-2: #7cc4e8;
+      --data-3: #52d19c;
+      --data-4: #e07a5f;
+      --data-context: #4a5d80;
+
+      /* Fonts */
+      --font-headline: 'EB Garamond', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(242, 236, 225, 0.05);
+      --brass-glow: radial-gradient(circle at 88% 12%, rgba(223, 170, 91, 0.08), transparent 45%);
+      --heading-tracking: -0.015em;
+      --label-tracking: 0.06em;
+      --sky-tint: color-mix(in srgb, var(--tertiary) 12%, transparent);
+      --brass-tint: color-mix(in srgb, var(--primary) 14%, transparent);
+      --mint-tint: color-mix(in srgb, var(--data-3) 14%, transparent);
+      --coral-tint: color-mix(in srgb, var(--data-4) 14%, transparent);
+      --hud-backdrop: rgba(10, 16, 29, 0.84);
+      --ivory-soft: rgba(242, 236, 225, 0.14);
+
+      /* Semantic */
+      --positive: #52d19c;
+      --warning: #dfaa5b;
+      --focus: #dfaa5b;
+
+      /* Narrative Type Scale */
+      --display-size: clamp(2.45rem, 1.4rem + 3.6vw, 4.25rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      position: static !important;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      display: grid;
+      gap: var(--space-2xl);
+    }
+
+    .page-shell * {
+      min-width: 0;
+    }
+
+    /* Hero Header */
+    .hero-header {
+      background-color: var(--background);
+      background-image: var(--brass-glow);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .coord-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm) var(--space-md);
+    }
+
+    .coord-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+
+    .badge {
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border: 1px solid color-mix(in srgb, var(--tertiary) 35%, transparent);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+    }
+
+    .badge-brass {
+      background: var(--brass-tint);
+      color: var(--primary);
+      border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    }
+
+    .hero-title {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.07;
+      color: var(--on-surface);
+      margin: 0;
+      max-width: 24ch;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--primary);
+    }
+
+    .deck-brass {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .hero-lede {
+      max-width: 65ch;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    .hero-lede strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    /* Observatory Interactive Stage */
+    .observatory-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    .viewport-panel {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .observation-well {
+      position: relative;
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      min-height: 540px;
+      height: clamp(480px, 64vh, 660px);
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .observation-well:active {
+      cursor: grabbing;
+    }
+
+    #torus-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 3D Projected Labels Overlay */
+    .labels-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .labels-overlay.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .pin-3d {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--hud-backdrop);
+      border: var(--hairline-strong);
+      border-radius: var(--rounded);
+      padding: 0.25rem 0.5rem;
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), opacity var(--dur-short) var(--ease-out);
+    }
+
+    .pin-3d:hover {
+      background: var(--surface-container-high);
+      border-color: var(--primary);
+    }
+
+    .pin-3d.is-active {
+      border-color: var(--primary);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .pin-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: var(--rounded-full);
+      flex-shrink: 0;
+    }
+
+    .pin-dot-white { background: var(--on-surface); }
+    .pin-dot-brass { background: var(--data-1); }
+    .pin-dot-sky { background: var(--data-2); }
+    .pin-dot-mint { background: var(--data-3); }
+    .pin-dot-coral { background: var(--data-4); }
+
+    /* Telemetry HUD inside Viewport */
+    .hud-top {
+      position: absolute;
+      top: var(--space-sm);
+      left: var(--space-sm);
+      right: var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      pointer-events: none;
+    }
+
+    .hud-readout {
+      background: var(--hud-backdrop);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+      pointer-events: auto;
+    }
+
+    .hud-readout strong {
+      color: var(--tertiary);
+      font-weight: 500;
+    }
+
+    .hud-hint {
+      background: var(--hud-backdrop);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Camera Preset Strip below canvas */
+    .camera-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .camera-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      border: var(--hairline-strong);
+      background: transparent;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .btn:hover {
+      background: var(--surface-container-high);
+      border-color: var(--tertiary);
+    }
+
+    .btn:active {
+      background: var(--surface-container);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+      color: var(--on-primary);
+    }
+
+    .btn-sm {
+      min-height: 44px;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.72rem;
+    }
+
+    .btn.is-selected {
+      background: var(--brass-tint);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Legend strip */
+    .legend-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Right Inspector Rail */
+    .rail-stack {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .rail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--hairline);
+    }
+
+    .rail-title {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      margin: 0;
+      color: var(--on-surface);
+    }
+
+    .principle-tabs {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .principle-btn {
+      width: 100%;
+      min-height: 44px;
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    .principle-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+
+    .principle-btn.is-active {
+      background: var(--surface-container-high);
+      border-color: var(--primary);
+      color: var(--on-surface);
+    }
+
+    .principle-num {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .principle-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .principle-tag {
+      font-family: var(--font-label);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+
+    .inspector-card {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .inspector-card h3 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: 1.35rem;
+      margin: 0;
+      color: var(--on-surface);
+      line-height: 1.15;
+    }
+
+    .inspector-card p {
+      margin: 0;
+      font-size: 0.94rem;
+      color: var(--on-surface-variant);
+      line-height: 1.55;
+    }
+
+    .inspector-card p strong {
+      color: var(--on-surface);
+    }
+
+    .inspector-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      padding-top: var(--space-xs);
+    }
+
+    /* Simulation Controls */
+    .controls-grid {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .control-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--on-surface-variant);
+    }
+
+    .control-value {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      min-height: 36px;
+      accent-color: var(--primary);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .toggles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xs);
+    }
+
+    .toggle-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--background);
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    .toggle-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+
+    .toggle-btn[aria-pressed="true"] {
+      border-color: var(--tertiary);
+      background: var(--sky-tint);
+      color: var(--on-surface);
+    }
+
+    .toggle-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--rounded-full);
+      background: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    .toggle-btn[aria-pressed="true"] .toggle-indicator {
+      background: var(--positive);
+    }
+
+    /* Narrative Content Sections */
+    .narrative-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: var(--hairline);
+    }
+
+    .section-head {
+      display: grid;
+      gap: var(--space-xs);
+      max-width: 72ch;
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.12;
+      margin: 0;
+      color: var(--on-surface);
+    }
+
+    .section-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--primary);
+    }
+
+    .section-prose {
+      max-width: 65ch;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    .section-prose strong {
+      color: var(--on-surface);
+    }
+
+    /* Cards & Analogies Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .concept-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+
+    .concept-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .concept-card h3 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      margin: 0;
+      color: var(--on-surface);
+      line-height: 1.2;
+    }
+
+    .concept-card p {
+      margin: 0;
+      font-size: 0.96rem;
+      color: var(--on-surface-variant);
+    }
+
+    .concept-card p strong {
+      color: var(--on-surface);
+    }
+
+    /* Two-column Meridian Diagram + Explanation */
+    .diagram-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .schematic-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .schematic-well svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .schematic-caption {
+      font-family: var(--font-label);
+      font-size: 0.74rem;
+      color: var(--on-surface-variant);
+      border-top: var(--hairline);
+      padding-top: var(--space-sm);
+      margin: 0;
+    }
+
+    /* Data Table for Perspectives */
+    .table-wrap {
+      overflow-x: auto;
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      background: var(--surface-container);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding: var(--space-md);
+      border-bottom: var(--hairline-strong);
+      font-weight: 500;
+    }
+
+    td {
+      padding: var(--space-md);
+      border-bottom: var(--hairline);
+      color: var(--on-surface-variant);
+      vertical-align: top;
+      font-size: 0.95rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td strong {
+      color: var(--on-surface);
+    }
+
+    /* Consciousness & Hologram Split */
+    .hologram-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .quote-band {
+      background: var(--surface-container-low);
+      border-left: 2px solid var(--primary);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .quote-band blockquote {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.3rem;
+      line-height: 1.35;
+      color: var(--on-surface);
+    }
+
+    .quote-band cite {
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+
+    /* Footer Sources */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding-top: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+      font-size: 0.88rem;
+    }
+
+    .sources-footer h2 {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--tertiary);
+      margin: 0;
+    }
+
+    .sources-footer ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1024px) {
+      .observatory-grid {
+        grid-template-columns: 1fr;
+      }
+      .diagram-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-shell {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .observation-well {
+        min-height: 400px;
+        height: 55vh;
+      }
+      .hud-hint {
+        display: none;
+      }
+      .toggles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <!-- Hero Header -->
+    <header class="hero-header">
+      <div class="coord-row">
+        <span class="badge badge-brass">Cosmología de Itzhak Bentov</span>
+        <span class="coord-label">Stalking the Wild Pendulum · A Brief Tour of Higher Consciousness</span>
+      </div>
+      <h1 class="hero-title">El Toroide Cósmico en <em>Rotación</em></h1>
+      <p class="deck-brass">Simulación tridimensional de un universo en Big Bang modesto y continuo</p>
+      <p class="hero-lede">
+        En lugar de una explosión única surgida de la nada, el ingeniero biomédico y místico <strong>Itzhak Bentov</strong> propuso en la década de 1970 que el universo tiene la geometría de un <strong>toroide alargado y hueco</strong> que se vuelve continuamente de adentro hacia afuera, como un anillo de humo en rotación perpetua. Arrastra la simulación para inspeccionar su núcleo central, el protoespacio atrapado y el ciclo eterno entre el agujero blanco y el agujero negro.
+      </p>
+    </header>
+
+    <!-- Primary Interactive 3D Observatory -->
+    <section aria-label="Observatorio interactivo en 3D del toroide cósmico" class="observatory-grid">
+      <!-- Left: 3D Canvas & Camera Controls -->
+      <div class="viewport-panel">
+        <div class="observation-well" id="viewport-container" tabindex="0" aria-label="Simulación interactiva 3D del toroide cósmico de Bentov. Usa el mouse o los dedos para rotar y hacer zoom.">
+          <canvas id="torus-canvas"></canvas>
+
+          <div class="hud-top">
+            <div class="hud-readout" id="camera-telemetry">
+              <span>AZIMUT <strong id="tel-az">38°</strong></span>
+              <span>ELEV. <strong id="tel-el">18°</strong></span>
+              <span>RADIO <strong id="tel-dist">9.8 u</strong></span>
+              <span>CORTE <strong id="tel-cut">105°</strong></span>
+            </div>
+            <div class="hud-hint">Arrastra para rotar · Rueda para zoom</div>
+          </div>
+
+          <!-- Real-time 3D projected labels -->
+          <div class="labels-overlay" id="labels-overlay">
+            <button type="button" class="pin-3d" id="pin-white-hole" onclick="selectPrinciple(1)">
+              <span class="pin-dot pin-dot-white"></span>
+              <span>Agujero Blanco (Salida)</span>
+            </button>
+            <button type="button" class="pin-3d" id="pin-black-hole" onclick="selectPrinciple(3)">
+              <span class="pin-dot pin-dot-coral"></span>
+              <span>Agujero Negro (Colapso)</span>
+            </button>
+            <button type="button" class="pin-3d" id="pin-protospace" onclick="selectPrinciple(4)">
+              <span class="pin-dot pin-dot-mint"></span>
+              <span>Protoespacio Interior</span>
+            </button>
+            <button type="button" class="pin-3d" id="pin-observer" onclick="selectPrinciple(2)">
+              <span class="pin-dot pin-dot-sky"></span>
+              <span>Observador (Vía Láctea)</span>
+            </button>
+            <button type="button" class="pin-3d" id="pin-shell" onclick="selectPrinciple(0)">
+              <span class="pin-dot pin-dot-brass"></span>
+              <span>Envolvente Espacio-Tiempo</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="camera-bar">
+          <div class="camera-presets" role="group" aria-label="Vistas rápidas de cámara">
+            <button type="button" class="btn btn-sm is-selected" id="cam-btn-overview" onclick="setCameraPreset('overview', this)">Perspectiva General</button>
+            <button type="button" class="btn btn-sm" id="cam-btn-nucleus" onclick="setCameraPreset('nucleus', this)">Núcleo Central</button>
+            <button type="button" class="btn btn-sm" id="cam-btn-north" onclick="setCameraPreset('north', this)">Polo Norte (Chorro)</button>
+            <button type="button" class="btn btn-sm" id="cam-btn-south" onclick="setCameraPreset('south', this)">Polo Sur (Retorno)</button>
+            <button type="button" class="btn btn-sm" id="cam-btn-top" onclick="setCameraPreset('top', this)">Vista Polar</button>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" onclick="resetCameraView()">Reiniciar Cámara</button>
+        </div>
+
+        <div class="legend-strip" aria-label="Leyenda de elementos en 3D">
+          <span class="legend-item"><span class="pin-dot pin-dot-white"></span>Radiación primordial (Agujero Blanco)</span>
+          <span class="legend-item"><span class="pin-dot pin-dot-brass"></span>Envolvente espacio-tiempo y galaxias</span>
+          <span class="legend-item"><span class="pin-dot pin-dot-coral"></span>Retorno gravitacional (Agujero Negro)</span>
+          <span class="legend-item"><span class="pin-dot pin-dot-mint"></span>Protoespacio interior</span>
+          <span class="legend-item"><span class="pin-dot pin-dot-sky"></span>Ondas de información (Mente Universal)</span>
+        </div>
+      </div>
+
+      <!-- Right: Guided Principles & Simulation Controls -->
+      <aside class="rail-stack">
+        <div class="panel">
+          <div class="rail-header">
+            <h2 class="rail-title">Principios del Modelo</h2>
+            <span class="coord-label">5 Fases</span>
+          </div>
+
+          <div class="principle-tabs" role="tablist" aria-label="Principios clave de Bentov">
+            <button type="button" class="principle-btn is-active" id="tab-p0" onclick="selectPrinciple(0)">
+              <span class="principle-num">01</span>
+              <span class="principle-name">Toroide en rotación continua</span>
+              <span class="principle-tag">Estructura</span>
+            </button>
+            <button type="button" class="principle-btn" id="tab-p1" onclick="selectPrinciple(1)">
+              <span class="principle-num">02</span>
+              <span class="principle-name">Agujero blanco central</span>
+              <span class="principle-tag">Nacimiento</span>
+            </button>
+            <button type="button" class="principle-btn" id="tab-p2" onclick="selectPrinciple(2)">
+              <span class="principle-num">03</span>
+              <span class="principle-name">Flujo hacia afuera y tiempo</span>
+              <span class="principle-tag">Evolución</span>
+            </button>
+            <button type="button" class="principle-btn" id="tab-p3" onclick="selectPrinciple(3)">
+              <span class="principle-num">04</span>
+              <span class="principle-name">Agujero negro de Kerr</span>
+              <span class="principle-tag">Colapso</span>
+            </button>
+            <button type="button" class="principle-btn" id="tab-p4" onclick="selectPrinciple(4)">
+              <span class="principle-num">05</span>
+              <span class="principle-name">Protoespacio y Mente Universal</span>
+              <span class="principle-tag">Holograma</span>
+            </button>
+          </div>
+
+          <div class="inspector-card" id="principle-detail" style="margin-top: var(--space-md);">
+            <span class="coord-label" id="detail-coord">FASE 01 · GEOMETRÍA DEL OVOIDE</span>
+            <h3 id="detail-title">Un anillo de humo que se vuelve de adentro hacia afuera</h3>
+            <p id="detail-body">
+              Bentov describe el universo como un toroide elongado —similar a un melón con embudos profundos en ambos extremos— que gira continuamente sobre sí mismo. La materia brota por el eje central, se expande por la piel exterior y regresa por el polo opuesto sin principio ni fin absolutos.
+            </p>
+            <div class="inspector-meta" id="detail-badges">
+              <span class="badge">Big Bang modesto y continuo</span>
+              <span class="badge badge-brass">Flujo poloidal-toroidal</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="rail-header">
+            <h2 class="rail-title">Controles de Inspección</h2>
+            <span class="coord-label">Tiempo Real</span>
+          </div>
+
+          <div class="controls-grid" style="margin-top: var(--space-md);">
+            <div class="control-group">
+              <div class="control-label-row">
+                <label class="control-label" for="slider-cutaway">Apertura de corte transversal</label>
+                <span class="control-value" id="val-cutaway">105°</span>
+              </div>
+              <input type="range" id="slider-cutaway" min="0" max="180" step="5" value="105" oninput="updateCutawayFromSlider(this.value)">
+            </div>
+
+            <div class="control-group">
+              <div class="control-label-row">
+                <label class="control-label" for="slider-speed">Velocidad del flujo cósmico</label>
+                <span class="control-value" id="val-speed">1.0×</span>
+              </div>
+              <input type="range" id="slider-speed" min="0" max="2.5" step="0.1" value="1.0" oninput="updateSpeedFromSlider(this.value)">
+            </div>
+
+            <div class="toggles-grid">
+              <button type="button" class="toggle-btn" id="tog-protospace" aria-pressed="true" onclick="toggleLayer('protospace', this)">
+                <span>Protoespacio interior</span>
+                <span class="toggle-indicator"></span>
+              </button>
+              <button type="button" class="toggle-btn" id="tog-hologram" aria-pressed="true" onclick="toggleLayer('hologram', this)">
+                <span>Ondas holográficas</span>
+                <span class="toggle-indicator"></span>
+              </button>
+              <button type="button" class="toggle-btn" id="tog-labels" aria-pressed="true" onclick="toggleLayer('labels', this)">
+                <span>Etiquetas 3D</span>
+                <span class="toggle-indicator"></span>
+              </button>
+              <button type="button" class="toggle-btn" id="tog-autorotate" aria-pressed="true" onclick="toggleLayer('autorotate', this)">
+                <span>Rotación orbital</span>
+                <span class="toggle-indicator"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Section 1: Core Mechanisms & Analogies -->
+    <section class="narrative-section">
+      <div class="section-head">
+        <span class="coord-label">01 · Mecánica del Núcleo y del Flujo</span>
+        <h2 class="section-title">De la <em>semilla central</em> a la gran fuente cósmica</h2>
+        <p class="section-prose">
+          En <em>Stalking the Wild Pendulum</em> y <em>A Brief Tour of Higher Consciousness</em>, Bentov sustituye la explosión aislada y única por un motor cíclico continuo. Cada región del toroide cumple una función física precisa en la creación, maduración y reciclaje de la materia y del tiempo.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="concept-card">
+          <span class="concept-kicker">Núcleo · Semilla del Roble</span>
+          <h3>Agujero blanco y agujero negro espalda con espalda</h3>
+          <p>
+            En el eje central flota el núcleo: un agujero blanco y un agujero negro unidos espalda con espalda. Bentov lo compara con una <strong>bellota que contiene en potencia todo el patrón del roble</strong>. Al tratarse de una singularidad en rotación (agujero de Kerr), la materia no se destruye en un punto cero, sino que atraviesa un anillo de transición e imprime su giro a todo el cosmos, desde electrones hasta galaxias.
+          </p>
+        </article>
+
+        <article class="concept-card">
+          <span class="concept-kicker">Polo Norte · Salida</span>
+          <h3>El chorro del agujero blanco y la creación de materia</h3>
+          <p>
+            Un chorro continuo de radiación luminosa emerge por el embudo norte. A medida que se aleja del núcleo y se enfría, la energía se condensa primero en protones, neutrones y electrones, luego en nubes de hidrógeno y helio, y finalmente en estrellas, elementos pesados, galaxias y planetas. Todos nuestros cuerpos contienen átomos forjados en esa misma corriente cósmica.
+          </p>
+        </article>
+
+        <article class="concept-card">
+          <span class="concept-kicker">Envolvente · Tiempo como Distancia</span>
+          <h3>El tiempo no fluye: es la distancia recorrida</h3>
+          <p>
+            Cuando el chorro pierde impulso, la gravedad lo curva hacia afuera como una <strong>fuente cósmica</strong> que desciende por la superficie externa del toroide. Para Bentov, el tiempo nace y muere en el núcleo: solo es una medida de la distancia recorrida por la materia desde su salida del agujero blanco hasta su reingreso en el agujero negro del polo sur, donde vuelve a homogeneizarse en radiación pura.
+          </p>
+        </article>
+
+        <article class="concept-card">
+          <span class="concept-kicker">Protoespacio · Analogía de Cocina</span>
+          <h3>La «mermelada dentro de la dona»</h3>
+          <p>
+            Para visualizar el interior oculto del universo, Bentov pide imaginar una dona cruda rellena de mermelada estirada alrededor de un eje hasta formar un ovoide. La masa estirada es la <strong>envolvente espacio-temporal</strong> por donde viajan la luz y las galaxias. La mermelada atrapada entre el chorro central y la cáscara exterior —y también por fuera de la dona— es el <strong>protoespacio</strong>, la sustancia primordial previa al espacio-tiempo.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 2: Meridian Schematic + Observer Paradox -->
+    <section class="narrative-section">
+      <div class="section-head">
+        <span class="coord-label">02 · Corte Meridiano y Perspectiva</span>
+        <h2 class="section-title">Por qué desde adentro parece un <em>Big Bang</em></h2>
+        <p class="section-prose">
+          En su carta del 13 de marzo de 1968 al astrofísico Fred Hoyle, Bentov resumió el corazón de su modelo: las teorías del Big Bang y del Estado Estacionario no se contradicen, sino que describen el mismo toroide desde distintos puntos de observación.
+        </p>
+      </div>
+
+      <div class="diagram-split">
+        <div class="schematic-well">
+          <svg viewBox="0 0 640 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Corte meridiano esquemático del toroide de Bentov mostrando el agujero blanco, el agujero negro, el protoespacio interior, la trayectoria curva de la luz y la expansión de la conciencia.">
+            <defs>
+              <radialGradient id="nucGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#f2ece1" stop-opacity="0.95"/>
+                <stop offset="45%" stop-color="#dfaa5b" stop-opacity="0.45"/>
+                <stop offset="100%" stop-color="#0a101d" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="protoFill" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#52d19c" stop-opacity="0.28"/>
+                <stop offset="70%" stop-color="#7cc4e8" stop-opacity="0.12"/>
+                <stop offset="100%" stop-color="#0a101d" stop-opacity="0.02"/>
+              </radialGradient>
+              <marker id="arrowBrass" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#dfaa5b"/>
+              </marker>
+              <marker id="arrowCoral" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#e07a5f"/>
+              </marker>
+              <marker id="arrowSky" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#7cc4e8"/>
+              </marker>
+            </defs>
+
+            <!-- Background grid -->
+            <line x1="320" y1="20" x2="320" y2="440" stroke="#21304d" stroke-dasharray="4 4"/>
+            <line x1="35" y1="230" x2="605" y2="230" stroke="#21304d" stroke-dasharray="4 4"/>
+
+            <!-- Left & Right Cross-Section Lobes (Spacetime Envelope) -->
+            <!-- Right lobe -->
+            <path d="M 332 212 C 342 95, 365 44, 435 44 C 520 44, 575 130, 575 230 C 575 330, 520 416, 435 416 C 365 416, 342 365, 332 248" fill="none" stroke="#dfaa5b" stroke-width="2.5"/>
+            <!-- Left lobe -->
+            <path d="M 308 212 C 298 95, 275 44, 205 44 C 120 44, 65 130, 65 230 C 65 330, 120 416, 205 416 C 275 416, 298 365, 308 248" fill="none" stroke="#dfaa5b" stroke-width="2.5"/>
+
+            <!-- Inner Trapped Protospace ("Jelly inside donut") -->
+            <ellipse cx="445" cy="230" rx="88" ry="125" fill="url(#protoFill)" stroke="#52d19c" stroke-width="1.2" stroke-dasharray="5 4"/>
+            <ellipse cx="195" cy="230" rx="88" ry="125" fill="url(#protoFill)" stroke="#52d19c" stroke-width="1.2" stroke-dasharray="5 4"/>
+
+            <!-- Flow Arrows along Right Lobe -->
+            <path d="M 333 175 C 340 120, 355 75, 385 56" fill="none" stroke="#f2ece1" stroke-width="2" marker-end="url(#arrowBrass)"/>
+            <path d="M 485 58 C 540 85, 565 145, 572 200" fill="none" stroke="#dfaa5b" stroke-width="2" marker-end="url(#arrowBrass)"/>
+            <path d="M 565 275 C 545 345, 495 398, 435 412" fill="none" stroke="#e07a5f" stroke-width="2" marker-end="url(#arrowCoral)"/>
+            <path d="M 380 402 C 350 375, 338 320, 333 272" fill="none" stroke="#e07a5f" stroke-width="2" marker-end="url(#arrowCoral)"/>
+
+            <!-- Flow Arrows along Left Lobe -->
+            <path d="M 307 175 C 300 120, 285 75, 255 56" fill="none" stroke="#f2ece1" stroke-width="2" marker-end="url(#arrowBrass)"/>
+            <path d="M 155 58 C 100 85, 75 145, 68 200" fill="none" stroke="#dfaa5b" stroke-width="2" marker-end="url(#arrowBrass)"/>
+            <path d="M 75 275 C 95 345, 145 398, 205 412" fill="none" stroke="#e07a5f" stroke-width="2" marker-end="url(#arrowCoral)"/>
+
+            <!-- Central Nucleus Glow -->
+            <circle cx="320" cy="230" r="46" fill="url(#nucGlow)"/>
+            <!-- White Hole (top half) -->
+            <path d="M 306 230 A 14 14 0 0 1 334 230 Z" fill="#f2ece1" stroke="#dfaa5b" stroke-width="1.5"/>
+            <!-- Black Hole (bottom half) -->
+            <path d="M 306 230 A 14 14 0 0 0 334 230 Z" fill="#0a101d" stroke="#e07a5f" stroke-width="1.8"/>
+
+            <!-- Observer Position + Light vs Psyche -->
+            <circle cx="526" cy="108" r="6" fill="#7cc4e8" stroke="#f2ece1" stroke-width="1.5"/>
+            <!-- Psyche expanding through protospace to center -->
+            <path d="M 520 114 L 348 214" fill="none" stroke="#7cc4e8" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrowSky)"/>
+
+            <!-- Annotations -->
+            <text x="320" y="26" text-anchor="middle" fill="#f2ece1" font-family="JetBrains Mono, monospace" font-size="11">POLO NORTE · SALIDA DE RADIACIÓN</text>
+            <text x="320" y="446" text-anchor="middle" fill="#e07a5f" font-family="JetBrains Mono, monospace" font-size="11">POLO SUR · RETORNO GRAVITACIONAL</text>
+
+            <text x="195" y="226" text-anchor="middle" fill="#52d19c" font-family="JetBrains Mono, monospace" font-size="11">PROTOESPACIO</text>
+            <text x="195" y="242" text-anchor="middle" fill="#9ba8bf" font-family="JetBrains Mono, monospace" font-size="10">La luz no lo cruza</text>
+
+            <text x="445" y="226" text-anchor="middle" fill="#52d19c" font-family="JetBrains Mono, monospace" font-size="11">PROTOESPACIO</text>
+            <text x="445" y="242" text-anchor="middle" fill="#9ba8bf" font-family="JetBrains Mono, monospace" font-size="10">Holograma informativo</text>
+
+            <text x="355" y="218" fill="#f2ece1" font-family="JetBrains Mono, monospace" font-size="10">Agujero Blanco</text>
+            <text x="355" y="247" fill="#e07a5f" font-family="JetBrains Mono, monospace" font-size="10">Agujero Negro</text>
+
+            <text x="536" y="102" fill="#7cc4e8" font-family="JetBrains Mono, monospace" font-size="10">Vía Láctea</text>
+            <text x="430" y="150" text-anchor="middle" fill="#7cc4e8" font-family="JetBrains Mono, monospace" font-size="10" transform="rotate(-30 430 150)">Psique / Mente</text>
+            <text x="582" y="232" fill="#dfaa5b" font-family="JetBrains Mono, monospace" font-size="10">Tiempo (t)</text>
+          </svg>
+          <p class="schematic-caption">
+            Corte meridiano del modelo de Bentov: la luz queda confinada a la curvatura de la envolvente dorada (no atraviesa el protoespacio), mientras las ondas de información y la conciencia pueden expandirse hacia el eje central donde la densidad informativa es máxima.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimensión</th>
+                <th>Observador interno (En la cáscara)</th>
+                <th>Observador externo (Dimensión superior)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Origen del cosmos</strong></td>
+                <td>Percibe una explosión única (Big Bang) con galaxias alejándose en todas direcciones.</td>
+                <td>Observa un <strong>«Big Bang modesto y continuo»</strong> que fluye perpetuamente sin principio ni fin.</td>
+              </tr>
+              <tr>
+                <td><strong>Trayectoria de la luz</strong></td>
+                <td>La luz sigue la curvatura de la masa del chorro; no puede cruzar el protoespacio interior.</td>
+                <td>El toroide completo aparece envuelto en protoespacio externo, girando como un anillo de humo.</td>
+              </tr>
+              <tr>
+                <td><strong>Evidencia astronómica</strong></td>
+                <td>Bentov señaló la ligera anisotropía de cuásares entre polos norte y sur (como 3C273 y 3C275.1, «astillas del mismo palo» del núcleo).</td>
+                <td>Los cuásares replican en pequeña escala la eyección bipolar del núcleo central del universo.</td>
+              </tr>
+              <tr>
+                <td><strong>Naturaleza del tiempo</strong></td>
+                <td>Se experimenta como un flujo lineal irreversible del pasado hacia el futuro.</td>
+                <td>El tiempo es simplemente la <strong>distancia espacial</strong> recorrida alrededor del toroide desde el agujero blanco hasta el negro.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Universal Mind, Hologram & Toroidal Convergence -->
+    <section class="narrative-section">
+      <div class="section-head">
+        <span class="coord-label">03 · El Holograma Cósmico y la Conciencia</span>
+        <h2 class="section-title">La <em>Mente Universal</em> en el corazón del toroide</h2>
+        <p class="section-prose">
+          Para Bentov, la cosmología física y la evolución de la conciencia son dos caras de una misma dinámica. Al recorrer la piel del toroide, cada estrella y galaxia irradia ondas de información sobre sí misma que se entrelazan en el vacío interior.
+        </p>
+      </div>
+
+      <div class="hologram-grid">
+        <div class="concept-card">
+          <span class="concept-kicker">Patrón de Interferencia 4D</span>
+          <h3>El holograma que llena el vacío</h3>
+          <p>
+            Aunque los fotones ordinarios queden atrapados en la curvatura de la envolvente, las ondas de información irradiadas por toda la materia se superponen en el espacio hueco interno y en el protoespacio circundante formando un gigantesco <strong>holograma tridimensional y temporal</strong>. Bentov denomina a este campo total de memoria la <strong>Mente Universal</strong>: cada fragmento contiene información de la totalidad, y su máxima densidad y claridad se concentran en el eje central del toroide.
+          </p>
+        </div>
+
+        <div class="concept-card">
+          <span class="concept-kicker">Péndulo y Ondas Estacionarias</span>
+          <h3>Sintonía en la fase «apagada» del péndulo</h3>
+          <p>
+            El sistema nervioso humano oscila como un péndulo entre la actividad sensorial («encendido») y breves pausas de quietud («apagado»). Durante esa fase silenciosa —amplificada en la meditación profunda por la sincronización de osciladores biológicos desde el corazón hasta las ondas cerebrales— la psique humana puede expandirse a velocidades prácticamente infinitas hacia el protoespacio interior y sintonizar con la Mente Universal, funcionando como una antena resonante.
+          </p>
+        </div>
+
+        <div class="concept-card">
+          <span class="concept-kicker">Síntesis Evolutiva · Polo A → Polo Ω</span>
+          <h3>Del vórtice divergente de energía al convergente de conciencia</h3>
+          <p>
+            Investigaciones contemporáneas sobre la dinámica toroidal —como la propuesta de singularidad no dual de José Díez Faixat— amplían esta geometría: el flujo parte de un centro adimensional en su faceta <strong>A</strong> (máxima energía, vórtice divergente), recorre la superficie externa mediante saltos armónicos y retorna por un vórtice convergente hacia su faceta <strong>Ω</strong> (máxima conciencia), conformando una jerarquía fractal de toroides anidados.
+          </p>
+        </div>
+      </div>
+
+      <div class="quote-band">
+        <blockquote>
+          «Nuestro universo observable es apenas una pequeña burbuja dentro de la envolvente de un toroide alargado; la luz no puede cruzar el protoespacio interior, pero nuestra psique sí puede hacerlo.»
+        </blockquote>
+        <cite>Síntesis de Itzhak Bentov · Stalking the Wild Pendulum &amp; A Brief Tour of Higher Consciousness</cite>
+      </div>
+    </section>
+
+    <!-- Sources Footer -->
+    <footer class="sources-footer">
+      <h2>Fuentes y referencias del modelo</h2>
+      <ul>
+        <li>Itzhak Bentov, <em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> (Capítulos 5, 8, 9 y 10: modelo del toroide cósmico, agujero blanco/negro, protoespacio, Mente Universal y complejo fisio-kundalini).</li>
+        <li>Itzhak Bentov, <em>A Brief Tour of Higher Consciousness: A Cosmic Book on the Mechanics of Creation</em> (Parte 1: «The Fertile Void», carta de 1968 a Fred Hoyle sobre el Big Bang modesto y continuo, y analogía de cuásares 3C273 y 3C275.1).</li>
+        <li>José Díez Faixat, «Non-Dual Singularity» (<em>Evolution: Trajectories of Social Evolution</em>, 2022: dinámica toroidal divergente-convergente entre los polos A y Ω y armónicos evolutivos).</li>
+        <li>Material complementario de divulgación sobre cosmología vibracional y geometría toroidal en la obra de Bentov.</li>
+      </ul>
+    </footer>
+  </div>
+
+  <script>
+    // Data for the 5 key principles (backtick literals for safety)
+    const PRINCIPLES = [
+      {
+        coord: `FASE 01 · GEOMETRÍA DEL OVOIDE`,
+        title: `Un anillo de humo que se vuelve de adentro hacia afuera`,
+        body: `Bentov describe el universo como un toroide elongado —similar a un melón con embudos profundos en ambos extremos— que gira continuamente sobre sí mismo. La materia brota por el eje central, se expande por la piel exterior y regresa por el polo opuesto sin principio ni fin absolutos.`,
+        badges: [`Big Bang modesto y continuo`, `Flujo poloidal-toroidal`],
+        camera: { az: 38, el: 18, dist: 9.8 },
+        cutaway: 105,
+        protospace: true,
+        hologram: true
+      },
+      {
+        coord: `FASE 02 · POLO NORTE DEL NÚCLEO`,
+        title: `El agujero blanco: nacimiento continuo de energía`,
+        body: `En el centro del toroide reside el agujero blanco, unido espalda con espalda al agujero negro. De él brota un chorro constante de radiación primordial hacia el polo norte. Como una bellota que contiene el plano del roble, el núcleo guarda toda la información potencial del cosmos.`,
+        badges: [`Chorro de radiación pura`, `Semilla creadora`],
+        camera: { az: 24, el: 28, dist: 6.4 },
+        cutaway: 135,
+        protospace: false,
+        hologram: false
+      },
+      {
+        coord: `FASE 03 · EVOLUCIÓN POR LA ENVOLVENTE`,
+        title: `Enfriamiento galáctico y el tiempo como distancia`,
+        body: `Al ascender y curvarse por la cúpula norte, el chorro se enfría en partículas, gases de hidrógeno y helio, estrellas y galaxias. Para Bentov, el tiempo es simplemente la distancia recorrida a lo largo de la cáscara del toroide desde el agujero blanco hasta el negro.`,
+        badges: [`Átomos y galaxias`, `Tiempo = distancia recorrida`],
+        camera: { az: 64, el: 14, dist: 9.0 },
+        cutaway: 85,
+        protospace: true,
+        hologram: false
+      },
+      {
+        coord: `FASE 04 · POLO SUR DEL NÚCLEO`,
+        title: `El agujero negro de Kerr: retorno, compresión y giro`,
+        body: `Al perder velocidad, la gravedad atrae la materia por el embudo sur hacia el agujero negro rotatorio. Allí la materia se comprime, se homogeneiza en radiación pura y vuelve a emerger por el agujero blanco, imprimiendo el giro rotatorio observado desde electrones hasta galaxias.`,
+        badges: [`Singularidad en anillo`, `Ciclo eterno de muerte y renacimiento`],
+        camera: { az: 35, el: -30, dist: 6.6 },
+        cutaway: 135,
+        protospace: false,
+        hologram: false
+      },
+      {
+        coord: `FASE 05 · EL HOLOGRAMA INTERNO`,
+        title: `Protoespacio atrapado y Mente Universal`,
+        body: `Entre el chorro central y la cáscara exterior queda atrapado el protoespacio —la «mermelada dentro de la dona»—. La luz no puede cruzarlo, pero las ondas de información de todas las galaxias forman allí un holograma 4D llamado Mente Universal, accesible a la conciencia expandida.`,
+        badges: [`La luz no cruza el centro`, `Máxima densidad informativa en el eje`],
+        camera: { az: 12, el: 6, dist: 7.4 },
+        cutaway: 155,
+        protospace: true,
+        hologram: true
+      }
+    ];
+
+    // Helper: read CSS custom property from :root
+    function readTokenColor(name, fallback) {
+      const val = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return val || fallback;
+    }
+
+    // Parametric Bentov Elongated Horn Torus curve in cylindrical coords (rho, y)
+    // t in [0, 1): 0 = White Hole exit, 0.25 = North dome, 0.5 = Outer Equator, 0.75 = South dome, 1 = Black Hole entry
+    function sampleBentovProfile(t) {
+      const a = t * Math.PI * 2;
+      // Smoothly pinched central funnel + elongated melon outer shell
+      // Base circle shifted radially, with vertical stretch and pole funnel pinch
+      const R = 1.98;
+      const r = 1.74;
+      const cosA = Math.cos(a);
+      const sinA = Math.sin(a);
+
+      // Squeeze radial radius near inner throat (cosA near 1) to form a slender central jet/return axis
+      const rawRho = R - r * cosA;
+      // Gently flare out at top/bottom domes and pinch tighter along central axis
+      const pinch = Math.pow(Math.max(0, cosA), 3) * 0.12;
+      const rho = Math.max(0.11, rawRho - pinch);
+
+      // Elongated melon height with slight funnel dip near center
+      const melonStretch = 1.62;
+      const funnelShape = sinA * (1.0 + 0.16 * (1 - Math.abs(cosA)));
+      const y = r * melonStretch * funnelShape;
+
+      return { rho: rho, y: y };
+    }
+
+    // Inner Protospace profile ("jelly inside the donut")
+    function sampleProtospaceProfile(t) {
+      const a = t * Math.PI * 2;
+      const centerRho = 2.08;
+      const rx = 1.05;
+      const ry = 1.85;
+      return {
+        rho: centerRho - rx * Math.cos(a),
+        y: ry * Math.sin(a)
+      };
+    }
+
+    // Global Simulation State
+    const simState = {
+      speed: 1.0,
+      cutawayDeg: 105,
+      showProtospace: true,
+      showHologram: true,
+      showLabels: true,
+      autoRotate: true,
+      activePrinciple: 0,
+      azimuthDeg: 38,
+      elevationDeg: 18,
+      distance: 9.8,
+      targetAz: 38,
+      targetEl: 18,
+      targetDist: 9.8,
+      isDragging: false,
+      lastPointerX: 0,
+      lastPointerY: 0,
+      activePointers: new Map(),
+      lastPinchDist: 0
+    };
+
+    // Three.js Scene Objects
+    let renderer, scene, camera;
+    let torusGroup, shellMesh, shellWire, protospaceMesh, protospaceWire;
+    let cutawayRimA, cutawayRimB;
+    let flowPoints, flowData;
+    let hologramGroup;
+    let whiteHoleGroup, blackHoleGroup;
+    let observerMarker;
+    let animFrameId = null;
+
+    // Generate soft radial glow sprite texture via offscreen canvas (no external images)
+    function createGlowTexture() {
+      const c = document.createElement('canvas');
+      c.width = 64;
+      c.height = 64;
+      const ctx = c.getContext('2d');
+      if (!ctx) return null;
+      const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0.0, 'rgba(255, 255, 255, 1.0)');
+      g.addColorStop(0.28, 'rgba(255, 255, 255, 0.72)');
+      g.addColorStop(0.65, 'rgba(255, 255, 255, 0.16)');
+      g.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 64, 64);
+      const tex = new THREE.CanvasTexture(c);
+      return tex;
+    }
+
+    // Build custom revolution geometry with configurable cutaway arc
+    function buildRevolutionGeometry(profileFn, radialSegs, tubularSegs, openDeg) {
+      const phiStart = (openDeg * 0.5) * (Math.PI / 180);
+      const phiLength = Math.max(0.15, (360 - openDeg) * (Math.PI / 180));
+
+      const positions = [];
+      const uvs = [];
+      const indices = [];
+
+      for (let i = 0; i <= radialSegs; i++) {
+        const u = i / radialSegs;
+        const phi = phiStart + u * phiLength;
+        const cosPhi = Math.cos(phi);
+        const sinPhi = Math.sin(phi);
+
+        for (let j = 0; j <= tubularSegs; j++) {
+          const v = j / tubularSegs;
+          const pt = profileFn(v);
+          const x = pt.rho * cosPhi;
+          const z = pt.rho * sinPhi;
+          const y = pt.y;
+          positions.push(x, y, z);
+          uvs.push(u, v);
+        }
+      }
+
+      const stride = tubularSegs + 1;
+      for (let i = 0; i < radialSegs; i++) {
+        for (let j = 0; j < tubularSegs; j++) {
+          const a = i * stride + j;
+          const b = (i + 1) * stride + j;
+          const c = (i + 1) * stride + (j + 1);
+          const d = i * stride + (j + 1);
+          indices.push(a, b, d);
+          indices.push(b, c, d);
+        }
+      }
+
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geom.setIndex(indices);
+      geom.computeVertexNormals();
+      return geom;
+    }
+
+    // Build cross-section meridian rim lines where cutaway slices the torus
+    function buildMeridianRim(profileFn, phiRad, segments) {
+      const pts = [];
+      const cosP = Math.cos(phiRad);
+      const sinP = Math.sin(phiRad);
+      for (let j = 0; j <= segments; j++) {
+        const pt = profileFn(j / segments);
+        pts.push(new THREE.Vector3(pt.rho * cosP, pt.y, pt.rho * sinP));
+      }
+      return new THREE.BufferGeometry().setFromPoints(pts);
+    }
+
+    function rebuildTorusCutawayGeometry() {
+      if (!shellMesh || !shellWire || !protospaceMesh || !protospaceWire) return;
+      const openDeg = simState.cutawayDeg;
+
+      const newShellGeo = buildRevolutionGeometry(sampleBentovProfile, 52, 64, openDeg);
+      shellMesh.geometry.dispose();
+      shellMesh.geometry = newShellGeo;
+
+      const newShellWire = new THREE.WireframeGeometry(buildRevolutionGeometry(sampleBentovProfile, 24, 28, openDeg));
+      shellWire.geometry.dispose();
+      shellWire.geometry = newShellWire;
+
+      const newProtoGeo = buildRevolutionGeometry(sampleProtospaceProfile, 40, 32, openDeg);
+      protospaceMesh.geometry.dispose();
+      protospaceMesh.geometry = newProtoGeo;
+
+      const newProtoWire = new THREE.WireframeGeometry(buildRevolutionGeometry(sampleProtospaceProfile, 18, 16, openDeg));
+      protospaceWire.geometry.dispose();
+      protospaceWire.geometry = newProtoWire;
+
+      // Update cutaway glowing rim lines
+      const showRims = openDeg > 2;
+      cutawayRimA.visible = showRims;
+      cutawayRimB.visible = showRims;
+      if (showRims) {
+        const halfRad = (openDeg * 0.5) * (Math.PI / 180);
+        const geoA = buildMeridianRim(sampleBentovProfile, halfRad, 64);
+        const geoB = buildMeridianRim(sampleBentovProfile, Math.PI * 2 - halfRad, 64);
+        cutawayRimA.geometry.dispose();
+        cutawayRimB.geometry.dispose();
+        cutawayRimA.geometry = geoA;
+        cutawayRimB.geometry = geoB;
+      }
+    }
+
+    function initThreeScene() {
+      const canvas = document.getElementById('torus-canvas');
+      const container = document.getElementById('viewport-container');
+      if (!canvas || !container || typeof THREE === 'undefined') return;
+
+      const colorBg = new THREE.Color(readTokenColor('--background', '#0a101d'));
+      const colorBrass = new THREE.Color(readTokenColor('--data-1', '#dfaa5b'));
+      const colorSky = new THREE.Color(readTokenColor('--data-2', '#7cc4e8'));
+      const colorMint = new THREE.Color(readTokenColor('--data-3', '#52d19c'));
+      const colorCoral = new THREE.Color(readTokenColor('--data-4', '#e07a5f'));
+      const colorIvory = new THREE.Color(readTokenColor('--on-surface', '#f2ece1'));
+      const colorOutline = new THREE.Color(readTokenColor('--outline', '#384d73'));
+
+      scene = new THREE.Scene();
+      scene.background = colorBg;
+
+      const w = container.clientWidth || 800;
+      const h = container.clientHeight || 540;
+      camera = new THREE.PerspectiveCamera(44, w / h, 0.1, 100);
+
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(w, h, false);
+
+      // Subtle background starfield outside the torus
+      const starCount = 420;
+      const starPos = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        const rad = 16 + Math.random() * 24;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        starPos[i * 3] = rad * Math.sin(phi) * Math.cos(theta);
+        starPos[i * 3 + 1] = rad * Math.cos(phi);
+        starPos[i * 3 + 2] = rad * Math.sin(phi) * Math.sin(theta);
+      }
+      const starGeo = new THREE.BufferGeometry();
+      starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+      const starMat = new THREE.PointsMaterial({
+        color: colorIvory,
+        size: 0.08,
+        transparent: true,
+        opacity: 0.38
+      });
+      scene.add(new THREE.Points(starGeo, starMat));
+
+      torusGroup = new THREE.Group();
+      scene.add(torusGroup);
+
+      // 1. Outer Spacetime Envelope (Translucent Shell + Wireframe Grid)
+      const shellGeo = buildRevolutionGeometry(sampleBentovProfile, 52, 64, simState.cutawayDeg);
+      const shellMat = new THREE.MeshBasicMaterial({
+        color: colorBrass,
+        transparent: true,
+        opacity: 0.09,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      shellMesh = new THREE.Mesh(shellGeo, shellMat);
+      torusGroup.add(shellMesh);
+
+      const wireGeo = new THREE.WireframeGeometry(buildRevolutionGeometry(sampleBentovProfile, 24, 28, simState.cutawayDeg));
+      const wireMat = new THREE.LineBasicMaterial({
+        color: colorOutline,
+        transparent: true,
+        opacity: 0.34
+      });
+      shellWire = new THREE.LineSegments(wireGeo, wireMat);
+      torusGroup.add(shellWire);
+
+      // Cutaway section highlight rims
+      const halfRad = (simState.cutawayDeg * 0.5) * (Math.PI / 180);
+      const rimMat = new THREE.LineBasicMaterial({
+        color: colorBrass,
+        transparent: true,
+        opacity: 0.85
+      });
+      cutawayRimA = new THREE.Line(buildMeridianRim(sampleBentovProfile, halfRad, 64), rimMat);
+      cutawayRimB = new THREE.Line(buildMeridianRim(sampleBentovProfile, Math.PI * 2 - halfRad, 64), rimMat);
+      torusGroup.add(cutawayRimA);
+      torusGroup.add(cutawayRimB);
+
+      // 2. Inner Protospace ("Jelly inside the Donut")
+      const protoGeo = buildRevolutionGeometry(sampleProtospaceProfile, 40, 32, simState.cutawayDeg);
+      const protoMat = new THREE.MeshBasicMaterial({
+        color: colorMint,
+        transparent: true,
+        opacity: 0.14,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      protospaceMesh = new THREE.Mesh(protoGeo, protoMat);
+      torusGroup.add(protospaceMesh);
+
+      const protoWireGeo = new THREE.WireframeGeometry(buildRevolutionGeometry(sampleProtospaceProfile, 18, 16, simState.cutawayDeg));
+      const protoWireMat = new THREE.LineBasicMaterial({
+        color: colorMint,
+        transparent: true,
+        opacity: 0.25
+      });
+      protospaceWire = new THREE.LineSegments(protoWireGeo, protoWireMat);
+      torusGroup.add(protospaceWire);
+
+      // 3. Central Nucleus: Back-to-back White Hole (top) and Black Hole (bottom)
+      whiteHoleGroup = new THREE.Group();
+      whiteHoleGroup.position.set(0, 0.18, 0);
+      const whSphere = new THREE.Mesh(
+        new THREE.SphereGeometry(0.18, 24, 24),
+        new THREE.MeshBasicMaterial({ color: colorIvory })
+      );
+      const whHalo = new THREE.Mesh(
+        new THREE.SphereGeometry(0.34, 24, 24),
+        new THREE.MeshBasicMaterial({ color: colorBrass, transparent: true, opacity: 0.35, depthWrite: false })
+      );
+      const whRing = new THREE.Mesh(
+        new THREE.TorusGeometry(0.28, 0.015, 12, 48),
+        new THREE.MeshBasicMaterial({ color: colorIvory, transparent: true, opacity: 0.85 })
+      );
+      whRing.rotation.x = Math.PI / 2;
+      whiteHoleGroup.add(whSphere, whHalo, whRing);
+      torusGroup.add(whiteHoleGroup);
+
+      blackHoleGroup = new THREE.Group();
+      blackHoleGroup.position.set(0, -0.18, 0);
+      const bhCore = new THREE.Mesh(
+        new THREE.SphereGeometry(0.17, 24, 24),
+        new THREE.MeshBasicMaterial({ color: colorBg })
+      );
+      const bhEventHorizon = new THREE.Mesh(
+        new THREE.TorusGeometry(0.22, 0.02, 12, 48),
+        new THREE.MeshBasicMaterial({ color: colorCoral, transparent: true, opacity: 0.92 })
+      );
+      bhEventHorizon.rotation.x = Math.PI / 2;
+      const bhKerrDisk = new THREE.Mesh(
+        new THREE.TorusGeometry(0.36, 0.012, 12, 48),
+        new THREE.MeshBasicMaterial({ color: colorCoral, transparent: true, opacity: 0.45 })
+      );
+      bhKerrDisk.rotation.x = Math.PI / 2;
+      blackHoleGroup.add(bhCore, bhEventHorizon, bhKerrDisk);
+      torusGroup.add(blackHoleGroup);
+
+      // Central Axis subtle reference spine
+      const axisGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, -3.5, 0),
+        new THREE.Vector3(0, 3.5, 0)
+      ]);
+      const axisLine = new THREE.Line(
+        axisGeo,
+        new THREE.LineBasicMaterial({ color: colorSky, transparent: true, opacity: 0.22 })
+      );
+      torusGroup.add(axisLine);
+
+      // 4. Continuous Inside-Out Flow Particle Stream (~1600 particles)
+      const pCount = 1650;
+      const pPos = new Float32Array(pCount * 3);
+      const pColors = new Float32Array(pCount * 3);
+      flowData = [];
+
+      for (let i = 0; i < pCount; i++) {
+        const t = Math.random();
+        const phi = Math.random() * Math.PI * 2;
+        const speedJitter = 0.86 + Math.random() * 0.28;
+        const radialOffset = (Math.random() - 0.5) * 0.12;
+        flowData.push({ t: t, phi: phi, speedJitter: speedJitter, radialOffset: radialOffset });
+      }
+
+      const flowGeo = new THREE.BufferGeometry();
+      flowGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+      flowGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
+
+      const glowTex = createGlowTexture();
+      const flowMat = new THREE.PointsMaterial({
+        size: 0.14,
+        map: glowTex,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+      flowPoints = new THREE.Points(flowGeo, flowMat);
+      torusGroup.add(flowPoints);
+
+      // 5. Holographic Interference Waves ("Universal Mind") radiating toward the central axis
+      hologramGroup = new THREE.Group();
+      const holoRadii = [0.65, 1.15, 1.65];
+      const holoHeights = [-1.1, 0, 1.1];
+      for (let hIdx = 0; hIdx < holoHeights.length; hIdx++) {
+        for (let rIdx = 0; rIdx < holoRadii.length; rIdx++) {
+          const ringGeo = new THREE.TorusGeometry(holoRadii[rIdx], 0.008, 8, 64);
+          const ringMat = new THREE.MeshBasicMaterial({
+            color: colorSky,
+            transparent: true,
+            opacity: 0.22 - rIdx * 0.04
+          });
+          const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+          ringMesh.rotation.x = Math.PI / 2;
+          ringMesh.position.y = holoHeights[hIdx];
+          hologramGroup.add(ringMesh);
+        }
+      }
+      torusGroup.add(hologramGroup);
+
+      // 6. Observer Marker (Milky Way position on expanding outer upper slope)
+      const obsPt = sampleBentovProfile(0.33);
+      const obsPhi = Math.PI * 1.18;
+      observerMarker = new THREE.Group();
+      observerMarker.position.set(obsPt.rho * Math.cos(obsPhi), obsPt.y, obsPt.rho * Math.sin(obsPhi));
+      const obsCore = new THREE.Mesh(
+        new THREE.SphereGeometry(0.1, 16, 16),
+        new THREE.MeshBasicMaterial({ color: colorSky })
+      );
+      const obsRing = new THREE.Mesh(
+        new THREE.RingGeometry(0.14, 0.19, 32),
+        new THREE.MeshBasicMaterial({ color: colorIvory, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })
+      );
+      obsRing.rotation.x = Math.PI / 2;
+      observerMarker.add(obsCore, obsRing);
+      torusGroup.add(observerMarker);
+
+      // Handle Resize cleanly
+      window.addEventListener('resize', handleResize);
+      setupPointerControls(container);
+      updateCameraPosition();
+    }
+
+    function handleResize() {
+      const container = document.getElementById('viewport-container');
+      if (!container || !renderer || !camera) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      if (w <= 0 || h <= 0) return;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h, false);
+    }
+
+    function setupPointerControls(container) {
+      container.addEventListener('pointerdown', function (e) {
+        if (e.target && e.target.closest && e.target.closest('.pin-3d')) return;
+        simState.activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        container.setPointerCapture(e.pointerId);
+        if (simState.activePointers.size === 1) {
+          simState.isDragging = true;
+          simState.lastPointerX = e.clientX;
+          simState.lastPointerY = e.clientY;
+        } else if (simState.activePointers.size === 2) {
+          const pts = Array.from(simState.activePointers.values());
+          simState.lastPinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+        }
+      });
+
+      container.addEventListener('pointermove', function (e) {
+        if (!simState.activePointers.has(e.pointerId)) return;
+        simState.activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+        if (simState.activePointers.size === 1 && simState.isDragging) {
+          const dx = e.clientX - simState.lastPointerX;
+          const dy = e.clientY - simState.lastPointerY;
+          simState.lastPointerX = e.clientX;
+          simState.lastPointerY = e.clientY;
+          simState.targetAz -= dx * 0.42;
+          simState.targetEl = Math.max(-80, Math.min(80, simState.targetEl + dy * 0.35));
+        } else if (simState.activePointers.size === 2) {
+          const pts = Array.from(simState.activePointers.values());
+          const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+          if (simState.lastPinchDist > 0) {
+            const delta = simState.lastPinchDist - dist;
+            simState.targetDist = Math.max(4.5, Math.min(16.0, simState.targetDist + delta * 0.025));
+          }
+          simState.lastPinchDist = dist;
+        }
+      });
+
+      function releasePointer(e) {
+        simState.activePointers.delete(e.pointerId);
+        if (simState.activePointers.size < 2) simState.lastPinchDist = 0;
+        if (simState.activePointers.size === 0) simState.isDragging = false;
+      }
+
+      container.addEventListener('pointerup', releasePointer);
+      container.addEventListener('pointercancel', releasePointer);
+
+      container.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        simState.targetDist = Math.max(4.5, Math.min(16.0, simState.targetDist + e.deltaY * 0.006));
+      }, { passive: false });
+
+      // Keyboard navigation for accessibility
+      container.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') simState.targetAz += 8;
+        else if (e.key === 'ArrowRight') simState.targetAz -= 8;
+        else if (e.key === 'ArrowUp') simState.targetEl = Math.min(80, simState.targetEl + 6);
+        else if (e.key === 'ArrowDown') simState.targetEl = Math.max(-80, simState.targetEl - 6);
+        else if (e.key === '+' || e.key === '=') simState.targetDist = Math.max(4.5, simState.targetDist - 0.8);
+        else if (e.key === '-') simState.targetDist = Math.min(16.0, simState.targetDist + 0.8);
+      });
+    }
+
+    function updateCameraPosition() {
+      if (!camera) return;
+      const azRad = simState.azimuthDeg * (Math.PI / 180);
+      const elRad = simState.elevationDeg * (Math.PI / 180);
+      const r = simState.distance;
+
+      camera.position.x = r * Math.cos(elRad) * Math.sin(azRad);
+      camera.position.y = r * Math.sin(elRad);
+      camera.position.z = r * Math.cos(elRad) * Math.cos(azRad);
+      camera.lookAt(0, 0, 0);
+
+      const azEl = document.getElementById('tel-az');
+      const elEl = document.getElementById('tel-el');
+      const distEl = document.getElementById('tel-dist');
+      if (azEl) azEl.textContent = `${Math.round(((simState.azimuthDeg % 360) + 360) % 360)}°`;
+      if (elEl) elEl.textContent = `${Math.round(simState.elevationDeg)}°`;
+      if (distEl) distEl.textContent = `${simState.distance.toFixed(1)} u`;
+    }
+
+    // Project 3D world point to 2D pixel coords inside container
+    function projectPin(pinId, worldVec, containerW, containerH) {
+      const el = document.getElementById(pinId);
+      if (!el || !camera) return;
+      const v = worldVec.clone().project(camera);
+      // Hide if behind camera
+      if (v.z > 1) {
+        el.style.opacity = '0';
+        el.style.pointerEvents = 'none';
+        return;
+      }
+      const x = (v.x * 0.5 + 0.5) * containerW;
+      const y = (-v.y * 0.5 + 0.5) * containerH;
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.style.opacity = '1';
+      el.style.pointerEvents = simState.showLabels ? 'auto' : 'none';
+    }
+
+    function updateProjectedPins() {
+      if (!simState.showLabels || !torusGroup || !camera) return;
+      const container = document.getElementById('viewport-container');
+      if (!container) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+
+      const pWhite = new THREE.Vector3(0, 0.36, 0).applyMatrix4(torusGroup.matrixWorld);
+      const pBlack = new THREE.Vector3(0, -0.36, 0).applyMatrix4(torusGroup.matrixWorld);
+
+      const protoSample = sampleProtospaceProfile(0.5);
+      const pProto = new THREE.Vector3(-protoSample.rho * 0.72, 0.35, -protoSample.rho * 0.45).applyMatrix4(torusGroup.matrixWorld);
+
+      const shellSample = sampleBentovProfile(0.52);
+      const pShell = new THREE.Vector3(shellSample.rho * 0.92, -0.35, shellSample.rho * 0.38).applyMatrix4(torusGroup.matrixWorld);
+
+      const pObs = observerMarker ? observerMarker.getWorldPosition(new THREE.Vector3()) : new THREE.Vector3();
+
+      projectPin('pin-white-hole', pWhite, w, h);
+      projectPin('pin-black-hole', pBlack, w, h);
+      projectPin('pin-protospace', pProto, w, h);
+      projectPin('pin-shell', pShell, w, h);
+      projectPin('pin-observer', pObs, w, h);
+    }
+
+    // Main Animation Loop
+    let lastTime = performance.now();
+    const cWhite = new THREE.Color('#f2ece1');
+    const cBrass = new THREE.Color('#dfaa5b');
+    const cSky = new THREE.Color('#7cc4e8');
+    const cCoral = new THREE.Color('#e07a5f');
+    const tempColor = new THREE.Color();
+
+    function animate(now) {
+      animFrameId = requestAnimationFrame(animate);
+      const dt = Math.min(0.05, (now - lastTime) / 1000);
+      lastTime = now;
+
+      // Smooth camera interpolation
+      if (simState.autoRotate && !simState.isDragging) {
+        simState.targetAz += dt * 7.5;
+      }
+      simState.azimuthDeg += (simState.targetAz - simState.azimuthDeg) * 0.12;
+      simState.elevationDeg += (simState.targetEl - simState.elevationDeg) * 0.12;
+      simState.distance += (simState.targetDist - simState.distance) * 0.12;
+      updateCameraPosition();
+
+      // Update particles along the toroidal-poloidal flow
+      if (flowPoints && flowData) {
+        const posAttr = flowPoints.geometry.getAttribute('position');
+        const colAttr = flowPoints.geometry.getAttribute('color');
+        const flowStep = dt * 0.085 * simState.speed;
+
+        for (let i = 0; i < flowData.length; i++) {
+          const d = flowData[i];
+          // Flow moves faster near central throat (t near 0 or 1), slower at outer equator (t near 0.5)
+          const throatSpeedBoost = 1.0 + 1.45 * Math.pow(Math.cos(d.t * Math.PI), 2);
+          d.t = (d.t + flowStep * d.speedJitter * throatSpeedBoost) % 1.0;
+          // Angular rotation around central Y axis (Kerr spin)
+          d.phi += dt * 0.35 * simState.speed * throatSpeedBoost;
+
+          const pt = sampleBentovProfile(d.t);
+          const rWithOffset = Math.max(0.08, pt.rho + d.radialOffset);
+          const x = rWithOffset * Math.cos(d.phi);
+          const z = rWithOffset * Math.sin(d.phi);
+
+          posAttr.setXYZ(i, x, pt.y, z);
+
+          // Color evolution along the cycle:
+          // 0.00 - 0.18: White/Ivory radiation jet
+          // 0.18 - 0.45: Sky blue plasma & forming galaxies
+          // 0.45 - 0.72: Brass mature stars & outer expansion
+          // 0.72 - 1.00: Coral gravitational return into Black Hole
+          if (d.t < 0.18) {
+            tempColor.copy(cWhite).lerp(cSky, d.t / 0.18);
+          } else if (d.t < 0.48) {
+            tempColor.copy(cSky).lerp(cBrass, (d.t - 0.18) / 0.30);
+          } else if (d.t < 0.74) {
+            tempColor.copy(cBrass).lerp(cCoral, (d.t - 0.48) / 0.26);
+          } else {
+            tempColor.copy(cCoral).lerp(cWhite, Math.pow((d.t - 0.74) / 0.26, 2) * 0.35);
+          }
+          colAttr.setXYZ(i, tempColor.r, tempColor.g, tempColor.b);
+        }
+        posAttr.needsUpdate = true;
+        colAttr.needsUpdate = true;
+      }
+
+      // Subtle pulse on White/Black Holes & Hologram rings
+      if (whiteHoleGroup) {
+        const s = 1.0 + Math.sin(now * 0.003) * 0.06;
+        whiteHoleGroup.scale.set(s, s, s);
+        whiteHoleGroup.rotation.y += dt * 0.8 * simState.speed;
+      }
+      if (blackHoleGroup) {
+        blackHoleGroup.rotation.y -= dt * 1.3 * simState.speed;
+      }
+      if (hologramGroup && simState.showHologram) {
+        hologramGroup.children.forEach(function (ring, idx) {
+          const pulse = 1.0 + Math.sin(now * 0.002 + idx * 0.7) * 0.04;
+          ring.scale.set(pulse, pulse, 1.0);
+        });
+      }
+
+      if (torusGroup) {
+        torusGroup.updateMatrixWorld();
+      }
+      updateProjectedPins();
+
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
+    }
+
+    // Interactive Controls & Hoisted Global Handlers
+    function selectPrinciple(idx) {
+      if (idx < 0 || idx >= PRINCIPLES.length) return;
+      simState.activePrinciple = idx;
+      const p = PRINCIPLES[idx];
+
+      // Update tabs
+      for (let i = 0; i < PRINCIPLES.length; i++) {
+        const tab = document.getElementById(`tab-p${i}`);
+        if (tab) {
+          if (i === idx) tab.classList.add('is-active');
+          else tab.classList.remove('is-active');
+        }
+      }
+
+      // Update inspector text
+      const coordEl = document.getElementById('detail-coord');
+      const titleEl = document.getElementById('detail-title');
+      const bodyEl = document.getElementById('detail-body');
+      const badgesEl = document.getElementById('detail-badges');
+      if (coordEl) coordEl.textContent = p.coord;
+      if (titleEl) titleEl.textContent = p.title;
+      if (bodyEl) bodyEl.textContent = p.body;
+      if (badgesEl) {
+        badgesEl.innerHTML = p.badges.map(function (b, bIdx) {
+          return `<span class="badge ${bIdx === 1 ? 'badge-brass' : ''}">${b}</span>`;
+        }).join('');
+      }
+
+      // Highlight matching 3D pin
+      const pinMap = ['pin-shell', 'pin-white-hole', 'pin-observer', 'pin-black-hole', 'pin-protospace'];
+      pinMap.forEach(function (pinId, pIdx) {
+        const pin = document.getElementById(pinId);
+        if (pin) {
+          if (pIdx === idx) pin.classList.add('is-active');
+          else pin.classList.remove('is-active');
+        }
+      });
+
+      // Sync camera and cutaway cleanly
+      simState.targetAz = p.camera.az;
+      simState.targetEl = p.camera.el;
+      simState.targetDist = p.camera.dist;
+      simState.cutawayDeg = p.cutaway;
+
+      const cutSlider = document.getElementById('slider-cutaway');
+      const cutVal = document.getElementById('val-cutaway');
+      const cutTel = document.getElementById('tel-cut');
+      if (cutSlider) cutSlider.value = String(p.cutaway);
+      if (cutVal) cutVal.textContent = `${p.cutaway}°`;
+      if (cutTel) cutTel.textContent = `${p.cutaway}°`;
+
+      setLayerState('protospace', p.protospace);
+      setLayerState('hologram', p.hologram);
+      rebuildTorusCutawayGeometry();
+    }
+
+    function setCameraPreset(preset, btnEl) {
+      const presets = {
+        overview: { az: 38, el: 18, dist: 9.8 },
+        nucleus: { az: 24, el: 6, dist: 5.6 },
+        north: { az: 30, el: 44, dist: 7.4 },
+        south: { az: 35, el: -42, dist: 7.4 },
+        top: { az: 10, el: 78, dist: 9.5 }
+      };
+      const target = presets[preset] || presets.overview;
+      simState.targetAz = target.az;
+      simState.targetEl = target.el;
+      simState.targetDist = target.dist;
+
+      const allBtns = document.querySelectorAll('.camera-presets .btn');
+      allBtns.forEach(function (b) { b.classList.remove('is-selected'); });
+      if (btnEl) btnEl.classList.add('is-selected');
+    }
+
+    function resetCameraView() {
+      const overviewBtn = document.getElementById('cam-btn-overview');
+      setCameraPreset('overview', overviewBtn);
+    }
+
+    function updateCutawayFromSlider(val) {
+      const deg = Number(val);
+      simState.cutawayDeg = deg;
+      const valEl = document.getElementById('val-cutaway');
+      const telEl = document.getElementById('tel-cut');
+      if (valEl) valEl.textContent = `${deg}°`;
+      if (telEl) telEl.textContent = `${deg}°`;
+      rebuildTorusCutawayGeometry();
+    }
+
+    function updateSpeedFromSlider(val) {
+      const spd = Number(val);
+      simState.speed = spd;
+      const valEl = document.getElementById('val-speed');
+      if (valEl) valEl.textContent = `${spd.toFixed(1)}×`;
+    }
+
+    function setLayerState(layer, enabled) {
+      if (layer === 'protospace') {
+        simState.showProtospace = enabled;
+        if (protospaceMesh) protospaceMesh.visible = enabled;
+        if (protospaceWire) protospaceWire.visible = enabled;
+        const btn = document.getElementById('tog-protospace');
+        if (btn) btn.setAttribute('aria-pressed', String(enabled));
+      } else if (layer === 'hologram') {
+        simState.showHologram = enabled;
+        if (hologramGroup) hologramGroup.visible = enabled;
+        const btn = document.getElementById('tog-hologram');
+        if (btn) btn.setAttribute('aria-pressed', String(enabled));
+      } else if (layer === 'labels') {
+        simState.showLabels = enabled;
+        const overlay = document.getElementById('labels-overlay');
+        if (overlay) {
+          if (enabled) overlay.classList.remove('is-hidden');
+          else overlay.classList.add('is-hidden');
+        }
+        const btn = document.getElementById('tog-labels');
+        if (btn) btn.setAttribute('aria-pressed', String(enabled));
+      } else if (layer === 'autorotate') {
+        simState.autoRotate = enabled;
+        const btn = document.getElementById('tog-autorotate');
+        if (btn) btn.setAttribute('aria-pressed', String(enabled));
+      }
+    }
+
+    function toggleLayer(layer, btnEl) {
+      const current = btnEl ? btnEl.getAttribute('aria-pressed') === 'true' : true;
+      setLayerState(layer, !current);
+    }
+
+    // Initialize cleanly on DOM ready
+    window.addEventListener('DOMContentLoaded', function () {
+      initThreeScene();
+      selectPrinciple(0);
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      animFrameId = requestAnimationFrame(animate);
+    });
+  </script>
+</body>
+</html>
