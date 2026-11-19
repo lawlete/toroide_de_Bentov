@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="portal">
+  <meta name="design-style" content="nocturne">
+  <title>Cosmología de Itzhak Bentov · Exploraciones Interactivas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Deep space surfaces (Nocturne cosmic base) */
+      --background: #060b14;
+      --surface-container-low: #0a1220;
+      --surface-container: #0e1829;
+      --surface-container-high: #152238;
+
+      /* Text */
+      --on-surface: #f4f7fb;
+      --on-surface-variant: #9eb2c7;
+
+      /* Borders */
+      --outline: #364f73;
+      --outline-variant: #1e2f4a;
+
+      /* Luminous cosmic accents: Gold, Cyan */
+      --primary: #efc062;
+      --on-primary: #060b14;
+      --primary-container: #2a2314;
+      --on-primary-container: #fae1a8;
+      --tertiary: #5be0f0;
+      --on-tertiary: #041317;
+      --tertiary-container: #0e2c36;
+      --on-tertiary-container: #c8f7fc;
+      --positive: #5de0a8;
+
+      /* Fonts */
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Type scale */
+      --display-size: clamp(2.25rem, 1.35rem + 3.4vw, 3.85rem);
+      --subhead-size: clamp(1.15rem, 1.02rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Shape & effects */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.875rem;
+      --rounded-full: 9999px;
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(244, 247, 251, 0.06);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Deep space ambient starfield backdrop */
+    .cosmos-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 86% 14%, rgba(239, 192, 98, 0.11), transparent 46%),
+        radial-gradient(circle at 14% 28%, rgba(91, 224, 240, 0.09), transparent 48%),
+        radial-gradient(ellipse at 50% 0%, #0e1a30 0%, #060b14 70%);
+    }
+
+    .cosmos-backdrop::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.32;
+      background-image:
+        radial-gradient(1px 1px at 12% 18%, #f4f7fb 50%, transparent 100%),
+        radial-gradient(1px 1px at 28% 72%, #5be0f0 50%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 44% 34%, #efc062 50%, transparent 100%),
+        radial-gradient(1px 1px at 63% 14%, #f4f7fb 50%, transparent 100%),
+        radial-gradient(1px 1px at 78% 58%, #5be0f0 50%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 91% 27%, #efc062 50%, transparent 100%),
+        radial-gradient(1px 1px at 19% 88%, #f4f7fb 50%, transparent 100%),
+        radial-gradient(1px 1px at 54% 82%, #f4f7fb 50%, transparent 100%),
+        radial-gradient(1px 1px at 84% 86%, #5be0f0 50%, transparent 100%);
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 2.5rem) 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Hero */
+    .hero-header {
+      text-align: left;
+      padding-bottom: clamp(2rem, 4vw, 3rem);
+      border-bottom: var(--hairline);
+    }
+
+    .deck-brass {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: color-mix(in srgb, var(--primary) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--rounded-full);
+      margin-bottom: 1.25rem;
+    }
+
+    .display-title {
+      font-family: var(--font-headline);
+      font-size: var(--display-size);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin: 0 0 1.15rem;
+      color: var(--on-surface);
+    }
+
+    .accent-gold { color: var(--primary); }
+    .accent-cyan { color: var(--tertiary); }
+
+    .hero-lede {
+      max-width: 68ch;
+      color: var(--on-surface-variant);
+      margin: 0;
+      font-size: clamp(1.02rem, 0.98rem + 0.25vw, 1.16rem);
+    }
+
+    .hero-lede strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    /* Portal Cards Grid */
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1.25rem, 2.5vw, 2rem);
+      margin: clamp(2rem, 4vw, 3rem) 0;
+    }
+
+    @media (max-width: 820px) {
+      .portal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .portal-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(21, 34, 56, 0.72) 0%, rgba(10, 18, 32, 0.92) 100%);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: clamp(1.5rem, 3vw, 2.25rem);
+      box-shadow: var(--panel-highlight), 0 18px 40px -24px rgba(0, 0, 0, 0.8);
+      transition: transform 240ms var(--ease-out), border-color 240ms var(--ease-out), box-shadow 240ms var(--ease-out);
+      overflow: hidden;
+    }
+
+    .portal-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      opacity: 0.85;
+    }
+
+    .portal-card--gold::before {
+      background: linear-gradient(90deg, var(--primary), transparent 85%);
+    }
+
+    .portal-card--cyan::before {
+      background: linear-gradient(90deg, var(--tertiary), transparent 85%);
+    }
+
+    .portal-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--outline);
+      box-shadow: var(--panel-highlight), 0 24px 48px -20px rgba(0, 0, 0, 0.9);
+    }
+
+    .portal-card--gold:hover {
+      border-color: color-mix(in srgb, var(--primary) 55%, var(--outline));
+    }
+
+    .portal-card--cyan:hover {
+      border-color: color-mix(in srgb, var(--tertiary) 55%, var(--outline));
+    }
+
+    .card-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .portal-card--gold .card-kicker { color: var(--primary); }
+    .portal-card--cyan .card-kicker { color: var(--tertiary); }
+
+    .card-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .portal-card--gold .card-dot {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .portal-card--cyan .card-dot {
+      background: var(--tertiary);
+      box-shadow: 0 0 10px var(--tertiary);
+    }
+
+    .card-title {
+      font-family: var(--font-headline);
+      font-size: clamp(1.45rem, 1.2rem + 1vw, 1.85rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.85rem;
+      color: var(--on-surface);
+    }
+
+    .card-desc {
+      color: var(--on-surface-variant);
+      margin: 0 0 1.4rem;
+      font-size: 0.98rem;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .tag-pill {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+      background: rgba(14, 24, 41, 0.9);
+      border: 1px solid var(--outline-variant);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--rounded);
+    }
+
+    .card-actions {
+      margin-top: auto;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.85rem 1.35rem;
+      border-radius: var(--rounded);
+      font-family: var(--font-headline);
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: transform 160ms var(--ease-out), filter 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .cta-btn:focus-visible {
+      outline: 2px solid var(--tertiary);
+      outline-offset: 3px;
+    }
+
+    .cta-btn--gold {
+      background: linear-gradient(135deg, #efc062 0%, #d49b38 100%);
+      color: var(--on-primary);
+      box-shadow: 0 8px 24px -10px rgba(239, 192, 98, 0.55);
+    }
+
+    .cta-btn--cyan {
+      background: linear-gradient(135deg, #5be0f0 0%, #3a9d96 100%);
+      color: var(--on-tertiary);
+      box-shadow: 0 8px 24px -10px rgba(91, 224, 240, 0.5);
+    }
+
+    .cta-arrow {
+      transition: transform 180ms var(--ease-out);
+    }
+
+    .cta-btn:hover .cta-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding-top: 1.5rem;
+      color: var(--on-surface-variant);
+      font-size: 0.88rem;
+    }
+
+    .sources-footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="cosmos-backdrop" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <main>
+      <header class="hero-header">
+        <div class="deck-brass">Cosmología de la Conciencia · Obra de Itzhak Bentov</div>
+        <h1 class="display-title">
+          El Universo de <span class="accent-gold">Itzhak Bentov</span>: <span class="accent-cyan">Toroide</span> y Creación
+        </h1>
+        <p class="hero-lede">
+          Portal de exploraciones interactivas basadas en <em>Stalking the Wild Pendulum</em> y <em>A Brief Tour of Higher Consciousness</em>. Selecciona una experiencia para inspeccionar la geometría tridimensional del cosmos o la física vibracional que condensa el vacío en materia.
+        </p>
+      </header>
+
+      <section class="portal-grid" aria-label="Experiencias interactivas del proyecto">
+        <!-- Link 1: Toroide Cósmico -->
+        <article class="portal-card portal-card--gold">
+          <div>
+            <div class="card-kicker">
+              <span class="card-dot" aria-hidden="true"></span>
+              01 · Observatorio Interactivo 3D
+            </div>
+            <h2 class="card-title">Simulación del Toroide Cósmico</h2>
+            <p class="card-desc">
+              Modelo tridimensional de un universo en Big Bang modesto y continuo. Rota y secciona el toroide para observar el agujero blanco, el agujero negro, el protoespacio interior y la evolución de la conciencia.
+            </p>
+            <div class="card-tags">
+              <span class="tag-pill">WebGL / Three.js</span>
+              <span class="tag-pill">Corte transversal</span>
+              <span class="tag-pill">Protoespacio</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="cta-btn cta-btn--gold" href="Simulación_del_Toroide_Cósmico_de_Bentov.html">
+              <span>Abrir Simulación del Toroide</span>
+              <span class="cta-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Link 2: Materia y Símbolos -->
+        <article class="portal-card portal-card--cyan">
+          <div>
+            <div class="card-kicker">
+              <span class="card-dot" aria-hidden="true"></span>
+              02 · Narrativa &amp; Simulaciones Vibracionales
+            </div>
+            <h2 class="card-title">Materia y Símbolos de la Creación</h2>
+            <p class="card-desc">
+              Cómo el Absoluto vibra para formar átomos y realidad física a través de matrices de interferencia tridimensionales reflejadas en los alfabetos sagrados sánscrito y hebreo.
+            </p>
+            <div class="card-tags">
+              <span class="tag-pill">Parpadeo Atómico</span>
+              <span class="tag-pill">Discos Sánscritos</span>
+              <span class="tag-pill">Interferencia Álef</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="cta-btn cta-btn--cyan" href="Materia_y_Símbolos_de_la_Creación_(Bentov).html">
+              <span>Explorar Materia y Símbolos</span>
+              <span class="cta-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="sources-footer">
+      <p>
+        Basado en la obra de <strong>Itzhak Bentov</strong>: <em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> y <em>A Brief Tour of Higher Consciousness</em>.
+      </p>
+
+      <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 28px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a> &bull; Movil: 2355-69 26 16</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

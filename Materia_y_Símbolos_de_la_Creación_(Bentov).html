@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>La Creación de la Materia y los Símbolos Cósmicos · Modelo de Itzhak Bentov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Deep space surfaces (Nocturne cosmic base) */
+      --background: #060b14;
+      --surface-container-low: #0a1220;
+      --surface-container: #0e1829;
+      --surface-container-high: #152238;
+
+      /* Text */
+      --on-surface: #f4f7fb;
+      --on-surface-variant: #9eb2c7;
+
+      /* Borders */
+      --outline: #364f73;
+      --outline-variant: #1e2f4a;
+
+      /* Luminous cosmic accents: Gold, Cyan, Bright White */
+      --primary: #efc062;
+      --on-primary: #060b14;
+      --primary-container: #2a2314;
+      --on-primary-container: #fae1a8;
+      --secondary: #687fa1;
+      --tertiary: #5be0f0;
+      --on-tertiary: #041317;
+      --tertiary-container: #0e2c36;
+      --on-tertiary-container: #c8f7fc;
+      --quaternary: #f07b6e;
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Semantic & focus */
+      --positive: #5de0a8;
+      --warning: #efc062;
+      --focus: #5be0f0;
+
+      /* Data series */
+      --data-1: #efc062;
+      --data-2: #5be0f0;
+      --data-3: #5de0a8;
+      --data-4: #f07b6e;
+      --data-context: #475d80;
+
+      /* Fonts (modern cosmic typography + sacred scripts) */
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+      --font-hebrew: 'Noto Sans Hebrew', 'Space Grotesk', sans-serif;
+      --font-sanskrit: 'Noto Sans Devanagari', 'Space Grotesk', sans-serif;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.25rem, 1.35rem + 3.4vw, 3.85rem);
+      --headline-size: clamp(1.625rem, 1.15rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.15rem, 1.02rem + 0.55vw, 1.4rem);
+      --body-size: clamp(1.02rem, 0.98rem + 0.22vw, 1.14rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.75rem;
+      --rounded-full: 9999px;
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(244, 247, 251, 0.06);
+      --brass-glow: radial-gradient(circle at 86% 14%, rgba(239, 192, 98, 0.11), transparent 46%);
+      --cyan-glow: radial-gradient(circle at 14% 28%, rgba(91, 224, 240, 0.09), transparent 48%);
+      --heading-tracking: -0.025em;
+      --label-tracking: 0.06em;
+      --cyan-tint: color-mix(in srgb, var(--tertiary) 13%, transparent);
+      --gold-tint: color-mix(in srgb, var(--primary) 14%, transparent);
+      --coral-tint: color-mix(in srgb, var(--quaternary) 14%, transparent);
+      --mint-tint: color-mix(in srgb, var(--positive) 13%, transparent);
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    /* Deep space ambient starfield backdrop */
+    .cosmos-backdrop {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        var(--brass-glow),
+        var(--cyan-glow);
+    }
+
+    .page-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1220px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .display-title {
+      font-size: var(--display-size);
+      line-height: 1.07;
+      max-width: 18ch;
+    }
+    .display-title .accent-gold {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .display-title .accent-cyan {
+      color: var(--tertiary);
+      font-weight: 500;
+    }
+    .section-title {
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      margin-bottom: var(--space-sm);
+    }
+    .subhead {
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+    .deck-brass {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+    }
+    .coord-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .muted-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 66ch;
+      color: var(--on-surface);
+    }
+    p.secondary {
+      color: var(--on-surface-variant);
+    }
+    strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .hl-gold { color: var(--primary); font-weight: 600; }
+    .hl-cyan { color: var(--tertiary); font-weight: 600; }
+
+    /* Hero header */
+    .hero-header {
+      background-color: var(--surface-container-low);
+      background-image: var(--brass-glow), var(--cyan-glow);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-2xl) var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .hero-lede {
+      font-size: clamp(1.08rem, 1rem + 0.35vw, 1.25rem);
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+      margin: 0;
+    }
+    .hero-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+    .nav-anchor {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--background);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.03em;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-anchor:hover {
+      background: var(--surface-container-high);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+    }
+    .nav-anchor .num {
+      color: var(--primary);
+      margin-right: var(--space-sm);
+    }
+
+    /* Section layout */
+    .chapter {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .chapter-header {
+      display: grid;
+      gap: var(--space-xs);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+    }
+    .prose-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Midnight panel */
+    .panel {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .panel-low {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .observation-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+
+    /* Badges and callouts */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+    }
+    .badge-cyan {
+      background: var(--cyan-tint);
+      color: var(--tertiary);
+      border: 1px solid color-mix(in srgb, var(--tertiary) 35%, transparent);
+    }
+    .badge-gold {
+      background: var(--gold-tint);
+      color: var(--primary);
+      border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    }
+    .badge-coral {
+      background: var(--coral-tint);
+      color: var(--quaternary);
+      border: 1px solid color-mix(in srgb, var(--quaternary) 35%, transparent);
+    }
+    .badge-mint {
+      background: var(--mint-tint);
+      color: var(--positive);
+      border: 1px solid color-mix(in srgb, var(--positive) 35%, transparent);
+    }
+
+    .callout {
+      border-left: 3px solid var(--primary);
+      background: var(--surface-container);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+    .callout.cyan-border {
+      border-left-color: var(--tertiary);
+    }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* Interactive Spectrum Cascade (Chapter 1) */
+    .spectrum-panel {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .spectrum-stages {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .stage-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      color: var(--on-surface-variant);
+      font-family: var(--font-body);
+      text-align: left;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .stage-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .stage-btn.active {
+      background: var(--tertiary-container);
+      border-color: var(--tertiary);
+      color: var(--on-surface);
+    }
+    .stage-btn .stage-freq {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+    }
+    .stage-btn.active .stage-freq {
+      color: var(--tertiary);
+    }
+    .stage-btn .stage-name {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .spectrum-detail {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .wave-preview-box {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      min-height: 130px;
+      position: relative;
+      overflow: hidden;
+    }
+    .wave-preview-box canvas {
+      display: block;
+      width: 100%;
+      height: 130px;
+    }
+
+    /* Simulation Workbench Layout */
+    .sim-workbench {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.95fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .canvas-stage {
+      position: relative;
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+    }
+    .canvas-stage canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+      cursor: grab;
+      touch-action: none;
+    }
+    .canvas-stage canvas:active {
+      cursor: grabbing;
+    }
+
+    .hud-overlay-top {
+      position: absolute;
+      top: var(--space-md);
+      left: var(--space-md);
+      right: var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      pointer-events: none;
+    }
+    .hud-chip {
+      background: color-mix(in srgb, var(--background) 84%, transparent);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface);
+      backdrop-filter: blur(6px);
+    }
+    .hud-overlay-bottom {
+      position: absolute;
+      bottom: var(--space-md);
+      left: var(--space-md);
+      right: var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: var(--space-sm);
+      pointer-events: none;
+    }
+    .hud-hint {
+      background: color-mix(in srgb, var(--background) 82%, transparent);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Controls Deck */
+    .controls-deck {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .control-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+    }
+    .control-value {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+    input[type="range"] {
+      width: 100%;
+      min-height: 44px;
+      margin: 0;
+      accent-color: var(--tertiary);
+      background: transparent;
+      cursor: pointer;
+    }
+    input[type="range"].gold-range {
+      accent-color: var(--primary);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background: var(--surface-container-high);
+      border-color: var(--tertiary);
+    }
+    .btn.active-cyan {
+      background: var(--tertiary-container);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+    }
+    .btn.active-gold {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+      color: var(--on-primary);
+    }
+
+    /* Telemetry readouts inside controls deck */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .telemetry-card {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      display: grid;
+      gap: 2px;
+    }
+    .telemetry-card .t-val {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.05rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+    .telemetry-card .t-sub {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Inspector / Letter Matrix for Simulation 3 & 2 */
+    .inspector-box {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .inspector-glyph-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .big-glyph {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--surface-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .big-glyph.hebrew { font-family: var(--font-hebrew); }
+    .big-glyph.sanskrit { font-family: var(--font-sanskrit); color: var(--tertiary); }
+
+    .hebrew-picker {
+      display: grid;
+      grid-template-columns: repeat(11, minmax(0, 1fr));
+      gap: 4px;
+    }
+    .hebrew-cell {
+      min-height: 44px;
+      padding: 2px;
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-hebrew);
+      font-size: 1.15rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.1;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .hebrew-cell span.gem {
+      font-family: var(--font-label);
+      font-size: 0.62rem;
+      color: var(--on-surface-variant);
+    }
+    .hebrew-cell:hover {
+      background: var(--surface-container-high);
+      border-color: var(--primary);
+    }
+    .hebrew-cell.selected {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Energy beams toggles for Alef */
+    .beam-toggles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .beam-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--background);
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .beam-btn .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--rounded-full);
+      flex-shrink: 0;
+    }
+    .beam-btn.active {
+      color: var(--on-surface);
+      background: var(--surface-container-high);
+      border-color: var(--outline);
+    }
+
+    /* Comparison table & Synthesis */
+    .table-wrap {
+      overflow-x: auto;
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      background: var(--surface-container);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: var(--space-md);
+      border-bottom: var(--hairline);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      background: var(--surface-container-low);
+    }
+    td {
+      font-size: 0.96rem;
+      color: var(--on-surface);
+    }
+    td.mono {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Footer / Sources */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding-top: var(--space-xl);
+      display: grid;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 960px) {
+      .prose-grid,
+      .sim-workbench,
+      .spectrum-detail {
+        grid-template-columns: 1fr;
+      }
+      .spectrum-stages {
+        grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+      }
+      .hebrew-picker {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .hero-header {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .canvas-stage,
+      .canvas-stage canvas {
+        min-height: 360px;
+      }
+      .telemetry-grid,
+      .beam-toggles {
+        grid-template-columns: 1fr;
+      }
+      .hebrew-picker {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cosmos-backdrop" aria-hidden="true"></div>
+
+  <main class="page-grid">
+    <!-- HERO -->
+    <header class="hero-header">
+      <div class="deck-brass">Cosmología de la Conciencia · Stalking the Wild Pendulum &amp; A Brief Tour of Higher Consciousness</div>
+      <h1 class="display-title">
+        Cómo el <span class="accent-cyan">Vacío</span> se convierte en <span class="accent-gold">Materia</span> y los Símbolos del Programa Cósmico
+      </h1>
+      <p class="hero-lede">
+        En el modelo del ingeniero biomédico y místico <strong>Itzhak Bentov</strong>, la solidez del mundo físico es una ilusión óptica y electromagnética. Todo átomo está compuesto casi por completo de espacio vacío y oscila entre la existencia y el reposo absoluto millones de billones de veces por segundo. Para bajar esa energía desde la quietud infinita hasta la materia densa, la conciencia utiliza <strong>matrices de interferencia tridimensionales</strong> —formas geométricas y sonoras que los videntes de la antigüedad percibieron y transcribieron en los alfabetos sagrados <strong>sánscrito</strong> y <strong>hebreo</strong>.
+      </p>
+      <nav class="hero-nav" aria-label="Secciones de la exploración">
+        <a class="nav-anchor" href="#cap-absoluto"><span class="num">01</span> Del Absoluto al Fotón</a>
+        <a class="nav-anchor" href="#cap-atomo"><span class="num">02</span> Simulación I · Átomo y Parpadeo</a>
+        <a class="nav-anchor" href="#cap-sanscrito"><span class="num">03</span> Simulación II · Discos Moduladores Sánscritos</a>
+        <a class="nav-anchor" href="#cap-hebreo"><span class="num">04</span> Simulación III · Álef e Interferencia Hebrea</a>
+        <a class="nav-anchor" href="#cap-sintesis"><span class="num">05</span> Síntesis Holográfica</a>
+      </nav>
+    </header>
+
+    <!-- CAPÍTULO 1: DEL ABSOLUTO A LA MATERIA -->
+    <section id="cap-absoluto" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="coord-label">01 · El Sustento No Vibratorio</span>
+        <h2 class="section-title">El Absoluto: cuando la quietud infinita comienza a vibrar</h2>
+      </div>
+
+      <div class="prose-grid">
+        <div>
+          <p>
+            Si observáramos un objeto cotidiano bajo un «supermicroscopio» capaz de ampliar hasta el corazón subatómico, descubriríamos que la materia sólida desaparece. Incluso el núcleo atómico, que concentra casi toda la masa, se disuelve en un vórtice de campos de energía pulsantes suspendidos en un <strong>vacío</strong> omnipresente.
+          </p>
+          <p>
+            Bentov llamó a este sustento primordial <strong class="hl-gold">el Absoluto</strong> (o <em>protoespacio absoluto</em>): un fondo inmóvil y atemporal que no carece de nada, sino que contiene toda la energía creativa en estado potencial junto con una inteligencia autoorganizadora. Lo comparó con un mar profundo completamente en calma: mientras la profundidad permanece inmóvil, nuestra realidad manifiesta son apenas los rizos y olas que agitan su superficie.
+          </p>
+          <p>
+            ¿Cómo nace la materia física a partir de esa quietud? Cuando algo «agita» (<em>wiggles</em>) la superficie del Absoluto, se propagan ondas a través del vacío formando un campo electromagnético. <strong>Cuanto mayor es la frecuencia de oscilación de la conciencia, más densa se vuelve la manifestación</strong>: desde la luz visible hasta partículas elementales que forman átomos.
+          </p>
+        </div>
+
+        <aside class="panel-low">
+          <div class="deck-brass">Principio de Velocidad Infinita = Reposo</div>
+          <p class="secondary">
+            En el extremo de lo «relativo fino» de Bentov, cuando las ondas se hacen tan diminutas y rápidas que sus crestas y valles se superponen, la velocidad infinita equivale al reposo absoluto. En ese umbral desaparecen las dualidades (luz/oscuridad, creación/destrucción) y toda la energía del sistema se vuelve potencialmente infinita.
+          </p>
+          <div class="callout cyan-border">
+            <p>
+              «La mesa, las flores, el aroma de las flores y nuestros cuerpos están hechos de conciencia vibrando rápidamente.» — <em>A Brief Tour of Higher Consciousness</em>
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Explorador de Cascada de Frecuencias -->
+      <div class="panel spectrum-panel">
+        <div class="control-header">
+          <div>
+            <span class="coord-label">Cascada de Condensación Vibratoria</span>
+            <h3 class="subhead">Explora cómo la aceleración de la onda en el vacío produce partículas físicas</h3>
+          </div>
+          <span class="badge badge-cyan" id="spectrum-badge">Estado 01 · Reposo</span>
+        </div>
+
+        <div class="spectrum-stages" role="group" aria-label="Niveles de vibración del Absoluto">
+          <button type="button" class="stage-btn active" data-stage="0">
+            <span class="stage-freq">0 Hz (Potencial ∞)</span>
+            <span class="stage-name">El Absoluto</span>
+          </button>
+          <button type="button" class="stage-btn" data-stage="1">
+            <span class="stage-freq">~10¹⁴ – 10¹⁵ Hz</span>
+            <span class="stage-name">Fotones (Luz)</span>
+          </button>
+          <button type="button" class="stage-btn" data-stage="2">
+            <span class="stage-freq">~10¹⁷ – 10¹⁹ Hz</span>
+            <span class="stage-name">Rayos X</span>
+          </button>
+          <button type="button" class="stage-btn" data-stage="3">
+            <span class="stage-freq">&gt; 10²⁰ Hz</span>
+            <span class="stage-name">Rayos Gamma</span>
+          </button>
+          <button type="button" class="stage-btn" data-stage="4">
+            <span class="stage-freq">Materia Estable</span>
+            <span class="stage-name">Electrón + Positrón</span>
+          </button>
+        </div>
+
+        <div class="spectrum-detail">
+          <div class="wave-preview-box">
+            <canvas id="canvas-spectrum" aria-label="Visualización de onda vibratoria del vacío"></canvas>
+          </div>
+          <div class="observation-well">
+            <div class="deck-brass" id="spectrum-title">El Absoluto · Protoespacio No Vibratorio</div>
+            <p id="spectrum-desc" style="margin-bottom: 0;">
+              Superficie perfectamente lisa sin oscilación manifiesta. No hay tiempo lineal ni distancia espacial, porque el tiempo es una medida del movimiento. Contiene toda la información potencial del universo antes de ser modulada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 2: SIMULACIÓN 1 — EL ÁTOMO, EL VACÍO Y EL PARPADEO -->
+    <section id="cap-atomo" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="coord-label">02 · Microcosmos y Mecánica del Péndulo</span>
+        <h2 class="section-title">Simulación I: El átomo, el inmenso vacío interior y el parpadeo de la realidad</h2>
+      </div>
+
+      <div class="prose-grid">
+        <div>
+          <p>
+            Para dimensionar cuánta «nada» compone lo que llamamos sólido, Bentov proponía una escala visual: si el núcleo de un átomo de hidrógeno tuviera el tamaño de <strong>1 milímetro</strong> (o un grano de arena en el centro de un gran estadio de fútbol), sus electrones girarían como motas casi invisibles en las gradas superiores. Todo el estadio intermedio está compuesto de vacío lleno de campos oscilantes.
+          </p>
+          <p>
+            Entonces, <strong class="hl-cyan">¿por qué una mesa se siente impenetrable?</strong> Cuando acercas tu mano a una superficie, las nubes de electrones de tus átomos y las de la mesa se repelen electromagnéticamente mucho antes de tocarse. En sentido físico estricto jamás hemos «tocado» materia sólida: el cerebro interpreta esa repulsión de campos de fuerza como textura y solidez.
+          </p>
+        </div>
+        <div class="callout">
+          <div class="deck-brass">El Parpadeo a 10¹⁵ Hz ("Blinking Off &amp; On")</div>
+          <p>
+            A temperatura ambiente, los átomos vibran como péndulos unas <strong>10¹⁵ veces por segundo</strong>. Cada vez que el péndulo atómico alcanza su punto de reposo (velocidad cero antes de invertir la dirección), se vuelve momentáneamente no-material y se expande hacia el Absoluto a velocidad casi infinita, regresando luego a su forma física como un código Morse de <em>acción y reposo</em>.
+          </p>
+        </div>
+      </div>
+
+      <!-- SIMULACIÓN 1 WORKBENCH -->
+      <div class="sim-workbench" id="sim-atom">
+        <div class="canvas-stage">
+          <canvas id="canvas-atom" aria-label="Simulación tridimensional interactiva del átomo, vacío interior, parpadeo cuántico y repulsión electrostática"></canvas>
+          <div class="hud-overlay-top">
+            <div class="hud-chip" id="atom-hud-state">FASE: MANIFIESTO (ON) · OSCILACIÓN ACTIVA</div>
+            <div class="hud-chip" id="atom-hud-void">VACÍO INTERIOR: 99.9999999999996%</div>
+          </div>
+          <div class="hud-overlay-bottom">
+            <div class="hud-hint">Arrastra con el ratón para rotar en 3D · Rueda del ratón para hacer zoom al núcleo</div>
+          </div>
+        </div>
+
+        <div class="controls-deck">
+          <div>
+            <span class="coord-label">Laboratorio Atómico 3D</span>
+            <h3 class="subhead" style="margin-bottom: 0;">Controles del Péndulo y Repulsión</h3>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Escala de Visualización del Vacío</span>
+            <div class="btn-row">
+              <button type="button" class="btn active-cyan" id="btn-atom-didactic">Orbital Didáctica</button>
+              <button type="button" class="btn" id="btn-atom-stadium">Vacío Real (Escala Estadio)</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label class="control-label" for="slider-blink-speed">Cámara Lenta del Parpadeo (10¹⁵ Hz)</label>
+              <span class="control-value" id="val-blink-speed">Oscilación Lenta (0.8 Hz visual)</span>
+            </div>
+            <input type="range" id="slider-blink-speed" min="0" max="100" value="38">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label class="control-label" for="slider-repulsion">Acercar Átomo Externo ("Simular Tacto")</label>
+              <span class="control-value" id="val-repulsion">Separados (0% repulsión)</span>
+            </div>
+            <input type="range" id="slider-repulsion" class="gold-range" min="0" max="100" value="0">
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" id="btn-atom-freeze-rest">Congelar en Punto de Reposo (OFF)</button>
+            <button type="button" class="btn" id="btn-atom-reset">Reiniciar Cámara</button>
+          </div>
+
+          <div class="telemetry-grid">
+            <div class="telemetry-card">
+              <span class="muted-label">Ciclo del Péndulo</span>
+              <span class="t-val" id="atom-tel-phase">ON · Materia</span>
+              <span class="t-sub" id="atom-tel-phase-sub">Onda localizada en espacio-tiempo</span>
+            </div>
+            <div class="telemetry-card">
+              <span class="muted-label">Resistencia Electrostática</span>
+              <span class="t-val" id="atom-tel-force">0.0 nN (Libre)</span>
+              <span class="t-sub" id="atom-tel-force-sub">Sin contacto físico real</span>
+            </div>
+          </div>
+
+          <div class="observation-well">
+            <p class="secondary" id="atom-insight" style="margin-bottom: 0; font-size: 0.92rem;">
+              <strong>Observación:</strong> Acerca el átomo externo dorado con el deslizador para comprobar que las nubes electrónicas se deforman y repelen con líneas de fuerza antes de tocarse. Al pulsar «Congelar en Punto de Reposo», verás el instante exacto en que la materia parpadea hacia el vacío luminoso del Absoluto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 3: SIMULACIÓN 2 — DISCOS MODULADORES SÁNSCRITOS Y OM -->
+    <section id="cap-sanscrito" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="coord-label">03 · La Frontera de la Creación Manifiesta</span>
+        <h2 class="section-title">Simulación II: Matrices sánscritas girando como discos moduladores del vacío</h2>
+      </div>
+
+      <div class="prose-grid">
+        <div>
+          <p>
+            En <em>A Brief Tour of Higher Consciousness</em>, Bentov describe la Creación Manifiesta («Todo lo que es») como un organismo vivo en expansión continua hacia el vacío circundante de pura conciencia. Al acercarse a su superficie límite, no observó una membrana lisa, sino <strong>tres capas concéntricas de 52 formas giratorias</strong> que parecían discos en rápida rotación.
+          </p>
+          <p>
+            Al examinarlos de cerca, reconoció la geometría de las <strong class="hl-cyan">letras del alfabeto sánscrito</strong>: su característica barra horizontal superior (<em>shirorekha</em>) gira tan deprisa que forma la apariencia de un disco plano, mientras los trazos ondulados inferiores modulan el flujo energético. Sobre ellas, una cuarta capa exterior está compuesta por el símbolo primordial <strong class="hl-gold">ॐ (OM)</strong>.
+          </p>
+        </div>
+        <div class="callout cyan-border">
+          <div class="deck-brass">La Flauta Cósmica y las Tres Gunas</div>
+          <p>
+            Estas letras no son una invención cultural arbitraria, sino <strong>hologramas y patrones de interferencia objetivos</strong> percibidos por los antiguos videntes. A medida que la esfera se expande, el vacío fluye a través de las capas como el aire por una flauta, vibrando según las tres <em>gunas</em> —<strong>Sattwa</strong> (expansión), <strong>Rajas</strong> (actividad) y <strong>Tamas</strong> (contracción)— para emitir el primer sonido <strong>OM</strong> y moldear los arquetipos en el nivel plástico <em>siddhi</em> justo debajo de la frontera.
+          </p>
+        </div>
+      </div>
+
+      <!-- SIMULACIÓN 2 WORKBENCH -->
+      <div class="sim-workbench" id="sim-sanskrit">
+        <div class="canvas-stage">
+          <canvas id="canvas-sanskrit" aria-label="Simulación tridimensional de las tres capas de 52 símbolos sánscritos y la capa externa OM girando como discos moduladores del vacío"></canvas>
+          <div class="hud-overlay-top">
+            <div class="hud-chip" id="sanskrit-hud-layer">4 CAPAS ACTIVAS · 52 MODULADORES + ॐ</div>
+            <div class="hud-chip" id="sanskrit-hud-mode">MODO: DISCOS ROTATORIOS</div>
+          </div>
+          <div class="hud-overlay-bottom">
+            <div class="hud-hint">Arrastra para inclinar la esfera · Haz clic sobre un anillo o usa el selector de Gunas</div>
+          </div>
+        </div>
+
+        <div class="controls-deck">
+          <div>
+            <span class="coord-label">Frontera de la Creación</span>
+            <h3 class="subhead" style="margin-bottom: 0;">Moduladores del Vacío y Flauta OM</h3>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label class="control-label" for="slider-disk-speed">Velocidad Angular de los Discos</label>
+              <span class="control-value" id="val-disk-speed">1.2× (Efecto Disco)</span>
+            </div>
+            <input type="range" id="slider-disk-speed" min="0" max="100" value="48">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label class="control-label" for="slider-flute-flow">Flujo del Vacío ("Aire en la Flauta")</label>
+              <span class="control-value" id="val-flute-flow">65% Resonancia</span>
+            </div>
+            <input type="range" id="slider-flute-flow" class="gold-range" min="10" max="100" value="65">
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Enfocar Capa Moduladora (Gunas y OM)</span>
+            <div class="btn-row">
+              <button type="button" class="btn active-cyan" data-guna="all">Todas (Sinfonía)</button>
+              <button type="button" class="btn" data-guna="sattwa">1 · Sattwa</button>
+              <button type="button" class="btn" data-guna="rajas">2 · Rajas</button>
+              <button type="button" class="btn" data-guna="tamas">3 · Tamas</button>
+              <button type="button" class="btn" data-guna="om">4 · Capa ॐ</button>
+            </div>
+          </div>
+
+          <div class="inspector-box">
+            <div class="inspector-glyph-row">
+              <div class="big-glyph sanskrit" id="sanskrit-glyph-view">ॐ</div>
+              <div>
+                <div class="deck-brass" id="sanskrit-guna-title" style="margin-bottom: 2px;">Capa 4 Exterior · Primer Sonido OM</div>
+                <div style="font-size: 0.92rem; color: var(--on-surface);" id="sanskrit-guna-role">
+                  Modulación global del vacío en vibración primordial (el Verbo / sonido originario).
+                </div>
+              </div>
+            </div>
+            <p class="secondary" id="sanskrit-guna-detail" style="margin-bottom: 0; font-size: 0.88rem;">
+              Reduce la velocidad angular a 0× para distinguir la línea horizontal superior y los trazos ondulados de las 52 letras devanágari; auméntala para ver cómo se funden en discos luminosos continuos.
+            </p>
+          </div>
+
+          <div class="telemetry-grid">
+            <div class="telemetry-card">
+              <span class="muted-label">Nivel Sub-Frontera</span>
+              <span class="t-val" id="sanskrit-tel-siddhi">Zona Siddhi Activa</span>
+              <span class="t-sub">Creación plástica por intención</span>
+            </div>
+            <div class="telemetry-card">
+              <span class="muted-label">Patrón Resultante</span>
+              <span class="t-val" id="sanskrit-tel-pattern">Holograma Sonoro</span>
+              <span class="t-sub">Reverberaciones de la onda OM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 4: SIMULACIÓN 3 — EL ÁLEF CENTRAL Y LAS 22 LETRAS HEBREAS -->
+    <section id="cap-hebreo" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="coord-label">04 · Geometría del Cosmos y Transducción</span>
+        <h2 class="section-title">Simulación III: El Álef central (א) y los patrones de interferencia hebreos</h2>
+      </div>
+
+      <div class="prose-grid">
+        <div>
+          <p>
+            Al ascender a la arquitectura interna del cosmos, Bentov observó la estructura modular de la conciencia basada en el <strong class="hl-gold">tetraedro</strong> (la forma tridimensional más estable del universo). En el corazón de esa estructura resplandece el <strong class="hl-gold">Álef (א)</strong>, el sonido abierto e ininterrumpido que surge sin obstáculos desde los pulmones y representa <strong>El Todo</strong> (su valor suma 50: los 49 Creadores más el propio Álef).
+          </p>
+          <p>
+            El Álef es una forma tridimensional producida por la intersección de <strong>cuatro energías creativas</strong>: su luz blanca central (<strong>Sabiduría</strong>) resulta de combinar tres centros o chakras de frecuencia distinta: <strong class="hl-gold">Amor (luz dorada)</strong>, <strong class="hl-cyan">Voluntad (luz azul-cian)</strong> y <strong style="color: var(--quaternary);">Creación (luz roja)</strong>.
+          </p>
+          <p>
+            De su <strong>cara frontal luminosa</strong> emerge una corriente ordenada de <strong>22 patrones de interferencia rectangulares</strong>: las 22 letras del alfabeto hebreo. Estas actúan como <strong>transductores cósmicos</strong> que reducen paso a paso la altísima frecuencia del Álef hasta volverla compatible con la materia física. En cambio, por su <strong>cara posterior oscura</strong>, esas mismas 22 formas emergen en secuencia desordenada: lo que llamamos «caos» o ignorancia de la ley.
+          </p>
+        </div>
+
+        <aside class="panel-low">
+          <div class="deck-brass">Equivalencia Letra · Número · Sonido</div>
+          <p class="secondary">
+            En este nivel cósmico, las letras, los números y las frecuencias son exactamente lo mismo. Cada letra hebrea posee un valor numérico (gematría) y una firma de interferencia rectangular.
+          </p>
+          <div class="observation-well">
+            <span class="coord-label">Dualidad de Polaridad</span>
+            <p style="margin: var(--space-xs) 0 0; font-size: 0.92rem;">
+              <strong>Secuencia Ordenada (Cara Blanca):</strong> Conocimiento de la Ley Cósmica y coherencia constructiva.<br>
+              <strong>Secuencia Mezclada (Cara Oscura):</strong> Desorden de patrones, entropía y caos.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- SIMULACIÓN 3 WORKBENCH -->
+      <div class="sim-workbench" id="sim-aleph">
+        <div class="canvas-stage">
+          <canvas id="canvas-aleph" aria-label="Simulación tridimensional del Álef central, sus cuatro energías creativas y las 22 letras hebreas como patrones de interferencia"></canvas>
+          <div class="hud-overlay-top">
+            <div class="hud-chip" id="aleph-hud-polarity">POLARIDAD: CARA LUMINOSA (ORDEN · LEY CÓSMICA)</div>
+            <div class="hud-chip" id="aleph-hud-step">TRANSDUCTOR #1 · א (VALOR 1)</div>
+          </div>
+          <div class="hud-overlay-bottom">
+            <div class="hud-hint">Arrastra para rodear el Álef 360° y ver la cara luminosa y la cara oscura · Haz clic en una placa</div>
+          </div>
+        </div>
+
+        <div class="controls-deck">
+          <div>
+            <span class="coord-label">Arquitectura del Álef (א = 50)</span>
+            <h3 class="subhead" style="margin-bottom: 0;">Energías y Transductores Hebreos</h3>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Polaridad del Álef (Frente Luminoso vs. Reverso Oscuro)</span>
+            <div class="btn-row">
+              <button type="button" class="btn active-gold" id="btn-pol-order">Cara Luminosa (Orden)</button>
+              <button type="button" class="btn" id="btn-pol-chaos">Cara Oscura (Caos)</button>
+              <button type="button" class="btn" id="btn-pol-dual">Vista Dual 360°</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">4 Energías Creativas que Generan la Interferencia</span>
+            <div class="beam-toggles">
+              <button type="button" class="beam-btn active" data-beam="wisdom">
+                <span class="swatch" style="background: var(--on-surface);"></span>
+                <span>Sabiduría (Blanco · א)</span>
+              </button>
+              <button type="button" class="beam-btn active" data-beam="love">
+                <span class="swatch" style="background: var(--primary);"></span>
+                <span>Amor (Dorado)</span>
+              </button>
+              <button type="button" class="beam-btn active" data-beam="will">
+                <span class="swatch" style="background: var(--tertiary);"></span>
+                <span>Voluntad (Cian-Azul)</span>
+              </button>
+              <button type="button" class="beam-btn active" data-beam="creation">
+                <span class="swatch" style="background: var(--quaternary);"></span>
+                <span>Creación (Rojo)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label class="control-label" for="slider-transducer">Cascada de Transducción (1 → 22)</label>
+              <span class="control-value" id="val-transducer">Paso 1 / 22 · Álef (א)</span>
+            </div>
+            <input type="range" id="slider-transducer" class="gold-range" min="0" max="21" value="0">
+          </div>
+
+          <div class="inspector-box">
+            <div class="inspector-glyph-row">
+              <div class="big-glyph hebrew" id="aleph-selected-glyph">א</div>
+              <div>
+                <div class="deck-brass" id="aleph-selected-name" style="margin-bottom: 2px;">Álef (א) · Valor Numérico: 1</div>
+                <div style="font-size: 0.9rem; color: var(--on-surface);" id="aleph-selected-desc">
+                  Primer transductor: condensa la luz blanca unificada del Álef (50) en el primer pulso rectangular hacia el plano físico.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Selector de los 22 Patrones de Interferencia</span>
+            <div class="hebrew-picker" id="hebrew-picker" role="group" aria-label="Las 22 letras hebreas"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO 5: SÍNTESIS HOLOGRÁFICA -->
+    <section id="cap-sintesis" class="chapter reveal">
+      <div class="chapter-header">
+        <span class="coord-label">05 · El Universo como Holograma Cuatridimensional</span>
+        <h2 class="section-title">De la estructura del cosmos a la antena de nuestra conciencia</h2>
+      </div>
+
+      <p>
+        Al integrar los tres niveles que acabas de explorar, aparece el principio unificador de Bentov: <strong>el universo es un holograma de información</strong>. En una placa holográfica, si iluminas un solo fragmento obtienes la imagen completa. Del mismo modo, cada átomo parpadeante y cada conciencia individual contiene el patrón entero de la Mente Universal.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nivel del Modelo</th>
+              <th>Mecanismo de Manifestación</th>
+              <th>Símbolo / Geometría</th>
+              <th>Equivalente en la Experiencia Humana</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Vacío y Átomo</strong></td>
+              <td>El Absoluto oscila en ondas cada vez más rápidas hasta generar electrones y protones; el átomo parpadea entre materia y reposo.</td>
+              <td class="mono">10¹⁵ Hz · Péndulo ON/OFF</td>
+              <td>La sensación de solidez física causada por repulsión electrostática entre campos vacíos.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Frontera Manifiesta</strong></td>
+              <td>El vacío fluye a través de 3 capas de 52 formas rotatorias (<em>gunas</em>) y la capa externa OM, modulando la quietud en vibración sonora.</td>
+              <td class="mono">52 Glifos Sánscritos + ॐ</td>
+              <td>Flujo del pensamiento y nivel plástico <em>siddhi</em> donde la intención coherente da forma a la realidad.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Arquitectura del Cosmos</strong></td>
+              <td>4 energías interactúan formando el Álef (50); sus 22 interferencias rectangulares reducen la frecuencia divina al plano físico.</td>
+              <td class="mono">Tetraedro · א · 22 Letras</td>
+              <td>Coherencia (secuencia luminosa ordenada) frente a entropía/caos (secuencia oscura mezclada).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-grid">
+        <article class="panel">
+          <span class="badge badge-gold">Sintonía Mental</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm);">La mente como antena resonante</h3>
+          <p class="secondary" style="margin-bottom: 0;">
+            En vigilia ordinaria (ondas Beta), el ruido mental distorsiona la señal del campo. Cuando aquietas la mente hacia estados Alfa y Theta mediante el silencio y la respiración, la antena sintoniza el fondo inmóvil del Absoluto y percibe los patrones de interferencia más sutiles.
+          </p>
+        </article>
+        <article class="panel">
+          <span class="badge badge-cyan">Coherencia Emocional</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm);">Emoción, imagen y palabra escrita</h3>
+          <p class="secondary" style="margin-bottom: 0;">
+            Así como las matrices cósmicas combinan vibración, geometría e intención para condensar materia, la visualización vívida, la gratitud desde el corazón (coherencia cardíaca) y la escritura consciente imprimen pulsos ordenados en tu campo electromagnético.
+          </p>
+        </article>
+      </div>
+
+      <footer class="sources-footer">
+        <div class="muted-label">Fuentes y Base Documental</div>
+        <p style="margin-bottom: 0; color: var(--on-surface-variant);">
+          Elaborado a partir de las obras de Itzhak Bentov: <em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> (Capítulos 2, 3, 8 y 10) y <em>A Brief Tour of Higher Consciousness</em> («The Cosmos», «The Aleph» y «The Manifest Creation»); el estudio cosmológico <em>El Toroide Cósmico de Itzhak Bentov</em>; la investigación evolutiva <em>Non-Dual Singularity</em> de José Díez Faixat; y los análisis documentales y divulgativos sobre la física de la conciencia y las cinco llaves vibracionales.
+        </p>
+
+        <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+          <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a> &bull; Movil: 2355-69 26 16</span>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* Read theme colors directly from :root CSS custom properties */
+      const rootStyles = getComputedStyle(document.documentElement);
+      function cssVar(name, fallback) {
+        const v = rootStyles.getPropertyValue(name).trim();
+        return v || fallback;
+      }
+
+      const THEME = {
+        bg: cssVar('--background', '#060b14'),
+        surface: cssVar('--surface-container', '#0e1829'),
+        white: cssVar('--on-surface', '#f4f7fb'),
+        muted: cssVar('--on-surface-variant', '#9eb2c7'),
+        outline: cssVar('--outline', '#364f73'),
+        outlineVar: cssVar('--outline-variant', '#1e2f4a'),
+        gold: cssVar('--primary', '#efc062'),
+        cyan: cssVar('--tertiary', '#5be0f0'),
+        coral: cssVar('--quaternary', '#f07b6e'),
+        mint: cssVar('--positive', '#5de0a8')
+      };
+
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* Helper to convert hex token into rgba string for additive glow gradients */
+      function hexToRgba(hex, alpha) {
+        const clean = hex.replace('#', '');
+        if (clean.length !== 6) return `rgba(91, 224, 240, ${alpha})`;
+        const r = parseInt(clean.slice(0, 2), 16);
+        const g = parseInt(clean.slice(2, 4), 16);
+        const b = parseInt(clean.slice(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+
+      /* Shared 3D perspective projector */
+      function project3D(x, y, z, yaw, pitch, cx, cy, fov, camDist) {
+        const cosY = Math.cos(yaw);
+        const sinY = Math.sin(yaw);
+        const cosP = Math.cos(pitch);
+        const sinP = Math.sin(pitch);
+
+        const x1 = x * cosY - z * sinY;
+        const z1 = x * sinY + z * cosY;
+        const y2 = y * cosP - z1 * sinP;
+        const z2 = y * sinP + z1 * cosP;
+
+        const depth = camDist + z2;
+        if (depth < 20) return null;
+        const scale = fov / depth;
+        return {
+          sx: cx + x1 * scale,
+          sy: cy + y2 * scale,
+          scale: scale,
+          z: z2,
+          depth: depth
+        };
+      }
+
+      /* High-DPI canvas sizing helper */
+      function setupHiDPI(canvas, onResize) {
+        if (!canvas) return function () {};
+        function resize() {
+          const rect = canvas.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          const w = Math.max(200, Math.floor(rect.width));
+          const h = Math.max(130, Math.floor(rect.height));
+          canvas.width = w * dpr;
+          canvas.height = h * dpr;
+          const ctx = canvas.getContext('2d');
+          if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          if (onResize) onResize(w, h);
+        }
+        resize();
+        if (typeof ResizeObserver !== 'undefined') {
+          const ro = new ResizeObserver(resize);
+          ro.observe(canvas);
+        } else {
+          window.addEventListener('resize', resize);
+        }
+        return resize;
+      }
+
+      /* Scroll Reveal */
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && !prefersReducedMotion) {
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        revealEls.forEach(function (el) { io.observe(el); });
+      } else {
+        revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      /* =====================================================================
+         CHAPTER 1: SPECTRUM CASCADE EXPLORER
+         ===================================================================== */
+      const SPECTRUM_DATA = [
+        {
+          badge: `Estado 01 · Reposo`,
+          title: `El Absoluto · Protoespacio No Vibratorio`,
+          desc: `Superficie perfectamente lisa sin oscilación manifiesta. No existe tiempo lineal ni distancia espacial, porque el tiempo surge del movimiento. Contiene toda la energía potencial infinita y la inteligencia autoorganizadora del universo.`,
+          freq: 0, amp: 0, particles: 0, color: THEME.white
+        },
+        {
+          badge: `Estado 02 · Luz Visible`,
+          title: `Fotones · La Primera Agitación Perceptible`,
+          desc: `Cuando la conciencia «agita» suavemente el vacío, surgen ondas electromagnéticas. Al interactuar con nuestra retina, un pequeño paquete de ese vacío vibrante se percibe como un fotón o partícula de luz.`,
+          freq: 2.4, amp: 24, particles: 3, color: THEME.cyan
+        },
+        {
+          badge: `Estado 03 · Alta Frecuencia`,
+          title: `Rayos X · Radiación Penetrante`,
+          desc: `Si la perturbación del vacío se acelera drásticamente, la longitud de onda se comprime y la energía del campo aumenta. La radiación atraviesa estructuras blandas porque vibra a un ritmo mucho más fino.`,
+          freq: 6.5, amp: 22, particles: 6, color: THEME.gold
+        },
+        {
+          badge: `Estado 04 · Umbral Crítico`,
+          title: `Rayos Gamma · Energía en el Borde de la Masa`,
+          desc: `A frecuencias extremas, la vibración del vacío concentra tanta densidad energética que la pura radiación electromagnética está lista para condensarse en pares de partículas con masa.`,
+          freq: 14, amp: 20, particles: 10, color: THEME.coral
+        },
+        {
+          badge: `Estado 05 · Materia Física`,
+          title: `Electrones y Positrones · Nacimiento del Átomo`,
+          desc: `Los rayos gamma se dividen en electrones y positrones: los ladrillos fundamentales del átomo. Lo que llamamos «materia sólida» es simplemente conciencia vibrando en vórtices estacionarios de altísima frecuencia.`,
+          freq: 22, amp: 16, particles: 16, color: THEME.mint
+        }
+      ];
+
+      let activeSpectrumIdx = 0;
+      let specW = 300;
+      let specH = 130;
+      const specCanvas = document.getElementById('canvas-spectrum');
+      const specCtx = specCanvas ? specCanvas.getContext('2d') : null;
+      setupHiDPI(specCanvas, function (w, h) { specW = w; specH = h; });
+
+      function selectSpectrumStage(idx) {
+        activeSpectrumIdx = idx;
+        const item = SPECTRUM_DATA[idx];
+        if (!item) return;
+        const badgeEl = document.getElementById('spectrum-badge');
+        const titleEl = document.getElementById('spectrum-title');
+        const descEl = document.getElementById('spectrum-desc');
+        if (badgeEl) badgeEl.textContent = item.badge;
+        if (titleEl) titleEl.textContent = item.title;
+        if (descEl) descEl.textContent = item.desc;
+
+        document.querySelectorAll('.stage-btn').forEach(function (btn) {
+          const bIdx = Number(btn.getAttribute('data-stage'));
+          btn.classList.toggle('active', bIdx === idx);
+        });
+      }
+
+      document.querySelectorAll('.stage-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectSpectrumStage(Number(btn.getAttribute('data-stage')) || 0);
+        });
+      });
+
+      /* =====================================================================
+         SIMULATION 1: THE ATOM, INTERIOR VOID, BLINKING OFF & ON, REPULSION
+         ===================================================================== */
+      const atomState = {
+        yaw: 0.45,
+        pitch: 0.32,
+        zoom: 1.0,
+        stadiumScale: false,
+        blinkSpeedSlider: 38,
+        repulsionSlider: 0,
+        frozenInRest: false,
+        phaseAngle: 0,
+        dragging: false,
+        lastX: 0,
+        lastY: 0,
+        w: 600,
+        h: 460
+      };
+
+      const atomCanvas = document.getElementById('canvas-atom');
+      const atomCtx = atomCanvas ? atomCanvas.getContext('2d') : null;
+      setupHiDPI(atomCanvas, function (w, h) { atomState.w = w; atomState.h = h; });
+
+      // Generate background starfield points once
+      const STARS = [];
+      for (let i = 0; i < 110; i++) {
+        STARS.push({
+          x: Math.random(),
+          y: Math.random(),
+          r: 0.5 + Math.random() * 1.4,
+          a: 0.15 + Math.random() * 0.55
+        });
+      }
+
+      function attachOrbitPointer(canvas, stateObj, onClickPick) {
+        if (!canvas) return;
+        let movedDist = 0;
+        canvas.addEventListener('pointerdown', function (e) {
+          stateObj.dragging = true;
+          stateObj.lastX = e.clientX;
+          stateObj.lastY = e.clientY;
+          movedDist = 0;
+          try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+        });
+        canvas.addEventListener('pointermove', function (e) {
+          if (!stateObj.dragging) return;
+          const dx = e.clientX - stateObj.lastX;
+          const dy = e.clientY - stateObj.lastY;
+          movedDist += Math.abs(dx) + Math.abs(dy);
+          stateObj.yaw += dx * 0.0075;
+          stateObj.pitch = Math.max(-1.45, Math.min(1.45, stateObj.pitch + dy * 0.0075));
+          stateObj.lastX = e.clientX;
+          stateObj.lastY = e.clientY;
+        });
+        function endDrag(e) {
+          if (stateObj.dragging && movedDist < 6 && onClickPick) {
+            const rect = canvas.getBoundingClientRect();
+            onClickPick(e.clientX - rect.left, e.clientY - rect.top);
+          }
+          stateObj.dragging = false;
+        }
+        canvas.addEventListener('pointerup', endDrag);
+        canvas.addEventListener('pointercancel', function () { stateObj.dragging = false; });
+        canvas.addEventListener('wheel', function (e) {
+          e.preventDefault();
+          const factor = e.deltaY > 0 ? 0.92 : 1.08;
+          stateObj.zoom = Math.max(0.45, Math.min(2.6, stateObj.zoom * factor));
+        }, { passive: false });
+      }
+
+      attachOrbitPointer(atomCanvas, atomState);
+
+      function updateAtomUI() {
+        const btnDid = document.getElementById('btn-atom-didactic');
+        const btnStad = document.getElementById('btn-atom-stadium');
+        const btnFreeze = document.getElementById('btn-atom-freeze-rest');
+        const valBlink = document.getElementById('val-blink-speed');
+        const valRep = document.getElementById('val-repulsion');
+        const hudVoid = document.getElementById('atom-hud-void');
+
+        if (btnDid) btnDid.classList.toggle('active-cyan', !atomState.stadiumScale);
+        if (btnStad) btnStad.classList.toggle('active-cyan', atomState.stadiumScale);
+        if (btnFreeze) {
+          btnFreeze.textContent = atomState.frozenInRest
+            ? `Reanudar Oscilación (ON/OFF)`
+            : `Congelar en Punto de Reposo (OFF)`;
+          btnFreeze.classList.toggle('active-gold', atomState.frozenInRest);
+        }
+        if (valBlink) {
+          if (atomState.frozenInRest) {
+            valBlink.textContent = `Congelado en Reposo (v = 0)`;
+          } else if (atomState.blinkSpeedSlider === 0) {
+            valBlink.textContent = `Pausa Manual`;
+          } else {
+            const hz = (atomState.blinkSpeedSlider * 0.04).toFixed(1);
+            valBlink.textContent = `Cámara lenta (${hz} Hz visual)`;
+          }
+        }
+        if (valRep) {
+          const p = atomState.repulsionSlider;
+          valRep.textContent = p === 0
+            ? `Separados (0% repulsión)`
+            : `Proximidad ${p}% · Campo activo`;
+        }
+        if (hudVoid) {
+          hudVoid.textContent = atomState.stadiumScale
+            ? `ESCALA ESTADIO: NÚCLEO 1 mm · VACÍO 99.9999999999996%`
+            : `VACÍO INTERIOR: 99.9999999999996%`;
+        }
+      }
+
+      const btnAtomDid = document.getElementById('btn-atom-didactic');
+      const btnAtomStad = document.getElementById('btn-atom-stadium');
+      const sliderBlink = document.getElementById('slider-blink-speed');
+      const sliderRep = document.getElementById('slider-repulsion');
+      const btnAtomFreeze = document.getElementById('btn-atom-freeze-rest');
+      const btnAtomReset = document.getElementById('btn-atom-reset');
+
+      if (btnAtomDid) btnAtomDid.addEventListener('click', function () { atomState.stadiumScale = false; updateAtomUI(); });
+      if (btnAtomStad) btnAtomStad.addEventListener('click', function () { atomState.stadiumScale = true; updateAtomUI(); });
+      if (sliderBlink) sliderBlink.addEventListener('input', function () {
+        atomState.blinkSpeedSlider = Number(this.value);
+        atomState.frozenInRest = false;
+        updateAtomUI();
+      });
+      if (sliderRep) sliderRep.addEventListener('input', function () {
+        atomState.repulsionSlider = Number(this.value);
+        updateAtomUI();
+      });
+      if (btnAtomFreeze) btnAtomFreeze.addEventListener('click', function () {
+        atomState.frozenInRest = !atomState.frozenInRest;
+        if (atomState.frozenInRest) atomState.phaseAngle = Math.PI * 0.5;
+        updateAtomUI();
+      });
+      if (btnAtomReset) btnAtomReset.addEventListener('click', function () {
+        atomState.yaw = 0.45;
+        atomState.pitch = 0.32;
+        atomState.zoom = 1.0;
+        atomState.frozenInRest = false;
+        atomState.repulsionSlider = 0;
+        if (sliderRep) sliderRep.value = 0;
+        updateAtomUI();
+      });
+      updateAtomUI();
+
+      /* =====================================================================
+         SIMULATION 2: SANSKRIT MODULATOR DISKS & OM LAYER
+         ===================================================================== */
+      const SANSKRIT_GLYPHS = [
+        'अ','आ','इ','ई','उ','ऊ','ऋ','ए','ऐ','ओ','औ','अं','अः',
+        'क','ख','ग','घ','ङ','च','छ','ज','झ','ञ','ट','ठ','ड','ढ','ण',
+        'त','थ','द','ध','न','प','फ','ब','भ','म','य','र','ल','व','श','ष','स','ह',
+        'क्ष','त्र','ज्ञ','श्र','ळ','ॐ'
+      ];
+
+      const GUNA_INFO = {
+        all: {
+          glyph: `ॐ`,
+          title: `4 Capas Activas · Sinfonía del Vacío`,
+          role: `Las 3 capas de 52 moduladores (Sattwa, Rajas, Tamas) y la 4ª capa OM modulan el vacío como el aire en una flauta.`,
+          detail: `Reduce la velocidad angular a 0× para distinguir la línea recta superior (shirorekha) de cada letra sánscrita; auméntala para ver cómo giran formando discos continuos.`
+        },
+        sattwa: {
+          glyph: `स`,
+          title: `Capa 1 · Sattwa (Expansión y Claridad)`,
+          role: `Tendencia hacia el equilibrio, la luz, la expansión y la coherencia armónica del campo.`,
+          detail: `En esta capa interior, las ondas del vacío adquieren estabilidad luminosa y se estructuran en moldes arquetípicos puros.`
+        },
+        rajas: {
+          glyph: `र`,
+          title: `Capa 2 · Rajas (Energía y Actividad)`,
+          role: `Tendencia cinética: impulsa la transformación, el movimiento vibratorio y la propagación del sonido primordial.`,
+          detail: `Actúa como el motor dinámico que agita el protoespacio para mantener la oscilación de la Creación Manifiesta.`
+        },
+        tamas: {
+          glyph: `त`,
+          title: `Capa 3 · Tamas (Contracción e Inercia)`,
+          role: `Tendencia hacia la condensación, el límite estructural y la materialización densa.`,
+          detail: `Justo debajo de esta capa se encuentra el nivel plástico siddhi, donde las formas arquetípicas comienzan a condensarse en partículas.`
+        },
+        om: {
+          glyph: `ॐ`,
+          title: `Capa 4 Exterior · Resonador Cósmico OM`,
+          role: `El primer sonido de la Creación Manifiesta al expandirse hacia el vacío circundante.`,
+          detail: `Representa la totalidad de la conciencia cósmica modulada: todas las frecuencias interactúan generando un holograma sonoro continuo.`
+        }
+      };
+
+      const sanskritState = {
+        yaw: 0.3,
+        pitch: 0.42,
+        zoom: 1.0,
+        diskSpeed: 48,
+        fluteFlow: 65,
+        activeGuna: 'all',
+        dragging: false,
+        lastX: 0,
+        lastY: 0,
+        angleOffset: 0,
+        w: 600,
+        h: 460
+      };
+
+      const sanskritCanvas = document.getElementById('canvas-sanskrit');
+      const sanskritCtx = sanskritCanvas ? sanskritCanvas.getContext('2d') : null;
+      setupHiDPI(sanskritCanvas, function (w, h) { sanskritState.w = w; sanskritState.h = h; });
+      attachOrbitPointer(sanskritCanvas, sanskritState);
+
+      function selectGuna(gunaKey) {
+        sanskritState.activeGuna = gunaKey;
+        const info = GUNA_INFO[gunaKey] || GUNA_INFO.all;
+        const glyphEl = document.getElementById('sanskrit-glyph-view');
+        const titleEl = document.getElementById('sanskrit-guna-title');
+        const roleEl = document.getElementById('sanskrit-guna-role');
+        const detailEl = document.getElementById('sanskrit-guna-detail');
+        const hudLayer = document.getElementById('sanskrit-hud-layer');
+
+        if (glyphEl) glyphEl.textContent = info.glyph;
+        if (titleEl) titleEl.textContent = info.title;
+        if (roleEl) roleEl.textContent = info.role;
+        if (detailEl) detailEl.textContent = info.detail;
+        if (hudLayer) {
+          hudLayer.textContent = gunaKey === 'all'
+            ? `4 CAPAS ACTIVAS · 52 MODULADORES + ॐ`
+            : `ENFOQUE ACTIVO: ${info.title.toUpperCase()}`;
+        }
+
+        document.querySelectorAll('[data-guna]').forEach(function (btn) {
+          btn.classList.toggle('active-cyan', btn.getAttribute('data-guna') === gunaKey);
+        });
+      }
+
+      document.querySelectorAll('[data-guna]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectGuna(btn.getAttribute('data-guna') || 'all');
+        });
+      });
+
+      const sliderDiskSpeed = document.getElementById('slider-disk-speed');
+      const sliderFluteFlow = document.getElementById('slider-flute-flow');
+      if (sliderDiskSpeed) {
+        sliderDiskSpeed.addEventListener('input', function () {
+          sanskritState.diskSpeed = Number(this.value);
+          const v = document.getElementById('val-disk-speed');
+          const m = document.getElementById('sanskrit-hud-mode');
+          const mult = (sanskritState.diskSpeed / 40).toFixed(1);
+          if (v) {
+            v.textContent = sanskritState.diskSpeed < 10
+              ? `${mult}× (Glifos Legibles)`
+              : sanskritState.diskSpeed < 55
+                ? `${mult}× (Efecto Disco)`
+                : `${mult}× (Discos Continuos)`;
+          }
+          if (m) {
+            m.textContent = sanskritState.diskSpeed < 12
+              ? `MODO: LETRAS INDIVIDUALES`
+              : `MODO: DISCOS ROTATORIOS`;
+          }
+        });
+      }
+      if (sliderFluteFlow) {
+        sliderFluteFlow.addEventListener('input', function () {
+          sanskritState.fluteFlow = Number(this.value);
+          const v = document.getElementById('val-flute-flow');
+          const siddhi = document.getElementById('sanskrit-tel-siddhi');
+          if (v) v.textContent = `${sanskritState.fluteFlow}% Resonancia`;
+          if (siddhi) {
+            siddhi.textContent = sanskritState.fluteFlow > 70
+              ? `Plasticidad Siddhi Alta`
+              : `Zona Siddhi Activa`;
+          }
+        });
+      }
+
+      /* =====================================================================
+         SIMULATION 3: CENTRAL ALEPH (א) & 22 HEBREW INTERFERENCE TRANSDUCERS
+         ===================================================================== */
+      const HEBREW_LETTERS = [
+        { char: 'א', name: 'Álef', val: 1, desc: `Primer transductor: condensa la luz blanca unificada del Álef (50) en el primer pulso rectangular hacia el plano físico.` },
+        { char: 'ב', name: 'Bet', val: 2, desc: `Estructura de dualidad y contenedor: da forma al espacio interior donde puede habitar la onda modulada.` },
+        { char: 'ג', name: 'Guímel', val: 3, desc: `Movimiento y puente entre polaridades: transporta el impulso energético del plano sutil hacia la densidad.` },
+        { char: 'ד', name: 'Dálet', val: 4, desc: `Umbral de apertura: establece la geometría cuaternaria de las cuatro energías interactuantes.` },
+        { char: 'ה', name: 'He', val: 5, desc: `Exhalación creativa: introduce el aliento vibratorio en las formas potenciales del protoespacio.` },
+        { char: 'ו', name: 'Vav', val: 6, desc: `Eje conector vertical: enlaza el patrón superior de Sabiduría con la manifestación inferior.` },
+        { char: 'ז', name: 'Zayin', val: 7, desc: `Pulso rítmico septenario: organiza los ciclos armónicos que estructuran el flujo temporal.` },
+        { char: 'ח', name: 'Jet', val: 8, desc: `Campo envolvente de fuerza vital: sella la coherencia interna del patrón de interferencia.` },
+        { char: 'ט', name: 'Tet', val: 9, desc: `Energía potencial enrollada: almacena la información holográfica antes de desplegarse.` },
+        { char: 'י', name: 'Yod', val: 10, desc: `Punto semilla primordial: el cuanto mínimo de luz consciente desde el cual se proyectan nuevas formas.` },
+        { char: 'כ', name: 'Kaf', val: 20, desc: `Molde receptivo: recibe el descenso de frecuencia para plasmarlo en una matriz física.` },
+        { char: 'ל', name: 'Lámed', val: 30, desc: `Ascenso y expansión de la conciencia hacia el centro integrador de la Sabiduría.` },
+        { char: 'מ', name: 'Mem', val: 40, desc: `Flujo continuo y océano ondulatorio: recuerda la analogía del Absoluto como un mar en movimiento.` },
+        { char: 'נ', name: 'Nun', val: 50, desc: `Emergencia desde la profundidad: simboliza el salto cuántico hacia el valor total del Álef (50).` },
+        { char: 'ס', name: 'Sámej', val: 60, desc: `Circuito cerrado de soporte: estabiliza la onda estacionaria dentro del campo electromagnético.` },
+        { char: 'ע', name: 'Ayin', val: 70, desc: `Percepción directa del observador: el testigo consciente que colapsa la probabilidad cuántica.` },
+        { char: 'פ', name: 'Pe', val: 80, desc: `Expresión y resonancia sonora: transforma la vibración interna en verbo manifestado.` },
+        { char: 'צ', name: 'Tsadi', val: 90, desc: `Alineamiento justo con la ley cósmica: ordena las partículas según la secuencia luminosa.` },
+        { char: 'ק', name: 'Qof', val: 100, desc: `Descenso profundo hacia la densidad material, llevando la huella del patrón superior.` },
+        { char: 'ר', name: 'Resh', val: 200, desc: `Principio organizador de la forma física compleja y de la estructura celular.` },
+        { char: 'ש', name: 'Shin', val: 300, desc: `Trinidad ardiente: refleja los tres centros de color (Amor, Voluntad, Creación) en el plano manifiesto.` },
+        { char: 'ת', name: 'Tav', val: 400, desc: `Sello final de la transducción: completa la secuencia de los 22 patrones al cristalizar en materia física.` }
+      ];
+
+      const alephState = {
+        yaw: -0.58,
+        pitch: 0.24,
+        zoom: 1.0,
+        polarity: 'order', // 'order' | 'chaos' | 'dual'
+        beams: { wisdom: true, love: true, will: true, creation: true },
+        selectedIdx: 0,
+        plateScreenCoords: [],
+        dragging: false,
+        lastX: 0,
+        lastY: 0,
+        w: 600,
+        h: 460
+      };
+
+      const alephCanvas = document.getElementById('canvas-aleph');
+      const alephCtx = alephCanvas ? alephCanvas.getContext('2d') : null;
+      setupHiDPI(alephCanvas, function (w, h) { alephState.w = w; alephState.h = h; });
+
+      attachOrbitPointer(alephCanvas, alephState, function (mx, my) {
+        let bestIdx = -1;
+        let bestDist = 34;
+        alephState.plateScreenCoords.forEach(function (pt) {
+          const d = Math.hypot(mx - pt.x, my - pt.y);
+          if (d < bestDist) {
+            bestDist = d;
+            bestIdx = pt.idx;
+          }
+        });
+        if (bestIdx >= 0) {
+          selectHebrewLetter(bestIdx);
+        }
+      });
+
+      function buildHebrewPicker() {
+        const picker = document.getElementById('hebrew-picker');
+        if (!picker) return;
+        picker.innerHTML = '';
+        HEBREW_LETTERS.forEach(function (item, idx) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'hebrew-cell' + (idx === alephState.selectedIdx ? ' selected' : '');
+          btn.setAttribute('data-hidx', String(idx));
+          btn.setAttribute('aria-label', `${item.name}, valor ${item.val}`);
+          btn.innerHTML = `<span>${item.char}</span><span class="gem">${item.val}</span>`;
+          btn.addEventListener('click', function () {
+            selectHebrewLetter(idx);
+          });
+          picker.appendChild(btn);
+        });
+      }
+
+      function selectHebrewLetter(idx) {
+        const numIdx = Number(idx);
+        const safeIdx = Number.isFinite(numIdx) ? Math.max(0, Math.min(21, Math.round(numIdx))) : 0;
+        alephState.selectedIdx = safeIdx;
+        const item = HEBREW_LETTERS[safeIdx] || HEBREW_LETTERS[0];
+        const slider = document.getElementById('slider-transducer');
+        const valEl = document.getElementById('val-transducer');
+        const glyphEl = document.getElementById('aleph-selected-glyph');
+        const nameEl = document.getElementById('aleph-selected-name');
+        const descEl = document.getElementById('aleph-selected-desc');
+        const hudStep = document.getElementById('aleph-hud-step');
+
+        if (slider) slider.value = String(safeIdx);
+        if (valEl) valEl.textContent = `Paso ${safeIdx + 1} / 22 · ${item.name} (${item.char})`;
+        if (glyphEl) glyphEl.textContent = item.char;
+        if (nameEl) nameEl.textContent = `${item.name} (${item.char}) · Valor Numérico: ${item.val}`;
+        if (descEl) descEl.textContent = item.desc;
+        if (hudStep) hudStep.textContent = `TRANSDUCTOR #${safeIdx + 1} · ${item.char} (VALOR ${item.val})`;
+
+        document.querySelectorAll('.hebrew-cell').forEach(function (cell) {
+          cell.classList.toggle('selected', Number(cell.getAttribute('data-hidx')) === safeIdx);
+        });
+      }
+
+      buildHebrewPicker();
+      selectHebrewLetter(0);
+
+      function setAlephPolarity(pol) {
+        alephState.polarity = pol;
+        const btnOrder = document.getElementById('btn-pol-order');
+        const btnChaos = document.getElementById('btn-pol-chaos');
+        const btnDual = document.getElementById('btn-pol-dual');
+        const hudPol = document.getElementById('aleph-hud-polarity');
+
+        if (btnOrder) btnOrder.classList.toggle('active-gold', pol === 'order');
+        if (btnChaos) btnChaos.classList.toggle('active-gold', pol === 'chaos');
+        if (btnDual) btnDual.classList.toggle('active-gold', pol === 'dual');
+
+        if (pol === 'order') {
+          alephState.yaw = -0.58;
+          if (hudPol) hudPol.textContent = `POLARIDAD: CARA LUMINOSA (ORDEN · LEY CÓSMICA)`;
+        } else if (pol === 'chaos') {
+          alephState.yaw = 2.48;
+          if (hudPol) hudPol.textContent = `POLARIDAD: CARA OSCURA (SECUENCIA MEZCLADA · CAOS)`;
+        } else {
+          alephState.yaw = -1.45;
+          if (hudPol) hudPol.textContent = `VISTA DUAL 360°: ORDEN LUMINOSO VS. CAOS OSCURO`;
+        }
+      }
+
+      const btnPolOrder = document.getElementById('btn-pol-order');
+      const btnPolChaos = document.getElementById('btn-pol-chaos');
+      const btnPolDual = document.getElementById('btn-pol-dual');
+      if (btnPolOrder) btnPolOrder.addEventListener('click', function () { setAlephPolarity('order'); });
+      if (btnPolChaos) btnPolChaos.addEventListener('click', function () { setAlephPolarity('chaos'); });
+      if (btnPolDual) btnPolDual.addEventListener('click', function () { setAlephPolarity('dual'); });
+
+      document.querySelectorAll('[data-beam]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const key = btn.getAttribute('data-beam');
+          if (!key) return;
+          alephState.beams[key] = !alephState.beams[key];
+          btn.classList.toggle('active', alephState.beams[key]);
+        });
+      });
+
+      const sliderTransducer = document.getElementById('slider-transducer');
+      if (sliderTransducer) {
+        sliderTransducer.addEventListener('input', function () {
+          const val = parseInt(this.value, 10);
+          if (!Number.isNaN(val)) {
+            selectHebrewLetter(val);
+          }
+        });
+      }
+
+      /* Deterministic scrambled order for the Dark Side of Aleph */
+      const CHAOS_MAP = [14, 3, 19, 7, 21, 0, 11, 16, 5, 18, 2, 12, 9, 20, 6, 15, 1, 17, 8, 13, 4, 10];
+
+      /* =====================================================================
+         MAIN ANIMATION LOOP (SINGLE REQUESTANIMATIONFRAME OWNER)
+         ===================================================================== */
+      let lastTime = performance.now();
+
+      function drawStars(ctx, w, h) {
+        for (let i = 0; i < STARS.length; i++) {
+          const s = STARS[i];
+          ctx.fillStyle = hexToRgba(THEME.white, s.a * 0.65);
+          ctx.beginPath();
+          ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function renderSpectrum(time) {
+        if (!specCtx) return;
+        const w = specW;
+        const h = specH;
+        const item = SPECTRUM_DATA[activeSpectrumIdx];
+        specCtx.clearRect(0, 0, w, h);
+        specCtx.fillStyle = THEME.bg;
+        specCtx.fillRect(0, 0, w, h);
+
+        /* Baseline */
+        specCtx.strokeStyle = hexToRgba(THEME.outline, 0.5);
+        specCtx.lineWidth = 1;
+        specCtx.beginPath();
+        specCtx.moveTo(0, h / 2);
+        specCtx.lineTo(w, h / 2);
+        specCtx.stroke();
+
+        /* Wave */
+        specCtx.strokeStyle = item.color;
+        specCtx.lineWidth = 2.2;
+        specCtx.beginPath();
+        const tShift = prefersReducedMotion ? 0 : time * 0.004;
+        for (let x = 0; x <= w; x += 2) {
+          const nx = x / w;
+          let y = h / 2;
+          if (item.freq > 0) {
+            y += Math.sin(nx * Math.PI * 2 * item.freq - tShift) * item.amp * Math.sin(nx * Math.PI);
+          }
+          if (x === 0) specCtx.moveTo(x, y);
+          else specCtx.lineTo(x, y);
+        }
+        specCtx.stroke();
+
+        /* Condensed particle pairs if stage >= 1 */
+        if (item.particles > 0) {
+          for (let i = 0; i < item.particles; i++) {
+            const px = ((i + 0.5) / item.particles) * (w - 40) + 20;
+            const py = h / 2 + Math.sin((px / w) * Math.PI * 2 * item.freq - tShift) * item.amp * 0.6;
+            const grad = specCtx.createRadialGradient(px, py, 0, px, py, 10);
+            grad.addColorStop(0, hexToRgba(THEME.white, 0.95));
+            grad.addColorStop(0.4, hexToRgba(item.color, 0.7));
+            grad.addColorStop(1, hexToRgba(item.color, 0));
+            specCtx.fillStyle = grad;
+            specCtx.beginPath();
+            specCtx.arc(px, py, 10, 0, Math.PI * 2);
+            specCtx.fill();
+          }
+        }
+      }
+
+      function renderAtom(dt, time) {
+        if (!atomCtx) return;
+        const w = atomState.w;
+        const h = atomState.h;
+        atomCtx.clearRect(0, 0, w, h);
+        atomCtx.fillStyle = THEME.bg;
+        atomCtx.fillRect(0, 0, w, h);
+        drawStars(atomCtx, w, h);
+
+        /* Update pendulum blinking phase */
+        if (!atomState.frozenInRest && !prefersReducedMotion && atomState.blinkSpeedSlider > 0) {
+          const rate = atomState.blinkSpeedSlider * 0.095;
+          atomState.phaseAngle += dt * rate;
+        }
+        const waveVal = Math.abs(Math.cos(atomState.phaseAngle)); // 1 = full ON, 0 = pendulum extreme rest (OFF)
+        const isOffPhase = atomState.frozenInRest || waveVal < 0.22;
+        const manifestAlpha = atomState.frozenInRest ? 0.08 : Math.max(0.08, waveVal);
+        const absoluteFlash = atomState.frozenInRest ? 1.0 : Math.max(0, 1 - waveVal * 2.8);
+
+        /* Update HUD & Telemetry */
+        const hudState = document.getElementById('atom-hud-state');
+        const telPhase = document.getElementById('atom-tel-phase');
+        const telPhaseSub = document.getElementById('atom-tel-phase-sub');
+        const telForce = document.getElementById('atom-tel-force');
+        const telForceSub = document.getElementById('atom-tel-force-sub');
+
+        if (hudState) {
+          hudState.textContent = isOffPhase
+            ? `FASE: PUNTO DE REPOSO (OFF) · EXPANSIÓN AL ABSOLUTO`
+            : `FASE: MANIFIESTO (ON) · MATERIA LOCALIZADA`;
+        }
+        if (telPhase) telPhase.textContent = isOffPhase ? `OFF · Absoluto` : `ON · Materia`;
+        if (telPhaseSub) {
+          telPhaseSub.textContent = isOffPhase
+            ? `Velocidad = 0 · Expansión no-material`
+            : `Parpadeo ~10¹⁵ Hz en espacio-tiempo`;
+        }
+
+        const repNorm = atomState.repulsionSlider / 100;
+        const repForce = Math.pow(repNorm, 2.2) * 98.4;
+        if (telForce) telForce.textContent = `${repForce.toFixed(1)} nN`;
+        if (telForceSub) {
+          telForceSub.textContent = repNorm > 0.65
+            ? `Repulsión intensa -> Cerebro siente «solidez»`
+            : repNorm > 0.1
+              ? `Nubes electrónicas comienzan a repelerse`
+              : `Sin contacto físico real`;
+        }
+
+        const cx = w * 0.5 - repNorm * 55;
+        const cy = h * 0.5;
+        const fov = 420 * atomState.zoom;
+        const camDist = 440;
+
+        /* If in OFF phase, radiate luminous Absolute expansion rings */
+        if (absoluteFlash > 0.02) {
+          const maxR = Math.min(w, h) * 0.46;
+          const grad = atomCtx.createRadialGradient(cx, cy, 4, cx, cy, maxR);
+          grad.addColorStop(0, hexToRgba(THEME.white, 0.32 * absoluteFlash));
+          grad.addColorStop(0.45, hexToRgba(THEME.gold, 0.18 * absoluteFlash));
+          grad.addColorStop(1, hexToRgba(THEME.cyan, 0));
+          atomCtx.fillStyle = grad;
+          atomCtx.beginPath();
+          atomCtx.arc(cx, cy, maxR, 0, Math.PI * 2);
+          atomCtx.fill();
+        }
+
+        /* Draw primary atom orbitals */
+        const orbitRadius = atomState.stadiumScale ? 185 : 138;
+        const nucleusRadius = atomState.stadiumScale ? 2.2 : 13;
+        const tilts = [
+          { rx: 0.2, ry: 0.0, rz: 0.35 },
+          { rx: -0.75, ry: 0.6, rz: -0.2 },
+          { rx: 0.9, ry: -0.45, rz: 0.8 }
+        ];
+
+        atomCtx.save();
+        tilts.forEach(function (tilt, oIdx) {
+          const steps = 68;
+          atomCtx.beginPath();
+          let started = false;
+          for (let s = 0; s <= steps; s++) {
+            const a = (s / steps) * Math.PI * 2;
+            const lx = Math.cos(a) * orbitRadius;
+            const ly = Math.sin(a) * orbitRadius * Math.cos(tilt.rx);
+            const lz = Math.sin(a) * orbitRadius * Math.sin(tilt.rx);
+            const rx = lx * Math.cos(tilt.rz) - ly * Math.sin(tilt.rz);
+            const ry = lx * Math.sin(tilt.rz) + ly * Math.cos(tilt.rz);
+
+            /* Electrostatic flattening on right side when external atom approaches */
+            const deform = repNorm > 0 && rx > 20 ? -repNorm * 32 * ((rx - 20) / orbitRadius) : 0;
+            const p = project3D(rx + deform, ry, lz, atomState.yaw, atomState.pitch, cx, cy, fov, camDist);
+            if (!p) continue;
+            if (!started) { atomCtx.moveTo(p.sx, p.sy); started = true; }
+            else atomCtx.lineTo(p.sx, p.sy);
+          }
+          atomCtx.strokeStyle = hexToRgba(THEME.cyan, 0.34 * manifestAlpha);
+          atomCtx.lineWidth = 1.25;
+          atomCtx.stroke();
+
+          /* Orbiting Electron */
+          const eSpeed = prefersReducedMotion ? 0 : time * (0.0018 + oIdx * 0.0005);
+          const ea = eSpeed + oIdx * 2.1;
+          const lx = Math.cos(ea) * orbitRadius;
+          const ly = Math.sin(ea) * orbitRadius * Math.cos(tilt.rx);
+          const lz = Math.sin(ea) * orbitRadius * Math.sin(tilt.rx);
+          const rx = lx * Math.cos(tilt.rz) - ly * Math.sin(tilt.rz);
+          const ry = lx * Math.sin(tilt.rz) + ly * Math.cos(tilt.rz);
+          const deform = repNorm > 0 && rx > 20 ? -repNorm * 32 * ((rx - 20) / orbitRadius) : 0;
+          const ep = project3D(rx + deform, ry, lz, atomState.yaw, atomState.pitch, cx, cy, fov, camDist);
+          if (ep) {
+            const er = (atomState.stadiumScale ? 3.5 : 6.5) * ep.scale;
+            const eg = atomCtx.createRadialGradient(ep.sx, ep.sy, 0, ep.sx, ep.sy, er * 3.2);
+            eg.addColorStop(0, hexToRgba(THEME.white, 0.95 * manifestAlpha));
+            eg.addColorStop(0.35, hexToRgba(THEME.cyan, 0.85 * manifestAlpha));
+            eg.addColorStop(1, hexToRgba(THEME.cyan, 0));
+            atomCtx.fillStyle = eg;
+            atomCtx.beginPath();
+            atomCtx.arc(ep.sx, ep.sy, er * 3.2, 0, Math.PI * 2);
+            atomCtx.fill();
+          }
+        });
+        atomCtx.restore();
+
+        /* Draw immense void indicator circle in stadium mode */
+        if (atomState.stadiumScale) {
+          const np = project3D(0, 0, 0, atomState.yaw, atomState.pitch, cx, cy, fov, camDist);
+          if (np) {
+            atomCtx.strokeStyle = hexToRgba(THEME.gold, 0.45);
+            atomCtx.setLineDash([4, 4]);
+            atomCtx.beginPath();
+            atomCtx.arc(np.sx, np.sy, 22, 0, Math.PI * 2);
+            atomCtx.stroke();
+            atomCtx.setLineDash([]);
+            atomCtx.fillStyle = THEME.gold;
+            atomCtx.font = `500 11px "JetBrains Mono", monospace`;
+            atomCtx.fillText(`Núcleo (grano de arena)`, np.sx + 26, np.sy + 4);
+          }
+        }
+
+        /* Draw Nucleus (vibrating cluster) */
+        const np = project3D(0, 0, 0, atomState.yaw, atomState.pitch, cx, cy, fov, camDist);
+        if (np) {
+          const nr = nucleusRadius * np.scale;
+          const ng = atomCtx.createRadialGradient(np.sx, np.sy, 0, np.sx, np.sy, nr * 3.5);
+          ng.addColorStop(0, hexToRgba(THEME.white, manifestAlpha));
+          ng.addColorStop(0.35, hexToRgba(THEME.gold, 0.9 * manifestAlpha));
+          ng.addColorStop(1, hexToRgba(THEME.gold, 0));
+          atomCtx.fillStyle = ng;
+          atomCtx.beginPath();
+          atomCtx.arc(np.sx, np.sy, nr * 3.5, 0, Math.PI * 2);
+          atomCtx.fill();
+        }
+
+        /* Draw External Atom & Electrostatic Repulsion Field when slider > 0 */
+        if (repNorm > 0.02) {
+          const sepDist = 290 - repNorm * 135;
+          const extX = sepDist;
+          const extCenter = project3D(extX, 0, 0, atomState.yaw, atomState.pitch, cx, cy, fov, camDist);
+          if (extCenter) {
+            /* External orbital shell */
+            const er = (atomState.stadiumScale ? 130 : 105) * extCenter.scale;
+            const eg = atomCtx.createRadialGradient(extCenter.sx, extCenter.sy, 4, extCenter.sx, extCenter.sy, er);
+            eg.addColorStop(0, hexToRgba(THEME.gold, 0.24 * manifestAlpha));
+            eg.addColorStop(0.7, hexToRgba(THEME.gold, 0.08 * manifestAlpha));
+            eg.addColorStop(1, hexToRgba(THEME.gold, 0));
+            atomCtx.fillStyle = eg;
+            atomCtx.beginPath();
+            atomCtx.arc(extCenter.sx, extCenter.sy, er, 0, Math.PI * 2);
+            atomCtx.fill();
+
+            atomCtx.strokeStyle = hexToRgba(THEME.gold, 0.5 * manifestAlpha);
+            atomCtx.lineWidth = 1.4;
+            atomCtx.beginPath();
+            atomCtx.arc(extCenter.sx, extCenter.sy, er * 0.85, 0, Math.PI * 2);
+            atomCtx.stroke();
+
+            /* External nucleus */
+            atomCtx.fillStyle = THEME.gold;
+            atomCtx.beginPath();
+            atomCtx.arc(extCenter.sx, extCenter.sy, (atomState.stadiumScale ? 2.5 : 8) * extCenter.scale, 0, Math.PI * 2);
+            atomCtx.fill();
+
+            /* Repulsion barrier arcs between atoms */
+            if (repNorm > 0.25 && np) {
+              const midX = (np.sx + extCenter.sx) * 0.5;
+              const midY = (np.sy + extCenter.sy) * 0.5;
+              const pulse = 1 + Math.sin(time * 0.01) * 0.08;
+              for (let k = -3; k <= 3; k++) {
+                const offset = k * 22;
+                atomCtx.strokeStyle = hexToRgba(THEME.coral, 0.75 * repNorm);
+                atomCtx.lineWidth = 1.8;
+                atomCtx.beginPath();
+                atomCtx.moveTo(midX - 18 * pulse, midY + offset);
+                atomCtx.quadraticCurveTo(midX, midY + offset * 0.7, midX - 6, midY + offset * 1.15);
+                atomCtx.stroke();
+
+                atomCtx.beginPath();
+                atomCtx.moveTo(midX + 18 * pulse, midY + offset);
+                atomCtx.quadraticCurveTo(midX, midY + offset * 0.7, midX + 6, midY + offset * 1.15);
+                atomCtx.stroke();
+              }
+              atomCtx.fillStyle = THEME.white;
+              atomCtx.font = `600 11px "JetBrains Mono", monospace`;
+              atomCtx.textAlign = 'center';
+              atomCtx.fillText(`BARRERA ELECTROSTÁTICA · SIN CONTACTO`, midX, midY - 92);
+              atomCtx.textAlign = 'left';
+            }
+          }
+        }
+      }
+
+      function renderSanskrit(dt, time) {
+        if (!sanskritCtx) return;
+        const w = sanskritState.w;
+        const h = sanskritState.h;
+        sanskritCtx.clearRect(0, 0, w, h);
+        sanskritCtx.fillStyle = THEME.bg;
+        sanskritCtx.fillRect(0, 0, w, h);
+        drawStars(sanskritCtx, w, h);
+
+        if (!prefersReducedMotion) {
+          sanskritState.angleOffset += dt * (sanskritState.diskSpeed * 0.055);
+        }
+
+        const cx = w * 0.5;
+        const cy = h * 0.5;
+        const fov = 460 * sanskritState.zoom;
+        const camDist = 480;
+        const flowNorm = sanskritState.fluteFlow / 100;
+
+        /* Core Plastic Siddhi Sphere & Standing Wave Interference */
+        const coreR = 76 * sanskritState.zoom;
+        const wavePulse = prefersReducedMotion ? 1 : 1 + Math.sin(time * 0.004) * 0.06 * flowNorm;
+        const coreGrad = sanskritCtx.createRadialGradient(cx, cy, 4, cx, cy, coreR * 1.7 * wavePulse);
+        coreGrad.addColorStop(0, hexToRgba(THEME.white, 0.35 + flowNorm * 0.25));
+        coreGrad.addColorStop(0.45, hexToRgba(THEME.cyan, 0.24 * flowNorm));
+        coreGrad.addColorStop(1, hexToRgba(THEME.gold, 0));
+        sanskritCtx.fillStyle = coreGrad;
+        sanskritCtx.beginPath();
+        sanskritCtx.arc(cx, cy, coreR * 1.7 * wavePulse, 0, Math.PI * 2);
+        sanskritCtx.fill();
+
+        /* Flute inward streams from Void through modulators */
+        const streamCount = 16;
+        for (let i = 0; i < streamCount; i++) {
+          const sa = (i / streamCount) * Math.PI * 2 + (prefersReducedMotion ? 0 : time * 0.0004);
+          const sy = ((i % 5) - 2) * 32;
+          const rOuter = 235;
+          const rInner = 45;
+          const pOut = project3D(Math.cos(sa) * rOuter, sy, Math.sin(sa) * rOuter, sanskritState.yaw, sanskritState.pitch, cx, cy, fov, camDist);
+          const pIn = project3D(Math.cos(sa) * rInner, sy * 0.3, Math.sin(sa) * rInner, sanskritState.yaw, sanskritState.pitch, cx, cy, fov, camDist);
+          if (pOut && pIn) {
+            sanskritCtx.strokeStyle = hexToRgba(THEME.cyan, 0.14 + flowNorm * 0.18);
+            sanskritCtx.lineWidth = 1;
+            sanskritCtx.beginPath();
+            sanskritCtx.moveTo(pOut.sx, pOut.sy);
+            sanskritCtx.lineTo(pIn.sx, pIn.sy);
+            sanskritCtx.stroke();
+          }
+        }
+
+        /* 4 Concentric Modulator Layers: Sattwa (18), Rajas (18), Tamas (16) -> 52 Sanskrit + Layer 4 OM (12) */
+        const layers = [
+          { key: 'sattwa', radius: 112, yTilt: 0.12, count: 18, startIdx: 0, color: THEME.cyan, speedDir: 1 },
+          { key: 'rajas', radius: 146, yTilt: -0.18, count: 18, startIdx: 18, color: THEME.gold, speedDir: -1.15 },
+          { key: 'tamas', radius: 178, yTilt: 0.24, count: 16, startIdx: 36, color: THEME.coral, speedDir: 0.85 },
+          { key: 'om', radius: 212, yTilt: -0.08, count: 12, startIdx: -1, color: THEME.white, speedDir: 0.55 }
+        ];
+
+        const drawNodes = [];
+        layers.forEach(function (layer) {
+          const isHighlighted = sanskritState.activeGuna === 'all' || sanskritState.activeGuna === layer.key;
+          const layerAlpha = isHighlighted ? 1.0 : 0.2;
+
+          /* Draw spinning shirorekha continuous disk ring when speed is high */
+          const diskIntensity = Math.min(1, sanskritState.diskSpeed / 65);
+          if (diskIntensity > 0.08) {
+            sanskritCtx.beginPath();
+            let started = false;
+            for (let s = 0; s <= 64; s++) {
+              const a = (s / 64) * Math.PI * 2;
+              const x = Math.cos(a) * layer.radius;
+              const z = Math.sin(a) * layer.radius;
+              const y = Math.sin(a) * layer.radius * layer.yTilt;
+              const p = project3D(x, y, z, sanskritState.yaw, sanskritState.pitch, cx, cy, fov, camDist);
+              if (!p) continue;
+              if (!started) { sanskritCtx.moveTo(p.sx, p.sy); started = true; }
+              else sanskritCtx.lineTo(p.sx, p.sy);
+            }
+            sanskritCtx.strokeStyle = hexToRgba(layer.color, (0.18 + diskIntensity * 0.45) * layerAlpha);
+            sanskritCtx.lineWidth = 1.5 + diskIntensity * 3.5;
+            sanskritCtx.stroke();
+          }
+
+          /* Individual glyphs on the ring */
+          for (let i = 0; i < layer.count; i++) {
+            const a = (i / layer.count) * Math.PI * 2 + sanskritState.angleOffset * layer.speedDir;
+            const x = Math.cos(a) * layer.radius;
+            const z = Math.sin(a) * layer.radius;
+            const y = Math.sin(a) * layer.radius * layer.yTilt;
+            const p = project3D(x, y, z, sanskritState.yaw, sanskritState.pitch, cx, cy, fov, camDist);
+            if (!p) continue;
+
+            const glyphChar = layer.key === 'om'
+              ? 'ॐ'
+              : SANSKRIT_GLYPHS[(layer.startIdx + i) % 52];
+
+            drawNodes.push({
+              sx: p.sx,
+              sy: p.sy,
+              scale: p.scale,
+              z: p.z,
+              color: layer.color,
+              alpha: layerAlpha,
+              glyph: glyphChar,
+              isOm: layer.key === 'om',
+              diskBlur: diskIntensity
+            });
+          }
+        });
+
+        /* Painter's algorithm depth sort */
+        drawNodes.sort(function (a, b) { return b.z - a.z; });
+
+        drawNodes.forEach(function (n) {
+          const depthFade = Math.max(0.28, Math.min(1, 0.72 - n.z / 520));
+          const a = n.alpha * depthFade;
+          const fontSize = Math.round((n.isOm ? 20 : 16) * n.scale);
+
+          /* Individual rotating disk plate glow */
+          const diskR = (n.isOm ? 14 : 11) * n.scale;
+          sanskritCtx.fillStyle = hexToRgba(n.color, (0.14 + n.diskBlur * 0.2) * a);
+          sanskritCtx.beginPath();
+          sanskritCtx.ellipse(n.sx, n.sy - fontSize * 0.32, diskR * (1 + n.diskBlur * 0.6), diskR * 0.32, 0, 0, Math.PI * 2);
+          sanskritCtx.fill();
+
+          sanskritCtx.font = `600 ${fontSize}px "Noto Sans Devanagari", "Space Grotesk", sans-serif`;
+          sanskritCtx.textAlign = 'center';
+          sanskritCtx.textBaseline = 'middle';
+          sanskritCtx.fillStyle = hexToRgba(n.color, a);
+          sanskritCtx.fillText(n.glyph, n.sx, n.sy);
+        });
+        sanskritCtx.textAlign = 'left';
+        sanskritCtx.textBaseline = 'alphabetic';
+      }
+
+      function renderAleph(dt, time) {
+        if (!alephCtx) return;
+        const w = alephState.w;
+        const h = alephState.h;
+        alephCtx.clearRect(0, 0, w, h);
+        alephCtx.fillStyle = THEME.bg;
+        alephCtx.fillRect(0, 0, w, h);
+        drawStars(alephCtx, w, h);
+
+        const cx = w * 0.5;
+        const cy = h * 0.52;
+        const fov = 480 * alephState.zoom;
+        const camDist = 520;
+
+        /* 1. Tetrahedron Vertices (3 chakras + Apex Wisdom) */
+        const tetR = 72;
+        const verts = [
+          { x: 0, y: -tetR * 1.05, z: 0, color: THEME.white, active: alephState.beams.wisdom, label: `Sabiduría (א)` },
+          { x: -tetR * 0.95, y: tetR * 0.65, z: tetR * 0.55, color: THEME.gold, active: alephState.beams.love, label: `Amor` },
+          { x: tetR * 0.95, y: tetR * 0.65, z: tetR * 0.55, color: THEME.cyan, active: alephState.beams.will, label: `Voluntad` },
+          { x: 0, y: tetR * 0.65, z: -tetR * 0.9, color: THEME.coral, active: alephState.beams.creation, label: `Creación` }
+        ];
+
+        const projVerts = verts.map(function (v) {
+          const p = project3D(v.x, v.y, v.z, alephState.yaw, alephState.pitch, cx, cy, fov, camDist);
+          return { v: v, p: p };
+        });
+
+        /* Draw Tetrahedron edges & glowing energy beams */
+        for (let i = 0; i < projVerts.length; i++) {
+          for (let j = i + 1; j < projVerts.length; j++) {
+            const a = projVerts[i];
+            const b = projVerts[j];
+            if (!a.p || !b.p) continue;
+            const beamOn = a.v.active || b.v.active;
+            alephCtx.strokeStyle = beamOn
+              ? hexToRgba(a.v.color, 0.55)
+              : hexToRgba(THEME.outlineVar, 0.25);
+            alephCtx.lineWidth = beamOn ? 1.8 : 0.8;
+            alephCtx.beginPath();
+            alephCtx.moveTo(a.p.sx, a.p.sy);
+            alephCtx.lineTo(b.p.sx, b.p.sy);
+            alephCtx.stroke();
+          }
+        }
+
+        /* Draw 4 Energy Chakra Nodes */
+        projVerts.forEach(function (item) {
+          if (!item.p || !item.v.active) return;
+          const r = 14 * item.p.scale;
+          const g = alephCtx.createRadialGradient(item.p.sx, item.p.sy, 0, item.p.sx, item.p.sy, r * 2.2);
+          g.addColorStop(0, hexToRgba(THEME.white, 0.95));
+          g.addColorStop(0.4, hexToRgba(item.v.color, 0.8));
+          g.addColorStop(1, hexToRgba(item.v.color, 0));
+          alephCtx.fillStyle = g;
+          alephCtx.beginPath();
+          alephCtx.arc(item.p.sx, item.p.sy, r * 2.2, 0, Math.PI * 2);
+          alephCtx.fill();
+        });
+
+        /* Central Aleph Glyph */
+        const centerP = project3D(0, 6, 0, alephState.yaw, alephState.pitch, cx, cy, fov, camDist);
+        if (centerP && alephState.beams.wisdom) {
+          const coreGlow = alephCtx.createRadialGradient(centerP.sx, centerP.sy, 2, centerP.sx, centerP.sy, 58 * centerP.scale);
+          coreGlow.addColorStop(0, hexToRgba(THEME.white, 0.55));
+          coreGlow.addColorStop(0.5, hexToRgba(THEME.gold, 0.22));
+          coreGlow.addColorStop(1, hexToRgba(THEME.cyan, 0));
+          alephCtx.fillStyle = coreGlow;
+          alephCtx.beginPath();
+          alephCtx.arc(centerP.sx, centerP.sy, 58 * centerP.scale, 0, Math.PI * 2);
+          alephCtx.fill();
+
+          alephCtx.font = `700 ${Math.round(38 * centerP.scale)}px "Noto Sans Hebrew", serif`;
+          alephCtx.textAlign = 'center';
+          alephCtx.textBaseline = 'middle';
+          alephCtx.fillStyle = THEME.white;
+          alephCtx.fillText('א', centerP.sx, centerP.sy);
+        }
+
+        /* 2. Build 22 Luminous Ordered Plates (+Z side) & 22 Dark Scrambled Plates (-Z side) */
+        const plates = [];
+        const showOrder = alephState.polarity === 'order' || alephState.polarity === 'dual';
+        const showChaos = alephState.polarity === 'chaos' || alephState.polarity === 'dual';
+
+        const activeBeamsCount =
+          (alephState.beams.wisdom ? 1 : 0) +
+          (alephState.beams.love ? 1 : 0) +
+          (alephState.beams.will ? 1 : 0) +
+          (alephState.beams.creation ? 1 : 0);
+        const interferenceFactor = activeBeamsCount / 4;
+
+        if (showOrder) {
+          for (let i = 0; i < 22; i++) {
+            const t = i / 21;
+            const zPos = 88 + t * 230;
+            const spiralA = i * 0.42 + (prefersReducedMotion ? 0 : time * 0.00025);
+            const spread = 32 + t * 52;
+            const xPos = Math.cos(spiralA) * spread;
+            const yPos = Math.sin(spiralA) * spread * 0.72;
+            const p = project3D(xPos, yPos, zPos, alephState.yaw, alephState.pitch, cx, cy, fov, camDist);
+            if (!p) continue;
+            plates.push({
+              idx: i,
+              letter: HEBREW_LETTERS[i],
+              p: p,
+              isDark: false,
+              isSelected: i === alephState.selectedIdx,
+              isPassed: i <= alephState.selectedIdx
+            });
+          }
+        }
+
+        if (showChaos) {
+          for (let i = 0; i < 22; i++) {
+            const scrambledIdx = CHAOS_MAP[i];
+            const t = i / 21;
+            const zPos = -(88 + t * 220);
+            const jitterA = scrambledIdx * 1.37 + (prefersReducedMotion ? 0 : time * 0.0006);
+            const xPos = Math.sin(jitterA) * (48 + (i % 4) * 28);
+            const yPos = Math.cos(jitterA * 1.3) * (44 + (i % 3) * 26);
+            const p = project3D(xPos, yPos, zPos, alephState.yaw, alephState.pitch, cx, cy, fov, camDist);
+            if (!p) continue;
+            plates.push({
+              idx: scrambledIdx,
+              letter: HEBREW_LETTERS[scrambledIdx],
+              p: p,
+              isDark: true,
+              isSelected: scrambledIdx === alephState.selectedIdx,
+              isPassed: false
+            });
+          }
+        }
+
+        plates.sort(function (a, b) { return b.p.z - a.p.z; });
+        alephState.plateScreenCoords = [];
+
+        /* Energy Cascade Spine connecting ordered plates */
+        if (showOrder && centerP) {
+          const orderedSorted = plates
+            .filter(function (pl) { return !pl.isDark; })
+            .sort(function (a, b) { return a.idx - b.idx; });
+          if (orderedSorted.length > 1) {
+            alephCtx.beginPath();
+            alephCtx.moveTo(centerP.sx, centerP.sy);
+            orderedSorted.forEach(function (pl) {
+              alephCtx.lineTo(pl.p.sx, pl.p.sy);
+            });
+            alephCtx.strokeStyle = hexToRgba(THEME.cyan, 0.25 * interferenceFactor);
+            alephCtx.lineWidth = 1.2;
+            alephCtx.stroke();
+          }
+        }
+
+        /* Render Rectangular Interference Plates */
+        plates.forEach(function (pl) {
+          const s = pl.p.scale;
+          const pw = (pl.isSelected ? 34 : 24) * s;
+          const ph = (pl.isSelected ? 42 : 30) * s;
+          const x = pl.p.sx - pw * 0.5;
+          const y = pl.p.sy - ph * 0.5;
+
+          if (!pl.isDark) {
+            alephState.plateScreenCoords.push({ idx: pl.idx, x: pl.p.sx, y: pl.p.sy });
+          }
+
+          let strokeColor = pl.isDark ? THEME.coral : THEME.cyan;
+          if (pl.isSelected) strokeColor = THEME.gold;
+          else if (pl.isPassed && !pl.isDark) strokeColor = THEME.white;
+
+          const baseAlpha = pl.isDark
+            ? 0.48
+            : (0.35 + 0.55 * interferenceFactor);
+
+          /* Interference plate background */
+          alephCtx.fillStyle = pl.isDark
+            ? hexToRgba(THEME.bg, 0.78)
+            : pl.isSelected
+              ? hexToRgba(THEME.gold, 0.24)
+              : hexToRgba(THEME.cyan, 0.12 * interferenceFactor);
+          alephCtx.fillRect(x, y, pw, ph);
+
+          /* Interference grid lines inside rectangle */
+          if (!pl.isDark && interferenceFactor > 0.2) {
+            alephCtx.strokeStyle = hexToRgba(strokeColor, 0.22 * baseAlpha);
+            alephCtx.lineWidth = 0.7;
+            alephCtx.beginPath();
+            alephCtx.moveTo(x, y + ph * 0.33);
+            alephCtx.lineTo(x + pw, y + ph * 0.33);
+            alephCtx.moveTo(x, y + ph * 0.66);
+            alephCtx.lineTo(x + pw, y + ph * 0.66);
+            alephCtx.stroke();
+          }
+
+          /* Rectangular border */
+          alephCtx.strokeStyle = hexToRgba(strokeColor, pl.isSelected ? 0.98 : baseAlpha);
+          alephCtx.lineWidth = pl.isSelected ? 2.2 : 1.1;
+          alephCtx.strokeRect(x, y, pw, ph);
+
+          /* Hebrew Letter */
+          const fontPx = Math.max(10, Math.round((pl.isSelected ? 22 : 16) * s));
+          alephCtx.font = `600 ${fontPx}px "Noto Sans Hebrew", sans-serif`;
+          alephCtx.textAlign = 'center';
+          alephCtx.textBaseline = 'middle';
+          alephCtx.fillStyle = hexToRgba(
+            pl.isDark ? THEME.coral : (pl.isSelected ? THEME.gold : THEME.white),
+            pl.isDark ? 0.65 : Math.max(0.3, interferenceFactor)
+          );
+          alephCtx.fillText(pl.letter.char, pl.p.sx, pl.p.sy);
+        });
+
+        alephCtx.textAlign = 'left';
+        alephCtx.textBaseline = 'alphabetic';
+      }
+
+      let animId = 0;
+      function tick(now) {
+        const dt = Math.min(0.05, (now - lastTime) / 1000);
+        lastTime = now;
+
+        renderSpectrum(now);
+        renderAtom(dt, now);
+        renderSanskrit(dt, now);
+        renderAleph(dt, now);
+
+        animId = requestAnimationFrame(tick);
+      }
+
+      cancelAnimationFrame(animId);
+      animId = requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
