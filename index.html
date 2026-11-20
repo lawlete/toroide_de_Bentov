@@ -1088,6 +1088,7 @@
         <a class="nav-link" href="#modulo-toroide">Módulos</a>
         <a class="nav-link" href="#biografia">Biografía</a>
         <a class="nav-link" href="#fuentes">Fuentes</a>
+        <a class="nav-link" href="#comentarios">Comentarios</a>
       </nav>
     </div>
   </header>
@@ -2255,6 +2256,56 @@
         </article>
       </div>
     </section>
+
+    <!-- 5. COMENTARIOS DE LOS LECTORES -->
+    <section class="section-block reveal-on-scroll" id="comentarios" aria-labelledby="comments-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Diálogo abierto · Feedback del observatorio</p>
+          <h2 class="section-title" id="comments-title">Comentarios de los Lectores</h2>
+          <p class="prose-body">
+            ¿Tienes observaciones, preguntas sobre las simulaciones o aportes sobre la obra de Itzhak Bentov? Envía tu comentario directamente a <a href="mailto:lawertechnology@gmail.com" style="color: var(--tertiary); text-decoration: none; font-weight: 600;">lawertechnology@gmail.com</a>.
+          </p>
+        </div>
+        <span class="badge badge-mint">CANAL DIRECTO</span>
+      </div>
+
+      <div class="panel" style="display: grid; gap: var(--space-md);">
+        <form id="reader-comment-form" onsubmit="submitReaderComment(event)" style="display: grid; gap: var(--space-md);">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-md);">
+            <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+              <label class="coord-label" for="comment-name">Tu nombre</label>
+              <input id="comment-name" type="text" placeholder="Ej. María / Investigador" style="width: 100%; padding: 0.7rem 0.9rem; border-radius: var(--rounded); border: var(--hairline-strong); background: var(--surface-container-low); color: var(--on-surface); font-size: 0.95rem;">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+              <label class="coord-label" for="comment-topic">Módulo o tema</label>
+              <select id="comment-topic" style="width: 100%; padding: 0.7rem 0.9rem; border-radius: var(--rounded); border: var(--hairline-strong); background: var(--surface-container-low); color: var(--on-surface); font-size: 0.95rem;">
+                <option value="General / Portal Bentov">General / Portal Bentov</option>
+                <option value="Módulo 01 · El Toroide Cósmico">Módulo 01 · El Toroide Cósmico</option>
+                <option value="Módulo 02 · Materia y Símbolos">Módulo 02 · Materia y Símbolos</option>
+                <option value="Módulo 03 · Fisiología de la Quietud (7 Hz)">Módulo 03 · Fisiología de la Quietud (7 Hz)</option>
+                <option value="Módulo 04 · Fisiomecánica de la Kundalini">Módulo 04 · Fisiomecánica de la Kundalini</option>
+                <option value="Módulo 05 · Método Bentov de Manifestación">Módulo 05 · Método Bentov de Manifestación</option>
+                <option value="Módulo 06 · Teoría Sintérgica (Grinberg & Bentov)">Módulo 06 · Teoría Sintérgica (Grinberg & Bentov)</option>
+                <option value="Módulo 07 · Desdoblamiento del Tiempo (Garnier Malet)">Módulo 07 · Desdoblamiento del Tiempo (Garnier Malet)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+            <label class="coord-label" for="comment-message">Tu comentario o consulta</label>
+            <textarea id="comment-message" rows="4" required placeholder="Escribe aquí tu comentario, reflexión o sugerencia..." style="width: 100%; padding: 0.75rem 0.9rem; border-radius: var(--rounded); border: var(--hairline-strong); background: var(--surface-container-low); color: var(--on-surface); font-size: 0.95rem; resize: vertical;"></textarea>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm);">
+            <button type="submit" class="btn btn-primary">Enviar comentario a lawertechnology@gmail.com →</button>
+            <button type="button" class="btn btn-secondary" onclick="copyContactEmail()">Copiar email</button>
+          </div>
+
+          <p id="comment-feedback" class="prose-body" aria-live="polite" style="display: none; font-size: 0.9rem; color: var(--positive); margin: 0;"></p>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer class="observatory-footer">
@@ -2685,6 +2736,43 @@
       const textEl = document.getElementById('desdoblamiento-node-text');
       if (tagEl) tagEl.textContent = item.tag;
       if (textEl) textEl.textContent = item.text;
+    }
+
+    function submitReaderComment(e) {
+      e.preventDefault();
+      const nameEl = document.getElementById('comment-name');
+      const topicEl = document.getElementById('comment-topic');
+      const msgEl = document.getElementById('comment-message');
+      const feedbackEl = document.getElementById('comment-feedback');
+
+      const name = nameEl && nameEl.value.trim() ? nameEl.value.trim() : 'Lector del Portal';
+      const topic = topicEl ? topicEl.value : 'General / Portal Bentov';
+      const msg = msgEl ? msgEl.value.trim() : '';
+      if (!msg) return;
+
+      const subject = encodeURIComponent(`[Portal Bentov] Comentario sobre ${topic}`);
+      const body = encodeURIComponent(`Nombre: ${name}\nTema: ${topic}\n\nComentario:\n${msg}`);
+      window.location.href = `mailto:lawertechnology@gmail.com?subject=${subject}&body=${body}`;
+
+      if (feedbackEl) {
+        feedbackEl.style.display = 'block';
+        feedbackEl.textContent = `Se abrió tu cliente de correo para enviar el comentario a lawertechnology@gmail.com.`;
+      }
+    }
+
+    function copyContactEmail() {
+      const feedbackEl = document.getElementById('comment-feedback');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText('lawertechnology@gmail.com').then(function () {
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            feedbackEl.textContent = `Email copiado al portapapeles: lawertechnology@gmail.com`;
+          }
+        }).catch(function () {});
+      } else if (feedbackEl) {
+        feedbackEl.style.display = 'block';
+        feedbackEl.textContent = `Correo de contacto: lawertechnology@gmail.com`;
+      }
     }
 
     // ---------------------------------------------------------
