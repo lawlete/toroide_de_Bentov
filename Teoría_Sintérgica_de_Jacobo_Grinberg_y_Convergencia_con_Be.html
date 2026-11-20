@@ -1,0 +1,2518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>La Lattice y el Péndulo Cósmico — Teoría Sintérgica de Jacobo Grinberg e Itzhak Bentov</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Page and surfaces: Prussian midnight steps */
+      --background: #0a101d;
+      --surface-container-low: #0e1626;
+      --surface-container: #111b2e;
+      --surface-container-high: #17243c;
+
+      /* Text */
+      --on-surface: #f2ece1;
+      --on-surface-variant: #9ba8bf;
+
+      /* Borders */
+      --outline: #384d73;
+      --outline-variant: #21304d;
+
+      /* Accents: Celestial Gold & Luminous Horizon Cyan */
+      --primary: #dfaa5b;
+      --on-primary: #0a101d;
+      --primary-container: #2b261c;
+      --on-primary-container: #f5dcb0;
+      --secondary: #687a99;
+      --tertiary: #66d3e8;
+      --on-tertiary: #06141a;
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Data series */
+      --data-1: #dfaa5b;
+      --data-2: #66d3e8;
+      --data-3: #52d19c;
+      --data-4: #e07a5f;
+      --data-context: #4a5d80;
+
+      /* Semantic */
+      --positive: #52d19c;
+      --warning: #e8b954;
+      --focus: #dfaa5b;
+
+      /* Fonts */
+      --font-headline: 'EB Garamond', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.5rem;
+      --rounded-full: 9999px;
+
+      /* Style effects & Glassmorphism */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(242, 236, 225, 0.06);
+      --glass-surface: rgba(17, 27, 46, 0.72);
+      --glass-surface-high: rgba(23, 36, 60, 0.80);
+      --glass-border: rgba(102, 211, 232, 0.18);
+      --glass-border-brass: rgba(223, 170, 91, 0.25);
+      --brass-glow: radial-gradient(circle at 86% 10%, rgba(223, 170, 91, 0.10), transparent 46%);
+      --cyan-glow: radial-gradient(circle at 12% 18%, rgba(102, 211, 232, 0.09), transparent 44%);
+      --cosmic-backdrop: radial-gradient(ellipse at 50% 0%, rgba(23, 36, 60, 0.55) 0%, rgba(10, 16, 29, 0) 68%);
+      --heading-tracking: -0.015em;
+      --label-tracking: 0.06em;
+      --sky-tint: color-mix(in srgb, var(--tertiary) 12%, transparent);
+      --brass-tint: color-mix(in srgb, var(--primary) 14%, transparent);
+      --mint-tint: color-mix(in srgb, var(--positive) 13%, transparent);
+      --coral-tint: color-mix(in srgb, var(--data-4) 14%, transparent);
+      --well-shadow: inset 0 0 36px rgba(6, 10, 18, 0.75);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.45rem, 1.4rem + 3.8vw, 4.35rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1.03rem, 0.98rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    body {
+      background-image: var(--brass-glow), var(--cyan-glow), var(--cosmic-backdrop);
+      background-attachment: fixed;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .hero-title {
+      font-size: var(--display-size);
+      line-height: 1.07;
+      max-width: 22ch;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--primary);
+    }
+
+    .section-title {
+      font-size: var(--headline-size);
+      line-height: 1.12;
+      margin-bottom: var(--space-sm);
+    }
+    .section-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--tertiary);
+    }
+
+    .subhead {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+
+    .coord-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .deck-brass {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-top: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    p {
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+      max-width: 66ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .muted {
+      color: var(--on-surface-variant);
+    }
+
+    .prose-highlight-cyan {
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+    .prose-highlight-gold {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Glassmorphism panels */
+    .panel {
+      background: var(--glass-surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    .panel-brass {
+      background: var(--glass-surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border-brass);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    .observation-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      box-shadow: var(--well-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Hero section */
+    .hero-header {
+      padding: var(--space-xl) 0 var(--space-lg) 0;
+      border-bottom: var(--hairline);
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .hero-lede {
+      font-size: clamp(1.08rem, 1rem + 0.35vw, 1.25rem);
+      color: var(--on-surface-variant);
+      max-width: 62ch;
+      line-height: 1.58;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+
+    .metric-tile {
+      background: var(--glass-surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .metric-tile .metric-k {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    .metric-tile .metric-v {
+      font-family: var(--font-headline);
+      font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.9rem);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.15;
+    }
+
+    .metric-tile .metric-note {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+    }
+
+    /* Navigation strip */
+    .chapter-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      transition: background-color var(--dur-short) var(--ease-out),
+                  color var(--dur-short) var(--ease-out),
+                  border-color var(--dur-short) var(--ease-out);
+    }
+    .nav-pill:hover {
+      background: var(--surface-container-high);
+      color: var(--tertiary);
+      border-color: var(--outline);
+    }
+
+    /* Section structure */
+    .chapter {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--hairline);
+    }
+
+    .chapter-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .chapter-split-reverse {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Badges & tags */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border: 1px solid color-mix(in srgb, var(--tertiary) 35%, transparent);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+    }
+
+    .badge-brass {
+      background: var(--brass-tint);
+      color: var(--primary);
+      border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    }
+
+    .badge-mint {
+      background: var(--mint-tint);
+      color: var(--positive);
+      border: 1px solid color-mix(in srgb, var(--positive) 35%, transparent);
+    }
+
+    .badge-coral {
+      background: var(--coral-tint);
+      color: var(--data-4);
+      border: 1px solid color-mix(in srgb, var(--data-4) 35%, transparent);
+    }
+
+    /* Interactive Controls */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      cursor: pointer;
+      border: var(--hairline-strong);
+      background: transparent;
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background: var(--surface-container-high);
+      box-shadow: 0 0 0 1px var(--outline);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+      color: var(--on-primary);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    .btn-cyan {
+      background: var(--tertiary);
+      color: var(--on-tertiary);
+      border-color: var(--tertiary);
+      font-weight: 600;
+    }
+    .btn-cyan:hover {
+      background: var(--on-surface);
+      color: var(--on-tertiary);
+      box-shadow: 0 0 0 1px var(--tertiary);
+    }
+
+    .btn.is-active {
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      box-shadow: inset 0 0 0 1px var(--tertiary);
+    }
+    .btn-brass-tab.is-active {
+      background: var(--brass-tint);
+      color: var(--primary);
+      box-shadow: inset 0 0 0 1px var(--primary);
+    }
+
+    /* Sliders and Inputs */
+    .slider-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-lg);
+      align-items: end;
+    }
+
+    .control-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    .control-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    .control-value {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--primary);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-high);
+      border: var(--hairline);
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--primary);
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid var(--background);
+      cursor: pointer;
+    }
+
+    /* Telemetry strip */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--hairline);
+    }
+
+    .telemetry-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .telemetry-k {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .telemetry-v {
+      font-family: var(--font-label);
+      font-size: 1rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--tertiary);
+    }
+
+    /* Canvas wrappers */
+    .canvas-stage {
+      width: 100%;
+      min-height: 360px;
+      height: 380px;
+      display: block;
+    }
+    .canvas-stage-tall {
+      width: 100%;
+      min-height: 340px;
+      height: 350px;
+      display: block;
+    }
+    .canvas-stage-eeg {
+      width: 100%;
+      min-height: 310px;
+      height: 320px;
+      display: block;
+    }
+
+    /* Callout quotes / principles */
+    .callout {
+      border-left: 2px solid var(--primary);
+      padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+      margin: var(--space-md) 0;
+    }
+    .callout-cyan {
+      border-left-color: var(--tertiary);
+    }
+    .callout p {
+      font-family: var(--font-headline);
+      font-size: clamp(1.18rem, 1.08rem + 0.35vw, 1.38rem);
+      font-style: italic;
+      line-height: 1.42;
+      color: var(--on-surface);
+    }
+    .callout cite {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-style: normal;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    /* Step cards for transduction / anatomy */
+    .pipeline-steps {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .pipeline-card {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .pipeline-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Pendulum ON/OFF indicator */
+    .pendulum-status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+    }
+    .phase-lamps {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .lamp {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .lamp-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--secondary);
+    }
+    .lamp.is-on {
+      color: var(--tertiary);
+      background: var(--sky-tint);
+      border-color: var(--tertiary);
+    }
+    .lamp.is-on .lamp-dot {
+      background: var(--tertiary);
+    }
+    .lamp.is-off-state {
+      color: var(--primary);
+      background: var(--brass-tint);
+      border-color: var(--primary);
+    }
+    .lamp.is-off-state .lamp-dot {
+      background: var(--primary);
+    }
+
+    /* Observer Clock micro-experiment */
+    .clock-panel {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .clock-canvas {
+      width: 100%;
+      min-height: 240px;
+      height: 250px;
+      display: block;
+    }
+
+    /* Toroid / Attractor interactive inspector */
+    .toroid-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: stretch;
+    }
+    .phase-selector-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .phase-btn {
+      text-align: left;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      padding: var(--space-md);
+      min-height: 44px;
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out);
+    }
+    .phase-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .phase-btn.is-active {
+      background: var(--surface-container-high);
+      box-shadow: inset 3px 0 0 var(--primary), inset 0 0 0 1px var(--glass-border-brass);
+    }
+    .phase-btn-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .phase-btn-desc {
+      font-size: 0.94rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+
+    /* Comparator matrix */
+    .comparator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .compare-card {
+      background: var(--glass-surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      transition: transform var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out);
+    }
+    .compare-card:hover {
+      background: var(--glass-surface-high);
+      transform: translateY(-2px);
+    }
+    .compare-cols {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .compare-block {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+    }
+    .compare-block-grinberg {
+      border-left: 2px solid var(--tertiary);
+    }
+    .compare-block-bentov {
+      border-left: 2px solid var(--primary);
+    }
+    .compare-block-synthesis {
+      border-left: 2px solid var(--positive);
+      background: var(--mint-tint);
+    }
+    .compare-tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+
+    /* Collapsible methodological note */
+    details.methodology {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    details.methodology summary {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    details.methodology[open] summary {
+      margin-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-sm);
+    }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--hairline-strong);
+      padding: var(--space-xl) 0 var(--space-2xl) 0;
+      display: grid;
+      gap: var(--space-md);
+    }
+    .sources-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-md);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .sources-list li {
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+    }
+    .sources-list strong {
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Scroll reveal */
+    .reveal-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-section.is-pending {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 900px) {
+      .chapter-split,
+      .chapter-split-reverse,
+      .toroid-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .panel, .panel-brass, .compare-card {
+        padding: var(--space-md);
+      }
+      .canvas-stage,
+      .canvas-stage-tall,
+      .canvas-stage-eeg {
+        min-height: 290px;
+        height: 300px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- HERO HEADER -->
+    <header class="hero-header">
+      <div style="margin-bottom: 1rem;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(223, 170, 91, 0.45); background: rgba(223, 170, 91, 0.10); color: var(--primary); font-family: var(--font-label); font-size: 0.78rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+      </div>
+      <div>
+        <span class="coord-label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <ellipse cx="12" cy="12" rx="9" ry="3.5"></ellipse>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+          </svg>
+          Neurofisiología Sintérgica · Biofísica de la Conciencia
+        </span>
+        <h1 class="hero-title">La <em>arquitectura</em> de la realidad: de la Lattice de Grinberg al péndulo de Bentov</h1>
+        <p class="deck-brass">Síntesis interactiva entre la Teoría Sintérgica (UNAM / INPEC) y la mecánica oscilatoria de la conciencia</p>
+        <p class="hero-lede">
+          Dos investigadores separados por disciplina y geografía —el neurofisiólogo mexicano Jacobo Grinberg-Zylberbaum y el ingeniero biomédico Itzhak Bentov— convergieron en una tesis radical: el cerebro no fabrica la conciencia dentro del cráneo, sino que opera como un transductor holográfico que decodifica e interactúa con una matriz informacional unificada.
+        </p>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric-tile">
+          <span class="metric-k">Frecuencia de Resonancia Corporal</span>
+          <span class="metric-v">6.8 – 7.5 Hz</span>
+          <span class="metric-note">Acoplamiento corazón–tercer ventrículo–ionosfera</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-k">Oscilación Atómica Base</span>
+          <span class="metric-v">10<sup>15</sup> Hz</span>
+          <span class="metric-note">Ciclo continuo ON / OFF descrito por Bentov</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-k">Potencial Transferido (EPR)</span>
+          <span class="metric-v">Dic. 1994</span>
+          <span class="metric-note">Publicado en Physics Essays (cámaras de Faraday)</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-k">Eje de Síntesis</span>
+          <span class="metric-v">Sintergia</span>
+          <span class="metric-note">Síntesis + Sinergia + Energía en la Lattice</span>
+        </div>
+      </div>
+
+      <nav class="chapter-nav" aria-label="Índice de secciones">
+        <a class="nav-pill" href="#lattice">01 · La Lattice</a>
+        <a class="nav-pill" href="#campo-neuronal">02 · Campo Neuronal</a>
+        <a class="nav-pill" href="#neurosintergia">03 · Neurosintergia y 7 Hz</a>
+        <a class="nav-pill" href="#observador">04 · El Observador y Momentos OFF</a>
+        <a class="nav-pill" href="#atractor">05 · Atractor y Toroide</a>
+        <a class="nav-pill" href="#potencial-transferido">06 · Potencial Transferido</a>
+        <a class="nav-pill" href="#comparador">07 · Comparador Grinberg vs. Bentov</a>
+      </nav>
+    </header>
+
+    <!-- SECCIÓN 1: LA LATTICE Y SIMULADOR 3D/2D -->
+    <section id="lattice" class="chapter reveal-section">
+      <div>
+        <span class="coord-label">01 · Sustrato Fundamental del Espacio</span>
+        <h2 class="section-title">La <em>Lattice</em>: orden informacional puro y materia como distorsión</h2>
+      </div>
+
+      <div class="chapter-split">
+        <div>
+          <p>
+            Lo que nuestros sentidos interpretan como espacio vacío entre objetos sólidos es, según la Teoría Sintérgica de Jacobo Grinberg, una estructura energética hipercoherente. Grinberg adoptó el término <span class="prose-highlight-cyan">Lattice</span> de la cristalografía —donde designa el entramado atómico perfecto de un diamante o un cuarzo— para describir la matriz básica del espacio-tiempo.
+          </p>
+          <p>
+            En su estado puro, la Lattice posee máxima <span class="prose-highlight-gold">sintergia</span> (neologismo de <em>síntesis</em>, <em>sinergia</em> y <em>energía</em>): cada punto contiene la información de la totalidad como una placa holográfica y carece de distorsiones temporales o gravitacionales. Debido a esa coherencia absoluta, resulta completamente transparente e invisible a la percepción ordinaria.
+          </p>
+          <p>
+            La materia física emerge únicamente cuando una región de la Lattice pierde coherencia: zonas de <span class="prose-highlight-cyan">baja sintergia</span> donde el flujo informacional se vuelve más lento, redundante o denso. Desde la biofísica de Itzhak Bentov, este mismo fenómeno se expresa en el hecho de que un átomo es casi puro vacío vibrando sobre el trasfondo inmóvil del <em>Absoluto</em>; lo que sentimos como solidez al tocar una mesa no es contacto sólido, sino repulsión electromagnética entre campos oscilantes.
+          </p>
+          <div class="callout">
+            <p>«Un espacio de alta sintergia es transparente porque es tan coherente y concentra tanta información que el cerebro no lo fragmenta; un objeto material es una distorsión local donde la red se vuelve densa y visible.»</p>
+            <cite>Síntesis de la Teoría Sintérgica · Jacobo Grinberg-Zylberbaum</cite>
+          </div>
+        </div>
+
+        <div class="panel-brass">
+          <span class="badge badge-brass">Principio de Equivalencia Estructural</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm); margin-bottom: var(--space-md);">Gradiente de Sintergia en la Matriz</h3>
+          <div class="pipeline-steps">
+            <div class="pipeline-card">
+              <div class="pipeline-card-head">
+                <span class="coord-label">Alta Sintergia</span>
+                <span class="badge">Espacio Transparente</span>
+              </div>
+              <p class="muted" style="font-size: 0.94rem;">Coherencia máxima, distribución holográfica uniforme e información unificada. Equivalente en Bentov al sustrato continuo del protoespacio y la Mente Universal.</p>
+            </div>
+            <div class="pipeline-card">
+              <div class="pipeline-card-head">
+                <span class="coord-label">Zona de Interferencia</span>
+                <span class="badge badge-brass">Campo Neuronal</span>
+              </div>
+              <p class="muted" style="font-size: 0.94rem;">La actividad bioeléctrica cerebral introduce patrones de onda que modulan localmente la red, generando el sustrato previo a la imagen perceptual.</p>
+            </div>
+            <div class="pipeline-card">
+              <div class="pipeline-card-head">
+                <span class="coord-label">Baja Sintergia</span>
+                <span class="badge badge-coral">Objeto Material</span>
+              </div>
+              <p class="muted" style="font-size: 0.94rem;">Disminución de coherencia y aumento de densidad localizada. Se percibe como forma sólida, masa, textura y resistencia física.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULACIÓN INTERACTIVA 1: LATTICE 3D/2D -->
+      <div class="panel">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--space-md); margin-bottom: var(--space-md);">
+          <div>
+            <span class="coord-label">Simulador Interactivo 01 · Proyección Tridimensional</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs);">Deformación de la Lattice ante el Campo Neuronal</h3>
+            <p class="muted" style="font-size: 0.93rem; margin-top: var(--space-xs);">Mueve el cursor o desliza el dedo sobre el plano reticular para desplazar el foco de observación; haz clic o toca para emitir una onda interferencial.</p>
+          </div>
+          <div class="controls-bar" role="group" aria-label="Modos de la Lattice">
+            <button type="button" class="btn is-active" id="lat-btn-pure" onclick="setLatticeMode('pure')">Lattice Pura</button>
+            <button type="button" class="btn" id="lat-btn-matter" onclick="setLatticeMode('matter')">Objeto (Baja Sintergia)</button>
+            <button type="button" class="btn" id="lat-btn-neural" onclick="setLatticeMode('neural')">Campo Neuronal</button>
+            <button type="button" class="btn btn-brass-tab" id="lat-btn-unified" onclick="setLatticeMode('unified')">Alta Neurosintergia</button>
+          </div>
+        </div>
+
+        <div class="observation-well">
+          <canvas id="lattice-canvas" class="canvas-stage" aria-label="Simulación interactiva de la Lattice deformándose ante el campo neuronal"></canvas>
+        </div>
+
+        <div class="slider-grid" style="margin-top: var(--space-lg);">
+          <div class="control-field">
+            <div class="control-header">
+              <label class="control-label" for="slider-synergy">Coherencia Sintergética</label>
+              <span class="control-value" id="val-synergy">72%</span>
+            </div>
+            <input type="range" id="slider-synergy" min="0" max="100" value="72" oninput="updateLatticeSynergy(this.value)">
+          </div>
+          <div class="control-field">
+            <div class="control-header">
+              <label class="control-label" for="slider-distortion">Intensidad del Campo / Distorsión</label>
+              <span class="control-value" id="val-distortion">55%</span>
+            </div>
+            <input type="range" id="slider-distortion" min="0" max="100" value="55" oninput="updateLatticeDistortion(this.value)">
+          </div>
+        </div>
+
+        <div class="telemetry-grid">
+          <div class="telemetry-item">
+            <span class="telemetry-k">Estado del Régimen</span>
+            <span class="telemetry-v" id="lat-stat-regime">Matriz Coherente Base</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Índice de Sintergia</span>
+            <span class="telemetry-v" id="lat-stat-index">0.72 S</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Densidad Perceptual</span>
+            <span class="telemetry-v" id="lat-stat-density">Transparente / Fluida</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Interfaz Cerebro–Red</span>
+            <span class="telemetry-v" id="lat-stat-interface">Onda Estacionaria Suave</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: EL CAMPO NEURONAL Y TRANSDUCTOR HOLOGRÁFICO -->
+    <section id="campo-neuronal" class="chapter reveal-section">
+      <div>
+        <span class="coord-label">02 · Modelo Holonómico e Interfaz Cerebral</span>
+        <h2 class="section-title">El Campo Neuronal y el cerebro como <em>transductor holográfico</em></h2>
+      </div>
+
+      <div class="chapter-split-reverse">
+        <div class="panel">
+          <span class="badge">Convergencia Bohm · Pribram · Grinberg · Bentov</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm); margin-bottom: var(--space-md);">El experimento del fuego en la chimenea</h3>
+          <p class="muted" style="font-size: 0.95rem;">
+            En <em>La construcción de la realidad</em>, Grinberg propuso una verificación inmediata sin laboratorio: los leños ardiendo en una chimenea no contienen luz anaranjada ni calor dentro de sí; allí solo hay partículas agitándose velozmente.
+          </p>
+          <div class="pipeline-steps" style="margin-top: var(--space-md);">
+            <div class="pipeline-card">
+              <span class="coord-label">Paso A · Transducción</span>
+              <p class="muted" style="font-size: 0.92rem;">Tu retina y receptores térmicos convierten fotones y movimiento molecular en impulsos bioeléctricos idénticos en su lenguaje neuronal.</p>
+            </div>
+            <div class="pipeline-card">
+              <span class="coord-label">Paso B · Campo Neuronal</span>
+              <p class="muted" style="font-size: 0.92rem;">Miles de millones de neuronas disparando simultáneamente proyectan un campo electromagnético unificado que sale del cráneo e interactúa con la Lattice.</p>
+            </div>
+            <div class="pipeline-card">
+              <span class="coord-label">Paso C · Síntesis y Acuerdos</span>
+              <p class="muted" style="font-size: 0.92rem;">El cerebro traduce esa interferencia en color, sonido, calor y solidez. Según el principio <em>De los acuerdos</em>, vemos un mundo común porque nuestros decodificadores comparten parámetros evolutivos y consensos de interpretación.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p>
+            A finales de la década de 1970 y tras fundar en 1987 el Instituto Nacional para el Estudio de la Conciencia (INPEC) en México, Jacobo Grinberg integró explícitamente dos pilares de la ciencia de vanguardia: el <span class="prose-highlight-cyan">Orden Implicado</span> del físico David Bohm y el <span class="prose-highlight-gold">modelo cerebral holonómico</span> del neurocientífico Karl Pribram, inspirado en la holografía de Dennis Gabor y en los hallazgos de Karl Lashley sobre la distribución no localizada de la memoria.
+          </p>
+          <p>
+            Cada neurona que se activa genera una microdistorsión en el espacio-tiempo. Al integrarse en red, toda la corteza crea el <span class="prose-highlight-cyan">Campo Neuronal</span>, el cual funciona como un proyector cinematográfico: el cerebro actúa como la lámpara, la configuración mental como la película y la Lattice como la pantalla donde la imagen adquiere forma aparente.
+          </p>
+          <p>
+            Itzhak Bentov formuló una conclusión paralela desde la ingeniería biomédica en <em>Stalking the Wild Pendulum</em>: el cerebro no es la fuente del pensamiento, sino un <span class="prose-highlight-gold">receptor, amplificador y comparador binario</span>. Al igual que un aparato de radio no alberga a la orquesta dentro de su carcasa, la conciencia humana sintoniza bandas de frecuencia del holograma cósmico —la <em>Mente Universal</em>— comparando las señales entrantes con su propia memoria holográfica para construir la experiencia tridimensional.
+          </p>
+          <div class="callout callout-cyan">
+            <p>«No es el cerebro el que produce la conciencia, sino la conciencia la que genera la apariencia del cerebro.»</p>
+            <cite>Principio del modelo holonómico citado en los estudios sobre Bentov (Keith Floyd / Pribram)</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: NEUROSINTERGIA, HEMI-SYNC Y RESONANCIA DE 7 HZ -->
+    <section id="neurosintergia" class="chapter reveal-section">
+      <div>
+        <span class="coord-label">03 · Unificación Biofísica y Coherencia Cerebral</span>
+        <h2 class="section-title">Neurosintergia, <em>Hemi-Sync</em> y la resonancia terrestre de 7 Hz</h2>
+      </div>
+
+      <p>
+        En la vigilia ordinaria, ambos hemisferios cerebrales operan de manera asimétrica y desfasada; Grinberg comparaba esa señal con una bombilla incandescente que dispersa luz incoherente en todas direcciones. Cuando un sujeto entrena la unificación interhemisférica —lo que Grinberg denominó <span class="prose-highlight-cyan">alta neurosintergia</span> mediante meditación autoalusiva o secuencias rítmicas como <em>Satanama</em>— la coherencia del Campo Neuronal se vuelve análoga a un <span class="prose-highlight-gold">rayo láser</span> capaz de modular con precisión la Lattice circundante.
+      </p>
+      <p>
+        Bentov midió con sensores sismográficos y registros electroencefalográficos qué ocurre físicamente en el cuerpo humano durante ese estado. Al entrar en quietud profunda, el latido cardíaco bifurcado desaparece y el sistema circulatorio genera una onda sinusoidal limpia de aproximadamente <span class="prose-highlight-gold">7 ciclos por segundo (6.8 a 7.5 Hz)</span> que triplica su amplitud habitual. Esta vibración mecánica asciende por la aorta hacia el cráneo, hace oscilar el cerebro entre <span class="prose-highlight-cyan">0.005 y 0.010 mm</span> y agita armónicamente el fluido del tercer ventrículo, estimulando la sincronización de ambos hemisferios y acoplando todo el organismo con la frecuencia fundamental de la cavidad Tierra-ionosfera: la <span class="prose-highlight-gold">Resonancia Schumann (~7.5 Hz)</span>. Este mismo principio de coherencia hemisférica sustentó el entrenamiento binaural <em>Hemi-Sync / Gateway</em> documentado en los análisis del Instituto Monroe.
+      </p>
+
+      <!-- SIMULADOR INTERACTIVO 2: VISUALIZADOR DE COHERENCIA Y RESONANCIA 7 HZ -->
+      <div class="panel">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--space-md); margin-bottom: var(--space-md);">
+          <div>
+            <span class="coord-label">Simulador Interactivo 02 · Osciloscopio Neurofisiológico</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs);">Visualizador de Coherencia Interhemisférica y Banda Schumann</h3>
+          </div>
+          <div class="controls-bar" role="group" aria-label="Estados cerebrales predefinidos">
+            <button type="button" class="btn" id="coh-btn-beta" onclick="setCoherencePreset('beta')">Vigilia Dispersa (Beta)</button>
+            <button type="button" class="btn" id="coh-btn-hemisync" onclick="setCoherencePreset('hemisync')">Hemi-Sync / Alfa–Theta</button>
+            <button type="button" class="btn is-active btn-brass-tab" id="coh-btn-schumann" onclick="setCoherencePreset('schumann')">Resonancia 7.3 Hz (Láser)</button>
+          </div>
+        </div>
+
+        <div class="observation-well">
+          <canvas id="coherence-canvas" class="canvas-stage-tall" aria-label="Visualizador de ondas interhemisféricas, coherencia neurosintergética y resonancia de 7 Hz"></canvas>
+        </div>
+
+        <div class="pendulum-status-bar" style="margin-top: var(--space-md);">
+          <div class="phase-lamps">
+            <div class="lamp is-on" id="lamp-on">
+              <span class="lamp-dot"></span>
+              <span>Fase ON · Realidad Física</span>
+            </div>
+            <div class="lamp" id="lamp-off">
+              <span class="lamp-dot"></span>
+              <span>Momento OFF · Reposo del Péndulo</span>
+            </div>
+          </div>
+          <span class="badge badge-mint" id="schumann-lock-badge">Acoplamiento Schumann Activo (6.8–7.5 Hz)</span>
+        </div>
+
+        <div class="slider-grid" style="margin-top: var(--space-lg);">
+          <div class="control-field">
+            <div class="control-header">
+              <label class="control-label" for="slider-hemisphere-sync">Sincronización Interhemisférica (Neurosintergia)</label>
+              <span class="control-value" id="val-hemisphere-sync">92%</span>
+            </div>
+            <input type="range" id="slider-hemisphere-sync" min="0" max="100" value="92" oninput="updateCoherenceSync(this.value)">
+          </div>
+          <div class="control-field">
+            <div class="control-header">
+              <label class="control-label" for="slider-freq-hz">Frecuencia Oscilatoria Dominante (Hz)</label>
+              <span class="control-value" id="val-freq-hz">7.3 Hz</span>
+            </div>
+            <input type="range" id="slider-freq-hz" min="4.0" max="22.0" step="0.1" value="7.3" oninput="updateCoherenceFreq(this.value)">
+          </div>
+        </div>
+
+        <div class="telemetry-grid">
+          <div class="telemetry-item">
+            <span class="telemetry-k">Patrón Hemisférico</span>
+            <span class="telemetry-v" id="coh-stat-mode">Coherencia Tipo Láser</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Amplitud Cardíaca–Cerebral</span>
+            <span class="telemetry-v" id="coh-stat-amp">2.8× Onda Sinoidal</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Micro-oscilación Ventricular</span>
+            <span class="telemetry-v" id="coh-stat-ventricle">0.009 mm</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Longitud de Onda Planetaria</span>
+            <span class="telemetry-v" id="coh-stat-planet">~40,000 km (1/7 seg)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: EL OBSERVADOR, MEDITACIÓN AUTOALUSIVA Y MOMENTOS OFF -->
+    <section id="observador" class="chapter reveal-section">
+      <div>
+        <span class="coord-label">04 · Fenomenología de la Quietud y El Tiempo Elástico</span>
+        <h2 class="section-title">El Observador, la meditación autoalusiva y los <em>momentos OFF</em></h2>
+      </div>
+
+      <div class="chapter-split">
+        <div>
+          <p>
+            Si el cerebro proyecta la experiencia al interactuar con la Lattice, ¿quién contempla la proyección? Grinberg distingue radicalmente al contenido mental de <span class="prose-highlight-cyan">El Observador</span>: el testigo silencioso que permanece inalterado mientras pensamientos, emociones e imágenes cruzan el campo de atención como nubes en el cielo.
+          </p>
+          <p>
+            Su protocolo central, la <span class="prose-highlight-gold">meditación autoalusiva</span>, consiste en observar simultáneamente todo lo que se siente, se piensa y se percibe sin juzgarlo ni identificarse con ello, hasta alcanzar el punto de unificación donde observador y observado se disuelven en un solo espacio consciente.
+          </p>
+          <p>
+            Bentov explicó la mecánica física de ese instante mediante su modelo del <span class="prose-highlight-gold">péndulo y el "parpadeo" de la realidad (blinking off and on)</span>. Todo sistema oscilante —desde los átomos a <code>10<sup>15</sup> Hz</code> hasta el cuerpo a <code>7 Hz</code>— debe detenerse por una fracción infinitesimal de segundo en los extremos de su recorrido antes de invertir su dirección. En ese microinstante de velocidad cero, denominado <span class="prose-highlight-cyan">momento OFF</span>, la materia deja de manifestarse localmente y la conciencia se expande más allá del tiempo lineal hacia el <em>Absoluto</em>.
+          </p>
+          <p>
+            Cuando la pausa entre pensamientos se alarga conscientemente, ocurren tres efectos documentados por ambos autores: el <span class="prose-highlight-gold">tiempo subjetivo se dilata</span> frente al reloj objetivo, desaparece la frontera entre el yo y el entorno, y emerge una percepción intuitiva directa del holograma completo.
+          </p>
+        </div>
+
+        <!-- Micro-experimento del reloj de Bentov -->
+        <div class="panel-brass clock-panel">
+          <div>
+            <span class="badge badge-brass">Experimento Mental de Bentov · Capítulo 4</span>
+            <h3 class="subhead" style="margin-top: var(--space-sm);">Tiempo del Reloj vs. Tiempo Subjetivo del Observador</h3>
+            <p class="muted" style="font-size: 0.92rem; margin-top: var(--space-xs);">
+              Bentov proponía observar el segundero de un reloj mientras la mente se sumerge en una pausa o en una visualización vívida. Compara cómo se comprime o expande el tiempo interno frente al reloj físico.
+            </p>
+          </div>
+
+          <div class="observation-well">
+            <canvas id="clock-canvas" class="clock-canvas" aria-label="Simulación del experimento del segundero de Bentov comparando tiempo objetivo y subjetivo"></canvas>
+          </div>
+
+          <div class="controls-bar">
+            <button type="button" class="btn is-active" id="clk-btn-agitated" onclick="setClockState('agitated')">Mente Agitada (Tiempo Comprimido)</button>
+            <button type="button" class="btn btn-brass-tab" id="clk-btn-off" onclick="setClockState('off')">Pausa Autoalusiva (Momento OFF)</button>
+          </div>
+
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-k">Tiempo Objetivo (Reloj)</span>
+              <span class="telemetry-v" id="clk-stat-obj">60 seg / min</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-k">Percepción Subjetiva</span>
+              <span class="telemetry-v" id="clk-stat-subj">Acelerada · Fragmentada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: EL ATRACTOR DEL FUTURO, TOROIDE Y SINCRONICIDADES -->
+    <section id="atractor" class="chapter reveal-section">
+      <div>
+        <span class="coord-label">05 · Teleología, Retrocausalidad y Dinámica Toroidal</span>
+        <h2 class="section-title">El <em>Atractor del Futuro</em>, las sincronicidades y la banda evolutiva</h2>
+      </div>
+
+      <p>
+        ¿Por qué la conciencia tiende a organizarse hacia niveles cada vez mayores de integración? Jacobo Grinberg propuso la existencia de un <span class="prose-highlight-cyan">atractor extraño del futuro ideal</span>: un estado futuro de máxima coherencia que no espera pasivamente a ocurrir, sino que ejerce atracción retrocausal sobre el presente, guiando la evolución del Observador. Las <span class="prose-highlight-gold">sincronicidades</span> —coincidencias cargadas de significado que surgen cuando la mente silencia el ruido— son el rastro perceptible de esa sintonía con el atractor.
+      </p>
+      <p>
+        Esta intuición converge de lleno con la cosmología de Bentov y su desarrollo posterior en los modelos no duales y sintrópicos (como la propuesta de singularidad no dual de José Díez Faixat, Luigi Fantappiè y la interpretación transaccional de John Cramer). Bentov concebía el universo como un <span class="prose-highlight-gold">toroide alargado en rotación continua</span> —una "banda transportadora evolutiva"— donde la materia brota de un agujero blanco, recorre la superficie exterior generando el tiempo lineal como distancia recorrida, e irradia información que se entrelaza en la <em>Mente Universal</em> antes de reingresar por el agujero negro para renovarse. En el esquema sintrópico, cada instante nace del encuentro entre ondas divergentes emitidas desde el origen (Polo Alpha) y ondas convergentes retrocausales procedentes del atractor final (Polo Omega).
+      </p>
+
+      <div class="panel">
+        <div class="toroid-grid">
+          <div class="observation-well" style="display: flex; flex-direction: column;">
+            <canvas id="toroid-canvas" class="canvas-stage-tall" aria-label="Esquema dinámico del toroide cósmico de Bentov y el atractor futuro de Grinberg"></canvas>
+          </div>
+
+          <div style="display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-md);">
+            <div>
+              <span class="coord-label">Inspector Dinámico · Flujo Poloidal y Retrocausalidad</span>
+              <h3 class="subhead" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">Selecciona una región del ciclo evolutivo</h3>
+              <div class="phase-selector-list">
+                <button type="button" class="phase-btn is-active" id="tor-btn-alpha" onclick="selectToroidPhase('alpha')">
+                  <span class="phase-btn-title">01 · Polo Alpha / Agujero Blanco (Emisión)</span>
+                  <span class="phase-btn-desc">Brota la radiación primordial y la energía divergente (entropía). Inicio del movimiento que da origen al tiempo como distancia.</span>
+                </button>
+                <button type="button" class="phase-btn" id="tor-btn-envelope" onclick="selectToroidPhase('envelope')">
+                  <span class="phase-btn-title">02 · Envolvente Espacio-Tiempo (Lattice Manifiesta)</span>
+                  <span class="phase-btn-desc">Galaxias, materia y sistemas nerviosos evolucionan por saltos armónicos, emitiendo ondas de información hacia el interior hueco.</span>
+                </button>
+                <button type="button" class="phase-btn" id="tor-btn-omega" onclick="selectToroidPhase('omega')">
+                  <span class="phase-btn-title">03 · Polo Omega / Atractor Futuro (Retorno)</span>
+                  <span class="phase-btn-desc">Vórtice convergente de máxima conciencia (sintropía). Las señales del futuro ideal atraen al Observador mediante sincronicidades.</span>
+                </button>
+                <button type="button" class="phase-btn" id="tor-btn-center" onclick="selectToroidPhase('center')">
+                  <span class="phase-btn-title">04 · Eje Central / Mente Universal (Holograma)</span>
+                  <span class="phase-btn-desc">Aunque la luz ordinaria queda confinada en la piel del toroide, la psique y las ondas de información cruzan el protoespacio central donde la densidad informativa es máxima.</span>
+                </button>
+              </div>
+            </div>
+            <div class="pipeline-card" style="background: var(--surface-container);">
+              <span class="coord-label" id="toroid-detail-tag">Fase Activa · Polo Alpha</span>
+              <p class="muted" id="toroid-detail-text" style="font-size: 0.94rem;">
+                Para Bentov, la explosión inicial no ocurrió una sola vez en la nada, sino como un chorro continuo en el núcleo del toroide que impulsa la banda transportadora evolutiva.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: EL EXPERIMENTO DEL POTENCIAL TRANSFERIDO -->
+    <section id="potencial-transferido" class="chapter reveal-section">
+      <div>
+        <span class="coord-label">06 · Evidencia Experimental y Límites Abiertos</span>
+        <h2 class="section-title">El experimento del <em>Potencial Transferido</em> en cámaras de Faraday</h2>
+      </div>
+
+      <p>
+        Para someter a prueba empírica si el Campo Neuronal puede acoplarse de manera no local a través de la Lattice, Jacobo Grinberg diseñó junto con el físico cuántico Amit Goswami y colaboradores un protocolo publicado en diciembre de 1994 en la revista arbitrada <em>Physics Essays</em> bajo el título <em>«La paradoja de Einstein-Podolsky-Rosen en el cerebro: el potencial transferido»</em>.
+      </p>
+      <p>
+        Dos participantes convivían previamente durante unos 20 minutos con la instrucción de establecer una conexión silenciosa no verbal. Luego ingresaban por separado a <span class="prose-highlight-cyan">cámaras de Faraday</span> blindadas para impedir el paso de campos electromagnéticos, luz o sonido. Al presentar destellos luminosos al Sujeto A, su electroencefalograma registraba la respuesta visual esperada; según el reporte original, el Sujeto B —aislado a oscuras y sin estímulo alguno— mostraba una deflexión eléctrica simultánea, más tenue pero reconocible, en su propio EEG.
+      </p>
+
+      <!-- SIMULADOR INTERACTIVO 3: CÁMARAS DE FARADAY -->
+      <div class="panel">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--space-md); margin-bottom: var(--space-md);">
+          <div>
+            <span class="coord-label">Simulador Interactivo 03 · Protocolo Diciembre 1994</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs);">Registro EEG Dual bajo Aislamiento Electromagnético</h3>
+          </div>
+          <div class="controls-bar">
+            <button type="button" class="btn is-active" id="far-btn-bonded" onclick="setFaradayBond(true)">Vínculo Silencioso (20 min)</button>
+            <button type="button" class="btn" id="far-btn-unbonded" onclick="setFaradayBond(false)">Control Sin Vínculo</button>
+            <button type="button" class="btn btn-cyan" id="far-btn-flash" onclick="triggerFaradayFlash()">Emitir Destello en Cámara A</button>
+          </div>
+        </div>
+
+        <div class="observation-well">
+          <canvas id="faraday-canvas" class="canvas-stage-eeg" aria-label="Simulación del experimento del potencial transferido entre dos cámaras de Faraday"></canvas>
+        </div>
+
+        <div class="telemetry-grid">
+          <div class="telemetry-item">
+            <span class="telemetry-k">Condición Previa</span>
+            <span class="telemetry-v" id="far-stat-cond">Sintonía No Verbal (20 min)</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Aislamiento EM</span>
+            <span class="telemetry-v">Doble Cámara de Faraday</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Respuesta Sujeto A (Estímulo)</span>
+            <span class="telemetry-v" id="far-stat-a">Listo para destello</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-k">Traza Sujeto B (Aislado)</span>
+            <span class="telemetry-v" id="far-stat-b">Actividad basal</span>
+          </div>
+        </div>
+      </div>
+
+      <details class="methodology">
+        <summary>Nota metodológica y estado actual de replicación científica</summary>
+        <p class="muted" style="font-size: 0.95rem;">
+          Con rigor científico debe señalarse que el experimento del Potencial Transferido <strong>no ha sido replicado de forma consistente</strong> por otros laboratorios independientes, y la comunidad científica continúa debatiendo el alcance y control de sus registros. Asimismo, Itzhak Bentov recordaba con humildad de ingeniero que <em>«un modelo es solo un modelo»</em> para explicar aspectos físicos de la conciencia expandida. El valor de ambos aportes reside en proponer hipótesis medibles que tienden un puente entre la fisiología sensorial, la mecánica ondulatoria y el problema difícil de la conciencia.
+        </p>
+      </details>
+    </section>
+
+    <!-- SECCIÓN 7: COMPARADOR INTERACTIVO GRINBERG VS BENTOV -->
+    <section id="comparador" class="chapter reveal-section">
+      <div>
+        <span class="coord-label">07 · Cartografía Conceptual Comparada</span>
+        <h2 class="section-title">Comparador interactivo: <em>Grinberg</em> vs. <em>Bentov</em></h2>
+        <p class="muted">Explora cómo dialogan los términos de la neurofisiología sintérgica con los de la biofísica oscilatoria, filtrando por dimensión o alternando entre paralelismo conceptual y síntesis unificada.</p>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+        <div class="controls-bar" role="group" aria-label="Filtrar dimensiones conceptuales">
+          <button type="button" class="btn is-active" id="cmp-filter-all" onclick="filterComparator('all')">Todas (7)</button>
+          <button type="button" class="btn" id="cmp-filter-space" onclick="filterComparator('space')">Espacio y Materia</button>
+          <button type="button" class="btn" id="cmp-filter-brain" onclick="filterComparator('brain')">Mente y Cerebro</button>
+          <button type="button" class="btn" id="cmp-filter-quiet" onclick="filterComparator('quiet')">Quietud y Tiempo</button>
+          <button type="button" class="btn" id="cmp-filter-evo" onclick="filterComparator('evo')">Evolución y Campo</button>
+        </div>
+
+        <div class="controls-bar" role="group" aria-label="Modo de visualización del comparador">
+          <button type="button" class="btn btn-brass-tab is-active" id="cmp-view-dual" onclick="setComparatorView('dual')">Paralelo Dual</button>
+          <button type="button" class="btn btn-brass-tab" id="cmp-view-synthesis" onclick="setComparatorView('synthesis')">Mostrar Síntesis</button>
+        </div>
+      </div>
+
+      <div class="comparator-grid" id="comparator-cards"></div>
+    </section>
+
+    <!-- FUENTES -->
+    <footer class="sources-footer">
+      <div>
+        <span class="coord-label">Fuentes Primarias y Contexto Documental</span>
+        <p class="muted" style="margin-top: var(--space-xs); font-size: 0.94rem;">
+          Todo el contenido conceptual, experimental y biofísico expuesto en esta exploración proviene directamente de las obras y análisis sobre ambos autores y su síntesis contemporánea:
+        </p>
+      </div>
+      <ul class="sources-list">
+        <li>
+          <strong>Jacobo Grinberg-Zylberbaum</strong>
+          <em>La teoría sintérgica</em>, <em>La construcción de la realidad</em> y <em>La meditación</em> (UNAM / INPEC); artículo «The Einstein-Podolsky-Rosen Paradox in the Brain: The Transferred Potential» (junto a A. Goswami et al., <em>Physics Essays</em>, diciembre de 1994).
+        </li>
+        <li>
+          <strong>Itzhak Bentov</strong>
+          <em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> y <em>A Brief Tour of Higher Consciousness: A Cosmic Book on the Mechanics of Creation</em> (1977–2000); modelos de resonancia de 7 Hz, micro-oscilación ventricular y toroide cósmico.
+        </li>
+        <li>
+          <strong>Marco Holonómico y Convergencias</strong>
+          Modelo holonómico de David Bohm (Orden Implicado) y Karl Pribram (Cerebro Holográfico); análisis de sincronización hemisférica <em>Hemi-Sync / Gateway</em>; modelo sintrópico y de singularidad no dual (José Díez Faixat, Luigi Fantappiè, John Cramer).
+        </li>
+      </ul>
+
+      <div style="margin-top: 1.5rem;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(223, 170, 91, 0.45); background: rgba(223, 170, 91, 0.10); color: var(--primary); font-family: var(--font-label); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+      </div>
+
+      <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // Resolve CSS design tokens once for Canvas rendering
+      const rootStyle = getComputedStyle(document.documentElement);
+      function tok(name, fallback) {
+        const val = rootStyle.getPropertyValue(name).trim();
+        return val || fallback;
+      }
+
+      const PALETTE = {
+        bg: tok('--background', '#0a101d'),
+        surface: tok('--surface-container', '#111b2e'),
+        onSurface: tok('--on-surface', '#f2ece1'),
+        muted: tok('--on-surface-variant', '#9ba8bf'),
+        outline: tok('--outline', '#384d73'),
+        outlineVar: tok('--outline-variant', '#21304d'),
+        gold: tok('--primary', '#dfaa5b'),
+        cyan: tok('--tertiary', '#66d3e8'),
+        mint: tok('--positive', '#52d19c'),
+        coral: tok('--data-4', '#e07a5f'),
+        context: tok('--data-context', '#4a5d80')
+      };
+
+      const prefersReducedMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // ============================================================
+      // 1. LATTICE 3D PERSPECTIVE SIMULATION
+      // ============================================================
+      const latticeState = {
+        mode: 'pure', // pure | matter | neural | unified
+        synergy: 0.72,
+        distortion: 0.55,
+        pointerX: 0.5,
+        pointerY: 0.5,
+        ripples: [],
+        time: 0
+      };
+
+      function updateLatticeTelemetry() {
+        const regimeEl = document.getElementById('lat-stat-regime');
+        const indexEl = document.getElementById('lat-stat-index');
+        const densityEl = document.getElementById('lat-stat-density');
+        const ifaceEl = document.getElementById('lat-stat-interface');
+
+        const s = latticeState.synergy;
+        const d = latticeState.distortion;
+        const modeMap = {
+          pure: {
+            regime: `Orden Total (Lattice Pura)`,
+            density: `Transparente · Sin masa`,
+            iface: `Equilibrio holográfico`
+          },
+          matter: {
+            regime: `Baja Sintergia Localizada`,
+            density: `Condensación densa (Objeto)`,
+            iface: `Curvatura gravitacional local`
+          },
+          neural: {
+            regime: `Campo Neuronal Activo`,
+            density: `Patrón de interferencia`,
+            iface: `Proyección perceptual activa`
+          },
+          unified: {
+            regime: `Alta Neurosintergia`,
+            density: `Fluidez transparente expandida`,
+            iface: `Alineación coherente total`
+          }
+        };
+
+        const info = modeMap[latticeState.mode] || modeMap.pure;
+        const effectiveSynergy = Math.max(0.05, Math.min(0.99, s - (latticeState.mode === 'matter' ? d * 0.45 : 0) + (latticeState.mode === 'unified' ? 0.2 : 0)));
+
+        if (regimeEl) regimeEl.textContent = info.regime;
+        if (indexEl) indexEl.textContent = `${effectiveSynergy.toFixed(2)} S`;
+        if (densityEl) densityEl.textContent = info.density;
+        if (ifaceEl) ifaceEl.textContent = info.iface;
+      }
+
+      window.setLatticeMode = function setLatticeMode(mode) {
+        latticeState.mode = mode;
+        const buttons = ['pure', 'matter', 'neural', 'unified'];
+        buttons.forEach(function (m) {
+          const btn = document.getElementById('lat-btn-' + m);
+          if (btn) btn.classList.toggle('is-active', m === mode);
+        });
+
+        const synSlider = document.getElementById('slider-synergy');
+        const distSlider = document.getElementById('slider-distortion');
+        const synVal = document.getElementById('val-synergy');
+        const distVal = document.getElementById('val-distortion');
+
+        if (mode === 'pure') {
+          latticeState.synergy = 0.92;
+          latticeState.distortion = 0.20;
+        } else if (mode === 'matter') {
+          latticeState.synergy = 0.28;
+          latticeState.distortion = 0.85;
+        } else if (mode === 'neural') {
+          latticeState.synergy = 0.62;
+          latticeState.distortion = 0.65;
+        } else if (mode === 'unified') {
+          latticeState.synergy = 0.96;
+          latticeState.distortion = 0.45;
+        }
+
+        if (synSlider) synSlider.value = Math.round(latticeState.synergy * 100);
+        if (distSlider) distSlider.value = Math.round(latticeState.distortion * 100);
+        if (synVal) synVal.textContent = `${Math.round(latticeState.synergy * 100)}%`;
+        if (distVal) distVal.textContent = `${Math.round(latticeState.distortion * 100)}%`;
+
+        updateLatticeTelemetry();
+      };
+
+      window.updateLatticeSynergy = function updateLatticeSynergy(val) {
+        const num = Number(val);
+        latticeState.synergy = num / 100;
+        const label = document.getElementById('val-synergy');
+        if (label) label.textContent = `${num}%`;
+        updateLatticeTelemetry();
+      };
+
+      window.updateLatticeDistortion = function updateLatticeDistortion(val) {
+        const num = Number(val);
+        latticeState.distortion = num / 100;
+        const label = document.getElementById('val-distortion');
+        if (label) label.textContent = `${num}%`;
+        updateLatticeTelemetry();
+      };
+
+      const latCanvas = document.getElementById('lattice-canvas');
+      if (latCanvas) {
+        latCanvas.addEventListener('pointermove', function (e) {
+          const rect = latCanvas.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            latticeState.pointerX = Math.max(0.1, Math.min(0.9, (e.clientX - rect.left) / rect.width));
+            latticeState.pointerY = Math.max(0.1, Math.min(0.9, (e.clientY - rect.top) / rect.height));
+          }
+        });
+        latCanvas.addEventListener('pointerdown', function (e) {
+          const rect = latCanvas.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            const nx = (e.clientX - rect.left) / rect.width;
+            const ny = (e.clientY - rect.top) / rect.height;
+            latticeState.pointerX = nx;
+            latticeState.pointerY = ny;
+            latticeState.ripples.push({ x: nx, y: ny, age: 0 });
+            if (latticeState.ripples.length > 5) latticeState.ripples.shift();
+          }
+        });
+      }
+
+      function drawLattice(ctx, w, h) {
+        ctx.clearRect(0, 0, w, h);
+
+        // Subtle starfield background
+        ctx.fillStyle = PALETTE.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        const cols = 22;
+        const rows = 15;
+        const fx = (latticeState.pointerX - 0.5) * 2;
+        const fy = (latticeState.pointerY - 0.5) * 2;
+        const t = latticeState.time;
+        const syn = latticeState.synergy;
+        const dist = latticeState.distortion;
+
+        // Compute 3D projected points
+        const pts = [];
+        for (let r = 0; r <= rows; r++) {
+          const rowArr = [];
+          const v = (r / rows) * 2 - 1; // -1 to 1
+          for (let c = 0; c <= cols; c++) {
+            const u = (c / cols) * 2 - 1; // -1 to 1
+            const dx = u - fx * 0.8;
+            const dy = v - fy * 0.7;
+            const d2 = dx * dx + dy * dy;
+            const rDist = Math.sqrt(d2);
+
+            let z = 0;
+            let energy = 0;
+
+            if (latticeState.mode === 'pure') {
+              z = Math.sin(u * 3 + t * 1.1) * Math.cos(v * 3 + t * 0.9) * 0.06 * (1.1 - syn * 0.8);
+              energy = Math.exp(-d2 * 3.5) * 0.35;
+            } else if (latticeState.mode === 'matter') {
+              // Deep gravity/low-syntergy well
+              const well = -Math.exp(-d2 * 5.2) * (0.45 + dist * 0.65);
+              const noise = Math.sin(u * 11 + t * 2) * Math.cos(v * 11 - t * 1.5) * 0.05 * (1 - syn * 0.6);
+              z = well + noise;
+              energy = Math.exp(-d2 * 5.0);
+            } else if (latticeState.mode === 'neural') {
+              // Concentric standing interference ripples from neuronal field
+              const wave = Math.sin(rDist * 14 - t * 3.4) * Math.exp(-rDist * 1.7) * (0.18 + dist * 0.25);
+              z = wave;
+              energy = Math.abs(Math.sin(rDist * 14 - t * 3.4)) * Math.exp(-rDist * 1.5);
+            } else {
+              // Unified high neurosyntergy harmonic lattice
+              const harmonic = Math.cos(rDist * 9 - t * 2.2) * 0.14 * (0.4 + dist * 0.4) * Math.exp(-rDist * 0.6);
+              z = harmonic + Math.sin(u * 4 + t) * 0.04;
+              energy = Math.exp(-d2 * 1.3) * 0.9;
+            }
+
+            // Click ripples
+            for (let k = 0; k < latticeState.ripples.length; k++) {
+              const rp = latticeState.ripples[k];
+              const rx = u - (rp.x - 0.5) * 1.8;
+              const ry = v - (rp.y - 0.5) * 1.6;
+              const rd = Math.sqrt(rx * rx + ry * ry);
+              const ring = Math.exp(-Math.pow(rd - rp.age * 1.3, 2) * 28) * Math.max(0, 1 - rp.age * 0.55);
+              z += ring * 0.22;
+              energy = Math.min(1, energy + ring * 0.9);
+            }
+
+            // Perspective projection
+            const tiltY = v * 0.78;
+            const depth = 2.6 + tiltY * 0.85;
+            const scale = (Math.min(w, h) * 1.12) / depth;
+            const sx = w * 0.5 + u * scale * 1.15;
+            const sy = h * 0.54 + (tiltY * 0.52 - z * 0.85) * scale;
+
+            rowArr.push({ x: sx, y: sy, z: z, energy: energy, rDist: rDist });
+          }
+          pts.push(rowArr);
+        }
+
+        // Draw grid lines
+        ctx.lineWidth = 1;
+        for (let r = 0; r <= rows; r++) {
+          for (let c = 0; c <= cols; c++) {
+            const p = pts[r][c];
+            if (c < cols) {
+              const pRight = pts[r][c + 1];
+              const avgE = (p.energy + pRight.energy) * 0.5;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(pRight.x, pRight.y);
+              if (latticeState.mode === 'matter' && avgE > 0.35) {
+                ctx.strokeStyle = PALETTE.coral;
+                ctx.globalAlpha = 0.28 + avgE * 0.65;
+              } else if (latticeState.mode === 'unified' || avgE > 0.45) {
+                ctx.strokeStyle = avgE > 0.55 ? PALETTE.gold : PALETTE.cyan;
+                ctx.globalAlpha = 0.25 + avgE * 0.7;
+              } else {
+                ctx.strokeStyle = PALETTE.cyan;
+                ctx.globalAlpha = 0.16 + syn * 0.24 + avgE * 0.45;
+              }
+              ctx.stroke();
+            }
+            if (r < rows) {
+              const pDown = pts[r + 1][c];
+              const avgE = (p.energy + pDown.energy) * 0.5;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(pDown.x, pDown.y);
+              if (latticeState.mode === 'matter' && avgE > 0.35) {
+                ctx.strokeStyle = PALETTE.coral;
+                ctx.globalAlpha = 0.25 + avgE * 0.6;
+              } else {
+                ctx.strokeStyle = avgE > 0.5 ? PALETTE.gold : PALETTE.cyan;
+                ctx.globalAlpha = 0.14 + syn * 0.22 + avgE * 0.42;
+              }
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw focal node (Neuronal Field / Matter core)
+        const focalX = w * 0.5 + fx * 0.8 * (Math.min(w, h) * 0.42);
+        const focalY = h * 0.54 + fy * 0.7 * (Math.min(w, h) * 0.22);
+        ctx.globalAlpha = 1;
+
+        const glowRadius = latticeState.mode === 'unified' ? 95 : 64;
+        const grad = ctx.createRadialGradient(focalX, focalY, 2, focalX, focalY, glowRadius);
+        if (latticeState.mode === 'matter') {
+          grad.addColorStop(0, 'rgba(224, 122, 95, 0.75)');
+          grad.addColorStop(0.5, 'rgba(224, 122, 95, 0.18)');
+          grad.addColorStop(1, 'rgba(10, 16, 29, 0)');
+        } else if (latticeState.mode === 'unified' || latticeState.mode === 'neural') {
+          grad.addColorStop(0, 'rgba(223, 170, 91, 0.85)');
+          grad.addColorStop(0.45, 'rgba(102, 211, 232, 0.25)');
+          grad.addColorStop(1, 'rgba(10, 16, 29, 0)');
+        } else {
+          grad.addColorStop(0, 'rgba(102, 211, 232, 0.45)');
+          grad.addColorStop(1, 'rgba(10, 16, 29, 0)');
+        }
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(focalX, focalY, glowRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Central dot
+        ctx.fillStyle = latticeState.mode === 'matter' ? PALETTE.coral : PALETTE.gold;
+        ctx.beginPath();
+        ctx.arc(focalX, focalY, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Label badge inside canvas
+        ctx.font = '500 11px "JetBrains Mono", monospace';
+        ctx.fillStyle = PALETTE.muted;
+        const caption = latticeState.mode === 'matter'
+          ? `DISTORSIÓN LOCAL · BAJA SINTERGIA (MATERIA DENSA)`
+          : latticeState.mode === 'neural'
+            ? `INTERFAZ · CAMPO NEURONAL ↔ LATTICE`
+            : latticeState.mode === 'unified'
+              ? `COHERENCIA UNIFICADA · ALTA NEUROSINTERGIA`
+              : `MATRIZ BASE · ALTA SINTERGIA (TRANSPARENTE)`;
+        ctx.fillText(caption, 16, 24);
+      }
+
+      // ============================================================
+      // 2. NEUROSINTERGIA & 7 HZ COHERENCE OSCILLOSCOPE
+      // ============================================================
+      const cohState = {
+        preset: 'schumann',
+        sync: 0.92,
+        freqHz: 7.3,
+        phase: 0
+      };
+
+      function updateCoherenceTelemetry() {
+        const modeEl = document.getElementById('coh-stat-mode');
+        const ampEl = document.getElementById('coh-stat-amp');
+        const ventEl = document.getElementById('coh-stat-ventricle');
+        const planetEl = document.getElementById('coh-stat-planet');
+        const schumannBadge = document.getElementById('schumann-lock-badge');
+
+        const inSchumann = cohState.freqHz >= 6.8 && cohState.freqHz <= 7.5 && cohState.sync >= 0.65;
+
+        if (modeEl) {
+          if (cohState.sync >= 0.8 && inSchumann) modeEl.textContent = `Coherencia Tipo Láser`;
+          else if (cohState.sync >= 0.65) modeEl.textContent = `Sincronización Hemisférica`;
+          else modeEl.textContent = `Dispersión Beta Asimétrica`;
+        }
+        if (ampEl) {
+          const amp = (1 + cohState.sync * 2.0 * (inSchumann ? 1.0 : 0.7)).toFixed(1);
+          ampEl.textContent = `${amp}× Onda Base`;
+        }
+        if (ventEl) {
+          const mm = (0.002 + cohState.sync * 0.008).toFixed(3);
+          ventEl.textContent = `${mm} mm`;
+        }
+        if (planetEl) {
+          planetEl.textContent = inSchumann ? `~40,000 km (1/7 seg)` : `Desacoplada (Local)`;
+        }
+        if (schumannBadge) {
+          if (inSchumann) {
+            schumannBadge.textContent = `Acoplamiento Schumann Activo (6.8–7.5 Hz)`;
+            schumannBadge.className = 'badge badge-mint';
+          } else if (cohState.freqHz >= 6.8 && cohState.freqHz <= 7.5) {
+            schumannBadge.textContent = `Banda 7 Hz · Requiere Mayor Sincronía`;
+            schumannBadge.className = 'badge badge-brass';
+          } else {
+            schumannBadge.textContent = `Fuera de Banda Schumann (${cohState.freqHz.toFixed(1)} Hz)`;
+            schumannBadge.className = 'badge';
+          }
+        }
+      }
+
+      window.setCoherencePreset = function setCoherencePreset(preset) {
+        cohState.preset = preset;
+        ['beta', 'hemisync', 'schumann'].forEach(function (p) {
+          const btn = document.getElementById('coh-btn-' + p);
+          if (btn) btn.classList.toggle('is-active', p === preset);
+        });
+
+        if (preset === 'beta') {
+          cohState.sync = 0.22;
+          cohState.freqHz = 18.5;
+        } else if (preset === 'hemisync') {
+          cohState.sync = 0.78;
+          cohState.freqHz = 9.8;
+        } else {
+          cohState.sync = 0.92;
+          cohState.freqHz = 7.3;
+        }
+
+        const sSlider = document.getElementById('slider-hemisphere-sync');
+        const fSlider = document.getElementById('slider-freq-hz');
+        const sVal = document.getElementById('val-hemisphere-sync');
+        const fVal = document.getElementById('val-freq-hz');
+        if (sSlider) sSlider.value = Math.round(cohState.sync * 100);
+        if (fSlider) fSlider.value = cohState.freqHz;
+        if (sVal) sVal.textContent = `${Math.round(cohState.sync * 100)}%`;
+        if (fVal) fVal.textContent = `${cohState.freqHz.toFixed(1)} Hz`;
+
+        updateCoherenceTelemetry();
+      };
+
+      window.updateCoherenceSync = function updateCoherenceSync(val) {
+        const num = Number(val);
+        cohState.sync = num / 100;
+        const label = document.getElementById('val-hemisphere-sync');
+        if (label) label.textContent = `${num}%`;
+        updateCoherenceTelemetry();
+      };
+
+      window.updateCoherenceFreq = function updateCoherenceFreq(val) {
+        const num = Number(val);
+        cohState.freqHz = num;
+        const label = document.getElementById('val-freq-hz');
+        if (label) label.textContent = `${num.toFixed(1)} Hz`;
+        updateCoherenceTelemetry();
+      };
+
+      function drawCoherence(ctx, w, h) {
+        ctx.fillStyle = PALETTE.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Subtle gridlines
+        ctx.strokeStyle = PALETTE.outlineVar;
+        ctx.lineWidth = 1;
+        for (let i = 1; i < 4; i++) {
+          const y = (h / 4) * i;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+
+        const midY = h * 0.52;
+        const sync = cohState.sync;
+        const freq = cohState.freqHz;
+        const phaseShift = (1 - sync) * 2.4;
+        const jitterAmp = (1 - sync) * 18;
+        const baseAmp = h * 0.16;
+        const cycles = 1.6 + (freq / 22) * 5.2;
+
+        // Draw Left Hemisphere (Cyan)
+        ctx.beginPath();
+        ctx.strokeStyle = PALETTE.cyan;
+        ctx.lineWidth = 1.8;
+        for (let x = 0; x <= w; x += 3) {
+          const nx = (x / w) * Math.PI * 2 * cycles;
+          const jitter = Math.sin(nx * 2.7 + cohState.phase * 1.9) * jitterAmp * 0.6;
+          const y = midY + Math.sin(nx - cohState.phase) * baseAmp + jitter;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Draw Right Hemisphere (Gold)
+        ctx.beginPath();
+        ctx.strokeStyle = PALETTE.gold;
+        ctx.lineWidth = 1.8;
+        for (let x = 0; x <= w; x += 3) {
+          const nx = (x / w) * Math.PI * 2 * cycles;
+          const jitter = Math.cos(nx * 3.1 - cohState.phase * 1.7) * jitterAmp * 0.7;
+          const y = midY + Math.sin(nx - cohState.phase + phaseShift) * (baseAmp * (0.72 + sync * 0.28)) + jitter;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Draw Resultant Unified Wave (Mint)
+        const resAmp = baseAmp * (0.55 + sync * 1.05);
+        ctx.beginPath();
+        ctx.strokeStyle = PALETTE.mint;
+        ctx.lineWidth = 2.4;
+        for (let x = 0; x <= w; x += 3) {
+          const nx = (x / w) * Math.PI * 2 * cycles;
+          const left = Math.sin(nx - cohState.phase);
+          const right = Math.sin(nx - cohState.phase + phaseShift);
+          const avg = (left + right) * 0.5;
+          const y = midY + avg * resAmp;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Mark OFF points (peaks/troughs where pendulum velocity = 0) when sync is moderate/high
+        const currentSin = Math.sin(-cohState.phase);
+        const currentVel = Math.abs(Math.cos(-cohState.phase));
+        const isOffMoment = currentVel < (0.18 + sync * 0.18) && sync > 0.45;
+
+        const lampOn = document.getElementById('lamp-on');
+        const lampOff = document.getElementById('lamp-off');
+        if (lampOn && lampOff) {
+          lampOn.classList.toggle('is-on', !isOffMoment);
+          lampOff.classList.toggle('is-off-state', isOffMoment);
+        }
+
+        // Draw Pendulum indicator on right edge
+        const pendX = w - 44;
+        const pendTop = 36;
+        const pendBottom = h - 36;
+        const pendSpan = (pendBottom - pendTop) * 0.42;
+        const pendY = (pendTop + pendBottom) * 0.5 + currentSin * pendSpan;
+
+        ctx.strokeStyle = PALETTE.outline;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pendX, pendTop);
+        ctx.lineTo(pendX, pendBottom);
+        ctx.stroke();
+
+        ctx.fillStyle = isOffMoment ? PALETTE.gold : PALETTE.cyan;
+        ctx.beginPath();
+        ctx.arc(pendX, pendY, isOffMoment ? 8 : 5.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Legend inside canvas
+        ctx.font = '500 11px "JetBrains Mono", monospace';
+        ctx.fillStyle = PALETTE.cyan;
+        ctx.fillText(`— HEMISFERIO IZQ.`, 16, 24);
+        ctx.fillStyle = PALETTE.gold;
+        ctx.fillText(`— HEMISFERIO DER.`, 156, 24);
+        ctx.fillStyle = PALETTE.mint;
+        ctx.fillText(`— ONDA RESULTANTE (SINTERGIA)`, 296, 24);
+        ctx.fillStyle = PALETTE.muted;
+        ctx.fillText(`PÉNDULO`, w - 70, 24);
+      }
+
+      // ============================================================
+      // 3. BENTOV CLOCK / OBSERVER TIME EXPERIMENT
+      // ============================================================
+      const clockState = {
+        mode: 'agitated', // agitated | off
+        objAngle: 0,
+        subjAngle: 0
+      };
+
+      window.setClockState = function setClockState(mode) {
+        clockState.mode = mode;
+        const btnAg = document.getElementById('clk-btn-agitated');
+        const btnOff = document.getElementById('clk-btn-off');
+        if (btnAg) btnAg.classList.toggle('is-active', mode === 'agitated');
+        if (btnOff) btnOff.classList.toggle('is-active', mode === 'off');
+
+        const subjEl = document.getElementById('clk-stat-subj');
+        if (subjEl) {
+          subjEl.textContent = mode === 'off'
+            ? `Dilatada · Pausa del Observador`
+            : `Acelerada · Fragmentada`;
+        }
+      };
+
+      function drawClock(ctx, w, h) {
+        ctx.fillStyle = PALETTE.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        const cx1 = w * 0.28;
+        const cx2 = w * 0.72;
+        const cy = h * 0.52;
+        const r = Math.min(w * 0.19, h * 0.34);
+
+        function drawDial(cx, angle, label, sub, color) {
+          ctx.strokeStyle = PALETTE.outline;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // Ticks
+          for (let i = 0; i < 12; i++) {
+            const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
+            const x1 = cx + Math.cos(a) * (r - 6);
+            const y1 = cy + Math.sin(a) * (r - 6);
+            const x2 = cx + Math.cos(a) * r;
+            const y2 = cy + Math.sin(a) * r;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          }
+
+          // Hand
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 2.4;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx + Math.cos(angle - Math.PI / 2) * (r * 0.82), cy + Math.sin(angle - Math.PI / 2) * (r * 0.82));
+          ctx.stroke();
+
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.font = '500 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = PALETTE.onSurface;
+          ctx.textAlign = 'center';
+          ctx.fillText(label, cx, cy - r - 14);
+          ctx.fillStyle = PALETTE.muted;
+          ctx.fillText(sub, cx, cy + r + 20);
+        }
+
+        drawDial(cx1, clockState.objAngle, `RELOJ OBJETIVO`, `60 seg / min constantes`, PALETTE.cyan);
+        const subjSub = clockState.mode === 'off' ? `Pausa atemporal (momento OFF)` : `Mente hiperactiva acelerada`;
+        drawDial(cx2, clockState.subjAngle, `TIEMPO SUBJETIVO`, subjSub, PALETTE.gold);
+        ctx.textAlign = 'left';
+      }
+
+      // ============================================================
+      // 4. TOROID & FUTURE ATTRACTOR SCHEMATIC
+      // ============================================================
+      const toroidState = {
+        phase: 'alpha',
+        t: 0
+      };
+
+      const TOROID_INFO = {
+        alpha: {
+          tag: `Fase Activa · Polo Alpha (Agujero Blanco)`,
+          text: `Para Bentov, la explosión inicial no ocurrió una sola vez en la nada, sino como un chorro continuo en el núcleo del toroide que impulsa la banda transportadora evolutiva hacia afuera.`
+        },
+        envelope: {
+          tag: `Fase Activa · Envolvente Espacio-Tiempo`,
+          text: `A lo largo de la piel del toroide, la materia y los sistemas nerviosos evolucionan por saltos armónicos. Cada partícula irradia ondas informacionales hacia el interior hueco.`
+        },
+        omega: {
+          tag: `Fase Activa · Polo Omega (Atractor Futuro)`,
+          text: `Grinberg describió el atractor extraño del futuro ideal como un imán retrocausal de máxima coherencia; sus señales llegan al Observador en forma de sincronicidades.`
+        },
+        center: {
+          tag: `Fase Activa · Eje Central (Mente Universal)`,
+          text: `La luz ordinaria queda confinada a la curvatura exterior y no cruza el protoespacio central, pero las ondas de información y la psique convergen allí formando un holograma total.`
+        }
+      };
+
+      window.selectToroidPhase = function selectToroidPhase(phase) {
+        toroidState.phase = phase;
+        ['alpha', 'envelope', 'omega', 'center'].forEach(function (p) {
+          const btn = document.getElementById('tor-btn-' + p);
+          if (btn) btn.classList.toggle('is-active', p === phase);
+        });
+        const info = TOROID_INFO[phase] || TOROID_INFO.alpha;
+        const tagEl = document.getElementById('toroid-detail-tag');
+        const textEl = document.getElementById('toroid-detail-text');
+        if (tagEl) tagEl.textContent = info.tag;
+        if (textEl) textEl.textContent = info.text;
+      };
+
+      function drawToroid(ctx, w, h) {
+        ctx.fillStyle = PALETTE.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        const cx = w * 0.5;
+        const cy = h * 0.5;
+        const rx = Math.min(w * 0.34, 175);
+        const ry = Math.min(h * 0.36, 130);
+        const t = toroidState.t;
+
+        // Outer meridian loops (left and right lobes of elongated toroid)
+        [-1, 1].forEach(function (side) {
+          ctx.beginPath();
+          ctx.ellipse(cx + side * (rx * 0.46), cy, rx * 0.48, ry, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = toroidState.phase === 'envelope' ? PALETTE.cyan : PALETTE.outline;
+          ctx.lineWidth = toroidState.phase === 'envelope' ? 2.2 : 1.4;
+          ctx.stroke();
+
+          // Inner nested flow rings
+          ctx.beginPath();
+          ctx.ellipse(cx + side * (rx * 0.44), cy, rx * 0.28, ry * 0.62, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = PALETTE.outlineVar;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        });
+
+        // Central axis (Protoespacio / Mente Universal)
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - ry * 1.15);
+        ctx.lineTo(cx, cy + ry * 1.15);
+        ctx.strokeStyle = toroidState.phase === 'center' ? PALETTE.mint : PALETTE.gold;
+        ctx.lineWidth = toroidState.phase === 'center' ? 3 : 1.5;
+        ctx.setLineDash([5, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Animated flow particles along poloidal trajectory
+        const count = 14;
+        for (let i = 0; i < count; i++) {
+          const u = ((i / count) + t * 0.14) % 1;
+          const angle = u * Math.PI * 2 - Math.PI / 2;
+          [-1, 1].forEach(function (side) {
+            const px = cx + side * (rx * 0.46) + Math.cos(angle) * (rx * 0.48) * -side;
+            const py = cy + Math.sin(angle) * ry;
+            ctx.fillStyle = Math.sin(angle) < 0 ? PALETTE.cyan : PALETTE.gold;
+            ctx.beginPath();
+            ctx.arc(px, py, 3, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        }
+
+        // Alpha Pole (Top - White Hole)
+        const alphaY = cy - ry * 0.92;
+        ctx.fillStyle = toroidState.phase === 'alpha' ? PALETTE.cyan : PALETTE.surface;
+        ctx.strokeStyle = PALETTE.cyan;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, alphaY, toroidState.phase === 'alpha' ? 11 : 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Omega Pole (Bottom - Black Hole / Future Attractor)
+        const omegaY = cy + ry * 0.92;
+        ctx.fillStyle = toroidState.phase === 'omega' ? PALETTE.gold : PALETTE.surface;
+        ctx.strokeStyle = PALETTE.gold;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, omegaY, toroidState.phase === 'omega' ? 11 : 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Center Hologram node
+        ctx.fillStyle = toroidState.phase === 'center' ? PALETTE.mint : PALETTE.outline;
+        ctx.beginPath();
+        ctx.arc(cx, cy, toroidState.phase === 'center' ? 9 : 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Labels
+        ctx.font = '500 11px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = PALETTE.cyan;
+        ctx.fillText(`POLO ALPHA (A) · AGUJERO BLANCO`, cx, alphaY - 18);
+        ctx.fillStyle = PALETTE.gold;
+        ctx.fillText(`POLO OMEGA (Ω) · ATRACTOR FUTURO`, cx, omegaY + 26);
+        ctx.fillStyle = PALETTE.mint;
+        ctx.fillText(`MENTE UNIVERSAL`, cx, cy - 12);
+        ctx.textAlign = 'left';
+      }
+
+      // ============================================================
+      // 5. FARADAY CAGES / TRANSFERRED POTENTIAL EXPERIMENT
+      // ============================================================
+      const faradayState = {
+        bonded: true,
+        flashAge: 99,
+        historyA: [],
+        historyB: [],
+        time: 0
+      };
+
+      for (let i = 0; i < 140; i++) {
+        faradayState.historyA.push(0);
+        faradayState.historyB.push(0);
+      }
+
+      window.setFaradayBond = function setFaradayBond(bonded) {
+        faradayState.bonded = bonded;
+        const bBtn = document.getElementById('far-btn-bonded');
+        const uBtn = document.getElementById('far-btn-unbonded');
+        if (bBtn) bBtn.classList.toggle('is-active', bonded);
+        if (uBtn) uBtn.classList.toggle('is-active', !bonded);
+
+        const condEl = document.getElementById('far-stat-cond');
+        if (condEl) {
+          condEl.textContent = bonded ? `Sintonía No Verbal (20 min)` : `Control Sin Vínculo Previo`;
+        }
+      };
+
+      window.triggerFaradayFlash = function triggerFaradayFlash() {
+        faradayState.flashAge = 0;
+        const statA = document.getElementById('far-stat-a');
+        const statB = document.getElementById('far-stat-b');
+        if (statA) statA.textContent = `Potencial Evocado P100 (+18 µV)`;
+        if (statB) {
+          statB.textContent = faradayState.bonded
+            ? `Deflexión Correlacionada (~+6 µV)`
+            : `Sin correlación significativa (Ruido basal)`;
+        }
+      };
+
+      function stepFaraday() {
+        faradayState.time += 0.12;
+        faradayState.flashAge += 0.08;
+
+        const baseNoiseA = (Math.sin(faradayState.time * 2.1) + Math.cos(faradayState.time * 4.7)) * 0.07;
+        const baseNoiseB = (Math.cos(faradayState.time * 2.3) + Math.sin(faradayState.time * 5.1)) * 0.07;
+
+        let spikeA = 0;
+        let spikeB = 0;
+        if (faradayState.flashAge < 2.2) {
+          const x = faradayState.flashAge;
+          spikeA = Math.exp(-Math.pow((x - 0.35) * 4.5, 2)) * 0.9 - Math.exp(-Math.pow((x - 0.65) * 4.0, 2)) * 0.45;
+          if (faradayState.bonded) {
+            spikeB = Math.exp(-Math.pow((x - 0.38) * 4.2, 2)) * 0.42 - Math.exp(-Math.pow((x - 0.68) * 3.8, 2)) * 0.2;
+          }
+        }
+
+        faradayState.historyA.push(baseNoiseA + spikeA);
+        faradayState.historyB.push(baseNoiseB + spikeB);
+        if (faradayState.historyA.length > 140) faradayState.historyA.shift();
+        if (faradayState.historyB.length > 140) faradayState.historyB.shift();
+      }
+
+      function drawFaraday(ctx, w, h) {
+        ctx.fillStyle = PALETTE.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        const pad = 18;
+        const gap = 22;
+        const boxW = (w - pad * 2 - gap) * 0.5;
+        const boxH = h - pad * 2;
+
+        function drawChamber(x, title, sub, history, color, isFlashing) {
+          // Faraday Cage double border
+          ctx.strokeStyle = PALETTE.outline;
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(x, pad, boxW, boxH);
+          ctx.strokeStyle = PALETTE.outlineVar;
+          ctx.setLineDash([4, 3]);
+          ctx.strokeRect(x + 5, pad + 5, boxW - 10, boxH - 10);
+          ctx.setLineDash([]);
+
+          // Flash glow inside Chamber A
+          if (isFlashing) {
+            ctx.fillStyle = 'rgba(223, 170, 91, 0.16)';
+            ctx.fillRect(x + 6, pad + 6, boxW - 12, boxH - 12);
+          }
+
+          ctx.font = '500 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = color;
+          ctx.fillText(title, x + 16, pad + 26);
+          ctx.fillStyle = PALETTE.muted;
+          ctx.fillText(sub, x + 16, pad + 44);
+
+          // Baseline
+          const baseY = pad + boxH * 0.65;
+          ctx.strokeStyle = PALETTE.outlineVar;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x + 14, baseY);
+          ctx.lineTo(x + boxW - 14, baseY);
+          ctx.stroke();
+
+          // EEG Trace
+          ctx.beginPath();
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 2;
+          const traceW = boxW - 28;
+          for (let i = 0; i < history.length; i++) {
+            const px = x + 14 + (i / (history.length - 1)) * traceW;
+            const py = baseY - history[i] * (boxH * 0.28);
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+        }
+
+        const isFlashing = faradayState.flashAge < 0.55;
+        drawChamber(pad, `CÁMARA FARADAY A · SUJETO EMISOR`, `Recibe destellos luminosos`, faradayState.historyA, PALETTE.gold, isFlashing);
+        drawChamber(pad + boxW + gap, `CÁMARA FARADAY B · SUJETO AISLADO`, `Oscuridad y silencio total`, faradayState.historyB, PALETTE.cyan, false);
+
+        // Non-local connection bridge in Lattice
+        if (faradayState.bonded) {
+          const midX = w * 0.5;
+          const midY = h * 0.5;
+          ctx.fillStyle = PALETTE.mint;
+          ctx.beginPath();
+          ctx.arc(midX, midY, faradayState.flashAge < 1.2 ? 6 : 3.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // ============================================================
+      // 6. COMPARATOR MATRIX (GRINBERG vs BENTOV)
+      // ============================================================
+      const COMPARATOR_DATA = [
+        {
+          id: `substrate`,
+          category: `space`,
+          catLabel: `Espacio y Materia`,
+          title: `Sustrato Fundamental`,
+          grinberg: `La Lattice: matriz energética e informacional hipercoherente (alta sintergia), transparente y carente de tiempo o gravedad en estado puro.`,
+          bentov: `El Absoluto y la Mente Universal: trasfondo inmóvil y atemporal de energía potencial pura donde se imprime un holograma 4D de información.`,
+          synthesis: `Ambos sustituyen el "espacio vacío" mecanicista por un campo holográfico unificado donde cada porción contiene información de la totalidad.`
+        },
+        {
+          id: `matter`,
+          category: `space`,
+          catLabel: `Espacio y Materia`,
+          title: `Naturaleza de la Materia Sólida`,
+          grinberg: `Zonas de baja sintergia: distorsiones densas o menor organización en la Lattice que la percepción traduce como objetos sólidos.`,
+          bentov: `Redes de energía oscilante mayormente vacías; la solidez surge por repulsión eléctrica entre átomos que parpadean en ciclos ON/OFF.`,
+          synthesis: `La materia deja de ser sustancia rígida para entenderse como patrón local de vibración o gradiente de coherencia dentro del campo.`
+        },
+        {
+          id: `brain`,
+          category: `brain`,
+          catLabel: `Mente y Cerebro`,
+          title: `Función del Cerebro`,
+          grinberg: `Decodificador y proyector: genera el Campo Neuronal que choca con la Lattice, traduciendo energía externa en luz, calor y forma.`,
+          bentov: `Receptor, amplificador y comparador binario (como una radio): capta frecuencias sutiles de la Mente Universal y las contrasta con la memoria.`,
+          synthesis: `Ninguno ubica la conciencia "encerrada" en las neuronas; el cerebro actúa como interfaz o transductor bidireccional entre cuerpo y campo.`
+        },
+        {
+          id: `coherence`,
+          category: `brain`,
+          catLabel: `Mente y Cerebro`,
+          title: `Unificación y Coherencia`,
+          grinberg: `Alta Neurosintergia: sincronización interhemisférica (autoalusiva o Satanama) que transforma la señal neuronal dispersa en un campo capaz de modular la Lattice.`,
+          bentov: `Resonancia de ~7 Hz (6.8–7.5 Hz): onda sinusoidal cardíaca que vibra el tercer ventrículo (0.005–0.010 mm), sincroniza los hemisferios (Hemi-Sync) y acopla con la ionosfera.`,
+          synthesis: `El láser cerebral de alta coherencia: cuando ambos hemisferios igualan fase y amplitud, el organismo entra en resonancia con la matriz planetaria y cósmica.`
+        },
+        {
+          id: `quiet`,
+          category: `quiet`,
+          catLabel: `Quietud y Tiempo`,
+          title: `El Testigo y la Pausa`,
+          grinberg: `El Observador y la Meditación Autoalusiva: testigo silencioso que observa sin juzgar hasta fundirse con lo observado.`,
+          bentov: `Los "Momentos OFF" del péndulo: microinstantes de velocidad cero entre oscilaciones donde la conciencia sale del tiempo lineal.`,
+          synthesis: `Detener la identificación con el pensamiento abre una ventana atemporal donde se disuelve la separación sujeto–objeto y se dilata el tiempo subjetivo.`
+        },
+        {
+          id: `evolution`,
+          category: `evo`,
+          catLabel: `Evolución y Campo`,
+          title: `Dirección Evolutiva`,
+          grinberg: `El Atractor Extraño del Futuro Ideal: una señal desde el futuro de mayor coherencia que atrae al Observador y se manifiesta como sincronicidades.`,
+          bentov: `La Banda Transportadora Evolutiva y el Toroide Cósmico: espiral ascendente desde la radiación del agujero blanco hacia estados de conciencia más amplios.`,
+          synthesis: `La evolución no es mero azar ciego, sino un proceso teleológico y sintrópico guiado por un polo de coherencia superior.`
+        },
+        {
+          id: `nonlocality`,
+          category: `evo`,
+          catLabel: `Evolución y Campo`,
+          title: `No-Localidad e Interconexión`,
+          grinberg: `El Potencial Transferido (1994): intento experimental en cámaras de Faraday de medir correlación EEG instantánea tipo EPR tras vínculo silencioso.`,
+          bentov: `Onda planetaria de ~40,000 km a 7.5 Hz que rodea la Tierra en 1/7 de segundo y acoplamiento entre osciladores humanos como péndulos en la misma viga.`,
+          synthesis: `Las mentes coherentes no están aisladas en el cráneo; comparten un medio resonante común que abre vías de investigación sobre comunicación no local.`
+        }
+      ];
+
+      const cmpState = {
+        filter: 'all',
+        view: 'dual'
+      };
+
+      function renderComparator() {
+        const container = document.getElementById('comparator-cards');
+        if (!container) return;
+
+        const items = COMPARATOR_DATA.filter(function (item) {
+          return cmpState.filter === 'all' || item.category === cmpState.filter;
+        });
+
+        container.innerHTML = items.map(function (item) {
+          const synthHtml = cmpState.view === 'synthesis'
+            ? `<div class="compare-block compare-block-synthesis">
+                <span class="compare-tag" style="color: var(--positive);">Síntesis Convergente</span>
+                <p style="font-size: 0.94rem;">${item.synthesis}</p>
+              </div>`
+            : '';
+
+          return `
+            <article class="compare-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+                <span class="coord-label">${item.catLabel}</span>
+              </div>
+              <h3 class="subhead">${item.title}</h3>
+              <div class="compare-cols">
+                <div class="compare-block compare-block-grinberg">
+                  <span class="compare-tag" style="color: var(--tertiary);">Jacobo Grinberg · Teoría Sintérgica</span>
+                  <p class="muted" style="font-size: 0.94rem;">${item.grinberg}</p>
+                </div>
+                <div class="compare-block compare-block-bentov">
+                  <span class="compare-tag" style="color: var(--primary);">Itzhak Bentov · Modelo Biofísico</span>
+                  <p class="muted" style="font-size: 0.94rem;">${item.bentov}</p>
+                </div>
+                ${synthHtml}
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      window.filterComparator = function filterComparator(cat) {
+        cmpState.filter = cat;
+        ['all', 'space', 'brain', 'quiet', 'evo'].forEach(function (c) {
+          const btn = document.getElementById('cmp-filter-' + c);
+          if (btn) btn.classList.toggle('is-active', c === cat);
+        });
+        renderComparator();
+      };
+
+      window.setComparatorView = function setComparatorView(view) {
+        cmpState.view = view;
+        const dBtn = document.getElementById('cmp-view-dual');
+        const sBtn = document.getElementById('cmp-view-synthesis');
+        if (dBtn) dBtn.classList.toggle('is-active', view === 'dual');
+        if (sBtn) sBtn.classList.toggle('is-active', view === 'synthesis');
+        renderComparator();
+      };
+
+      // ============================================================
+      // CANVAS SIZE SYNC & SINGLE ANIMATION LOOP
+      // ============================================================
+      const canvases = [
+        { id: 'lattice-canvas', draw: drawLattice },
+        { id: 'coherence-canvas', draw: drawCoherence },
+        { id: 'clock-canvas', draw: drawClock },
+        { id: 'toroid-canvas', draw: drawToroid },
+        { id: 'faraday-canvas', draw: drawFaraday }
+      ];
+
+      function syncCanvasSize(canvas) {
+        if (!canvas) return null;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = canvas.clientWidth || canvas.offsetWidth || 600;
+        const h = canvas.clientHeight || canvas.offsetHeight || 340;
+        const targetW = Math.floor(w * dpr);
+        const targetH = Math.floor(h * dpr);
+        if (canvas.width !== targetW || canvas.height !== targetH) {
+          canvas.width = targetW;
+          canvas.height = targetH;
+        }
+        const ctx = canvas.getContext('2d');
+        if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx: ctx, w: w, h: h };
+      }
+
+      let animFrameId = null;
+      let frameTick = 0;
+
+      function mainLoop() {
+        frameTick += 1;
+        latticeState.time += 0.022;
+        for (let i = latticeState.ripples.length - 1; i >= 0; i--) {
+          latticeState.ripples[i].age += 0.028;
+          if (latticeState.ripples[i].age > 2.0) latticeState.ripples.splice(i, 1);
+        }
+
+        cohState.phase += 0.02 + (cohState.freqHz / 22) * 0.09;
+        toroidState.t += 0.018;
+
+        clockState.objAngle += 0.022;
+        clockState.subjAngle += clockState.mode === 'off' ? 0.004 : 0.052;
+
+        if (frameTick % 2 === 0) {
+          stepFaraday();
+        }
+
+        canvases.forEach(function (entry) {
+          const el = document.getElementById(entry.id);
+          if (!el) return;
+          const info = syncCanvasSize(el);
+          if (info && info.ctx) {
+            entry.draw(info.ctx, info.w, info.h);
+          }
+        });
+
+        if (!prefersReducedMotion) {
+          animFrameId = requestAnimationFrame(mainLoop);
+        }
+      }
+
+      // Scroll reveal observer
+      function initScrollReveal() {
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) return;
+        const sections = document.querySelectorAll('.reveal-section');
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('is-pending');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+
+        sections.forEach(function (sec) {
+          const rect = sec.getBoundingClientRect();
+          if (rect.top > window.innerHeight * 0.95) {
+            sec.classList.add('is-pending');
+            observer.observe(sec);
+          }
+        });
+      }
+
+      // Init on ready
+      updateLatticeTelemetry();
+      updateCoherenceTelemetry();
+      renderComparator();
+      initScrollReveal();
+
+      if (animFrameId !== null) cancelAnimationFrame(animFrameId);
+      mainLoop();
+    })();
+  </script>
+</body>
+</html>

@@ -1191,14 +1191,14 @@
     <section class="section-block reveal-on-scroll" id="mapa-ecosistema" aria-labelledby="map-title">
       <div class="section-header-row">
         <div class="section-header-text">
-          <p class="deck-brass">Cartografía conceptual · Cinco puertas de entrada</p>
+          <p class="deck-brass">Cartografía conceptual · Seis puertas de entrada</p>
           <h2 class="section-title" id="map-title">Mapa interactivo del ecosistema Bentov</h2>
           <p class="prose-body">
-            Selecciona cualquiera de los cinco módulos para visualizar cómo se entrelazan dentro de la arquitectura
+            Selecciona cualquiera de los seis módulos para visualizar cómo se entrelazan dentro de la arquitectura
             holográfica de Bentov y saltar directamente a su laboratorio interactivo.
           </p>
         </div>
-        <span class="badge">5 MÓDULOS INTERCONECTADOS</span>
+        <span class="badge">6 MÓDULOS INTERCONECTADOS</span>
       </div>
 
       <div class="ecosystem-layout">
@@ -1256,6 +1256,17 @@
             <h3>El Método Bentov de Manifestación</h3>
             <p>La Fórmula de 5 Pasos: pulso portador, respiración 6-6, gratitud cardíaca, láser mental y acción
               congruente.</p>
+          </button>
+
+          <button type="button" class="module-map-card" id="map-card-5" onclick="selectEcosystemNode(5)"
+            role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 06</span>
+              <span class="badge">Física Cuántica &amp; Psicofisiología</span>
+            </div>
+            <h3>Teoría Sintérgica y Campo Neuronal (Jacobo Grinberg &amp; Bentov)</h3>
+            <p>Cómo el cerebro decodifica la Lattice informacional del espacio, alta sintergia interhemisférica y
+              convergencia holográfica con Pribram y Bentov.</p>
           </button>
         </div>
 
@@ -1834,6 +1845,62 @@
       </div>
     </section>
 
+    <!-- MÓDULO 06: TEORÍA SINTÉRGICA Y CAMPO NEURONAL -->
+    <section class="section-block reveal-on-scroll" id="modulo-sintergica" aria-labelledby="sintergica-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 06 · Convergencia Grinberg, Pribram &amp; Bentov</p>
+          <h2 class="section-title" id="sintergica-title">Teoría Sintérgica y Campo Neuronal (Jacobo Grinberg &amp; Bentov)</h2>
+        </div>
+        <span class="badge">FÍSICA CUÁNTICA &amp; PSICOFISIOLOGÍA</span>
+      </div>
+
+      <div class="deep-module is-reversed">
+        <div class="panel">
+          <span class="coord-label">EXPLORADOR SINTÉRGICO · INTERACCIÓN LATTICE–CEREBRO</span>
+          <h3 class="subsection-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+            Del Campo Neuronal a la Alta Sintergia
+          </h3>
+
+          <div class="interactive-toolbar">
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectSintergicaNode(0, this)">La Lattice</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectSintergicaNode(1, this)">Campo Neuronal</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectSintergicaNode(2, this)">Alta Sintergia</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectSintergicaNode(3, this)">Hemi-Sync</button>
+          </div>
+
+          <div class="zone-readout" aria-live="polite" style="margin-top: 0;">
+            <span class="coord-label" id="sintergica-node-tag">CONCEPTO 01 · LA LATTICE INFORMACIONAL</span>
+            <p class="prose-body" id="sintergica-node-text" style="font-size: 0.93rem; margin-top: var(--space-xs);">
+              Matriz cuántica hiperdensa de coherencia absoluta que subyace al espacio aparentemente vacío. Toda partícula y todo pensamiento son distorsiones localizadas en esta red informacional unificada.
+            </p>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: var(--space-md);">
+            <span class="badge">La Lattice</span>
+            <span class="badge badge-brass">Campo Neuronal</span>
+            <span class="badge badge-mint">Alta Sintergia</span>
+            <span class="badge">Hemi-Sync</span>
+          </div>
+        </div>
+
+        <div class="module-narrative">
+          <p class="prose-body">
+            Explora cómo el cerebro decodifica la <strong>Lattice informacional</strong> del espacio. Simulaciones interactivas del campo neuronal, alta coherencia interhemisférica (<strong>alta sintergia</strong>) y la convergencia experimental entre <strong>Jacobo Grinberg</strong>, <strong>Karl Pribram</strong> y el modelo holográfico de <strong>Itzhak Bentov</strong>.
+          </p>
+          <ul class="fact-list">
+            <li><strong>La Lattice y el Orden Implicado:</strong> Al igual que el Absoluto de Bentov, la Lattice de Grinberg es una estructura energética continua de máxima coherencia; la realidad perceptual surge cuando el cerebro interactúa con ella.</li>
+            <li><strong>El Campo Neuronal:</strong> La actividad sináptica conjunta genera un campo electromagnético unificado capaz de distorsionar la Lattice y producir la experiencia consciente de espacio, tiempo y objetos.</li>
+            <li><strong>Alta Sintergia y Coherencia Interhemisférica:</strong> Cuando ambos hemisferios cerebrales sincronizan sus frecuencias (como en estados meditativos profundos o protocolos <em>Hemi-Sync</em>), la unificación perceptual aumenta drásticamente.</li>
+            <li><strong>Potencial Transferido (UNAM / INPEC):</strong> Experimentos de correlación no local entre cerebros humanos mostraron respuestas sincronizadas a distancia, convergiendo con la comunicación a través del protoespacio descrita por Bentov.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="Teoría_Sintérgica_de_Jacobo_Grinberg_y_Convergencia_con_Be.html">Ampliar en Teoría Sintérgica y Campo Neuronal →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 3. BIOGRAFÍA Y BIBLIOGRAFÍA -->
     <section class="section-block reveal-on-scroll" id="biografia" aria-labelledby="bio-title">
       <div class="section-header-row">
@@ -2379,6 +2446,13 @@
         desc: `La Fórmula de 5 Pasos para sintonizar pulso, respiración 6-6, gratitud cardíaca, intención láser en presente y acción congruente sin ansiedad.`,
         href: `#modulo-manifestacion`,
         pageHref: `El_Método_Bentov_de_Manifestación.html`
+      },
+      {
+        tag: `MÓDULO 06 · FÍSICA CUÁNTICA & PSICOFISIOLOGÍA`,
+        title: `Teoría Sintérgica y Campo Neuronal (Jacobo Grinberg & Bentov)`,
+        desc: `Explora cómo el cerebro decodifica la Lattice informacional del espacio, alta coherencia interhemisférica (alta sintergia) y la convergencia con Pribram y Bentov.`,
+        href: `#modulo-sintergica`,
+        pageHref: `Teoría_Sintérgica_de_Jacobo_Grinberg_y_Convergencia_con_Be.html`
       }
     ];
 
@@ -2386,7 +2460,7 @@
       const mod = ecosystemModules[idx];
       if (!mod) return;
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 6; i++) {
         const card = document.getElementById(`map-card-${i}`);
         const svgNode = document.getElementById(`svg-node-${i}`);
         if (card) {
@@ -2448,6 +2522,41 @@
       if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
       const tagEl = document.getElementById('manifest-step-tag');
       const textEl = document.getElementById('manifest-step-text');
+      if (tagEl) tagEl.textContent = item.tag;
+      if (textEl) textEl.textContent = item.text;
+    }
+
+    const sintergicaNodes = [
+      {
+        tag: `CONCEPTO 01 · LA LATTICE INFORMACIONAL`,
+        text: `Matriz cuántica hiperdensa de coherencia absoluta que subyace al espacio aparentemente vacío. Toda partícula y todo pensamiento son distorsiones localizadas en esta red informacional unificada.`
+      },
+      {
+        tag: `CONCEPTO 02 · EL CAMPO NEURONAL`,
+        text: `La actividad eléctrica conjunta de millones de neuronas genera un campo unificado que interactúa con la Lattice. La realidad percibida es el resultado de esa interferencia holográfica.`
+      },
+      {
+        tag: `CONCEPTO 03 · ALTA SINTERGIA`,
+        text: `A mayor coherencia y densidad informacional del campo neuronal, mayor es la sintergia: el observador reduce la fragmentación dual y percibe la unidad subyacente del campo.`
+      },
+      {
+        tag: `CONCEPTO 04 · HEMI-SYNC Y BENTOV`,
+        text: `La sincronización interhemisférica medida en laboratorio (Hemi-Sync / Gateway) converge con el acoplamiento a 7 Hz de Bentov y el potencial transferido no local estudiado por Grinberg.`
+      }
+    ];
+
+    function selectSintergicaNode(idx, btnEl) {
+      const item = sintergicaNodes[idx];
+      if (!item) return;
+      const toolbar = btnEl ? btnEl.parentElement : null;
+      if (toolbar) {
+        toolbar.querySelectorAll('.btn-chip').forEach(function (b) {
+          b.setAttribute('aria-pressed', 'false');
+        });
+      }
+      if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
+      const tagEl = document.getElementById('sintergica-node-tag');
+      const textEl = document.getElementById('sintergica-node-text');
       if (tagEl) tagEl.textContent = item.tag;
       if (textEl) textEl.textContent = item.text;
     }
