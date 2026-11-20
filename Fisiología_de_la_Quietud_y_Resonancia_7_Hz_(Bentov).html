@@ -1397,34 +1397,56 @@
 
       // Web Audio synthesizer for gentle breathing cue tones (no external URLs)
       let audioCtx = null;
+      function scheduleBreathOscillator(ctx, phaseKey) {
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const harmonic = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const harmonicGain = ctx.createGain();
+
+        let freq = 264;
+        if (phaseKey === 'inhale') freq = 293.66; // D4
+        else if (phaseKey === 'exhale') freq = 220; // A3
+        else if (phaseKey === 'pause') freq = 392; // G4
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+
+        harmonic.type = 'triangle';
+        harmonic.frequency.setValueAtTime(freq * 2, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.18, now + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.95);
+
+        harmonicGain.gain.setValueAtTime(0.0001, now);
+        harmonicGain.gain.exponentialRampToValueAtTime(0.035, now + 0.08);
+        harmonicGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+
+        osc.connect(gain);
+        harmonic.connect(harmonicGain);
+        gain.connect(ctx.destination);
+        harmonicGain.connect(ctx.destination);
+
+        osc.start(now);
+        harmonic.start(now);
+        osc.stop(now + 1.0);
+        harmonic.stop(now + 0.75);
+      }
+
       function playBreathTone(phaseKey) {
         if (!appState.breathAudioOn) return;
         try {
           const AudioCtor = window.AudioContext || window.webkitAudioContext;
           if (!AudioCtor) return;
           if (!audioCtx) audioCtx = new AudioCtor();
-          if (audioCtx.state === 'suspended') audioCtx.resume();
-
-          const now = audioCtx.currentTime;
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-
-          let freq = 220;
-          if (phaseKey === 'inhale') freq = 256;
-          else if (phaseKey === 'exhale') freq = 192;
-          else if (phaseKey === 'pause') freq = 324;
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now);
-
-          gain.gain.setValueAtTime(0.0001, now);
-          gain.gain.exponentialRampToValueAtTime(0.05, now + 0.12);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
-
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(now);
-          osc.stop(now + 1.15);
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume().then(function () {
+              if (appState.breathAudioOn) scheduleBreathOscillator(audioCtx, phaseKey);
+            }).catch(function () {});
+          } else {
+            scheduleBreathOscillator(audioCtx, phaseKey);
+          }
         } catch (err) {
           // Ignore audio context restriction errors silently
         }
@@ -1587,6 +1609,13 @@
         appState.breathRunning = !appState.breathRunning;
         if (appState.breathRunning) {
           appState.lastPhaseKey = '';
+          if (appState.breathAudioOn) {
+            const AudioCtor = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtor) {
+              if (!audioCtx) audioCtx = new AudioCtor();
+              if (audioCtx.state === 'suspended') audioCtx.resume().catch(function () {});
+            }
+          }
         }
         updateToggleBtnLabel();
       };
