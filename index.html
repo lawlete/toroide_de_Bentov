@@ -330,7 +330,9 @@
       font-size: var(--label-size);
       letter-spacing: var(--label-tracking);
       text-transform: uppercase;
-      white-space: nowrap;
+      white-space: normal;
+      max-width: 100%;
+      line-height: 1.3;
     }
 
     .badge-brass {
@@ -619,6 +621,15 @@
       align-items: center;
       justify-content: space-between;
       gap: var(--space-sm);
+    }
+
+    .module-card-top .badge {
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      padding: 0.22rem 0.5rem;
+      white-space: normal;
+      max-width: 100%;
+      text-align: left;
     }
 
     #pendulum-phase-badge {
