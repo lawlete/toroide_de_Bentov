@@ -1203,14 +1203,14 @@
     <section class="section-block reveal-on-scroll" id="mapa-ecosistema" aria-labelledby="map-title">
       <div class="section-header-row">
         <div class="section-header-text">
-          <p class="deck-brass">Cartografía conceptual · Siete puertas de entrada</p>
+          <p class="deck-brass">Cartografía conceptual · Ocho puertas de entrada</p>
           <h2 class="section-title" id="map-title">Mapa interactivo del ecosistema Bentov</h2>
           <p class="prose-body">
-            Selecciona cualquiera de los siete módulos para visualizar cómo se entrelazan dentro de la arquitectura
+            Selecciona cualquiera de los ocho módulos para visualizar cómo se entrelazan dentro de la arquitectura
             holográfica de Bentov y saltar directamente a su laboratorio interactivo.
           </p>
         </div>
-        <span class="badge">7 MÓDULOS INTERCONECTADOS</span>
+        <span class="badge">8 MÓDULOS INTERCONECTADOS</span>
       </div>
 
       <div class="ecosystem-layout">
@@ -1290,6 +1290,17 @@
             <h3>Desdoblamiento del Tiempo y la Conciencia (Garnier Malet &amp; Bentov)</h3>
             <p>Tiempo estroboscópico, aperturas temporales, péndulo en velocidad cero, Doble Cuántico y descarga de
               futuros potenciales en sueño REM.</p>
+          </button>
+
+          <button type="button" class="module-map-card" id="map-card-7" onclick="selectEcosystemNode(7)"
+            role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 08</span>
+              <span class="badge badge-mint">Percepción No Local &amp; Holograma Cuántico</span>
+            </div>
+            <h3>Visión Remota y la Cosmovisión de Bentov (Proyecto Stargate &amp; Gateway)</h3>
+            <p>Rotación de coordenadas espacio-tiempo, desacople del Observador a velocidad cero, acceso a la Mente
+              Universal y sincronización Hemi-Sync.</p>
           </button>
         </div>
 
@@ -1982,6 +1993,64 @@
       </div>
     </section>
 
+    <!-- MÓDULO 08: VISIÓN REMOTA Y LA COSMOVISIÓN DE BENTOV -->
+    <section class="section-block reveal-on-scroll" id="modulo-vision-remota" aria-labelledby="vision-remota-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 08 · SRI International, Proyecto Stargate &amp; Informe Gateway</p>
+          <h2 class="section-title" id="vision-remota-title">Visión Remota y la Cosmovisión de Bentov (Proyecto Stargate &amp; Gateway)</h2>
+        </div>
+        <span class="badge badge-mint">PERCEPCIÓN NO LOCAL &amp; HOLOGRAMA CUÁNTICO</span>
+      </div>
+
+      <div class="deep-module is-reversed">
+        <div class="panel">
+          <span class="coord-label">EXPLORADOR NO LOCAL · PROTOCOLO CRV &amp; GATEWAY</span>
+          <h3 class="subsection-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+            Mecánica del Observador y Rotación de Coordenadas
+          </h3>
+
+          <div class="interactive-toolbar">
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectVisionRemotaNode(0, this)">Visión Remota</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectVisionRemotaNode(1, this)">Proyecto Stargate</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectVisionRemotaNode(2, this)">El Observador</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectVisionRemotaNode(3, this)">Rotación &psi;</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectVisionRemotaNode(4, this)">Hemi-Sync</button>
+          </div>
+
+          <div class="zone-readout" aria-live="polite" style="margin-top: 0;">
+            <span class="coord-label" id="vision-node-tag">CONCEPTO 01 · VISIÓN REMOTA (CRV)</span>
+            <p class="prose-body" id="vision-node-text" style="font-size: 0.93rem; margin-top: var(--space-xs);">
+              Protocolo estructurado para percibir objetivos distantes en el espacio o el tiempo sin usar los sentidos físicos. Encerrar a los sujetos en jaulas de Faraday no atenúa la señal, confirmando su naturaleza no electromagnética.
+            </p>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: var(--space-md);">
+            <span class="badge">Visión Remota</span>
+            <span class="badge badge-brass">Proyecto Stargate</span>
+            <span class="badge badge-mint">El Observador</span>
+            <span class="badge">Rotación de Coordenadas</span>
+            <span class="badge badge-brass">Hemi-Sync</span>
+          </div>
+        </div>
+
+        <div class="module-narrative">
+          <p class="prose-body">
+            Explora la base biofísica que respalda la <strong>visión remota (Remote Viewing)</strong>. Simulaciones interactivas de la rotación de coordenadas espacio-tiempo, el desacople del Observador a velocidad cero, el acceso a la <strong>Mente Universal</strong> y la sincronización interhemisférica (<strong>Hemi-Sync</strong>) utilizada en los proyectos desclasificados de la CIA.
+          </p>
+          <ul class="fact-list">
+            <li><strong>Más allá de la jaula de Faraday (SRI):</strong> Los experimentos de Russell Targ, Harold Puthoff e Ingo Swann demostraron que la percepción remota atraviesa blindajes electromagnéticos al operar fuera del espacio-tiempo lineal.</li>
+            <li><strong>Desacople del Observador a velocidad cero:</strong> En los instantes de reposo absoluto del péndulo atómico de Bentov, la conciencia abandona las coordenadas locales y sintoniza directamente el holograma cósmico.</li>
+            <li><strong>Rotación de coordenadas espacio-tiempo (&psi;):</strong> El Observador rota su eje perceptual hacia dimensiones de frecuencia superior donde la distancia geográfica colapsa en información simultánea.</li>
+            <li><strong>Informe Gateway (CIA-RDP96-00788R, 1983):</strong> Wayne McDonnell integró el modelo biofísico de Bentov con la resonancia a 7 Hz y los tonos binaurales Hemi-Sync para estabilizar el acceso no local.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="Visión_Remota_y_la_Cosmovisión_de_Bentov.html">Ampliar en Visión Remota y la Cosmovisión de Bentov →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 3. BIOGRAFÍA Y BIBLIOGRAFÍA -->
     <section class="section-block reveal-on-scroll" id="biografia" aria-labelledby="bio-title">
       <div class="section-header-row">
@@ -2288,6 +2357,7 @@
                 <option value="Módulo 05 · Método Bentov de Manifestación">Módulo 05 · Método Bentov de Manifestación</option>
                 <option value="Módulo 06 · Teoría Sintérgica (Grinberg & Bentov)">Módulo 06 · Teoría Sintérgica (Grinberg & Bentov)</option>
                 <option value="Módulo 07 · Desdoblamiento del Tiempo (Garnier Malet)">Módulo 07 · Desdoblamiento del Tiempo (Garnier Malet)</option>
+                <option value="Módulo 08 · Visión Remota (Stargate &amp; Gateway)">Módulo 08 · Visión Remota (Stargate &amp; Gateway)</option>
               </select>
             </div>
           </div>
@@ -2591,6 +2661,13 @@
         desc: `Tiempo estroboscópico, aperturas temporales, péndulo en velocidad cero, Doble Cuántico y descarga de futuros potenciales en sueño REM.`,
         href: `#modulo-desdoblamiento`,
         pageHref: `Convergencia_Bentov_y_Garnier_Malet__El_Desdoblamiento_del.html`
+      },
+      {
+        tag: `MÓDULO 08 · PERCEPCIÓN NO LOCAL & HOLOGRAMA CUÁNTICO`,
+        title: `Visión Remota y la Cosmovisión de Bentov (Proyecto Stargate & Gateway)`,
+        desc: `Rotación de coordenadas espacio-tiempo, desacople del Observador a velocidad cero, acceso a la Mente Universal y sincronización Hemi-Sync.`,
+        href: `#modulo-vision-remota`,
+        pageHref: `Visión_Remota_y_la_Cosmovisión_de_Bentov.html`
       }
     ];
 
@@ -2598,7 +2675,7 @@
       const mod = ecosystemModules[idx];
       if (!mod) return;
 
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 8; i++) {
         const card = document.getElementById(`map-card-${i}`);
         const svgNode = document.getElementById(`svg-node-${i}`);
         if (card) {
@@ -2734,6 +2811,45 @@
       if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
       const tagEl = document.getElementById('desdoblamiento-node-tag');
       const textEl = document.getElementById('desdoblamiento-node-text');
+      if (tagEl) tagEl.textContent = item.tag;
+      if (textEl) textEl.textContent = item.text;
+    }
+
+    const visionRemotaNodes = [
+      {
+        tag: `CONCEPTO 01 · VISIÓN REMOTA (CRV)`,
+        text: `Protocolo estructurado para percibir objetivos distantes en el espacio o el tiempo sin usar los sentidos físicos. Encerrar a los sujetos en jaulas de Faraday no atenúa la señal, confirmando su naturaleza no electromagnética.`
+      },
+      {
+        tag: `CONCEPTO 02 · PROYECTO STARGATE & GATEWAY`,
+        text: `Programas desclasificados de inteligencia estadounidense (SRI / CIA) que adoptaron el modelo biofísico de Itzhak Bentov para explicar la percepción remota y los estados de conciencia expandida.`
+      },
+      {
+        tag: `CONCEPTO 03 · EL OBSERVADOR A VELOCIDAD CERO`,
+        text: `En los puntos de reposo del péndulo atómico, la conciencia se desacopla del tiempo lineal y accede directamente al holograma informacional de la Mente Universal.`
+      },
+      {
+        tag: `CONCEPTO 04 · ROTACIÓN DE COORDENADAS`,
+        text: `Al rotar el eje perceptual más allá de las 3 dimensiones espaciales, la distancia física deja de ser un obstáculo y la información de cualquier coordenada se vuelve accesible al instante.`
+      },
+      {
+        tag: `CONCEPTO 05 · SINCRONIZACIÓN HEMI-SYNC`,
+        text: `Mediante frecuencias binaurales y resonancia corporal de ~7 Hz, ambos hemisferios cerebrales operan en fase, reduciendo el ruido analítico (AOL) que bloquea la señal remota.`
+      }
+    ];
+
+    function selectVisionRemotaNode(idx, btnEl) {
+      const item = visionRemotaNodes[idx];
+      if (!item) return;
+      const toolbar = btnEl ? btnEl.parentElement : null;
+      if (toolbar) {
+        toolbar.querySelectorAll('.btn-chip').forEach(function (b) {
+          b.setAttribute('aria-pressed', 'false');
+        });
+      }
+      if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
+      const tagEl = document.getElementById('vision-node-tag');
+      const textEl = document.getElementById('vision-node-text');
       if (tagEl) tagEl.textContent = item.tag;
       if (textEl) textEl.textContent = item.text;
     }

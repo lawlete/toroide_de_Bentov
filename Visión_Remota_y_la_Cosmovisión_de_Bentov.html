@@ -1,0 +1,2686 @@
+<!DOCTYPE html>
+<html lang="es-419">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>La Mecánica del Observador y la Visión Remota — Modelo Biofísico de Itzhak Bentov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Page and surfaces: Prussian midnight steps (Nocturne) */
+      --background: #0a101d;
+      --surface-container-low: #0e1626;
+      --surface-container: #111b2e;
+      --surface-container-high: #17243c;
+
+      /* Frosted glassmorphism layers */
+      --glass-surface: rgba(17, 27, 46, 0.68);
+      --glass-surface-elevated: rgba(23, 36, 60, 0.78);
+      --glass-well: rgba(10, 16, 29, 0.78);
+
+      /* Text */
+      --on-surface: #f2ece1;
+      --on-surface-variant: #9ba8bf;
+
+      /* Borders */
+      --outline: #384d73;
+      --outline-variant: #21304d;
+      --glass-border-cyan: rgba(124, 196, 232, 0.24);
+      --glass-border-brass: rgba(223, 170, 91, 0.28);
+
+      /* Accents: Celestial Brass (Gold) & Horizon Sky (Cyan) */
+      --primary: #dfaa5b;
+      --on-primary: #0a101d;
+      --primary-container: #2b261c;
+      --on-primary-container: #f5dcb0;
+      --secondary: #687a99;
+      --tertiary: #7cc4e8;
+      --on-tertiary: #07131d;
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Data series */
+      --data-1: #dfaa5b;
+      --data-2: #7cc4e8;
+      --data-3: #52d19c;
+      --data-4: #e07a5f;
+      --data-context: #4a5d80;
+
+      /* Shared semantic & focus tokens */
+      --positive: #52d19c;
+      --warning: #dfaa5b;
+      --focus: #dfaa5b;
+
+      /* Fonts */
+      --font-headline: 'EB Garamond', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.75rem;
+      --rounded-full: 9999px;
+
+      /* Effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(242, 236, 225, 0.08);
+      --glass-shadow: 0 18px 42px rgba(4, 8, 18, 0.45);
+      --brass-glow: radial-gradient(circle at 86% 12%, rgba(223, 170, 91, 0.14), transparent 46%);
+      --cyan-glow: radial-gradient(circle at 14% 24%, rgba(124, 196, 232, 0.13), transparent 48%);
+      --ambient-cosmos: radial-gradient(circle at 80% 10%, rgba(223, 170, 91, 0.09), transparent 42%),
+                        radial-gradient(circle at 15% 40%, rgba(124, 196, 232, 0.08), transparent 45%),
+                        radial-gradient(circle at 75% 78%, rgba(124, 196, 232, 0.06), transparent 40%);
+      --heading-tracking: -0.015em;
+      --label-tracking: 0.07em;
+      --sky-tint: color-mix(in srgb, var(--tertiary) 13%, transparent);
+      --brass-tint: color-mix(in srgb, var(--primary) 15%, transparent);
+      --mint-tint: color-mix(in srgb, var(--positive) 13%, transparent);
+      --error-tint: color-mix(in srgb, var(--error) 14%, transparent);
+
+      /* Narrative Type Scale */
+      --display-size: clamp(2.45rem, 1.5rem + 3.8vw, 4.35rem);
+      --headline-size: clamp(1.75rem, 1.25rem + 1.9vw, 2.5rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.55vw, 1.45rem);
+      --body-size: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing Scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    body {
+      background-image: var(--ambient-cosmos);
+      background-attachment: fixed;
+    }
+
+    .cosmic-backdrop {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.75;
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Hero Header */
+    .hero-header {
+      position: relative;
+      border-bottom: var(--hairline);
+      background-color: var(--surface-container-low);
+      background-image: var(--brass-glow), var(--cyan-glow);
+      padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .coord-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .title-display {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.07;
+      color: var(--on-surface);
+      margin: 0;
+      max-width: 18ch;
+    }
+
+    .title-display em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--primary);
+    }
+
+    .deck-brass {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .hero-lede {
+      max-width: 68ch;
+      color: var(--on-surface-variant);
+      margin: 0;
+      font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+      line-height: 1.65;
+    }
+
+    .hero-lede strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    /* Quick Jump Index Bar */
+    .atlas-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--glass-surface);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background-color var(--dur-short) var(--ease-out),
+                  color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+
+    .nav-pill:hover {
+      background-color: var(--surface-container-high);
+      color: var(--on-surface);
+      box-shadow: 0 0 0 1px var(--glass-border-cyan);
+      transform: translateY(-1px);
+    }
+
+    .nav-pill .num {
+      color: var(--primary);
+    }
+
+    /* Glass Panels & Observation Wells */
+    .glass-panel {
+      background: var(--glass-surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight), var(--glass-shadow);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    .glass-panel-cyan {
+      border-color: var(--glass-border-cyan);
+    }
+
+    .glass-panel-brass {
+      border-color: var(--glass-border-brass);
+    }
+
+    .observation-well {
+      background: var(--glass-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      position: relative;
+    }
+
+    /* Narrative Section Structure */
+    .narrative-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: var(--hairline);
+    }
+
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+      max-width: 72ch;
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.12;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .section-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--tertiary);
+    }
+
+    .prose-col {
+      max-width: 65ch;
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .prose-col p {
+      margin: 0;
+      color: var(--on-surface-variant);
+    }
+
+    .prose-col strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    .callout-brass {
+      border-left: 3px solid var(--primary);
+      background: var(--brass-tint);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      color: var(--on-surface);
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      font-style: italic;
+    }
+
+    .callout-cyan {
+      border-left: 3px solid var(--tertiary);
+      background: var(--sky-tint);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      color: var(--on-surface-variant);
+      font-size: 0.96rem;
+    }
+    .callout-cyan strong { color: var(--on-surface); }
+
+    /* Asymmetric Layouts */
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .split-grid-reverse {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Telemetry Readouts */
+    .telemetry-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+
+    .metric-tile {
+      background: var(--glass-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .metric-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    .metric-value {
+      font-family: var(--font-label);
+      font-size: 1.25rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.2;
+    }
+
+    .metric-value.brass { color: var(--primary); }
+    .metric-value.cyan { color: var(--tertiary); }
+    .metric-value.mint { color: var(--positive); }
+    .metric-value.coral { color: var(--error); }
+
+    .metric-sub {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border: 1px solid var(--glass-border-cyan);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-brass {
+      background: var(--brass-tint);
+      color: var(--primary);
+      border-color: var(--glass-border-brass);
+    }
+
+    .badge-mint {
+      background: var(--mint-tint);
+      color: var(--positive);
+      border-color: color-mix(in srgb, var(--positive) 35%, transparent);
+    }
+
+    .badge-error {
+      background: var(--error-tint);
+      color: var(--error);
+      border-color: color-mix(in srgb, var(--error) 35%, transparent);
+    }
+
+    /* Interactive Controls */
+    .controls-stack {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    label.field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface);
+      display: block;
+    }
+
+    .range-val {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      min-height: 44px;
+      background: transparent;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-high);
+      border: var(--hairline);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      margin-top: -8px;
+      border-radius: var(--rounded-full);
+      background: var(--primary);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--primary);
+      transition: transform var(--dur-micro) var(--ease-out);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+    }
+
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-high);
+      border: var(--hairline);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: var(--rounded-full);
+      background: var(--primary);
+      border: 2px solid var(--background);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    select.atlas-select {
+      width: 100%;
+      min-height: 44px;
+      background: var(--background);
+      color: var(--on-surface);
+      border: var(--hairline-strong);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-xl) var(--space-sm) var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      cursor: pointer;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    button.btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: var(--hairline-strong);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      transition: background-color var(--dur-short) var(--ease-out),
+                  color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+
+    button.btn:hover:not(:disabled) {
+      background: var(--surface-container);
+      box-shadow: 0 0 0 1px var(--tertiary);
+    }
+
+    button.btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    button.btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    button.btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    button.btn-primary:hover:not(:disabled) {
+      background: var(--on-primary-container);
+      box-shadow: 0 0 18px var(--brass-tint);
+    }
+
+    button.btn-cyan {
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border-color: var(--glass-border-cyan);
+    }
+
+    button.btn-cyan.is-active {
+      background: var(--tertiary);
+      color: var(--on-tertiary);
+      border-color: var(--tertiary);
+      font-weight: 600;
+    }
+
+    button.btn-preset.is-active {
+      background: var(--brass-tint);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* Canvas Wrappers */
+    .canvas-stage {
+      width: 100%;
+      min-height: 360px;
+      height: 360px;
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .canvas-stage.tall {
+      min-height: 410px;
+      height: 410px;
+    }
+
+    .canvas-stage.wave {
+      min-height: 230px;
+      height: 230px;
+    }
+
+    .canvas-stage canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .canvas-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      padding-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: 0.74rem;
+      color: var(--on-surface-variant);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--rounded-full);
+      display: inline-block;
+    }
+    .swatch.brass { background: var(--data-1); }
+    .swatch.cyan { background: var(--data-2); }
+    .swatch.mint { background: var(--data-3); }
+    .swatch.coral { background: var(--data-4); }
+
+    /* Equation Box */
+    .formula-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--glass-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: 0.92rem;
+    }
+
+    .formula-expr {
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .formula-expr .var-gold { color: var(--primary); }
+    .formula-expr .var-cyan { color: var(--tertiary); }
+
+    /* CRV Stages List */
+    .crv-stages-grid {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .crv-stage-row {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--glass-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      transition: border-color var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out);
+    }
+
+    .crv-stage-row.unlocked {
+      border-color: var(--glass-border-cyan);
+      background: var(--surface-container-low);
+    }
+
+    .crv-stage-row.peak {
+      border-color: var(--glass-border-brass);
+    }
+
+    .crv-stage-id {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    .crv-stage-body {
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+
+    .crv-stage-body strong {
+      color: var(--on-surface);
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    /* Target Verification Reveal Panel */
+    .target-reveal-box {
+      display: grid;
+      grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: center;
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border: 1px solid var(--glass-border-brass);
+      border-radius: var(--rounded);
+      margin-top: var(--space-sm);
+    }
+
+    .target-reveal-box.is-hidden {
+      display: none;
+    }
+
+    .target-svg-frame {
+      width: 100%;
+      height: 150px;
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm);
+    }
+
+    /* Comparison Table */
+    .table-wrap {
+      overflow-x: auto;
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      background: var(--glass-surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    table.atlas-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.94rem;
+    }
+
+    table.atlas-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      padding: var(--space-md);
+      border-bottom: var(--hairline-strong);
+      background: var(--surface-container-low);
+    }
+
+    table.atlas-table td {
+      padding: var(--space-md);
+      border-bottom: var(--hairline);
+      color: var(--on-surface-variant);
+      vertical-align: top;
+    }
+
+    table.atlas-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.atlas-table td strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    /* Reveal animation */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer / Sources */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding-top: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .sources-list {
+      margin: 0;
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+    }
+
+    .sources-list strong {
+      color: var(--on-surface);
+    }
+
+    @media (max-width: 900px) {
+      .split-grid,
+      .split-grid-reverse {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .hero-header {
+        padding: var(--space-xl) var(--space-md) var(--space-lg);
+      }
+      .crv-stage-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xs);
+      }
+      .target-reveal-box {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .canvas-stage,
+      .canvas-stage.tall {
+        min-height: 310px;
+        height: 310px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cosmos-bg" class="cosmic-backdrop" aria-hidden="true"></canvas>
+
+  <div class="page-shell">
+    <header class="hero-header">
+      <div class="hero-inner">
+        <div style="margin-bottom: 1rem;">
+          <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(223, 170, 91, 0.45); background: rgba(223, 170, 91, 0.10); color: #efc062; font-family: var(--font-label, monospace); font-size: 0.78rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+        </div>
+        <div class="coord-label">
+          <i data-lucide="compass" style="width:15px;height:15px;" aria-hidden="true"></i>
+          <span>BITÁCORA BIOFÍSICA · BENTOV (1977) · INFORME GATEWAY CIA-RDP96-00788R (1983) · SRI / STARGATE</span>
+        </div>
+
+        <h1 class="title-display">La Mecánica del <em>Observador</em> y la Visión Remota</h1>
+
+        <p class="deck-brass">PARALELISMOS ENTRE LA COSMOVISIÓN HOLOGRÁFICA DE ITZHAK BENTOV, EL ENTRENAMIENTO GATEWAY Y EL PROTOCOLO CRV</p>
+
+        <p class="hero-lede">
+          En los laboratorios del <strong>Stanford Research Institute (SRI)</strong> durante la década de 1970, los físicos Russell Targ y Harold Puthoff verificaron un hecho incómodo para el electromagnetismo clásico: cuando el psíquico e investigador <strong>Ingo Swann</strong> y otros sujetos describían objetivos distantes bajo el protocolo de <strong>Visión Remota</strong>, encerrarlos en jaulas de Faraday blindadas contra radiación electromagnética no atenuaba la señal. Casi en paralelo, el ingeniero biomédico <strong>Itzhak Bentov</strong> publicaba el marco mecánico-cuántico que el teniente coronel Wayne McDonnell adoptaría en 1983 en el informe desclasificado <strong>The Gateway Process</strong> de la CIA: la conciencia no viaja como una onda de radio a través de las paredes, sino que se desacopla en los instantes de reposo absoluto del péndulo atómico, rota sus coordenadas espacio-temporales y sintoniza directamente el holograma de la <strong>Mente Universal</strong>.
+        </p>
+
+        <nav class="atlas-nav" aria-label="Secciones del estudio">
+          <a class="nav-pill" href="#sec-observador"><span class="num">01</span> Observador vs. Cámara</a>
+          <a class="nav-pill" href="#sec-pendulo"><span class="num">02</span> Péndulo y Reposo Cero</a>
+          <a class="nav-pill" href="#sec-coordenadas"><span class="num">03</span> Rotación Espacio-Tiempo</a>
+          <a class="nav-pill" href="#sec-toroide"><span class="num">04</span> Toroide y Protoespacio</a>
+          <a class="nav-pill" href="#sec-crv"><span class="num">05</span> 7 Hz, Hemi-Sync y CRV</a>
+          <a class="nav-pill" href="#sec-sintesis"><span class="num">06</span> Matriz Comparativa</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-grid">
+
+      <!-- SECCIÓN 1: EL OBSERVADOR VS. CEREBRO RECEPTOR -->
+      <section id="sec-observador" class="narrative-section reveal-on-scroll">
+        <div class="section-header">
+          <span class="coord-label"><i data-lucide="eye" style="width:14px;height:14px;" aria-hidden="true"></i> 01 · ARQUITECTURA DE LA PERCEPCIÓN NO LOCAL</span>
+          <h2 class="section-title">El <em>Observador</em> no físico frente al cerebro como receptor y cámara inerte</h2>
+        </div>
+
+        <div class="split-grid">
+          <div class="prose-col">
+            <p>
+              El modelo materialista convencional asume que el pensamiento y la conciencia son subproductos confinados dentro del cráneo. Itzhak Bentov —inventor de la sonda cardíaca dirigible y estudioso de la fisiología meditativa— invirtió esa premisa en <em>Stalking the Wild Pendulum</em>: el cerebro funciona como un <strong>amplificador y terminal de procesamiento binario</strong>, análogo a un aparato de radio que sintoniza frecuencias externas. La música no vive dentro de los transistores de la radio; la orquesta reside en el campo universal.
+            </p>
+            <p>
+              Para demostrar esta separación operativa, Bentov propuso un experimento sencillo de observación temporal: fijar la vista en el segundero de un reloj mientras se visualiza con detalle sensorial una playa distante. En sujetos capaces de sostener esa imagen, el segundero parece ralentizarse o detenerse por completo. Según Bentov, el reloj físico jamás alteró su marcha objetiva; lo que ocurrió fue un <strong>desacople del Observador</strong> (la psique o cuerpo de información). Mientras el Observador se desplaza hacia la escena imaginada, los ojos físicos actúan como una <strong>cámara registradora inerte</strong> que proyecta y congela en la pantalla cortical el último fotograma capturado antes de la partida.
+            </p>
+            <div class="callout-brass">
+              “El cerebro es una porción del soporte físico —una terminal que procesa diferencias por comparación binaria—; el verdadero Observador es una entidad no física capaz de desintonizarse de los sentidos locales.”
+            </div>
+            <p>
+              Esta distinción es la piedra angular de la <strong>Visión Remota (Remote Viewing)</strong> estudiada por Targ, Puthoff e Ingo Swann en el SRI y luego operacionalizada en el <strong>Proyecto Stargate</strong> de la CIA y el Departamento de Defensa (DoD). Al recibir un par de coordenadas geográficas ciegas, el espectador remoto no intenta “adivinar” con la corteza analítica: silencia el ruido sensorial local para que el Observador recoja impresiones no locales mientras el cuerpo permanece en la sala.
+            </p>
+          </div>
+
+          <div class="glass-panel glass-panel-cyan controls-stack">
+            <div class="control-header">
+              <span class="badge"><i data-lucide="cpu" style="width:13px;height:13px;" aria-hidden="true"></i> Dualidad Operativa</span>
+              <span class="coord-label">HARDWARE VS. CONCIENCIA</span>
+            </div>
+
+            <div class="card-grid">
+              <div class="observation-well">
+                <div class="metric-label">Soporte Biológico Local</div>
+                <div class="metric-value cyan" style="margin: var(--space-xs) 0;">Cerebro y Ojos (Cámara Inerte)</div>
+                <p style="margin:0; font-size:0.9rem; color:var(--on-surface-variant);">
+                  Traduce estímulos en código Morse neuronal (disparo y reposo). Su corteza visual retiene el último cuadro fijo cuando el Observador se ausenta, tal como una calculadora conserva el último dígito en pantalla.
+                </p>
+              </div>
+
+              <div class="observation-well">
+                <div class="metric-label">Entidad No Física</div>
+                <div class="metric-value brass" style="margin: var(--space-xs) 0;">El Observador (Psique / Información)</div>
+                <p style="margin:0; font-size:0.9rem; color:var(--on-surface-variant);">
+                  Carece de masa física y no está sujeto al límite relativista de la velocidad de la luz. En estado de coherencia, actúa como una antena que sintoniza bandas sutiles y retorna datos al hemisferio derecho.
+                </p>
+              </div>
+            </div>
+
+            <div class="callout-cyan">
+              <strong>Paralelo con la Teoría Sintérgica:</strong> Al igual que Bentov, el neurofisiólogo mexicano Jacobo Grinberg observó que el cerebro genera un campo neuronal que interactúa con la red informacional del espacio (la <em>Lattice</em>). En palabras de Keith Floyd, citadas en el informe Gateway de 1983: <em>no es el cerebro el que produce la conciencia, sino la conciencia la que genera la apariencia del cerebro</em>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: PÉNDULO EN REPOSO ABSOLUTO & HEISENBERG -->
+      <section id="sec-pendulo" class="narrative-section reveal-on-scroll">
+        <div class="section-header">
+          <span class="coord-label"><i data-lucide="activity" style="width:14px;height:14px;" aria-hidden="true"></i> 02 · CUÁNTICA DE LA OSCILACIÓN Y EL RELOJ DE LA CREACIÓN</span>
+          <h2 class="section-title">El péndulo en reposo absoluto (<em>v = 0</em>), Heisenberg y el parpadeo de la realidad</h2>
+        </div>
+
+        <div class="split-grid-reverse">
+          <div class="glass-panel glass-panel-brass controls-stack">
+            <div class="control-header">
+              <span class="badge badge-brass"><i data-lucide="radio" style="width:13px;height:13px;" aria-hidden="true"></i> Simulación Interactiva 01</span>
+              <span class="coord-label">DESACOPLE EN EL PUNTO CERO</span>
+            </div>
+
+            <div class="canvas-stage">
+              <canvas id="pendulum-canvas" aria-label="Simulación del péndulo de Bentov, principio de incertidumbre de Heisenberg y desacople del Observador"></canvas>
+            </div>
+
+            <div class="canvas-legend">
+              <span class="legend-item"><span class="swatch brass"></span> Péndulo / Masa Física (ON)</span>
+              <span class="legend-item"><span class="swatch cyan"></span> Expansión del Observador (OFF · Δx → ∞)</span>
+              <span class="legend-item"><span class="swatch mint"></span> Último Cuadro en Cámara Inerte</span>
+            </div>
+
+            <div class="telemetry-strip">
+              <div class="metric-tile">
+                <span class="metric-label">Velocidad (v)</span>
+                <span class="metric-value" id="pend-vel">0.00 m/s</span>
+                <span class="metric-sub">En el extremo de giro</span>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-label">Momento (p = m·v)</span>
+                <span class="metric-value cyan" id="pend-mom">0.00 kg·m/s</span>
+                <span class="metric-sub">Precisión Δp → 0</span>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-label">Incertidumbre (Δx)</span>
+                <span class="metric-value brass" id="pend-unc">LOCALIZADA</span>
+                <span class="metric-sub">Δx · Δp ≥ ℏ/2</span>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-label">Fase del Reloj</span>
+                <span class="metric-value mint" id="pend-state">MOMENTO ON</span>
+                <span class="metric-sub" id="pend-rate">14 puntos OFF / seg</span>
+              </div>
+            </div>
+
+            <div class="controls-stack" style="padding-top: var(--space-xs);">
+              <div class="control-group">
+                <div class="control-header">
+                  <label class="field-label" for="pend-freq-slider">Frecuencia de Oscilación Sistémica (Hz)</label>
+                  <span class="range-val" id="pend-freq-readout">7.0 Hz (14 puntos OFF/s)</span>
+                </div>
+                <input type="range" id="pend-freq-slider" min="0.5" max="7.5" step="0.5" value="3.5" oninput="updatePendulumFreq(this.value)">
+              </div>
+
+              <div class="btn-row">
+                <button type="button" class="btn btn-primary" id="btn-freeze-zero" onclick="toggleFreezeZero()">
+                  <i data-lucide="pause-circle" style="width:16px;height:16px;" aria-hidden="true"></i>
+                  <span>Congelar en Punto Cero (v = 0)</span>
+                </button>
+                <button type="button" class="btn btn-cyan is-active" id="btn-slow-mo" onclick="toggleSlowMotion()">
+                  <i data-lucide="clock" style="width:16px;height:16px;" aria-hidden="true"></i>
+                  <span>Inspección Cámara Lenta</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="prose-col">
+            <p>
+              ¿Cómo logra el Observador liberarse del cuerpo físico sin violar las leyes de la física? Bentov encontró la respuesta en el movimiento más elemental de la naturaleza: <strong>el oscilador armónico o péndulo</strong>. Todo en el universo oscila: los átomos a temperatura ambiente vibran cerca de <strong>10<sup>15</sup> Hz</strong>, y el cuerpo humano en meditación profunda oscila mecánicamente arriba y abajo alrededor de <strong>7 Hz</strong>.
+            </p>
+            <p>
+              Cada vez que un péndulo alcanza el extremo de su recorrido e invierte su dirección, se detiene durante un instante matemático infinitesimal: su velocidad se vuelve exactamente <strong>cero (<em>v</em> = 0)</strong> y, por lo tanto, su momento lineal <em>p = m·v</em> es conocido con exactitud absoluta (<em>p</em> = 0). Aquí entra en escena el <strong>Principio de Incertidumbre de Heisenberg</strong>:
+            </p>
+            <div class="formula-bar">
+              <span class="formula-expr"><span class="var-cyan">Δx</span> · <span class="var-gold">Δp</span> ≥ ℏ / 2 &nbsp;⇒&nbsp; si <span class="var-gold">Δp → 0</span>, entonces <span class="var-cyan">Δx → ∞</span></span>
+              <span class="badge badge-brass">REPOSO = VELOCIDAD INFINITA</span>
+            </div>
+            <p>
+              Al conocerse con total precisión el momento en el punto de giro, la posición espacial del sistema (<strong>Δ<em>x</em></strong>) se vuelve completamente indeterminada. En ese microinstante por debajo de la escala de Planck —que Bentov llamó el <strong>Momento OFF</strong> o el <strong>Absoluto</strong>—, la materia pierde su definición localizada y la conciencia del Observador se expande como una onda omnidireccional a través de todo el universo a <strong>velocidad infinita</strong>, usando cero tiempo objetivo.
+            </p>
+            <p>
+              La realidad sólida no es un río continuo, sino una película estroboscópica que parpadea entre estados <strong>ON</strong> (materia localizada) y <strong>OFF</strong> (expansión no local) <strong>14 veces por segundo</strong> a escala corporal (dos puntos de reposo por cada ciclo de 7 Hz) y trillones de veces por segundo a escala atómica. De modo análogo, el físico francés <strong>Jean-Pierre Garnier Malet</strong> describió estas brechas estroboscópicas como <em>aperturas temporales</em> imperceptibles —como el fotograma 25 subliminal en el cine— en las que el “doble” explora futuros potenciales mientras el observador consciente permanece anclado. En Visión Remota, entrenar la mente consiste en <strong>ampliar la permanencia consciente dentro de esos momentos OFF</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: ROTACIÓN MATEMÁTICA DE COORDENADAS ESPACIO-TIEMPO -->
+      <section id="sec-coordenadas" class="narrative-section reveal-on-scroll">
+        <div class="section-header">
+          <span class="coord-label"><i data-lucide="rotate-cw" style="width:14px;height:14px;" aria-hidden="true"></i> 03 · GEOMETRÍA DE LA CONCIENCIA (FIGURAS 23–25 DE BENTOV)</span>
+          <h2 class="section-title">Rotación matemática de coordenadas: cuando el <em>espacio subjetivo</em> barre el tiempo objetivo</h2>
+        </div>
+
+        <div class="split-grid">
+          <div class="prose-col">
+            <p>
+              En el capítulo cuarto de <em>Stalking the Wild Pendulum</em>, Bentov tradujo las experiencias fuera del cuerpo, la clarividencia y la dilatación temporal a un diagrama geométrico de coordenadas de Minkowski (<strong>Figuras 23 a 25</strong>). El eje vertical representa nuestro <strong>Tiempo Objetivo (<em>t</em><sub>obj</sub>)</strong> y el eje horizontal el <strong>Espacio Objetivo (<em>s</em><sub>obj</sub>)</strong> tridimensional. La diagonal a 45° marca la barrera de la <strong>velocidad de la luz (<em>c</em>)</strong>: por debajo de esa diagonal se extiende la región <em>símil-espacio</em> (<em>space-like</em>), prohibida para la materia con masa, pero transitable para entidades no físicas.
+            </p>
+            <p>
+              Superpuesto a este marco existe un segundo par de ejes punteados: nuestro <strong>Tiempo Subjetivo (<em>t</em><sub>subj</sub>)</strong> y nuestro <strong>Espacio Subjetivo (<em>s</em><sub>subj</sub>)</strong>. En vigilia ordinaria, ambos sistemas coinciden (ángulo de desviación <strong>ψ = 0°</strong>). Sin embargo, durante estados alterados de conciencia —hipnosis, meditación profunda, las sesiones <em>Focus 10/12</em> del Gateway o una sesión de Visión Remota—, el sistema subjetivo rota alrededor del “Ahora” en un ángulo <strong>ψ</strong>.
+            </p>
+            <div class="formula-bar">
+              <span class="formula-expr">Índice de Nivel de Conciencia &nbsp;=&nbsp; <span class="var-gold">t<sub>subj</sub></span> / <span class="var-cyan">t<sub>obj</sub></span> &nbsp;=&nbsp; 1 / cos(<span class="var-gold">ψ</span>)</span>
+              <span class="badge">EJEMPLO BENTOV: ψ ≈ 75.5° ⇒ 4 : 1</span>
+            </div>
+            <p>
+              Al proyectar <strong>1 segundo de tiempo objetivo</strong> horizontalmente hasta interceptar el eje inclinado <em>t</em><sub>subj</sub>, la longitud resultante se multiplica. Si ψ alcanza ~75.5°, el Observador dispone de <strong>4 segundos subjetivos por cada 1 segundo objetivo</strong>; al acercarse a 90°, el eje <em>t</em><sub>subj</sub> cruza la barrera de la luz hacia el universo <em>símil-espacio</em>, donde un instante objetivo equivale a tiempo subjetivo prácticamente infinito.
+            </p>
+            <p>
+              Pero la consecuencia más extraordinaria ocurre en el eje perpendicular: al rotar ambos ejes juntos, el <strong>Espacio Subjetivo (<em>s</em><sub>subj</sub>)</strong> se inclina directamente sobre el eje del <strong>Tiempo Objetivo</strong>. Para un observador remoto cuyo eje <em>s</em><sub>subj</sub> se ha desplazado, caminar por lo que percibe como “espacio” equivale objetivamente a desplazarse por el <strong>Presente distante</strong>, el <strong>Pasado</strong> (retrocognición) o las líneas de probabilidad del <strong>Futuro</strong> (precognición, explorada en proyectos de Stargate).
+            </p>
+          </div>
+
+          <div class="glass-panel glass-panel-cyan controls-stack">
+            <div class="control-header">
+              <span class="badge"><i data-lucide="move-3d" style="width:13px;height:13px;" aria-hidden="true"></i> Simulación Interactiva 02</span>
+              <span class="coord-label">DIAGRAMA DE MINKOWSKI SUBJETIVO</span>
+            </div>
+
+            <div class="canvas-stage tall">
+              <canvas id="spacetime-canvas" aria-label="Simulador interactivo de rotación de ejes de tiempo y espacio subjetivo frente al objetivo"></canvas>
+            </div>
+
+            <div class="canvas-legend">
+              <span class="legend-item"><span class="swatch cyan"></span> Ejes Objetivos (t<sub>obj</sub>, s<sub>obj</sub>)</span>
+              <span class="legend-item"><span class="swatch brass"></span> Ejes Subjetivos Rotados (t<sub>subj</sub>, s<sub>subj</sub>)</span>
+              <span class="legend-item"><span class="swatch mint"></span> Proyección 1s Objetivo &amp; Observador</span>
+            </div>
+
+            <div class="telemetry-strip">
+              <div class="metric-tile">
+                <span class="metric-label">Ángulo de Rotación (ψ)</span>
+                <span class="metric-value brass" id="st-angle">45.0°</span>
+                <span class="metric-sub">Desviación desde vigilia</span>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-label">Índice Conciencia (I<sub>c</sub>)</span>
+                <span class="metric-value cyan" id="st-index">1.41×</span>
+                <span class="metric-sub" id="st-ratio">1.41 s subj / 1 s obj</span>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-label">Régimen Vectorial</span>
+                <span class="metric-value mint" id="st-regime">BARRERA c (45°)</span>
+                <span class="metric-sub" id="st-access">Transición al símil-espacio</span>
+              </div>
+            </div>
+
+            <div class="controls-stack">
+              <div class="control-group">
+                <div class="control-header">
+                  <label class="field-label" for="psi-slider">Ángulo de Rotación Subjetiva ψ (0° a 88.5°)</label>
+                  <span class="range-val" id="psi-readout">45.0°</span>
+                </div>
+                <input type="range" id="psi-slider" min="0" max="88.5" step="0.5" value="45" oninput="updatePsiAngle(this.value)">
+              </div>
+
+              <div class="control-group">
+                <label class="field-label">Estados de Referencia (Bentov &amp; Gateway)</label>
+                <div class="btn-row">
+                  <button type="button" class="btn btn-preset" data-psi="0" onclick="setPsiPreset(0, this)">Vigilia (0°)</button>
+                  <button type="button" class="btn btn-preset" data-psi="30" onclick="setPsiPreset(30, this)">Alfa / Focus 10 (30°)</button>
+                  <button type="button" class="btn btn-preset" data-psi="75.5" onclick="setPsiPreset(75.5, this)">CRV 4:1 (75.5°)</button>
+                  <button type="button" class="btn btn-preset" data-psi="88" onclick="setPsiPreset(88, this)">Samadhi (88°)</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="field-label" for="scan-mode-select">Vector de Exploración del Observador en s<sub>subj</sub></label>
+                <select id="scan-mode-select" class="atlas-select" onchange="updateScanMode(this.value)">
+                  <option value="present">Espacio Distante en el Presente (Coordenada Geográfica)</option>
+                  <option value="past">Incursión al Pasado Objetivo (Retrocognición)</option>
+                  <option value="future">Exploración de Probabilidades Futuras (Precognición)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: MENTE UNIVERSAL, TOROIDE CÓSMICO Y PROTOESPACIO -->
+      <section id="sec-toroide" class="narrative-section reveal-on-scroll">
+        <div class="section-header">
+          <span class="coord-label"><i data-lucide="orbit" style="width:14px;height:14px;" aria-hidden="true"></i> 04 · COSMOLOGÍA HOLOGRÁFICA Y NO-LOCALIDAD</span>
+          <h2 class="section-title">Acceso directo a la <em>Mente Universal</em> en el protoespacio frente a la transmisión electromagnética</h2>
+        </div>
+
+        <div class="split-grid-reverse">
+          <div class="glass-panel glass-panel-brass controls-stack">
+            <div class="control-header">
+              <span class="badge badge-brass"><i data-lucide="layers" style="width:13px;height:13px;" aria-hidden="true"></i> Comparador Físico</span>
+              <span class="coord-label">TOROIDE CÓSMICO DE BENTOV</span>
+            </div>
+
+            <div class="canvas-stage">
+              <canvas id="torus-canvas" aria-label="Diagrama animado del Toroide Cósmico de Bentov comparando propagación electromagnética con acceso directo al holograma del protoespacio"></canvas>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn-cyan is-active" id="btn-mode-hologram" onclick="setTorusMode('hologram')">
+                <i data-lucide="sparkles" style="width:16px;height:16px;" aria-hidden="true"></i>
+                <span>Acceso Holográfico (Protoespacio)</span>
+              </button>
+              <button type="button" class="btn" id="btn-mode-em" onclick="setTorusMode('em')">
+                <i data-lucide="shield-alert" style="width:16px;height:16px;" aria-hidden="true"></i>
+                <span>Modelo Clásico (Onda EM + Jaula Faraday)</span>
+              </button>
+            </div>
+
+            <div class="observation-well" id="torus-explanation">
+              <div class="metric-label" style="color:var(--tertiary);">Modo Activo: Sintonía No Local en la Mente Universal</div>
+              <p style="margin: var(--space-xs) 0 0; font-size:0.92rem; color:var(--on-surface-variant);">
+                Toda la materia en la envolvente del toroide irradia ondas de información hacia el hueco interior (<strong>protoespacio</strong>), tejiendo un <strong>holograma 4D</strong> donde cada fragmento contiene al todo. La luz y las ondas electromagnéticas no atraviesan el protoespacio ni los blindajes metálicos, pero la psique en su fase OFF resuena instantáneamente con el patrón de interferencia completo.
+              </p>
+            </div>
+          </div>
+
+          <div class="prose-col">
+            <p>
+              Si la Visión Remota funcionara como una transmisión de radio telepática entre cerebros, sufriría tres limitaciones inevitables de la física clásica: decaería con el cuadrado de la distancia (1/<em>r</em>²), tardaría tiempo finito limitada por <em>c</em> y sería bloqueada por blindajes metálicos o agua profunda. Sin embargo, los experimentos controlados de <strong>Russell Targ y Harold Puthoff en el SRI</strong> —incluyendo pruebas con Ingo Swann y Pat Price dentro de cámaras doblemente apantalladas contra radiofrecuencia (jaulas de Faraday)— demostraron que <strong>el blindaje electromagnético y la distancia no reducían la fidelidad de los datos</strong>.
+            </p>
+            <p>
+              En su modelo cosmológico, Itzhak Bentov propuso que el universo no surgió de una explosión dispersa hacia la nada, sino que tiene la geometría de un <strong>toroide alargado y hueco</strong> en rotación continua de adentro hacia afuera. La materia brota por un polo (agujero blanco), recorre la superficie curva del toroide formando galaxias y regresa por el polo opuesto (agujero negro) hacia el núcleo.
+            </p>
+            <p>
+              Mientras las galaxias viajan por la cáscara del toroide, cada partícula irradia ondas de información que se cruzan en el vacío interior (<strong>protoespacio</strong>) y crean una gigantesca red de interferencia cuatridimensional: la <strong>Mente Universal</strong>. Inspirado en los trabajos sobre el cerebro holográfico de <strong>Karl Pribram</strong> y el orden implicado de <strong>David Bohm</strong> (pilares citados textualmente en el documento desclasificado de la CIA sobre Gateway), Bentov dedujo que cada conciencia humana es un fragmento de ese holograma cósmico.
+            </p>
+            <div class="callout-cyan">
+              <strong>Por qué la claridad depende de la coherencia:</strong> En óptica holográfica, si iluminas un trozo diminuto de placa rota obtienes la imagen entera, pero borrosa y con baja resolución; si iluminas un área mayor con un haz coherente, la imagen se vuelve nítida. Evolucionar y entrenar la mente en Visión Remota equivale a ampliar la apertura coherente con que iluminamos el holograma de la Mente Universal.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: FISIOLOGÍA 7 HZ, HEMI-SYNC Y FASES DEL CRV -->
+      <section id="sec-crv" class="narrative-section reveal-on-scroll">
+        <div class="section-header">
+          <span class="coord-label"><i data-lucide="waves" style="width:14px;height:14px;" aria-hidden="true"></i> 05 · BIOFÍSICA EXPERIMENTAL Y PROTOCOLO OPERATIVO</span>
+          <h2 class="section-title">Coherencia a <em>7 Hz</em>, sincronización Hemi-Sync y las fases del Coordinate Remote Viewing (CRV)</h2>
+        </div>
+
+        <div class="prose-col" style="max-width: 78ch;">
+          <p>
+            ¿Cómo logra el organismo humano estabilizar su antena para leer la Mente Universal sin que el cerebro analítico fabrique fantasías? Aquí convergen la biomecánica de Bentov, la ingeniería acústica del Instituto Monroe descrita en el informe <strong>Gateway de la CIA (1983)</strong> y la metodología estructurada de seis etapas que <strong>Ingo Swann</strong> diseñó para el programa militar estadounidense:
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <div class="glass-panel">
+            <div class="badge badge-brass" style="margin-bottom:var(--space-sm);">1 · Resonancia Aórtica (6.8–7.5 Hz)</div>
+            <p style="margin:0; font-size:0.95rem; color:var(--on-surface-variant);">
+              Al aquietar la respiración, la onda de presión sanguínea que baja por la aorta rebota en la bifurcación ilíaca y se sincroniza en fase con el siguiente latido. El cuerpo entra en resonancia sinusoidal limpia a ~<strong>7 ciclos por segundo</strong> (triplicando la amplitud acústica cardíaca), haciendo oscilar el cerebro entre <strong>0.005 y 0.010 mm</strong> contra el líquido del tercer ventrículo y acoplando el sistema nervioso a la <strong>resonancia de Schumann</strong> de la ionosfera terrestre (~7.5 Hz), cuya onda da la vuelta al planeta en 1/7 de segundo.
+            </p>
+          </div>
+
+          <div class="glass-panel">
+            <div class="badge" style="margin-bottom:var(--space-sm);">2 · Hemi-Sync y el Efecto Láser</div>
+            <p style="margin:0; font-size:0.95rem; color:var(--on-surface-variant);">
+              Una mente ordinaria dispersa energía como una bombilla incandescente. Mediante la <strong>Respuesta de Seguimiento de Frecuencia (FFR)</strong> con tonos binaurales —por ejemplo, enviando una diferencia de 7.5 Hz entre ambos oídos—, el hemisferio izquierdo (verbal, analítico y secuencial) entra en reposo relativo mientras ambos hemisferios se igualan en amplitud y frecuencia, actuando como un <strong>rayo láser coherente</strong> capaz de imprimir y recibir señales sutiles del campo.
+            </p>
+          </div>
+
+          <div class="glass-panel">
+            <div class="badge badge-mint" style="margin-bottom:var(--space-sm);">3 · Protocolo CRV y Supresión del AOL</div>
+            <p style="margin:0; font-size:0.95rem; color:var(--on-surface-variant);">
+              El mayor enemigo en Visión Remota es el <strong>AOL (<em>Analytic Overlay</em>)</strong>: el impulso del hemisferio izquierdo por “nombrar” o adivinar prematuramente lo que percibe el hemisferio derecho. Para evitarlo, Ingo Swann codificó las <strong>Fases I a VI del CRV</strong>: capturar primero el trazo motriz inconsciente (ideograma), luego descriptores sensoriales puros, bocetos dimensionales y finalmente conceptos complejos.
+            </p>
+          </div>
+        </div>
+
+        <!-- SIMULACIÓN INTERACTIVA 3: SINTONIZADOR CRV + HEMI-SYNC -->
+        <div class="glass-panel glass-panel-cyan controls-stack" style="margin-top: var(--space-sm);">
+          <div class="control-header">
+            <span class="badge"><i data-lucide="sliders" style="width:13px;height:13px;" aria-hidden="true"></i> Simulación Interactiva 03 · Laboratorio CRV / Gateway</span>
+            <span class="coord-label">SINTONIZADOR DE COORDENADAS Y RESONANCIA</span>
+          </div>
+
+          <div class="split-grid">
+            <!-- Panel Izquierdo: Controles y Osciloscopio -->
+            <div class="controls-stack">
+              <div class="control-group">
+                <label class="field-label" for="crv-target-select">Coordenada Ciega del Archivo de Práctica (Protocolo SRI)</label>
+                <select id="crv-target-select" class="atlas-select" onchange="selectCrvTarget(this.value)">
+                  <option value="dam">COORD. 4918-7702 · [Objetivo Ciego Alfa]</option>
+                  <option value="lighthouse">COORD. 8034-1195 · [Objetivo Ciego Beta]</option>
+                  <option value="observatory">COORD. 2261-5409 · [Objetivo Ciego Gamma]</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label class="field-label" for="eeg-freq-slider">Frecuencia Dominante / Diferencia Binaural (Hz)</label>
+                  <span class="range-val" id="eeg-freq-readout">18.0 Hz (Beta — Disperso)</span>
+                </div>
+                <input type="range" id="eeg-freq-slider" min="4.0" max="24.0" step="0.5" value="18.0" oninput="updateCrvTuning()">
+              </div>
+
+              <div class="control-group">
+                <div class="control-header">
+                  <label class="field-label" for="aol-silence-slider">Atenuación del Hemisferio Izquierdo (Control AOL)</label>
+                  <span class="range-val" id="aol-silence-readout">25%</span>
+                </div>
+                <input type="range" id="aol-silence-slider" min="0" max="100" step="5" value="25" oninput="updateCrvTuning()">
+              </div>
+
+              <div class="btn-row">
+                <button type="button" class="btn btn-cyan" id="btn-faraday" onclick="toggleCrvFaraday()">
+                  <i data-lucide="shield" style="width:16px;height:16px;" aria-hidden="true"></i>
+                  <span>Jaula de Faraday: DESACTIVADA</span>
+                </button>
+                <button type="button" class="btn" id="btn-binaural-audio" onclick="toggleBinauralAudio()">
+                  <i data-lucide="headphones" style="width:16px;height:16px;" aria-hidden="true"></i>
+                  <span>Audio Hemi-Sync (Web Audio): OFF</span>
+                </button>
+              </div>
+
+              <div class="canvas-stage wave">
+                <canvas id="eeg-canvas" aria-label="Osciloscopio de sincronización interhemisférica Hemi-Sync y onda aórtica de 7 Hz"></canvas>
+              </div>
+
+              <div class="canvas-legend">
+                <span class="legend-item"><span class="swatch cyan"></span> Hemisferio Derecho (Holístico)</span>
+                <span class="legend-item"><span class="swatch coral"></span> Hemisferio Izquierdo (Analítico / AOL)</span>
+                <span class="legend-item"><span class="swatch brass"></span> Onda Estacionaria Aórtica (7.2 Hz)</span>
+              </div>
+
+              <div class="telemetry-strip">
+                <div class="metric-tile">
+                  <span class="metric-label">Coherencia Láser</span>
+                  <span class="metric-value cyan" id="crv-coherence">18%</span>
+                  <span class="metric-sub">Óptimo en 7.0–7.5 Hz</span>
+                </div>
+                <div class="metric-tile">
+                  <span class="metric-label">Ruido AOL</span>
+                  <span class="metric-value coral" id="crv-aol">75%</span>
+                  <span class="metric-sub">Interferencia analítica</span>
+                </div>
+                <div class="metric-tile">
+                  <span class="metric-label">Atenuación Faraday</span>
+                  <span class="metric-value mint" id="crv-shield">0% pérdida</span>
+                  <span class="metric-sub" id="crv-shield-note">Acceso no-EM activo</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel Derecho: Decodificador CRV Fases I-VI -->
+            <div class="controls-stack">
+              <div class="control-header">
+                <span class="metric-label" style="color:var(--primary);">Descodificación Progresiva por Fases CRV (Ingo Swann)</span>
+                <span class="badge badge-brass" id="crv-stage-badge">FASE I ACTIVA</span>
+              </div>
+
+              <div class="crv-stages-grid" id="crv-stages-list">
+                <!-- Populated dynamically by JS -->
+              </div>
+
+              <div class="btn-row" style="justify-content: space-between; padding-top: var(--space-xs);">
+                <button type="button" class="btn btn-primary" id="btn-reveal-target" onclick="toggleTargetReveal()">
+                  <i data-lucide="scan-eye" style="width:16px;height:16px;" aria-hidden="true"></i>
+                  <span>Revelar Objetivo Ciego</span>
+                </button>
+                <button type="button" class="btn" onclick="autoTuneGateway()">
+                  <i data-lucide="sparkles" style="width:16px;height:16px;" aria-hidden="true"></i>
+                  <span>Sintonizar Resonancia 7.5 Hz</span>
+                </button>
+              </div>
+
+              <div class="target-reveal-box is-hidden" id="target-reveal-box">
+                <div class="target-svg-frame" id="target-svg-container"></div>
+                <div>
+                  <div class="metric-label" style="color:var(--primary);" id="target-reveal-code">OBJETIVO VERIFICADO</div>
+                  <h3 style="margin: var(--space-xs) 0; font-family:var(--font-headline); font-weight:500; font-size:1.35rem; color:var(--on-surface);" id="target-reveal-title">Título</h3>
+                  <p style="margin:0; font-size:0.9rem; color:var(--on-surface-variant);" id="target-reveal-desc">Descripción</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 6: MATRIZ COMPARATIVA Y FUENTES -->
+      <section id="sec-sintesis" class="narrative-section reveal-on-scroll">
+        <div class="section-header">
+          <span class="coord-label"><i data-lucide="table-2" style="width:14px;height:14px;" aria-hidden="true"></i> 06 · SÍNTESIS TRANSDISCIPLINARIA</span>
+          <h2 class="section-title">Equivalencias estructurales entre Bentov, Gateway y el Proyecto Stargate</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="atlas-table">
+            <thead>
+              <tr>
+                <th>Dimensión del Fenómeno</th>
+                <th>Modelo Biofísico (Itzhak Bentov)</th>
+                <th>Informe Gateway (CIA / Monroe, 1983)</th>
+                <th>Visión Remota / CRV (SRI &amp; Stargate)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Naturaleza de la Conciencia</strong></td>
+                <td>Psique o cuerpo de información no físico; el cerebro amplifica y los ojos actúan como cámara inerte.</td>
+                <td>Matriz energética interactiva; no es el cerebro quien crea la conciencia, sino la conciencia al cerebro.</td>
+                <td>El espectador desacopla su atención del entorno físico para describir sitios a miles de kilómetros.</td>
+              </tr>
+              <tr>
+                <td><strong>Mecanismo de Salto No Local</strong></td>
+                <td>Reposo del péndulo (<em>v</em> = 0): por Heisenberg (Δ<em>p</em> → 0), Δ<em>x</em> → ∞ en momentos OFF a velocidad infinita.</td>
+                <td>“Click-out” en el intervalo entre pulsos de oscilación cerebral-cardíaca fuera del continuo temporal.</td>
+                <td>Contacto instantáneo con el objetivo tras leer las coordenadas ciegas antes del filtro lógico.</td>
+              </tr>
+              <tr>
+                <td><strong>Geometría Espacio-Temporal</strong></td>
+                <td>Rotación de ejes subjetivos por ángulo ψ: <em>t</em><sub>subj</sub> supera <em>c</em> y <em>s</em><sub>subj</sub> barre el pasado y futuro objetivos.</td>
+                <td>Escape de las limitaciones de tiempo-espacio en niveles Focus 12–21 mediante coherencia cerebral sostenida.</td>
+                <td>Protocolos de Visión Remota aplicables a objetivos en tiempo real, eventos históricos o futuros (ARV).</td>
+              </tr>
+              <tr>
+                <td><strong>Canal de Transmisión</strong></td>
+                <td>Acceso directo al holograma 4D de la Mente Universal dentro del protoespacio del toroide cósmico.</td>
+                <td>Interacción con el holograma universal (Pribram y Bohm); sintonía sin atenuación física.</td>
+                <td>Experimentos de Targ y Puthoff en jaulas de Faraday: invulnerabilidad total frente a blindaje EM.</td>
+              </tr>
+              <tr>
+                <td><strong>Condición Fisiológica Clave</strong></td>
+                <td>Onda estacionaria aórtica a ~7 Hz acoplada al tercer ventrículo y a la resonancia ionosférica de Schumann.</td>
+                <td>Sincronización hemisférica (Hemi-Sync) por FFR binaural que convierte la mente en un rayo láser coherente.</td>
+                <td>Neutralización del <em>Analytic Overlay</em> (AOL) del hemisferio izquierdo mediante las fases I–VI del CRV.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <footer class="sources-footer">
+          <span class="coord-label"><i data-lucide="book-open" style="width:14px;height:14px;" aria-hidden="true"></i> FUENTES DOCUMENTALES Y MARCO DE REFERENCIA</span>
+          <ul class="sources-list">
+            <li><strong>Itzhak Bentov</strong> — <em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> (1977) y <em>A Brief Tour of Higher Consciousness</em> (1990): geometría del toroide cósmico, reposo del péndulo e incertidumbre de Heisenberg, experimento del segundero, rotación de coordenadas ψ y resonancia aórtica de 7 Hz.</li>
+            <li><strong>Wayne M. McDonnell (U.S. Army / CIA)</strong> — <em>Analysis and Assessment of Gateway Process</em> (documento desclasificado CIA-RDP96-00788R001700210016-5, junio de 1983): integración del modelo biofísico de Bentov con la sincronización interhemisférica (Hemi-Sync / FFR), resonancia Schumann (6.8–7.5 Hz) y el modelo holográfico de Karl Pribram y David Bohm.</li>
+            <li><strong>Russell Targ, Harold Puthoff e Ingo Swann (SRI International / Proyecto Stargate)</strong> — Investigaciones sobre percepción remota bajo blindaje electromagnético (jaulas de Faraday) y codificación de las etapas progresivas del <em>Coordinate Remote Viewing</em> (CRV) para mitigar el <em>Analytic Overlay</em> (AOL).</li>
+            <li><strong>Marcos complementarios citados en las fuentes</strong> — <em>Teoría del Desdoblamiento del Tiempo</em> de Jean-Pierre Garnier Malet (aperturas temporales estroboscópicas y sueño paradójico) y <em>Teoría Sintérgica</em> de Jacobo Grinberg (campo neuronal, alta neurosintergia y coherencia interhemisférica).</li>
+          </ul>
+
+          <div style="margin-top: 1.5rem;">
+            <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(223, 170, 91, 0.45); background: rgba(223, 170, 91, 0.10); color: #efc062; font-family: var(--font-label, monospace); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+          </div>
+
+          <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+            <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a></span>
+          </div>
+        </footer>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    /* Theme Palette Reader (reads strictly from CSS :root tokens) */
+    var THEME = {
+      bg: '#0a101d',
+      surface: '#111b2e',
+      surfaceHigh: '#17243c',
+      text: '#f2ece1',
+      textMuted: '#9ba8bf',
+      outline: '#384d73',
+      outlineVar: '#21304d',
+      brass: '#dfaa5b',
+      cyan: '#7cc4e8',
+      mint: '#52d19c',
+      coral: '#e07a5f',
+      error: '#f27474',
+      context: '#4a5d80'
+    };
+
+    function initThemeFromCSS() {
+      var cs = getComputedStyle(document.documentElement);
+      function readTok(name, fallback) {
+        var v = cs.getPropertyValue(name);
+        return v && v.trim() ? v.trim() : fallback;
+      }
+      THEME.bg = readTok('--background', THEME.bg);
+      THEME.surface = readTok('--surface-container', THEME.surface);
+      THEME.surfaceHigh = readTok('--surface-container-high', THEME.surfaceHigh);
+      THEME.text = readTok('--on-surface', THEME.text);
+      THEME.textMuted = readTok('--on-surface-variant', THEME.textMuted);
+      THEME.outline = readTok('--outline', THEME.outline);
+      THEME.outlineVar = readTok('--outline-variant', THEME.outlineVar);
+      THEME.brass = readTok('--primary', THEME.brass);
+      THEME.cyan = readTok('--tertiary', THEME.cyan);
+      THEME.mint = readTok('--positive', THEME.mint);
+      THEME.coral = readTok('--data-4', THEME.coral);
+      THEME.error = readTok('--error', THEME.error);
+      THEME.context = readTok('--data-context', THEME.context);
+    }
+
+    function hexToRgba(hex, alpha) {
+      if (!hex || hex.charAt(0) !== '#') return hex;
+      var clean = hex.slice(1);
+      if (clean.length === 3) {
+        clean = clean[0] + clean[0] + clean[1] + clean[1] + clean[2] + clean[2];
+      }
+      var r = parseInt(clean.slice(0, 2), 16);
+      var g = parseInt(clean.slice(2, 4), 16);
+      var b = parseInt(clean.slice(4, 6), 16);
+      return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+    }
+
+    /* ================================================================
+       BACKGROUND STARFIELD & COORDINATE GRID
+    ================================================================ */
+    var bgState = { stars: [], animId: null };
+
+    function initCosmosBg() {
+      var canvas = document.getElementById('cosmos-bg');
+      if (!canvas) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      var ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      bgState.stars = [];
+      var count = Math.min(85, Math.floor((w * h) / 16000));
+      for (var i = 0; i < count; i++) {
+        bgState.stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.6 + Math.random() * 1.4,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.004 + Math.random() * 0.009,
+          isBrass: Math.random() > 0.62
+        });
+      }
+
+      function drawStars(t) {
+        ctx.clearRect(0, 0, w, h);
+        for (var i = 0; i < bgState.stars.length; i++) {
+          var s = bgState.stars[i];
+          var alpha = 0.18 + 0.45 * (0.5 + 0.5 * Math.sin(t * s.speed * 0.06 + s.phase));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = hexToRgba(s.isBrass ? THEME.brass : THEME.cyan, alpha);
+          ctx.fill();
+        }
+        bgState.animId = requestAnimationFrame(drawStars);
+      }
+
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        drawStars(0);
+        cancelAnimationFrame(bgState.animId);
+      } else {
+        cancelAnimationFrame(bgState.animId);
+        bgState.animId = requestAnimationFrame(drawStars);
+      }
+    }
+
+    /* ================================================================
+       SIMULATION 1: PENDULUM / HEISENBERG / OBSERVER DECOUPLING
+    ================================================================ */
+    var pendState = {
+      freqHz: 3.5,
+      slowMo: true,
+      frozenZero: false,
+      phase: 0,
+      lastTime: 0,
+      animId: null,
+      offFlash: 0
+    };
+
+    function updatePendulumFreq(val) {
+      pendState.freqHz = parseFloat(val);
+      var readout = document.getElementById('pend-freq-readout');
+      var rateEl = document.getElementById('pend-rate');
+      var offPerSec = (pendState.freqHz * 2).toFixed(1);
+      if (readout) {
+        readout.textContent = pendState.freqHz.toFixed(1) + ' Hz (' + offPerSec + ' puntos OFF/s)';
+      }
+      if (rateEl) {
+        rateEl.textContent = offPerSec + ' puntos OFF / seg';
+      }
+    }
+
+    function toggleFreezeZero() {
+      pendState.frozenZero = !pendState.frozenZero;
+      var btn = document.getElementById('btn-freeze-zero');
+      if (pendState.frozenZero) {
+        // Snap phase to exact turning point (cos(phase) = 1 -> sin(phase) = 0)
+        pendState.phase = 0;
+        pendState.offFlash = 1.0;
+        if (btn) {
+          btn.innerHTML = '<i data-lucide="play-circle" style="width:16px;height:16px;" aria-hidden="true"></i><span>Reanudar Oscilación</span>';
+        }
+      } else {
+        if (btn) {
+          btn.innerHTML = '<i data-lucide="pause-circle" style="width:16px;height:16px;" aria-hidden="true"></i><span>Congelar en Punto Cero (v = 0)</span>';
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleSlowMotion() {
+      pendState.slowMo = !pendState.slowMo;
+      var btn = document.getElementById('btn-slow-mo');
+      if (btn) {
+        btn.classList.toggle('is-active', pendState.slowMo);
+        btn.innerHTML = pendState.slowMo
+          ? '<i data-lucide="clock" style="width:16px;height:16px;" aria-hidden="true"></i><span>Inspección Cámara Lenta (1/12×)</span>'
+          : '<i data-lucide="zap" style="width:16px;height:16px;" aria-hidden="true"></i><span>Velocidad Real</span>';
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function drawPendulumFrame(timestamp) {
+      var canvas = document.getElementById('pendulum-canvas');
+      if (!canvas) return;
+      var stage = canvas.parentElement;
+      var w = stage ? stage.clientWidth : 520;
+      var h = stage ? stage.clientHeight : 360;
+      if (w < 10 || h < 10) {
+        pendState.animId = requestAnimationFrame(drawPendulumFrame);
+        return;
+      }
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+      }
+      var ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      if (!pendState.lastTime) pendState.lastTime = timestamp;
+      var dt = Math.min((timestamp - pendState.lastTime) / 1000, 0.05);
+      pendState.lastTime = timestamp;
+
+      if (!pendState.frozenZero) {
+        var speedScale = pendState.slowMo ? (1 / 12) : 1;
+        pendState.phase += dt * pendState.freqHz * Math.PI * 2 * speedScale;
+      }
+
+      // Harmonic kinematics: x = A * cos(phase), v = -A * w * sin(phase)
+      var cosP = Math.cos(pendState.phase);
+      var sinP = Math.sin(pendState.phase);
+      var normVel = Math.abs(sinP); // 0 at extremes, 1 at center
+      var isOff = pendState.frozenZero || normVel < 0.14;
+
+      if (isOff) {
+        pendState.offFlash = pendState.frozenZero ? 1.0 : Math.min(1, pendState.offFlash + dt * 9);
+      } else {
+        pendState.offFlash = Math.max(0, pendState.offFlash - dt * 4.5);
+      }
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Background subtle grid
+      ctx.strokeStyle = hexToRgba(THEME.outlineVar, 0.45);
+      ctx.lineWidth = 1;
+      for (var gx = 32; gx < w; gx += 36) {
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
+      }
+      for (var gy = 32; gy < h; gy += 36) {
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+      }
+
+      // Split layout inside canvas: Left 62% = Pendulum + Quantum Uncertainty; Right 38% = Inert Camera Monitor
+      var splitX = w * 0.62;
+      ctx.strokeStyle = hexToRgba(THEME.outline, 0.5);
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(splitX, 16); ctx.lineTo(splitX, h - 16); ctx.stroke();
+      ctx.setLineDash([]);
+
+      var pivotX = splitX * 0.5;
+      var pivotY = 44;
+      var rodLen = Math.min(h - 115, splitX * 0.58);
+      var maxAngle = 0.58;
+      var angle = maxAngle * cosP;
+      var bobX = pivotX + Math.sin(angle) * rodLen;
+      var bobY = pivotY + Math.cos(angle) * rodLen;
+
+      // Turning point guides
+      var leftX = pivotX + Math.sin(-maxAngle) * rodLen;
+      var leftY = pivotY + Math.cos(-maxAngle) * rodLen;
+      var rightX = pivotX + Math.sin(maxAngle) * rodLen;
+      var rightY = pivotY + Math.cos(maxAngle) * rodLen;
+
+      ctx.strokeStyle = hexToRgba(THEME.cyan, 0.35);
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath(); ctx.moveTo(pivotX, pivotY); ctx.lineTo(leftX, leftY); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(pivotX, pivotY); ctx.lineTo(rightX, rightY); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Labels for turning points
+      ctx.font = '500 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.cyan;
+      ctx.textAlign = 'center';
+      ctx.fillText('v = 0 (OFF)', leftX, leftY + 28);
+      ctx.fillText('v = 0 (OFF)', rightX, rightY + 28);
+
+      // Arc track
+      ctx.beginPath();
+      ctx.arc(pivotX, pivotY, rodLen, Math.PI / 2 - maxAngle, Math.PI / 2 + maxAngle);
+      ctx.strokeStyle = hexToRgba(THEME.outline, 0.65);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Heisenberg Cosmic Expansion Rings during OFF moment
+      if (pendState.offFlash > 0.02) {
+        var maxR = Math.max(w, h) * 0.85;
+        for (var rIdx = 1; rIdx <= 4; rIdx++) {
+          var rad = 18 + (maxR * 0.25 * rIdx) * pendState.offFlash;
+          ctx.beginPath();
+          ctx.arc(bobX, bobY, rad, 0, Math.PI * 2);
+          ctx.strokeStyle = hexToRgba(THEME.cyan, (0.55 - rIdx * 0.1) * pendState.offFlash);
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+        }
+        // Starburst rays representing infinite velocity (c -> ∞)
+        ctx.save();
+        ctx.translate(bobX, bobY);
+        for (var ray = 0; ray < 12; ray++) {
+          var ra = (ray / 12) * Math.PI * 2;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(ra) * 14, Math.sin(ra) * 14);
+          ctx.lineTo(Math.cos(ra) * (40 + 130 * pendState.offFlash), Math.sin(ra) * (40 + 130 * pendState.offFlash));
+          ctx.strokeStyle = hexToRgba(THEME.cyan, 0.32 * pendState.offFlash);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      // Pendulum rod
+      ctx.beginPath();
+      ctx.moveTo(pivotX, pivotY);
+      ctx.lineTo(bobX, bobY);
+      ctx.strokeStyle = hexToRgba(THEME.text, 0.55);
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Pivot anchor
+      ctx.beginPath();
+      ctx.arc(pivotX, pivotY, 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = THEME.brass;
+      ctx.fill();
+
+      // Pendulum bob (solid brass when ON, ghosted/delocalized cyan halo when OFF)
+      var bobAlpha = isOff ? 0.35 : 1.0;
+      ctx.beginPath();
+      ctx.arc(bobX, bobY, 14, 0, Math.PI * 2);
+      ctx.fillStyle = hexToRgba(isOff ? THEME.cyan : THEME.brass, bobAlpha);
+      ctx.fill();
+      ctx.strokeStyle = isOff ? THEME.cyan : THEME.text;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Status caption on pendulum side
+      ctx.textAlign = 'left';
+      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.fillStyle = isOff ? THEME.cyan : THEME.brass;
+      ctx.fillText(
+        isOff ? 'MOMENTO OFF: Δp → 0 · Δx → ∞ (OBSERVADOR EXPANDIDO)' : 'MOMENTO ON: MATERIA LOCALIZADA EN EL TIEMPO',
+        16,
+        h - 16
+      );
+
+      // Right Panel: Inert Camera & Brain Screen
+      var camX = splitX + 18;
+      var camW = w - splitX - 34;
+      var camY = 28;
+      var camH = h - 66;
+
+      ctx.fillStyle = hexToRgba(THEME.surface, 0.9);
+      ctx.strokeStyle = isOff ? THEME.mint : THEME.outline;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.roundRect ? ctx.roundRect(camX, camY, camW, camH, 6) : ctx.rect(camX, camY, camW, camH);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.textMuted;
+      ctx.fillText('CÁMARA INERTE (OJO / CEREBRO)', camX + 12, camY + 22);
+
+      // Simulated analog clock inside the Inert Camera panel
+      var clockCx = camX + camW * 0.5;
+      var clockCy = camY + camH * 0.52;
+      var clockR = Math.min(camW, camH) * 0.28;
+
+      ctx.beginPath();
+      ctx.arc(clockCx, clockCy, clockR, 0, Math.PI * 2);
+      ctx.strokeStyle = isOff ? THEME.mint : THEME.outline;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Clock ticks
+      for (var tk = 0; tk < 12; tk++) {
+        var ta = (tk / 12) * Math.PI * 2 - Math.PI / 2;
+        ctx.beginPath();
+        ctx.moveTo(clockCx + Math.cos(ta) * (clockR - 5), clockCy + Math.sin(ta) * (clockR - 5));
+        ctx.lineTo(clockCx + Math.cos(ta) * clockR, clockCy + Math.sin(ta) * clockR);
+        ctx.strokeStyle = THEME.textMuted;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      // Second hand: pauses during OFF moment (Bentov's clock experiment!)
+      var secAngle = (isOff ? Math.floor(timestamp / 800) * 0.5 : (timestamp / 1000) * 0.9) - Math.PI / 2;
+      ctx.beginPath();
+      ctx.moveTo(clockCx, clockCy);
+      ctx.lineTo(clockCx + Math.cos(secAngle) * (clockR * 0.8), clockCy + Math.sin(secAngle) * (clockR * 0.8));
+      ctx.strokeStyle = isOff ? THEME.mint : THEME.brass;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.font = '500 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = isOff ? THEME.mint : THEME.textMuted;
+      ctx.fillText(isOff ? 'SEGUNDERO DETENIDO' : 'REGISTRO ACTIVO', clockCx, camY + camH - 26);
+      ctx.fillText(isOff ? '(Último cuadro proyectado)' : '(Observador acoplado)', clockCx, camY + camH - 12);
+
+      // Update numeric DOM readouts
+      var vDisplay = (normVel * 1.85 * (pendState.freqHz / 3.5)).toFixed(2);
+      var mDisplay = (normVel * 0.92 * (pendState.freqHz / 3.5)).toFixed(2);
+      var velEl = document.getElementById('pend-vel');
+      var momEl = document.getElementById('pend-mom');
+      var uncEl = document.getElementById('pend-unc');
+      var stEl = document.getElementById('pend-state');
+
+      if (velEl) velEl.textContent = (isOff ? '0.00' : vDisplay) + ' m/s';
+      if (momEl) momEl.textContent = (isOff ? '0.00' : mDisplay) + ' kg·m/s';
+      if (uncEl) {
+        uncEl.textContent = isOff ? 'Δx → ∞ (COSMOS)' : 'LOCALIZADA';
+        uncEl.className = 'metric-value ' + (isOff ? 'cyan' : 'brass');
+      }
+      if (stEl) {
+        stEl.textContent = isOff ? 'MOMENTO OFF' : 'MOMENTO ON';
+        stEl.className = 'metric-value ' + (isOff ? 'cyan' : 'mint');
+      }
+
+      pendState.animId = requestAnimationFrame(drawPendulumFrame);
+    }
+
+    /* ================================================================
+       SIMULATION 2: SPACETIME COORDINATE ROTATION (BENTOV FIG. 23-25)
+    ================================================================ */
+    var stState = {
+      psi: 45,
+      scanMode: 'present',
+      animPhase: 0,
+      animId: null
+    };
+
+    function updatePsiAngle(val) {
+      stState.psi = parseFloat(val);
+      var readout = document.getElementById('psi-readout');
+      if (readout) readout.textContent = stState.psi.toFixed(1) + '°';
+      var btns = document.querySelectorAll('.btn-preset');
+      for (var i = 0; i < btns.length; i++) {
+        var bPsi = parseFloat(btns[i].getAttribute('data-psi'));
+        btns[i].classList.toggle('is-active', Math.abs(bPsi - stState.psi) < 0.3);
+      }
+      updateSpacetimeMetrics();
+    }
+
+    function setPsiPreset(val, btn) {
+      stState.psi = val;
+      var slider = document.getElementById('psi-slider');
+      if (slider) slider.value = val;
+      updatePsiAngle(val);
+      if (btn) btn.classList.add('is-active');
+    }
+
+    function updateScanMode(mode) {
+      stState.scanMode = mode;
+      updateSpacetimeMetrics();
+    }
+
+    function updateSpacetimeMetrics() {
+      var rad = (stState.psi * Math.PI) / 180;
+      var ratio = 1 / Math.max(Math.cos(rad), 0.015);
+      var angleEl = document.getElementById('st-angle');
+      var idxEl = document.getElementById('st-index');
+      var ratioEl = document.getElementById('st-ratio');
+      var regEl = document.getElementById('st-regime');
+      var accEl = document.getElementById('st-access');
+
+      if (angleEl) angleEl.textContent = stState.psi.toFixed(1) + '°';
+      if (idxEl) idxEl.textContent = ratio >= 30 ? '∞ (Límite)' : ratio.toFixed(2) + '×';
+      if (ratioEl) ratioEl.textContent = (ratio >= 30 ? '>35' : ratio.toFixed(2)) + ' s subj / 1 s obj';
+
+      var regimeText = 'SÍMIL-TIEMPO (< c)';
+      var accessText = 'Percepción local ordinaria';
+      if (stState.psi >= 44.5 && stState.psi <= 46.5) {
+        regimeText = 'BARRERA c (45°)';
+        accessText = 'Cruce al dominio no-local';
+      } else if (stState.psi > 46.5 && stState.psi < 82) {
+        regimeText = 'SÍMIL-ESPACIO (> c)';
+        if (stState.scanMode === 'present') accessText = 'Coordenada distante simultánea';
+        else if (stState.scanMode === 'past') accessText = 'Barrido hacia pasado objetivo';
+        else accessText = 'Exploración de futuros probables';
+      } else if (stState.psi >= 82) {
+        regimeText = 'SAMADHI / INFINITO';
+        accessText = 't_subj ≈ s_obj (Omnipresencia)';
+      }
+
+      if (regEl) regEl.textContent = regimeText;
+      if (accEl) accEl.textContent = accessText;
+    }
+
+    function drawSpacetimeFrame(timestamp) {
+      var canvas = document.getElementById('spacetime-canvas');
+      if (!canvas) return;
+      var stage = canvas.parentElement;
+      var w = stage ? stage.clientWidth : 520;
+      var h = stage ? stage.clientHeight : 410;
+      if (w < 10 || h < 10) {
+        stState.animId = requestAnimationFrame(drawSpacetimeFrame);
+        return;
+      }
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+      }
+      var ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      ctx.clearRect(0, 0, w, h);
+
+      var cx = w * 0.44;
+      var cy = h * 0.56;
+      var unitPx = Math.min(w, h) * 0.22; // 1 objective second length
+
+      // Shaded future & past light cones (45 deg)
+      ctx.fillStyle = hexToRgba(THEME.cyan, 0.06);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx - 260, cy - 260);
+      ctx.lineTo(cx + 260, cy - 260);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = hexToRgba(THEME.outline, 0.12);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx - 260, cy + 260);
+      ctx.lineTo(cx + 260, cy + 260);
+      ctx.closePath();
+      ctx.fill();
+
+      // Light cone diagonals (c)
+      ctx.strokeStyle = hexToRgba(THEME.textMuted, 0.45);
+      ctx.setLineDash([4, 4]);
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(cx - 250, cy - 250);
+      ctx.lineTo(cx + 250, cy + 250);
+      ctx.moveTo(cx - 250, cy + 250);
+      ctx.lineTo(cx + 250, cy - 250);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Objective Axes (Vertical t_obj, Horizontal s_obj)
+      ctx.strokeStyle = THEME.cyan;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, 20);
+      ctx.lineTo(cx, h - 20);
+      ctx.moveTo(20, cy);
+      ctx.lineTo(w - 20, cy);
+      ctx.stroke();
+
+      // Axis labels (Objective)
+      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.cyan;
+      ctx.textAlign = 'left';
+      ctx.fillText('t_obj (FUTURO)', cx + 8, 28);
+      ctx.fillText('t_obj (PASADO)', cx + 8, h - 18);
+      ctx.textAlign = 'right';
+      ctx.fillText('s_obj (ESPACIO +)', w - 16, cy - 8);
+      ctx.textAlign = 'left';
+      ctx.fillText('s_obj (-)', 18, cy - 8);
+
+      // 1-second objective mark & horizontal projection line
+      var markY = cy - unitPx;
+      ctx.beginPath();
+      ctx.arc(cx, markY, 4, 0, Math.PI * 2);
+      ctx.fillStyle = THEME.mint;
+      ctx.fill();
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.mint;
+      ctx.textAlign = 'right';
+      ctx.fillText('1s obj', cx - 8, markY + 4);
+
+      ctx.strokeStyle = hexToRgba(THEME.mint, 0.6);
+      ctx.setLineDash([5, 4]);
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(cx, markY);
+      ctx.lineTo(w - 24, markY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Rotated Subjective Axes by psi clockwise:
+      // t_subj starts pointing UP (0, -1), rotated clockwise by psi -> (sin(psi), -cos(psi))
+      // s_subj starts pointing RIGHT (1, 0), rotated clockwise by psi -> (cos(psi), sin(psi))
+      var psiRad = (stState.psi * Math.PI) / 180;
+      var tVecX = Math.sin(psiRad);
+      var tVecY = -Math.cos(psiRad);
+      var sVecX = Math.cos(psiRad);
+      var sVecY = Math.sin(psiRad);
+
+      var axisLen = Math.max(w, h) * 0.75;
+      ctx.strokeStyle = THEME.brass;
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash([8, 5]);
+      ctx.beginPath();
+      ctx.moveTo(cx - tVecX * axisLen, cy - tVecY * axisLen);
+      ctx.lineTo(cx + tVecX * axisLen, cy + tVecY * axisLen);
+      ctx.moveTo(cx - sVecX * axisLen, cy - sVecY * axisLen);
+      ctx.lineTo(cx + sVecX * axisLen, cy + sVecY * axisLen);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Label rotated axes
+      var tLblDist = Math.min(cy - 34, w - cx - 75);
+      var tLx = cx + tVecX * Math.max(95, tLblDist);
+      var tLy = cy + tVecY * Math.max(95, tLblDist);
+      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.brass;
+      ctx.textAlign = 'left';
+      ctx.fillText('t_subj', Math.min(w - 58, tLx + 6), Math.max(44, tLy));
+
+      var sLx = cx + sVecX * 135;
+      var sLy = cy + sVecY * 135;
+      ctx.fillText('s_subj', Math.min(w - 58, sLx + 6), Math.min(h - 24, sLy + 14));
+
+      // Intersection point A on t_subj where y = markY => t_len = unitPx / cos(psi)
+      var diagLen = unitPx / Math.max(Math.cos(psiRad), 0.04);
+      var interX = cx + tVecX * diagLen;
+      var interY = cy + tVecY * diagLen;
+
+      if (interX <= w - 14) {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(interX, interY);
+        ctx.strokeStyle = THEME.mint;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(interX, interY, 5.5, 0, Math.PI * 2);
+        ctx.fillStyle = THEME.mint;
+        ctx.fill();
+        ctx.fillStyle = THEME.text;
+        ctx.fillText('A (' + (1 / Math.cos(psiRad)).toFixed(1) + 's)', Math.min(w - 75, interX + 8), interY - 8);
+      } else {
+        ctx.fillStyle = THEME.mint;
+        ctx.textAlign = 'right';
+        ctx.fillText('Intersección A → ∞ (Símil-espacio)', w - 20, markY - 8);
+      }
+
+      // Angle arc for psi
+      if (stState.psi > 2) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, 42, -Math.PI / 2, -Math.PI / 2 + psiRad);
+        ctx.strokeStyle = THEME.brass;
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+        ctx.font = '500 11px "JetBrains Mono", monospace';
+        ctx.fillStyle = THEME.brass;
+        ctx.textAlign = 'left';
+        ctx.fillText('ψ', cx + Math.sin(psiRad * 0.5) * 52, cy - Math.cos(psiRad * 0.5) * 52);
+      }
+
+      // Observer scanning dot moving along s_subj depending on scanMode
+      var pulse = 0.5 + 0.5 * Math.sin(timestamp * 0.003);
+      var sign = stState.scanMode === 'future' ? -1 : 1; // negative s_subj points UP toward future when rotated!
+      var scanDist = 55 + 75 * pulse;
+      if (stState.scanMode === 'present') {
+        scanDist = 90 + 40 * Math.sin(timestamp * 0.0025);
+        sign = 1;
+      }
+      var obsX = cx + sVecX * scanDist * sign;
+      var obsY = cy + sVecY * scanDist * sign;
+      if (stState.scanMode === 'present') {
+        // Clamp visually near objective space axis when psi small, or follow s_subj
+        obsX = cx + sVecX * scanDist;
+        obsY = cy + sVecY * scanDist;
+      }
+
+      ctx.beginPath();
+      ctx.arc(obsX, obsY, 12, 0, Math.PI * 2);
+      ctx.fillStyle = hexToRgba(THEME.brass, 0.22);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(obsX, obsY, 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = THEME.brass;
+      ctx.fill();
+
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.text;
+      ctx.textAlign = 'left';
+      var obsLabel = stState.scanMode === 'present'
+        ? 'Observador en s_subj'
+        : (stState.scanMode === 'past' ? 'Barrido Pasado Obj.' : 'Barrido Futuro Prob.');
+      ctx.fillText(obsLabel, Math.min(w - 130, Math.max(12, obsX + 10)), Math.min(h - 14, Math.max(20, obsY + 4)));
+
+      // Origin "AHORA"
+      ctx.beginPath();
+      ctx.arc(cx, cy, 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = THEME.text;
+      ctx.fill();
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.text;
+      ctx.textAlign = 'right';
+      ctx.fillText('AHORA', cx - 8, cy + 14);
+
+      // Speed of light label
+      ctx.fillStyle = THEME.textMuted;
+      ctx.textAlign = 'left';
+      ctx.fillText('c (Velocidad de la luz)', cx + 108, cy - 115);
+
+      stState.animId = requestAnimationFrame(drawSpacetimeFrame);
+    }
+
+    /* ================================================================
+       SIMULATION 3A: COSMIC TORUS VS. ELECTROMAGNETIC SHIELDING
+    ================================================================ */
+    var torusState = {
+      mode: 'hologram',
+      animId: null
+    };
+
+    function setTorusMode(mode) {
+      torusState.mode = mode;
+      var btnH = document.getElementById('btn-mode-hologram');
+      var btnE = document.getElementById('btn-mode-em');
+      var exp = document.getElementById('torus-explanation');
+
+      if (btnH) btnH.classList.toggle('is-active', mode === 'hologram');
+      if (btnE) {
+        btnE.classList.toggle('is-active', mode === 'em');
+        btnE.classList.toggle('btn-cyan', mode === 'em');
+      }
+
+      if (exp) {
+        if (mode === 'hologram') {
+          exp.innerHTML = '<div class="metric-label" style="color:var(--tertiary);">Modo Activo: Sintonía No Local en la Mente Universal</div><p style="margin: var(--space-xs) 0 0; font-size:0.92rem; color:var(--on-surface-variant);">Toda la materia en la envolvente del toroide irradia ondas de información hacia el hueco interior (<strong>protoespacio</strong>), tejiendo un <strong>holograma 4D</strong> donde cada fragmento contiene al todo. La luz y las ondas electromagnéticas no atraviesan el protoespacio ni los blindajes metálicos, pero la psique en su fase OFF resuena instantáneamente con el patrón de interferencia completo.</p>';
+        } else {
+          exp.innerHTML = '<div class="metric-label" style="color:var(--error);">Modo Activo: Modelo Clásico de Onda Electromagnética (Refutado por SRI)</div><p style="margin: var(--space-xs) 0 0; font-size:0.92rem; color:var(--on-surface-variant);">Si la Visión Remota dependiera de señales electromagnéticas viajando por la cáscara espacial externa, la señal decaería con 1/<em>r</em>² y rebotaría al chocar con la <strong>jaula de Faraday</strong> del laboratorio. Los experimentos de Targ y Puthoff probaron que el blindaje eléctrico no bloquea la percepción remota.</p>';
+        }
+      }
+    }
+
+    function drawTorusFrame(timestamp) {
+      var canvas = document.getElementById('torus-canvas');
+      if (!canvas) return;
+      var stage = canvas.parentElement;
+      var w = stage ? stage.clientWidth : 520;
+      var h = stage ? stage.clientHeight : 360;
+      if (w < 10 || h < 10) {
+        torusState.animId = requestAnimationFrame(drawTorusFrame);
+        return;
+      }
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+      }
+      var ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      var cx = w * 0.5;
+      var cy = h * 0.5;
+      var rx = Math.min(w * 0.39, 200);
+      var ry = Math.min(h * 0.38, 128);
+
+      // Draw Elongated Hollow Torus cross-section
+      // Outer shell lobes
+      ctx.strokeStyle = hexToRgba(THEME.outline, 0.7);
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Inner protospace core
+      ctx.fillStyle = hexToRgba(THEME.cyan, 0.08);
+      ctx.strokeStyle = hexToRgba(THEME.cyan, 0.45);
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx * 0.48, ry * 0.36, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // White hole (left/bottom flow) & Black hole (right/top return)
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = THEME.brass;
+      ctx.fillText('AGUJERO BLANCO (ORIGEN)', cx, 24);
+      ctx.fillStyle = THEME.textMuted;
+      ctx.fillText('AGUJERO NEGRO (RETORNO)', cx, h - 14);
+      ctx.fillStyle = THEME.cyan;
+      ctx.fillText('PROTOESPACIO · HOLOGRAMA 4D', cx, cy + 4);
+      ctx.fillText('(MENTE UNIVERSAL)', cx, cy + 18);
+
+      // Interference wave rings inside protospace
+      var t = timestamp * 0.002;
+      for (var k = 0; k < 4; k++) {
+        var frac = ((t + k * 0.25) % 1);
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rx * 0.46 * frac, ry * 0.34 * frac, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = hexToRgba(THEME.cyan, (1 - frac) * 0.45);
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+
+      // Observer node (Left shell, inside Faraday cage) and Target node (Right shell)
+      var obsX = cx - rx * 0.85;
+      var obsY = cy;
+      var tgtX = cx + rx * 0.85;
+      var tgtY = cy;
+
+      // Faraday cage box around Observer
+      ctx.strokeStyle = THEME.brass;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(obsX - 24, obsY - 24, 48, 48);
+      ctx.font = '600 9px "JetBrains Mono", monospace';
+      ctx.fillStyle = THEME.brass;
+      ctx.fillText('JAULA FARADAY', obsX, obsY - 30);
+      ctx.fillText('SRI / ESPECTADOR', obsX, obsY + 36);
+
+      ctx.beginPath();
+      ctx.arc(obsX, obsY, 6, 0, Math.PI * 2);
+      ctx.fillStyle = THEME.cyan;
+      ctx.fill();
+
+      // Target marker
+      ctx.beginPath();
+      ctx.arc(tgtX, tgtY, 7, 0, Math.PI * 2);
+      ctx.fillStyle = THEME.brass;
+      ctx.fill();
+      ctx.fillStyle = THEME.brass;
+      ctx.fillText('OBJETIVO DISTANTE', tgtX, tgtY - 14);
+
+      if (torusState.mode === 'hologram') {
+        // Holographic waves radiating from both Observer and Target into the central Universal Mind
+        var pulse = 0.5 + 0.5 * Math.sin(timestamp * 0.005);
+        ctx.strokeStyle = hexToRgba(THEME.mint, 0.75);
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(obsX + 6, obsY);
+        ctx.quadraticCurveTo(cx, cy - 18 * pulse, cx, cy);
+        ctx.moveTo(tgtX - 7, tgtY);
+        ctx.quadraticCurveTo(cx, cy + 18 * pulse, cx, cy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = THEME.mint;
+        ctx.fillText('RESONANCIA INSTANTÁNEA (NO BLOQUEADA)', cx, cy - 32);
+      } else {
+        // EM wave traveling along outer perimeter and bouncing off Faraday wall
+        var emProg = (timestamp * 0.0007) % 1;
+        var waveX = tgtX - (tgtX - (obsX + 24)) * emProg;
+        var arcOffset = Math.sin(emProg * Math.PI) * (ry * 0.85);
+        var waveY = cy - arcOffset;
+
+        ctx.strokeStyle = hexToRgba(THEME.error, 0.7);
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(tgtX, tgtY);
+        ctx.quadraticCurveTo(cx, cy - ry * 1.12, obsX + 26, obsY);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(waveX, waveY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = THEME.error;
+        ctx.fill();
+
+        ctx.fillStyle = THEME.error;
+        ctx.fillText('ONDA EM REBOTA / ATENUADA EN BLINDAJE', cx, cy - ry * 0.92);
+      }
+
+      torusState.animId = requestAnimationFrame(drawTorusFrame);
+    }
+
+    /* ================================================================
+       SIMULATION 3B: CRV COORDINATE TUNER, HEMI-SYNC & EEG WAVEFORMS
+    ================================================================ */
+    var CRV_TARGETS = {
+      dam: {
+        code: `COORD. 4918-7702 · ARCHIVO DE PRÁCTICA SRI`,
+        title: `Presa Hidroeléctrica y Embalse en Cañón Rocoso`,
+        desc: `Estructura curva de hormigón armado conteniendo un gran volumen de agua azulada entre paredes minerales verticales.`,
+        svg: `<svg viewBox="0 0 160 120" width="150" height="112" aria-hidden="true">
+          <path d="M12 22 L42 98 L118 98 L148 22" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+          <path d="M36 46 Q80 68 124 46 L118 94 Q80 104 42 94 Z" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+          <path d="M40 38 Q80 46 120 38" fill="none" stroke="var(--tertiary)" stroke-width="1.8" stroke-dasharray="4 3"/>
+          <line x1="68" y1="60" x2="68" y2="95" stroke="var(--tertiary)" stroke-width="2"/>
+          <line x1="92" y1="60" x2="92" y2="95" stroke="var(--tertiary)" stroke-width="2"/>
+        </svg>`,
+        stages: [
+          { id: `FASE I`, threshold: 0, title: `Ideograma / Gestalt Motriz`, text: `Trazo rápido curvo-vertical; sensación inmediata de barrera artificial masiva frente a flujo líquido.` },
+          { id: `FASE II`, threshold: 35, title: `Descriptores Sensoriales`, text: `Humedad fría, vibración acústica sorda y constante, rugosidad mineral grisácea, luz solar reflejada.` },
+          { id: `FASE III`, threshold: 52, title: `Boceto Dimensional`, text: `Arco cóncavo anclado entre dos laderas escarpadas; contraste abrupto de nivel entre dos planos de agua.` },
+          { id: `FASE IV`, threshold: 68, title: `Tangibles e Intangibles`, text: `Función de contención energética, presión hidrostática intensa, zumbido mecánico de turbinas.` },
+          { id: `FASE V–VI`, threshold: 82, title: `Matriz Holográfica Clara`, text: `Identificación estructural nítida sin interferencia AOL: muro curvo de presa hidroeléctrica y aliviaderos.` }
+        ]
+      },
+      lighthouse: {
+        code: `COORD. 8034-1195 · ARCHIVO DE PRÁCTICA SRI`,
+        title: `Faro Cilíndrico sobre Promontorio Costero`,
+        desc: `Torre vertical blanca y esbelta equipada con lente óptica giratoria, azotada por oleaje marino contra rocas basálticas.`,
+        svg: `<svg viewBox="0 0 160 120" width="150" height="112" aria-hidden="true">
+          <path d="M10 98 Q45 86 80 94 T150 96" fill="none" stroke="var(--tertiary)" stroke-width="2"/>
+          <polygon points="72,88 88,88 84,32 76,32" fill="none" stroke="var(--primary)" stroke-width="2.2"/>
+          <rect x="74" y="20" width="12" height="12" fill="none" stroke="var(--tertiary)" stroke-width="2"/>
+          <line x1="86" y1="26" x2="144" y2="14" stroke="var(--primary)" stroke-width="1.6" stroke-dasharray="4 3"/>
+          <line x1="86" y1="26" x2="144" y2="38" stroke="var(--primary)" stroke-width="1.6" stroke-dasharray="4 3"/>
+        </svg>`,
+        stages: [
+          { id: `FASE I`, threshold: 0, title: `Ideograma / Gestalt Motriz`, text: `Vector vertical ascendente sobre base angular irregular; percepción de borde agua-tierra.` },
+          { id: `FASE II`, threshold: 35, title: `Descriptores Sensoriales`, text: `Aire salino, viento lateral fuerte, sabor metálico, destello rítmico de calor y luz blanca.` },
+          { id: `FASE III`, threshold: 52, title: `Boceto Dimensional`, text: `Cilindro estrecho y alto coronado por una cúpula acristalada; base rocosa rodeada de espuma.` },
+          { id: `FASE IV`, threshold: 68, title: `Tangibles e Intangibles`, text: `Señalización, vigilancia, rotación mecánica lenta en la cima y aislamiento geográfico.` },
+          { id: `FASE V–VI`, threshold: 82, title: `Matriz Holográfica Clara`, text: `Faro costero sobre acantilado con haz óptico giratorio; coincidencia completa de proporciones.` }
+        ]
+      },
+      observatory: {
+        code: `COORD. 2261-5409 · ARCHIVO DE PRÁCTICA SRI`,
+        title: `Radiotelescopio Parabólico de Alta Montaña`,
+        desc: `Gran antena parabólica metálica orientada al cielo nocturno sobre una meseta árida de gran altitud.`,
+        svg: `<svg viewBox="0 0 160 120" width="150" height="112" aria-hidden="true">
+          <path d="M20 102 L140 102" stroke="var(--on-surface-variant)" stroke-width="1.5"/>
+          <polygon points="62,102 98,102 86,68 74,68" fill="none" stroke="var(--on-surface-variant)" stroke-width="2"/>
+          <path d="M44 36 Q80 82 124 44" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+          <line x1="84" y1="58" x2="96" y2="24" stroke="var(--tertiary)" stroke-width="2"/>
+          <circle cx="96" cy="24" r="3.5" fill="var(--tertiary)"/>
+        </svg>`,
+        stages: [
+          { id: `FASE I`, threshold: 0, title: `Ideograma / Gestalt Motriz`, text: `Arco parabólico abierto hacia arriba sostenido por estructura reticular triangular.` },
+          { id: `FASE II`, threshold: 35, title: `Descriptores Sensoriales`, text: `Aire seco y frío de altura, superficie metálica lisa pintada de blanco, silencio atmosférico.` },
+          { id: `FASE III`, threshold: 52, title: `Boceto Dimensional`, text: `Concavidad simétrica inclinada a 45° con un mástil focal proyectándose hacia el centro.` },
+          { id: `FASE IV`, threshold: 68, title: `Tangibles e Intangibles`, text: `Escucha pasiva, recolección de señales lejanas, engranajes hidráulicos precisos.` },
+          { id: `FASE V–VI`, threshold: 82, title: `Matriz Holográfica Clara`, text: `Plato radiotelescópico en meseta elevada; lectura exacta de la orientación angular.` }
+        ]
+      }
+    };
+
+    var crvState = {
+      targetKey: 'dam',
+      freqHz: 18.0,
+      aolSilence: 25,
+      faraday: false,
+      revealed: false,
+      coherence: 18,
+      audioOn: false,
+      audioCtx: null,
+      oscLeft: null,
+      oscRight: null,
+      gainNode: null,
+      animId: null
+    };
+
+    function selectCrvTarget(key) {
+      if (!CRV_TARGETS[key]) return;
+      crvState.targetKey = key;
+      crvState.revealed = false;
+      var box = document.getElementById('target-reveal-box');
+      if (box) box.classList.add('is-hidden');
+      renderCrvStages();
+    }
+
+    function toggleCrvFaraday() {
+      crvState.faraday = !crvState.faraday;
+      var btn = document.getElementById('btn-faraday');
+      var shieldVal = document.getElementById('crv-shield');
+      var shieldNote = document.getElementById('crv-shield-note');
+      if (btn) {
+        btn.classList.toggle('is-active', crvState.faraday);
+        btn.innerHTML = crvState.faraday
+          ? '<i data-lucide="shield-check" style="width:16px;height:16px;" aria-hidden="true"></i><span>Jaula de Faraday: ACTIVA (-99 dB EM)</span>'
+          : '<i data-lucide="shield" style="width:16px;height:16px;" aria-hidden="true"></i><span>Jaula de Faraday: DESACTIVADA</span>';
+      }
+      if (shieldVal) shieldVal.textContent = '0% pérdida';
+      if (shieldNote) {
+        shieldNote.textContent = crvState.faraday
+          ? 'EM bloqueada · Protoespacio intacto'
+          : 'Acceso no-EM activo';
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function autoTuneGateway() {
+      var freqSlider = document.getElementById('eeg-freq-slider');
+      var aolSlider = document.getElementById('aol-silence-slider');
+      if (freqSlider) freqSlider.value = 7.5;
+      if (aolSlider) aolSlider.value = 95;
+      updateCrvTuning();
+    }
+
+    function updateCrvTuning() {
+      var freqSlider = document.getElementById('eeg-freq-slider');
+      var aolSlider = document.getElementById('aol-silence-slider');
+      if (freqSlider) crvState.freqHz = parseFloat(freqSlider.value);
+      if (aolSlider) crvState.aolSilence = parseInt(aolSlider.value, 10);
+
+      // Coherence peaks strongly around 7.2 Hz (Schumann / aortic resonance) + left hemisphere stillness
+      var distFrom72 = Math.abs(crvState.freqHz - 7.2);
+      var freqScore = Math.max(0, 100 - distFrom72 * 8.5);
+      var coherence = Math.round(freqScore * 0.58 + crvState.aolSilence * 0.42);
+      coherence = Math.max(5, Math.min(99, coherence));
+      crvState.coherence = coherence;
+
+      var aolNoise = Math.max(2, 100 - crvState.aolSilence);
+
+      var fReadout = document.getElementById('eeg-freq-readout');
+      var bandLabel = 'Beta — Disperso';
+      if (crvState.freqHz >= 6.8 && crvState.freqHz <= 7.8) bandLabel = 'Resonancia Aórtica / Schumann (Óptimo)';
+      else if (crvState.freqHz < 6.8) bandLabel = 'Theta Profundo';
+      else if (crvState.freqHz <= 12.5) bandLabel = 'Alfa / Focus 10';
+      if (fReadout) fReadout.textContent = crvState.freqHz.toFixed(1) + ' Hz (' + bandLabel + ')';
+
+      var aolReadout = document.getElementById('aol-silence-readout');
+      if (aolReadout) aolReadout.textContent = crvState.aolSilence + '%';
+
+      var cohEl = document.getElementById('crv-coherence');
+      var aolEl = document.getElementById('crv-aol');
+      if (cohEl) {
+        cohEl.textContent = coherence + '%';
+        cohEl.className = 'metric-value ' + (coherence >= 75 ? 'mint' : 'cyan');
+      }
+      if (aolEl) {
+        aolEl.textContent = aolNoise + '%';
+        aolEl.className = 'metric-value ' + (aolNoise <= 25 ? 'mint' : 'coral');
+      }
+
+      // Update Web Audio binaural beat frequency if active
+      if (crvState.audioOn && crvState.oscRight) {
+        crvState.oscRight.frequency.setTargetAtTime(180 + crvState.freqHz, crvState.audioCtx.currentTime, 0.05);
+      }
+
+      renderCrvStages();
+    }
+
+    function renderCrvStages() {
+      var listEl = document.getElementById('crv-stages-list');
+      var badgeEl = document.getElementById('crv-stage-badge');
+      var target = CRV_TARGETS[crvState.targetKey];
+      if (!listEl || !target) return;
+
+      var highestStage = 'FASE I ACTIVA';
+      var html = '';
+      for (var i = 0; i < target.stages.length; i++) {
+        var st = target.stages[i];
+        var unlocked = crvState.coherence >= st.threshold;
+        if (unlocked) highestStage = st.id + ' DESBLOQUEADA';
+        var isPeak = unlocked && st.threshold >= 80;
+        var rowCls = 'crv-stage-row' + (unlocked ? ' unlocked' : '') + (isPeak ? ' peak' : '');
+        var statusTag = unlocked
+          ? '<span class="badge ' + (isPeak ? 'badge-brass' : 'badge-mint') + '">NÍTIDA</span>'
+          : '<span class="badge badge-error">BLOQUEO AOL</span>';
+
+        var bodyText = unlocked
+          ? st.text
+          : 'Señal cubierta por ruido analítico (requiere ≥ ' + st.threshold + '% de coherencia hemisférica).';
+
+        html += '<div class="' + rowCls + '">' +
+          '<div class="crv-stage-id">' + st.id + '</div>' +
+          '<div class="crv-stage-body"><strong>' + st.title + '</strong>' + bodyText + '</div>' +
+          '<div>' + statusTag + '</div>' +
+        '</div>';
+      }
+      listEl.innerHTML = html;
+      if (badgeEl) badgeEl.textContent = highestStage;
+    }
+
+    function toggleTargetReveal() {
+      crvState.revealed = !crvState.revealed;
+      var box = document.getElementById('target-reveal-box');
+      var target = CRV_TARGETS[crvState.targetKey];
+      if (!box || !target) return;
+
+      if (crvState.revealed) {
+        var codeEl = document.getElementById('target-reveal-code');
+        var titleEl = document.getElementById('target-reveal-title');
+        var descEl = document.getElementById('target-reveal-desc');
+        var svgEl = document.getElementById('target-svg-container');
+        if (codeEl) codeEl.textContent = target.code;
+        if (titleEl) titleEl.textContent = target.title;
+        if (descEl) descEl.textContent = target.desc;
+        if (svgEl) svgEl.innerHTML = target.svg;
+        box.classList.remove('is-hidden');
+      } else {
+        box.classList.add('is-hidden');
+      }
+    }
+
+    function toggleBinauralAudio() {
+      var btn = document.getElementById('btn-binaural-audio');
+      if (!crvState.audioOn) {
+        try {
+          var AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          if (!crvState.audioCtx) crvState.audioCtx = new AudioCtx();
+          if (crvState.audioCtx.state === 'suspended') crvState.audioCtx.resume();
+
+          var merger = crvState.audioCtx.createChannelMerger(2);
+          var gain = crvState.audioCtx.createGain();
+          gain.gain.value = 0.06; // subtle, comfortable listening level
+
+          var oscL = crvState.audioCtx.createOscillator();
+          var oscR = crvState.audioCtx.createOscillator();
+          oscL.type = 'sine';
+          oscR.type = 'sine';
+          oscL.frequency.value = 180;
+          oscR.frequency.value = 180 + crvState.freqHz;
+
+          oscL.connect(merger, 0, 0);
+          oscR.connect(merger, 0, 1);
+          merger.connect(gain);
+          gain.connect(crvState.audioCtx.destination);
+
+          oscL.start();
+          oscR.start();
+
+          crvState.oscLeft = oscL;
+          crvState.oscRight = oscR;
+          crvState.gainNode = gain;
+          crvState.audioOn = true;
+
+          if (btn) {
+            btn.classList.add('is-active', 'btn-cyan');
+            btn.innerHTML = '<i data-lucide="volume-2" style="width:16px;height:16px;" aria-hidden="true"></i><span>Audio Hemi-Sync: ON (' + crvState.freqHz.toFixed(1) + ' Hz Δ)</span>';
+          }
+        } catch (e) {
+          crvState.audioOn = false;
+        }
+      } else {
+        if (crvState.oscLeft) { try { crvState.oscLeft.stop(); } catch (e) {} }
+        if (crvState.oscRight) { try { crvState.oscRight.stop(); } catch (e) {} }
+        crvState.oscLeft = null;
+        crvState.oscRight = null;
+        crvState.audioOn = false;
+        if (btn) {
+          btn.classList.remove('is-active', 'btn-cyan');
+          btn.innerHTML = '<i data-lucide="headphones" style="width:16px;height:16px;" aria-hidden="true"></i><span>Audio Hemi-Sync (Web Audio): OFF</span>';
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function drawEegFrame(timestamp) {
+      var canvas = document.getElementById('eeg-canvas');
+      if (!canvas) return;
+      var stage = canvas.parentElement;
+      var w = stage ? stage.clientWidth : 480;
+      var h = stage ? stage.clientHeight : 230;
+      if (w < 10 || h < 10) {
+        crvState.animId = requestAnimationFrame(drawEegFrame);
+        return;
+      }
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+      }
+      var ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      var midY = h * 0.5;
+      ctx.strokeStyle = hexToRgba(THEME.outlineVar, 0.55);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, midY);
+      ctx.lineTo(w, midY);
+      ctx.stroke();
+
+      var t = timestamp * 0.004;
+      var cohFactor = crvState.coherence / 100;
+      var noiseAmp = (1 - crvState.aolSilence / 100) * 28;
+      var visualFreq = 0.018 + (crvState.freqHz / 24) * 0.045;
+
+      // 1. Aortic 7.2 Hz standing wave (Brass, background reference)
+      ctx.beginPath();
+      for (var x = 0; x <= w; x += 3) {
+        var aorticY = midY + Math.sin(x * 0.032 - t * 1.1) * (16 + 22 * cohFactor);
+        if (x === 0) ctx.moveTo(x, aorticY);
+        else ctx.lineTo(x, aorticY);
+      }
+      ctx.strokeStyle = hexToRgba(THEME.brass, 0.7);
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+
+      // 2. Right Hemisphere (Cyan, holistic carrier)
+      ctx.beginPath();
+      for (var rx = 0; rx <= w; rx += 3) {
+        var rY = midY + Math.sin(rx * visualFreq - t * 1.4) * 34;
+        if (rx === 0) ctx.moveTo(rx, rY);
+        else ctx.lineTo(rx, rY);
+      }
+      ctx.strokeStyle = THEME.cyan;
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // 3. Left Hemisphere (Coral, converges onto Right Hemisphere as coherence rises)
+      ctx.beginPath();
+      for (var lx = 0; lx <= w; lx += 3) {
+        var phaseOffset = (1 - cohFactor) * 2.4;
+        var erratic = Math.sin(lx * 0.14 + t * 3.1) * noiseAmp + Math.cos(lx * 0.27 - t * 2.2) * (noiseAmp * 0.55);
+        var lY = midY + Math.sin(lx * visualFreq - t * 1.4 + phaseOffset) * (34 * (0.65 + 0.35 * cohFactor)) + erratic;
+        if (lx === 0) ctx.moveTo(lx, lY);
+        else ctx.lineTo(lx, lY);
+      }
+      ctx.strokeStyle = hexToRgba(THEME.coral, cohFactor > 0.8 ? 0.85 : 0.9);
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // Label inside EEG canvas
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = cohFactor >= 0.75 ? THEME.mint : THEME.textMuted;
+      ctx.textAlign = 'left';
+      ctx.fillText(
+        cohFactor >= 0.75
+          ? 'MODO LÁSER HEMI-SYNC: COHERENCIA EN FASE ACTIVA'
+          : 'MODO INCANDESCENTE: ASIMETRÍA INTERHEMISFÉRICA (AOL)',
+        12,
+        18
+      );
+
+      crvState.animId = requestAnimationFrame(drawEegFrame);
+    }
+
+    /* ================================================================
+       SCROLL REVEAL OBSERVER & INITIALIZATION
+    ================================================================ */
+    function initScrollReveals() {
+      var items = document.querySelectorAll('.reveal-on-scroll');
+      if (!('IntersectionObserver' in window)) {
+        for (var i = 0; i < items.length; i++) items[i].classList.add('is-visible');
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        for (var j = 0; j < entries.length; j++) {
+          if (entries[j].isIntersecting) {
+            entries[j].target.classList.add('is-visible');
+            observer.unobserve(entries[j].target);
+          }
+        }
+      }, { threshold: 0.08 });
+
+      for (var k = 0; k < items.length; k++) {
+        observer.observe(items[k]);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initThemeFromCSS();
+      initCosmosBg();
+      initScrollReveals();
+
+      // Initialize Simulation 1
+      updatePendulumFreq(3.5);
+      pendState.animId = requestAnimationFrame(drawPendulumFrame);
+
+      // Initialize Simulation 2
+      updatePsiAngle(45);
+      stState.animId = requestAnimationFrame(drawSpacetimeFrame);
+
+      // Initialize Simulation 3
+      torusState.animId = requestAnimationFrame(drawTorusFrame);
+      updateCrvTuning();
+      crvState.animId = requestAnimationFrame(drawEegFrame);
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+
+    window.addEventListener('resize', function() {
+      initCosmosBg();
+    });
+  </script>
+</body>
+</html>

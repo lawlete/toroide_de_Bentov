@@ -13,6 +13,7 @@ Portal de exploraciones interactivas sobre la cosmología de la conciencia y la 
 7. **[Teoría Sintérgica y Campo Neuronal](./Teoría_Sintérgica_de_Jacobo_Grinberg_y_Convergencia_con_Be.html)** — Convergencia entre Jacobo Grinberg (Lattice, Campo Neuronal, Alta Sintergia), Karl Pribram e Itzhak Bentov.
 8. **[Desdoblamiento del Tiempo y la Conciencia](./Convergencia_Bentov_y_Garnier_Malet__El_Desdoblamiento_del.html)** — Convergencia entre Jean-Pierre Garnier Malet (aperturas temporales, Doble Cuántico, sueño REM) e Itzhak Bentov (*blinking off and on*, velocidad cero).
    * **[Guía Práctica: El Doble Cuántico y los 7 Tiempos](./El_Doble_Cuántico__Fundamentos,_Protocolo_Nocturno_y_Mecán.html)** — Profundización en el protocolo nocturno paso a paso, papel del agua, sueño REM y mecánica de los 7 tiempos.
+9. **[Visión Remota y la Cosmovisión de Bentov](./Visión_Remota_y_la_Cosmovisión_de_Bentov.html)** — Base biofísica del Remote Viewing (SRI / Proyecto Stargate / Informe Gateway): rotación de coordenadas, Observador a velocidad cero y Hemi-Sync.
 
 ## Despliegue en GitHub Pages
 
