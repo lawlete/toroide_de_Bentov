@@ -1202,14 +1202,14 @@
     <section class="section-block reveal-on-scroll" id="mapa-ecosistema" aria-labelledby="map-title">
       <div class="section-header-row">
         <div class="section-header-text">
-          <p class="deck-brass">Cartografía conceptual · Seis puertas de entrada</p>
+          <p class="deck-brass">Cartografía conceptual · Siete puertas de entrada</p>
           <h2 class="section-title" id="map-title">Mapa interactivo del ecosistema Bentov</h2>
           <p class="prose-body">
-            Selecciona cualquiera de los seis módulos para visualizar cómo se entrelazan dentro de la arquitectura
+            Selecciona cualquiera de los siete módulos para visualizar cómo se entrelazan dentro de la arquitectura
             holográfica de Bentov y saltar directamente a su laboratorio interactivo.
           </p>
         </div>
-        <span class="badge">6 MÓDULOS INTERCONECTADOS</span>
+        <span class="badge">7 MÓDULOS INTERCONECTADOS</span>
       </div>
 
       <div class="ecosystem-layout">
@@ -1278,6 +1278,17 @@
             <h3>Teoría Sintérgica y Campo Neuronal (Jacobo Grinberg &amp; Bentov)</h3>
             <p>Cómo el cerebro decodifica la Lattice informacional del espacio, alta sintergia interhemisférica y
               convergencia holográfica con Pribram y Bentov.</p>
+          </button>
+
+          <button type="button" class="module-map-card" id="map-card-6" onclick="selectEcosystemNode(6)"
+            role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 07</span>
+              <span class="badge badge-brass">Astrofísica Cuántica &amp; Biología de la Conciencia</span>
+            </div>
+            <h3>Desdoblamiento del Tiempo y la Conciencia (Garnier Malet &amp; Bentov)</h3>
+            <p>Tiempo estroboscópico, aperturas temporales, péndulo en velocidad cero, Doble Cuántico y descarga de
+              futuros potenciales en sueño REM.</p>
           </button>
         </div>
 
@@ -1912,6 +1923,64 @@
       </div>
     </section>
 
+    <!-- MÓDULO 07: DESDOBLAMIENTO DEL TIEMPO Y LA CONCIENCIA -->
+    <section class="section-block reveal-on-scroll" id="modulo-desdoblamiento" aria-labelledby="desdoblamiento-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 07 · Convergencia Garnier Malet &amp; Bentov</p>
+          <h2 class="section-title" id="desdoblamiento-title">Desdoblamiento del Tiempo y la Conciencia (Garnier Malet &amp; Bentov)</h2>
+        </div>
+        <span class="badge badge-brass">ASTROFÍSICA CUÁNTICA &amp; BIOLOGÍA DE LA CONCIENCIA</span>
+      </div>
+
+      <div class="deep-module">
+        <div class="module-narrative">
+          <p class="prose-body">
+            Comparación profunda entre la <strong>Teoría del Desdoblamiento del Tiempo</strong> y la cosmovisión de <strong>Itzhak Bentov</strong>. Simulaciones interactivas del tiempo estroboscópico, las aperturas temporales, el péndulo en velocidad cero, la navegación de futuros potenciales con el <strong>Doble Cuántico</strong> y la descarga de información durante el sueño REM.
+          </p>
+          <ul class="fact-list">
+            <li><strong>Tiempo estroboscópico y «Blinking Off and On»:</strong> Tanto los 24+1 fotogramas de Garnier Malet como el parpadeo atómico de Bentov muestran que la realidad física es discontinua, abriendo grietas atemporales imperceptibles.</li>
+            <li><strong>Aperturas Temporales y Péndulo en Velocidad Cero:</strong> En los extremos del ciclo oscilatorio, la velocidad física cae a cero y la conciencia accede al instante infinito fuera del tiempo lineal.</li>
+            <li><strong>El Doble Cuántico y los Futuros Potenciales:</strong> Al viajar a velocidades imperceptibles en el tiempo acelerado, nuestro doble explora escenarios probables para seleccionar la trayectoria óptima de menor resistencia.</li>
+            <li><strong>Descarga de información en Sueño REM:</strong> Durante el sueño paradójico (REM), el cerebro reduce el ruido sensorial y recibe las actualizaciones del Doble Cuántico en forma de intuiciones y certezas al despertar.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="Convergencia_Bentov_y_Garnier_Malet__El_Desdoblamiento_del.html">Ampliar en Desdoblamiento del Tiempo y Conciencia →</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <span class="coord-label">EXPLORADOR TEMPORAL · GARNIER MALET × BENTOV</span>
+          <h3 class="subsection-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+            Mecanismos de la realidad estroboscópica
+          </h3>
+
+          <div class="interactive-toolbar">
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectDesdoblamientoNode(0, this)">Aperturas Temporales</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectDesdoblamientoNode(1, this)">Doble Cuántico</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectDesdoblamientoNode(2, this)">Blinking Off &amp; On</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectDesdoblamientoNode(3, this)">Sueño REM</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectDesdoblamientoNode(4, this)">Futuros Potenciales</button>
+          </div>
+
+          <div class="zone-readout" aria-live="polite" style="margin-top: 0;">
+            <span class="coord-label" id="desdoblamiento-node-tag">CONCEPTO 01 · APERTURAS TEMPORALES</span>
+            <p class="prose-body" id="desdoblamiento-node-text" style="font-size: 0.93rem; margin-top: var(--space-xs);">
+              Brechas imperceptibles entre instantes de tiempo observable donde la información viaja a velocidades superlumínicas, equivalentes a los puntos de reposo del péndulo de Bentov.
+            </p>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: var(--space-md);">
+            <span class="badge">Aperturas Temporales</span>
+            <span class="badge badge-brass">El Doble Cuántico</span>
+            <span class="badge badge-mint">Blinking Off and On</span>
+            <span class="badge">Sueño REM</span>
+            <span class="badge badge-brass">Futuros Potenciales</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 3. BIOGRAFÍA Y BIBLIOGRAFÍA -->
     <section class="section-block reveal-on-scroll" id="biografia" aria-labelledby="bio-title">
       <div class="section-header-row">
@@ -2464,6 +2533,13 @@
         desc: `Explora cómo el cerebro decodifica la Lattice informacional del espacio, alta coherencia interhemisférica (alta sintergia) y la convergencia con Pribram y Bentov.`,
         href: `#modulo-sintergica`,
         pageHref: `Teoría_Sintérgica_de_Jacobo_Grinberg_y_Convergencia_con_Be.html`
+      },
+      {
+        tag: `MÓDULO 07 · ASTROFÍSICA CUÁNTICA & BIOLOGÍA DE LA CONCIENCIA`,
+        title: `Desdoblamiento del Tiempo y la Conciencia (Garnier Malet & Bentov)`,
+        desc: `Tiempo estroboscópico, aperturas temporales, péndulo en velocidad cero, Doble Cuántico y descarga de futuros potenciales en sueño REM.`,
+        href: `#modulo-desdoblamiento`,
+        pageHref: `Convergencia_Bentov_y_Garnier_Malet__El_Desdoblamiento_del.html`
       }
     ];
 
@@ -2471,7 +2547,7 @@
       const mod = ecosystemModules[idx];
       if (!mod) return;
 
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 7; i++) {
         const card = document.getElementById(`map-card-${i}`);
         const svgNode = document.getElementById(`svg-node-${i}`);
         if (card) {
@@ -2568,6 +2644,45 @@
       if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
       const tagEl = document.getElementById('sintergica-node-tag');
       const textEl = document.getElementById('sintergica-node-text');
+      if (tagEl) tagEl.textContent = item.tag;
+      if (textEl) textEl.textContent = item.text;
+    }
+
+    const desdoblamientoNodes = [
+      {
+        tag: `CONCEPTO 01 · APERTURAS TEMPORALES`,
+        text: `Brechas imperceptibles entre instantes de tiempo observable donde la información viaja a velocidades superlumínicas, equivalentes a los puntos de reposo del péndulo de Bentov.`
+      },
+      {
+        tag: `CONCEPTO 02 · EL DOBLE CUÁNTICO`,
+        text: `Nuestra contraparte energética que opera en un tiempo acelerado imperceptible, explorando futuros potenciales para traer de vuelta la mejor solución al presente.`
+      },
+      {
+        tag: `CONCEPTO 03 · BLINKING OFF AND ON`,
+        text: `La materia parpadea entre la existencia manifiesta (ON) y el vacío absoluto (OFF); en cada instante OFF la conciencia se reconecta con el sustento atemporal.`
+      },
+      {
+        tag: `CONCEPTO 04 · SUEÑO REM`,
+        text: `Durante las fases de sueño paradójico (REM), el cerebro permite el intercambio fluido de información con el Doble Cuántico mediante las aperturas temporales.`
+      },
+      {
+        tag: `CONCEPTO 05 · FUTUROS POTENCIALES`,
+        text: `El futuro no es rígido sino un abanico de probabilidades; la intención serena antes de dormir orienta al doble hacia el escenario de mayor coherencia.`
+      }
+    ];
+
+    function selectDesdoblamientoNode(idx, btnEl) {
+      const item = desdoblamientoNodes[idx];
+      if (!item) return;
+      const toolbar = btnEl ? btnEl.parentElement : null;
+      if (toolbar) {
+        toolbar.querySelectorAll('.btn-chip').forEach(function (b) {
+          b.setAttribute('aria-pressed', 'false');
+        });
+      }
+      if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
+      const tagEl = document.getElementById('desdoblamiento-node-tag');
+      const textEl = document.getElementById('desdoblamiento-node-text');
       if (tagEl) tagEl.textContent = item.tag;
       if (textEl) textEl.textContent = item.text;
     }

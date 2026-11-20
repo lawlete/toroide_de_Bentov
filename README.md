@@ -11,6 +11,7 @@ Portal de exploraciones interactivas sobre la cosmología de la conciencia y la 
 5. **[Fisiomecánica de la Kundalini](./Fisiomecánica_de_la_Kundalini_(Bentov).html)** — Modelo biomecánico de Bentov–Sannella sobre los 5 osciladores acoplados, ondas estacionarias en los ventrículos cerebrales y el circuito del homúnculo sensorial.
 6. **[El Método Bentov de Manifestación](./El_Método_Bentov_de_Manifestación.html)** — La Fórmula de 5 Pasos para la coherencia vibracional: pulso portador, respiración simétrica 6-6, gratitud cardíaca, láser mental en presente y acción congruente.
 7. **[Teoría Sintérgica y Campo Neuronal](./Teoría_Sintérgica_de_Jacobo_Grinberg_y_Convergencia_con_Be.html)** — Convergencia entre Jacobo Grinberg (Lattice, Campo Neuronal, Alta Sintergia), Karl Pribram e Itzhak Bentov.
+8. **[Desdoblamiento del Tiempo y la Conciencia](./Convergencia_Bentov_y_Garnier_Malet__El_Desdoblamiento_del.html)** — Convergencia entre Jean-Pierre Garnier Malet (aperturas temporales, Doble Cuántico, sueño REM) e Itzhak Bentov (*blinking off and on*, velocidad cero).
 
 ## Despliegue en GitHub Pages
 

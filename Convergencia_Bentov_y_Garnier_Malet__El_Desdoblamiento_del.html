@@ -1,0 +1,2572 @@
+<!DOCTYPE html>
+<html lang="es-419">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>Desdoblamiento del Tiempo y Conciencia Oscilante — Garnier Malet e Itzhak Bentov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Nocturne adapted to user-specified cosmic dark (#050811) + neon cyan + amber gold */
+      --background: #050811;
+      --surface-container-low: #090f20;
+      --surface-container: rgba(13, 21, 42, 0.72);
+      --surface-container-high: rgba(20, 32, 62, 0.86);
+      --surface-well: #04070f;
+
+      /* Text */
+      --on-surface: #eef2fa;
+      --on-surface-variant: #9eb0cb;
+
+      /* Borders */
+      --outline: #385178;
+      --outline-variant: rgba(112, 160, 214, 0.18);
+      --outline-cyan: rgba(0, 229, 255, 0.38);
+      --outline-amber: rgba(245, 185, 66, 0.38);
+
+      /* Accents */
+      --primary: #00e5ff;
+      --on-primary: #050811;
+      --primary-container: rgba(0, 229, 255, 0.12);
+      --on-primary-container: #c8f9ff;
+      --secondary: #6882a6;
+      --tertiary: #f5b942;
+      --on-tertiary: #050811;
+      --tertiary-container: rgba(245, 185, 66, 0.12);
+      --on-tertiary-container: #fde7b8;
+
+      /* Semantic */
+      --positive: #34d399;
+      --positive-tint: rgba(52, 211, 153, 0.14);
+      --warning: #f5b942;
+      --warning-tint: rgba(245, 185, 66, 0.14);
+      --error: #f87171;
+      --error-tint: rgba(248, 113, 113, 0.14);
+      --on-error: #1a0606;
+      --focus: #00e5ff;
+
+      /* Data series */
+      --data-1: #00e5ff;
+      --data-2: #f5b942;
+      --data-3: #34d399;
+      --data-4: #a78bfa;
+      --data-context: #4b6184;
+
+      /* Typography */
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      --display-size: clamp(2.25rem, 1.4rem + 3.4vw, 3.85rem);
+      --headline-size: clamp(1.65rem, 1.15rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.15rem, 1.02rem + 0.5vw, 1.38rem);
+      --body-size: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Shape */
+      --rounded: 0.5rem;
+      --rounded-lg: 0.875rem;
+      --rounded-full: 9999px;
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Glassmorphism & Cosmic Effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --glass-blur: blur(16px);
+      --panel-highlight: inset 0 1px 0 rgba(238, 242, 250, 0.08);
+      --cyan-glow: 0 0 24px rgba(0, 229, 255, 0.16);
+      --amber-glow: 0 0 24px rgba(245, 185, 66, 0.16);
+      --cosmic-backdrop: radial-gradient(ellipse 70% 50% at 12% 8%, rgba(0, 229, 255, 0.09), transparent 60%),
+                         radial-gradient(ellipse 60% 45% at 88% 18%, rgba(245, 185, 66, 0.08), transparent 55%),
+                         radial-gradient(circle at 50% 65%, rgba(22, 36, 72, 0.35), transparent 70%);
+      --cyan-tint: rgba(0, 229, 255, 0.12);
+      --amber-tint: rgba(245, 185, 66, 0.12);
+      --heading-tracking: -0.025em;
+      --label-tracking: 0.07em;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 240ms;
+      --dur-long: 440ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+    }
+    body {
+      background-image: var(--cosmic-backdrop);
+      background-attachment: fixed;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      font-weight: 700;
+      line-height: 1.07;
+      max-width: 22ch;
+    }
+    .hero-title .accent-cyan { color: var(--primary); }
+    .hero-title .accent-amber { color: var(--tertiary); }
+
+    .section-title {
+      font-size: var(--headline-size);
+      font-weight: 600;
+      line-height: 1.15;
+    }
+    .subhead {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .prose {
+      max-width: 68ch;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .prose strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .coord-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .coord-label.is-amber { color: var(--tertiary); }
+    .coord-label.is-muted { color: var(--on-surface-variant); }
+
+    /* Glassmorphism panels & wells */
+    .glass-panel {
+      background: var(--surface-container);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .glass-panel.is-cyan-edge {
+      border-color: var(--outline-cyan);
+      box-shadow: var(--panel-highlight), var(--cyan-glow);
+    }
+    .glass-panel.is-amber-edge {
+      border-color: var(--outline-amber);
+      box-shadow: var(--panel-highlight), var(--amber-glow);
+    }
+    .observation-well {
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      position: relative;
+    }
+
+    /* Hero section */
+    .hero-header {
+      display: grid;
+      gap: var(--space-lg);
+      padding: var(--space-xl) 0 var(--space-lg);
+      border-bottom: var(--hairline);
+    }
+    .hero-deck {
+      font-size: var(--subhead-size);
+      color: var(--on-surface-variant);
+      max-width: 62ch;
+      margin: 0;
+      line-height: 1.5;
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+    .metric-tile {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .metric-value {
+      font-family: var(--font-headline);
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+    .metric-value.is-cyan { color: var(--primary); }
+    .metric-value.is-amber { color: var(--tertiary); }
+    .metric-caption {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Navigation index */
+    .index-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+    }
+    .index-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.03em;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out);
+    }
+    .index-link:hover {
+      background: var(--surface-container-high);
+      color: var(--primary);
+      border-color: var(--outline-cyan);
+    }
+
+    /* Narrative section structure */
+    .lab-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: var(--hairline);
+    }
+    .section-header {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .dual-intro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .author-card {
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .author-card.is-garnier {
+      border-left: 3px solid var(--primary);
+    }
+    .author-card.is-bentov {
+      border-left: 3px solid var(--tertiary);
+    }
+
+    /* Simulation Controls & Layout */
+    .sim-shell {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+    }
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+      flex: 1 1 200px;
+    }
+    .control-group.is-compact {
+      flex: 0 1 auto;
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .field-value {
+      color: var(--primary);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .field-value.is-amber { color: var(--tertiary); }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover {
+      background: var(--surface-container-high);
+      box-shadow: var(--cyan-glow);
+    }
+    .btn.is-active, .btn.is-primary {
+      background: var(--primary-container);
+      color: var(--primary);
+      box-shadow: inset 0 0 0 1px var(--primary);
+    }
+    .btn.is-amber-active {
+      background: var(--tertiary-container);
+      color: var(--tertiary);
+      box-shadow: inset 0 0 0 1px var(--tertiary);
+    }
+    .btn.is-solid-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 600;
+      border-color: var(--primary);
+    }
+    .btn.is-solid-primary:hover {
+      box-shadow: var(--cyan-glow);
+    }
+    .btn.is-danger-armed {
+      background: var(--error-tint);
+      color: var(--error);
+      box-shadow: inset 0 0 0 1px var(--error);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      min-height: 44px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      background: transparent;
+    }
+    input[type="range"].is-amber {
+      accent-color: var(--tertiary);
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      background: var(--surface-well);
+      color: var(--on-surface);
+      border: var(--hairline-strong);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.5;
+      transition: box-shadow var(--dur-micro) var(--ease-out);
+    }
+    textarea:focus, input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    /* Canvases */
+    .canvas-frame {
+      width: 100%;
+      min-height: 280px;
+      height: 310px;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--rounded);
+      background: var(--surface-well);
+      border: var(--hairline);
+    }
+    .canvas-frame.is-tall {
+      min-height: 350px;
+      height: 370px;
+    }
+    .canvas-frame canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .dual-canvas-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-md);
+    }
+    .asymmetric-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    /* Telemetry readouts */
+    .telemetry-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .telemetry-cell {
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      display: grid;
+      gap: 2px;
+    }
+    .telemetry-val {
+      font-family: var(--font-label);
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+    .telemetry-val.is-cyan { color: var(--primary); }
+    .telemetry-val.is-amber { color: var(--tertiary); }
+    .telemetry-val.is-positive { color: var(--positive); }
+
+    /* Status chips */
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 2px var(--space-sm);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+    }
+    .status-chip.is-cyan {
+      background: var(--cyan-tint);
+      color: var(--primary);
+      border: 1px solid var(--outline-cyan);
+    }
+    .status-chip.is-amber {
+      background: var(--amber-tint);
+      color: var(--tertiary);
+      border: 1px solid var(--outline-amber);
+    }
+    .status-chip.is-positive {
+      background: var(--positive-tint);
+      color: var(--positive);
+      border: 1px solid var(--positive);
+    }
+
+    /* Lists and tables */
+    .step-list {
+      display: grid;
+      gap: var(--space-sm);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .step-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: start;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+    }
+    .step-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--cyan-tint);
+      padding: 2px var(--space-sm);
+      border-radius: var(--rounded);
+    }
+    .step-badge.is-amber {
+      color: var(--tertiary);
+      background: var(--amber-tint);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      background: var(--surface-container);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: var(--space-md);
+      border-bottom: var(--hairline);
+      vertical-align: top;
+    }
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      background: var(--surface-container-low);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr.is-highlighted td {
+      background: var(--surface-container-high);
+    }
+
+    /* Saved journal list */
+    .journal-list {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+    .journal-entry {
+      padding: var(--space-md);
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .inline-feedback {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--positive);
+      min-height: 1.25rem;
+    }
+    .inline-feedback.is-error { color: var(--error); }
+
+    /* Collapsible epistemic details */
+    details.epistemic-box {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    details.epistemic-box summary {
+      cursor: pointer;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .dual-canvas-grid,
+      .asymmetric-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .glass-panel {
+        padding: var(--space-md);
+      }
+      .canvas-frame {
+        min-height: 240px;
+        height: 260px;
+      }
+      .canvas-frame.is-tall {
+        min-height: 300px;
+        height: 320px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+    <!-- HERO -->
+    <header class="hero-header">
+      <div style="margin-bottom: 1rem;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(242, 190, 84, 0.45); background: rgba(242, 190, 84, 0.10); color: #f2be54; font-family: var(--font-label, monospace); font-size: 0.78rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+      </div>
+      <span class="coord-label">CONVERGENCIA BIOFÍSICA Y TEMPORAL · GARNIER MALET × ITZHAK BENTOV</span>
+      <h1 class="hero-title">
+        El <span class="accent-cyan">Desdoblamiento del Tiempo</span> y la <span class="accent-amber">Conciencia Oscilante</span>
+      </h1>
+      <p class="hero-deck">
+        Dos modelos independientes —la física de horizontes discretos de Jean-Pierre Garnier Malet y la mecánica de la conciencia de Itzhak Bentov— describen la realidad no como una corriente continua y sólida, sino como un parpadeo estroboscópico entre la materia manifiesta y un vacío informacional atemporal.
+      </p>
+
+      <div class="hero-metrics">
+        <article class="glass-panel is-cyan-edge metric-tile">
+          <span class="coord-label">Estroboscopía · Garnier Malet</span>
+          <div class="metric-value is-cyan">24 + 1 fps</div>
+          <p class="metric-caption">24 imágenes perceptibles por segundo y una 25ª apertura temporal imperceptible donde se explora el futuro.</p>
+        </article>
+        <article class="glass-panel is-amber-edge metric-tile">
+          <span class="coord-label is-amber">Parpadeo Cuántico · Bentov</span>
+          <div class="metric-value is-amber">7 Hz – 10<sup>22</sup> Hz</div>
+          <p class="metric-caption">De la resonancia corporal mínima (7 Hz) al parpadeo nuclear; en cada punto de reposo tocamos el Absoluto.</p>
+        </article>
+        <article class="glass-panel metric-tile">
+          <span class="coord-label is-muted">Escala Fractal Cósmica</span>
+          <div class="metric-value">25.920 años</div>
+          <p class="metric-caption">Ciclo de precesión equinoccial ligado al ciclo solar de 24.840 años y al toroide blanco-negro universal.</p>
+        </article>
+      </div>
+
+      <nav class="glass-panel index-nav" aria-label="Navegación de laboratorios interactivos">
+        <a class="index-link" href="#sec-estroboscopia">01 · Estroboscopía y Parpadeo</a>
+        <a class="index-link" href="#sec-tiempos">02 · Dos Tiempos Simultáneos</a>
+        <a class="index-link" href="#sec-doble-psique">03 · Doble vs. Psique</a>
+        <a class="index-link" href="#sec-sueno-rem">04 · Sueño REM y Transductores</a>
+        <a class="index-link" href="#sec-manifestacion">05 · Control vs. Entrega</a>
+        <a class="index-link" href="#sec-toroide">06 · Toroide y Ciclos Fractales</a>
+        <a class="index-link" href="#sec-sintesis">07 · Matriz Comparativa</a>
+      </nav>
+    </header>
+
+    <!-- SECTION 1: ESTROBOSCOPIA DEL TIEMPO Y PARPADEO DE LA REALIDAD -->
+    <section id="sec-estroboscopia" class="lab-section reveal">
+      <div class="section-header">
+        <span class="coord-label">SIMULACIÓN 01 · DISCONTINUIDAD DEL FLUJO TEMPORAL</span>
+        <h2 class="section-title">La realidad no es continua: parpadea entre instantes perceptibles y vacíos atemporales</h2>
+        <p class="prose">
+          Tanto Jean-Pierre Garnier Malet como Itzhak Bentov refutan la intuición de que el tiempo fluye de forma homogénea e ininterrumpida. Para ambos, nuestra biología construye la ilusión de continuidad del mismo modo que el cerebro une los fotogramas de una película cinematográfica, ocultando los intervalos oscuros entre cuadro y cuadro.
+        </p>
+      </div>
+
+      <div class="dual-intro-grid">
+        <article class="glass-panel author-card is-garnier">
+          <span class="coord-label">Jean-Pierre Garnier Malet · Aperturas Temporales</span>
+          <h3 class="subhead">24 imágenes visibles y la 25ª subliminal</h3>
+          <p class="prose">
+            Los diagnósticos cerebrales muestran que percibimos imágenes intermitentes. Entre dos instantes perceptibles siempre existe una <strong>apertura temporal</strong> imperceptible en la cual un sistema desdoblado puede recorrer trayectorias futuras a velocidades hiperlumínicas y condensar la síntesis en la memoria.
+          </p>
+        </article>
+        <article class="glass-panel author-card is-bentov">
+          <span class="coord-label is-amber">Itzhak Bentov · Péndulo en Velocidad Cero</span>
+          <h3 class="subhead">Blinking Off and On hacia el Absoluto</h3>
+          <p class="prose">
+            Toda materia oscila como un péndulo. En los extremos de su recorrido, antes de invertir dirección, su velocidad cae a cero por una fracción infinitesimal: el <strong>momento OFF</strong>. Allí la materia "desaparece" del plano sólido hacia un estado de velocidad infinita y reposo total simultáneos (<strong>el Absoluto</strong>).
+          </p>
+        </article>
+      </div>
+
+      <div class="glass-panel sim-shell">
+        <div class="controls-bar">
+          <div class="control-group">
+            <span class="field-label">Escala de Frecuencia de Oscilación (Bentov)</span>
+            <div class="btn-row" role="group" aria-label="Selector de frecuencia de oscilación">
+              <button type="button" class="btn is-active" id="freq-btn-7" onclick="setStrobeFreq('body')">7 Hz · Cuerpo</button>
+              <button type="button" class="btn" id="freq-btn-cell" onclick="setStrobeFreq('cell')">10<sup>3</sup> Hz · Célula</button>
+              <button type="button" class="btn" id="freq-btn-atom" onclick="setStrobeFreq('atom')">10<sup>15</sup> Hz · Átomo</button>
+              <button type="button" class="btn" id="freq-btn-nuc" onclick="setStrobeFreq('nucleus')">10<sup>22</sup> Hz · Núcleo</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="field-label" for="strobe-phase-slider">
+              <span>Deslizador Temporal (Fase / Fotograma)</span>
+              <span class="field-value" id="strobe-phase-val">Cuadro 12 / 25</span>
+            </label>
+            <input type="range" id="strobe-phase-slider" min="0" max="100" step="0.5" value="48" oninput="onStrobeSliderInput(this.value)">
+          </div>
+
+          <div class="control-group is-compact">
+            <span class="field-label">Modo de Proyección</span>
+            <div class="btn-row">
+              <button type="button" class="btn is-primary" id="strobe-play-btn" onclick="toggleStrobePlay()">Pausar</button>
+              <button type="button" class="btn" id="strobe-slow-btn" onclick="toggleStrobeSlowMode()">Revelar Aperturas</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="dual-canvas-grid">
+          <div class="observation-well">
+            <div class="field-label" style="margin-bottom: var(--space-sm);">
+              <span>Péndulo de Bentov (On / Off en v = 0)</span>
+              <span class="status-chip is-amber" id="bentov-state-chip">ON · Plano Sólido</span>
+            </div>
+            <div class="canvas-frame">
+              <canvas id="canvas-bentov-pendulum" aria-label="Simulación del péndulo de Itzhak Bentov oscilando entre estados ON y momentos OFF de velocidad cero"></canvas>
+            </div>
+          </div>
+
+          <div class="observation-well">
+            <div class="field-label" style="margin-bottom: var(--space-sm);">
+              <span>Película Estroboscópica de Garnier Malet (24 + 1 fps)</span>
+              <span class="status-chip is-cyan" id="garnier-frame-chip">Fotograma Perceptible</span>
+            </div>
+            <div class="canvas-frame">
+              <canvas id="canvas-garnier-strobe" aria-label="Simulación estroboscópica de 24 cuadros por segundo frente a los fotogramas negros de apertura temporal"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="telemetry-strip">
+          <div class="telemetry-cell">
+            <span class="coord-label is-muted">Frecuencia Activa</span>
+            <span class="telemetry-val is-amber" id="tele-strobe-freq">7 Hz (Mínimo medible)</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="coord-label is-muted">Estado Instantáneo</span>
+            <span class="telemetry-val is-cyan" id="tele-strobe-phase">Instante Manifiesto (ON)</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="coord-label is-muted">Equivalencia Teórica</span>
+            <span class="telemetry-val" id="tele-strobe-equiv">Oscilación corporal en resonancia armónica</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: LOS DOS TIEMPOS SIMULTANEOS -->
+    <section id="sec-tiempos" class="lab-section reveal">
+      <div class="section-header">
+        <span class="coord-label">SIMULACIÓN 02 · RELATIVIDAD SUBJETIVA E HIPERINCURSIÓN</span>
+        <h2 class="section-title">Dos tiempos simultáneos: un segundo en el reloj 3D y miles de millones de futuros en la apertura</h2>
+        <p class="prose">
+          En 1920, Paul Langevin propuso que un gemelo viajando cerca de la velocidad de la luz envejecería menos que el que permanece quieto (verificado con relojes atómicos en 1970). Garnier Malet traslada esa dilatación a la escala de nuestras aperturas temporales, mientras Bentov demuestra cómo la desviación de los vectores subjetivos estira un segundo objetivo hasta detener la manecilla de un reloj.
+        </p>
+      </div>
+
+      <div class="glass-panel sim-shell">
+        <div class="controls-bar">
+          <div class="control-group">
+            <label class="field-label" for="time-angle-slider">
+              <span>Desviación Vectorial / Tasa de Desdoblamiento</span>
+              <span class="field-value" id="time-angle-val">45° · Transición Alfa-Theta</span>
+            </label>
+            <input type="range" id="time-angle-slider" min="0" max="89" step="1" value="45" oninput="onTimeAngleInput(this.value)">
+          </div>
+          <div class="control-group is-compact">
+            <span class="field-label">Regímenes de Observación</span>
+            <div class="btn-row">
+              <button type="button" class="btn" id="preset-time-0" onclick="setTimePreset(0)">Vigilia (0°)</button>
+              <button type="button" class="btn is-active" id="preset-time-45" onclick="setTimePreset(45)">Theta / Meditación (45°)</button>
+              <button type="button" class="btn" id="preset-time-86" onclick="setTimePreset(86)">Apertura Hiperlumínica (86°)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="asymmetric-grid">
+          <div class="observation-well">
+            <div class="field-label" style="margin-bottom: var(--space-sm);">
+              <span>Reloj Lento (3D) vs. Reloj Acelerado (Cuántico) &amp; Árbol de Futuros</span>
+              <span class="status-chip is-cyan" id="time-ratio-chip">1 µs ≈ 1 día acelerado</span>
+            </div>
+            <div class="canvas-frame is-tall">
+              <canvas id="canvas-two-times" aria-label="Comparación entre el reloj lento 3D, el reloj cuántico acelerado y la simulación de futuros potenciales tipo tablero de ajedrez"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-panel" style="display: grid; gap: var(--space-md);">
+            <span class="coord-label is-amber">Lectura Física del Desdoblamiento</span>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Tiempo Objetivo (Reloj 3D)</span>
+              <span class="telemetry-val" id="tele-obj-time">1.00 s (Pulso lineal constante)</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Tiempo Acelerado / Subjetivo</span>
+              <span class="telemetry-val is-cyan" id="tele-sub-time">1.000× dilatación de horizonte</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Experimento del Segundero (Bentov)</span>
+              <span class="telemetry-val is-amber" id="tele-clock-hand">Ralentización perceptual moderada</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Jugadas Simuladas ("Ajedrez" del Doble)</span>
+              <span class="telemetry-val is-positive" id="tele-futures-count">128 trayectorias evaluadas</span>
+            </div>
+            <div style="border-top: var(--hairline); padding-top: var(--space-sm);">
+              <span class="coord-label is-muted">Reparto Energético (Garnier Malet)</span>
+              <p class="prose" style="font-size: 0.875rem; margin-top: var(--space-xs);">
+                El movimiento fundamental de desdoblamiento exige tres energías precisas: <strong>33,3% gravitacional</strong>, <strong>66,6% antigravitacional</strong> y <strong>0,1% de equilibrio</strong> para estabilizar el intercambio entre el presente (4º tiempo) y el Doble (7º tiempo).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: EL DOBLE CUANTICO VS EL OBSERVADOR / PSIQUE -->
+    <section id="sec-doble-psique" class="lab-section reveal">
+      <div class="section-header">
+        <span class="coord-label">SIMULACIÓN 03 · ONDA-PARTÍCULA, PROTOESPACIO Y MENTE UNIVERSAL</span>
+        <h2 class="section-title">El Doble Cuántico y la Psique Observadora: de la partícula local al holograma cósmico</h2>
+        <p class="prose">
+          Si la materia sólida no existe —pues cada átomo es una red vibrante de energía e interferencia—, ¿quién viaja en ese tiempo acelerado? Garnier Malet recurre a la dualidad corpúsculo-onda para explicar al <strong>Doble</strong>; Bentov describe al cerebro como un simple <strong>receptor de radio</strong> cuya música reside en el campo de la <strong>Mente Universal</strong>, y a la <strong>Psique</strong> cruzando el protoespacio donde los fotones ordinarios quedan confinados.
+        </p>
+      </div>
+
+      <div class="glass-panel sim-shell">
+        <div class="controls-bar">
+          <div class="control-group">
+            <span class="field-label">Perspectiva Teórica</span>
+            <div class="btn-row">
+              <button type="button" class="btn is-active" id="mode-btn-both" onclick="setObserverMode('both')">Convergencia Dual</button>
+              <button type="button" class="btn" id="mode-btn-garnier" onclick="setObserverMode('garnier')">Garnier Malet (Doble)</button>
+              <button type="button" class="btn" id="mode-btn-bentov" onclick="setObserverMode('bentov')">Bentov (Psique / Holograma)</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <span class="field-label">Emitir Pulso de Pensamiento / Intención</span>
+            <div class="btn-row">
+              <button type="button" class="btn" id="pulse-btn-fear" onclick="triggerWavePulse('fear')">Miedo / Catástrofe</button>
+              <button type="button" class="btn" id="pulse-btn-doubt" onclick="triggerWavePulse('doubt')">Duda / Súplica</button>
+              <button type="button" class="btn is-amber-active" id="pulse-btn-calm" onclick="triggerWavePulse('calm')">Calma / Certeza</button>
+              <button type="button" class="btn is-primary" id="pulse-btn-gratitude" onclick="triggerWavePulse('gratitude')">Gratitud Coherente</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="asymmetric-grid">
+          <div class="observation-well">
+            <div class="field-label" style="margin-bottom: var(--space-sm);">
+              <span>Cuerpo Corpuscular (Presente) ↔ Protoespacio / Campo Holográfico</span>
+              <span class="status-chip is-cyan" id="observer-signal-chip">Señal Coherente</span>
+            </div>
+            <div class="canvas-frame is-tall">
+              <canvas id="canvas-observer-field" aria-label="Visualización de la dualidad onda-partícula mostrando el cuerpo corpuscular en el presente y la expansión ondulatoria del Doble o la Psique por el protoespacio"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-panel" style="display: grid; gap: var(--space-md);">
+            <span class="coord-label is-amber">Interpretación de la Onda Emitida</span>
+            <h3 class="subhead" id="pulse-title">Gratitud Coherente y Certeza</h3>
+            <p class="prose" id="pulse-desc" style="font-size: 0.95rem;">
+              La onda atraviesa el límite del espacio-tiempo ordinario sin distorsión. El Doble selecciona un futuro armónico mediante hiperincursión y la Psique resuena con el holograma universal, devolviendo una intuición nítida y sincrónica.
+            </p>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Mecanismo según Garnier Malet</span>
+              <span class="telemetry-val is-cyan" id="pulse-garnier-mech">Cuerpo ondulatorio limpia potenciales nocivos</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Mecanismo según Itzhak Bentov</span>
+              <span class="telemetry-val is-amber" id="pulse-bentov-mech">Coherencia cardíaca + acceso al protoespacio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SUENO PARADOJICO (REM) Y MEDITACION PROFUNDA -->
+    <section id="sec-sueno-rem" class="lab-section reveal">
+      <div class="section-header">
+        <span class="coord-label">SIMULACIÓN 04 · INTERFAZ BIOLÓGICA Y TRANSDUCTORES</span>
+        <h2 class="section-title">Sueño paradójico (REM) y meditación profunda: cómo descarga el cuerpo soluciones cuánticas</h2>
+        <p class="prose">
+          Si la información viaja a velocidades ondulatorias fuera del tiempo lineal, ¿qué hardware biológico la traduce al cuerpo físico? Garnier Malet señala que el intercambio vital ocurre durante el <strong>sueño paradójico (REM)</strong> a través del <strong>agua del cuerpo</strong>. Bentov detalla la mecánica fisiológica complementaria: al caer en bandas de <strong>4 a 7 Hz (alfa/theta)</strong>, la respiración se aquieta, el micromovimiento corporal entra en resonancia triplicada, ondas acústicas en los <strong>ventrículos cerebrales</strong> polarizan el hemisferio derecho intuitivo y la <strong>glándula pineal</strong> emite pulsos eléctricos.
+        </p>
+      </div>
+
+      <div class="glass-panel sim-shell">
+        <div class="controls-bar">
+          <div class="control-group">
+            <span class="field-label">Estado Neurofisiológico de la Antena</span>
+            <div class="btn-row">
+              <button type="button" class="btn" id="bio-btn-beta" onclick="setBioState('beta')">Vigilia Beta (20 Hz · Ruido)</button>
+              <button type="button" class="btn is-active" id="bio-btn-theta" onclick="setBioState('theta')">Meditación / Hipnagógica (6 Hz)</button>
+              <button type="button" class="btn" id="bio-btn-rem" onclick="setBioState('rem')">Sueño Paradójico REM (4.5 Hz)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="asymmetric-grid">
+          <div class="observation-well">
+            <div class="field-label" style="margin-bottom: var(--space-sm);">
+              <span>EEG · Resonancia Ventricular (3×) · Retícula Acuosa Corporal (70% H<sub>2</sub>O)</span>
+              <span class="status-chip is-positive" id="bio-channel-chip">Canal Abierto (4–7 Hz)</span>
+            </div>
+            <div class="canvas-frame is-tall">
+              <canvas id="canvas-bio-transducer" aria-label="Simulación fisiológica mostrando las ondas cerebrales, la resonancia ventricular y la coherencia del agua corporal durante el sueño REM y la meditación"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-panel" style="display: grid; gap: var(--space-md);">
+            <span class="coord-label is-amber">Protocolo Integrado de Descarga</span>
+            <ul class="step-list">
+              <li class="step-item">
+                <span class="step-badge">GM · 1</span>
+                <div>
+                  <strong>Vigilancia diurna del pensamiento</strong>
+                  <p class="prose" style="font-size: 0.875rem;">Cada pensamiento proyecta un futuro potencial; evitar escenarios catastróficos.</p>
+                </div>
+              </li>
+              <li class="step-item">
+                <span class="step-badge">GM · 2</span>
+                <div>
+                  <strong>El minuto previo al sueño</strong>
+                  <p class="prose" style="font-size: 0.875rem;">En fase hipnagógica, formular la inquietud con serenidad y entregar el control al Doble.</p>
+                </div>
+              </li>
+              <li class="step-item">
+                <span class="step-badge is-amber">B · 1</span>
+                <div>
+                  <strong>Silencio de 3 minutos (4–7 Hz)</strong>
+                  <p class="prose" style="font-size: 0.875rem;">Observar la respiración sin forzar; al silenciar el ruido beta, la antena capta el eco cósmico.</p>
+                </div>
+              </li>
+              <li class="step-item">
+                <span class="step-badge is-amber">B · 2</span>
+                <div>
+                  <strong>Coherencia cardíaca y pineal</strong>
+                  <p class="prose" style="font-size: 0.875rem;">Visualizar con emoción sentida en el pecho y agradecer como hecho energético ya cumplido.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: COMPARADOR Y GUIA DE MANIFESTACION CONSCIENTE -->
+    <section id="sec-manifestacion" class="lab-section reveal">
+      <div class="section-header">
+        <span class="coord-label is-amber">LABORATORIO 05 · ÉTICA FÍSICA Y SINTONÍA BENEVOLENTE</span>
+        <h2 class="section-title">Por qué fracasa el deseo forzado y cómo opera la entrega benevolente</h2>
+        <p class="prose">
+          Ambos marcos coinciden en una paradoja práctica: cuanto más intenta el ego controlar el resultado desde la carencia o el miedo, más ruido introduce en la señal. Garnier Malet formula el principio de no dañar al prójimo ni siquiera con el pensamiento no como dogma moral, sino como <strong>ley física</strong> de retroalimentación de potenciales. Bentov enfatiza soltar la obsesión por el "cuándo" y vibrar desde la certeza y la gratitud real.
+        </p>
+      </div>
+
+      <div class="glass-panel sim-shell">
+        <div class="controls-bar">
+          <div class="control-group">
+            <span class="field-label">Filtrar Dimensión Contrastiva</span>
+            <div class="btn-row">
+              <button type="button" class="btn is-active" id="filter-all" onclick="filterMatrix('all')">Todas las Dimensiones</button>
+              <button type="button" class="btn" id="filter-emocion" onclick="filterMatrix('emocion')">Emoción y Miedo</button>
+              <button type="button" class="btn" id="filter-tiempo" onclick="filterMatrix('tiempo')">Tiempo y Control</button>
+              <button type="button" class="btn" id="filter-etica" onclick="filterMatrix('etica')">Ética Física</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimensión</th>
+                <th>Mente Rígida / Deseo Forzado (Interferencia)</th>
+                <th>Sintonía Benevolente (Garnier Malet + Bentov)</th>
+              </tr>
+            </thead>
+            <tbody id="manifest-matrix-body">
+              <tr data-cat="emocion">
+                <td><strong>Tono de Emisión</strong></td>
+                <td>Súplica desde la carencia ("por favor, ayúdame") o ansiedad por el peor escenario. Confirma al campo que no existe solución.</td>
+                <td>Gratitud sentida en el pecho (coherencia cardíaca) y certeza tranquila de que la solución ya está siendo ordenada.</td>
+              </tr>
+              <tr data-cat="tiempo">
+                <td><strong>Control del Tiempo</strong></td>
+                <td>Obsesión por el "cuándo" y vigilancia ansiosa del reloj 3D; interrumpe la exploración acelerada y bloquea la descarga REM.</td>
+                <td>"Suelto el cuándo" (Bentov) y entrega total de las riendas en el minuto previo a dormir (Garnier Malet).</td>
+              </tr>
+              <tr data-cat="etica">
+                <td><strong>Ética del Pensamiento</strong></td>
+                <td>Desear daño, revancha o catástrofe inscribe ese potencial en el futuro compartido y lo vuelve contra el propio emisor o su entorno.</td>
+                <td>"No pienses en hacer a los demás lo que no quisieras que pensaran en hacerte a ti": higiene física del campo de variantes.</td>
+              </tr>
+              <tr data-cat="emocion">
+                <td><strong>Uso de la Imaginación</strong></td>
+                <td>Visualización mecánica como espectador frío o ensayo repetitivo de discusiones y conflictos antes de dormir.</td>
+                <td>Visualización multisensorial en primera persona (glándula pineal activa) o vaciado mental mediante escritura consciente nocturna.</td>
+              </tr>
+              <tr data-cat="tiempo">
+                <td><strong>Lectura de Señales</strong></td>
+                <td>Ignorar corazonadas por hiperracionalismo beta o exhibir logros incipientes antes de que maduren en silencio.</td>
+                <td>Atención al instinto, sueños paradójicos y sincronías al despertar; guardar en silencio la coherencia interna.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Interactive Nightly Calibration Tool with State Persistence -->
+      <div class="glass-panel is-amber-edge sim-shell">
+        <div class="section-header">
+          <span class="coord-label is-amber">CALIBRADOR INTERACTIVO DE ENTREGA NOCTURNA · BITÁCORA PERSISTENTE</span>
+          <h3 class="subhead">Evalúa tu coherencia antes de dormir y registra tu intención</h3>
+        </div>
+
+        <div class="asymmetric-grid">
+          <div style="display: grid; gap: var(--space-md);">
+            <div class="control-group">
+              <label class="field-label" for="ritual-intent-input">
+                <span>Inquietud o Intención a Entregar (tiempo presente y sereno)</span>
+              </label>
+              <textarea id="ritual-intent-input" rows="3" placeholder="Ejemplo: Muéstrame la mejor forma de resolver esta conversación con claridad y calma."></textarea>
+            </div>
+
+            <div class="control-group">
+              <label class="field-label" for="slider-control">
+                <span>Apego / Necesidad de Controlar el "Cuándo"</span>
+                <span class="field-value" id="val-control">25%</span>
+              </label>
+              <input type="range" id="slider-control" min="0" max="100" value="25" oninput="updateCalibrator()">
+            </div>
+
+            <div class="control-group">
+              <label class="field-label" for="slider-gratitude">
+                <span>Certeza y Gratitud Sentida en el Pecho</span>
+                <span class="field-value is-amber" id="val-gratitude">80%</span>
+              </label>
+              <input type="range" class="is-amber" id="slider-gratitude" min="0" max="100" value="80" oninput="updateCalibrator()">
+            </div>
+
+            <div class="control-group">
+              <label class="field-label" for="slider-benevolence">
+                <span>Benevolencia (Pensamiento Inocuo hacia Otros)</span>
+                <span class="field-value" id="val-benevolence">90%</span>
+              </label>
+              <input type="range" id="slider-benevolence" min="0" max="100" value="90" oninput="updateCalibrator()">
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn is-solid-primary" id="save-ritual-btn" onclick="saveNightRitual()">Guardar en Bitácora</button>
+              <button type="button" class="btn" id="export-ritual-btn" onclick="exportRitualLog()">Exportar Bitácora (.txt)</button>
+              <button type="button" class="btn" id="reset-ritual-btn" onclick="resetRitualLog(this)">Reiniciar Bitácora</button>
+            </div>
+            <div class="inline-feedback" id="ritual-feedback" aria-live="polite"></div>
+          </div>
+
+          <div class="observation-well" style="display: grid; gap: var(--space-md); align-content: start;">
+            <div class="field-label">
+              <span>Diagnóstico de Sintonía</span>
+              <span class="status-chip is-positive" id="calib-status-chip">Óptima · Canal Limpio</span>
+            </div>
+            <div class="metric-value is-cyan" id="calib-score-val">82 / 100</div>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Efecto en Apertura Temporal (Garnier Malet)</span>
+              <span class="telemetry-val" id="calib-garnier-out" style="font-size: 0.92rem; font-weight: 400;">El Doble recibe una consulta clara sin carga ansiosa y puede seleccionar el mejor potencial durante la fase REM.</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Frecuencia de Antena (Bentov)</span>
+              <span class="telemetry-val" id="calib-bentov-out" style="font-size: 0.92rem; font-weight: 400;">Coherencia cardíaca alta; baja resistencia del ego, facilitando la transición hacia ondas alfa-theta (4–7 Hz).</span>
+            </div>
+
+            <div style="border-top: var(--hairline); padding-top: var(--space-sm);">
+              <span class="coord-label is-muted">Bitácora Guardada</span>
+              <div class="journal-list" id="journal-list">
+                <p class="prose" style="font-size: 0.875rem;">Aún no has guardado registros nocturnos. Redacta una intención y calibra tus parámetros para conservar tu sesión.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: CONEXION GEOMETRICA FRACTAL -->
+    <section id="sec-toroide" class="lab-section reveal">
+      <div class="section-header">
+        <span class="coord-label">SIMULACIÓN 06 · GEOMETRÍA TOROIDAL Y PRECESIÓN FRACTAL</span>
+        <h2 class="section-title">Del toroide cósmico de Bentov a los ciclos de precesión de 25.920 años y órbitas solares</h2>
+        <p class="prose">
+          La convergencia alcanza escala cosmológica en la geometría. Bentov propone un universo en forma de <strong>toroide alargado y hueco</strong>: la radiación brota por un agujero blanco en el polo norte, recorre la cáscara espacio-temporal formando galaxias, y reingresa por el agujero negro del polo sur mientras sus ondas de información tejen un holograma en el protoespacio interior. Garnier Malet descubre ese mismo desdoblamiento en la mecánica celeste —corrigiendo la ley de Titius-Bode, explicando la llegada de planetoides al cinturón de Kuiper y midiendo un ciclo solar de <strong>24.840 años</strong> emparentado con el ciclo de precesión equinoccial de <strong>25.920 años</strong>. En paralelo, José Díez Faixat describe una dinámica toroidal entre singularidades A y Ω regida por armónicos de tercios sucesivos (1/3) como una cuerda musical.
+        </p>
+      </div>
+
+      <div class="glass-panel sim-shell">
+        <div class="controls-bar">
+          <div class="control-group">
+            <span class="field-label">Escala Fractal de Inspección</span>
+            <div class="btn-row">
+              <button type="button" class="btn" id="scale-btn-atom" onclick="setFractalScale('atom')">Átomo · Armónico 1/3</button>
+              <button type="button" class="btn" id="scale-btn-human" onclick="setFractalScale('human')">Cuerpo · 7 Tiempos</button>
+              <button type="button" class="btn" id="scale-btn-solar" onclick="setFractalScale('solar')">Sistema Solar · 25.920 a</button>
+              <button type="button" class="btn is-active" id="scale-btn-cosmos" onclick="setFractalScale('cosmos')">Toroide Cósmico · 49 U</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="field-label" for="torus-cut-slider">
+              <span>Corte Meridiano del Toroide</span>
+              <span class="field-value is-amber" id="torus-cut-val">105°</span>
+            </label>
+            <input type="range" class="is-amber" id="torus-cut-slider" min="20" max="180" value="105" oninput="onTorusParamInput()">
+          </div>
+
+          <div class="control-group">
+            <label class="field-label" for="torus-speed-slider">
+              <span>Velocidad de Flujo Poloidal</span>
+              <span class="field-value" id="torus-speed-val">1.0×</span>
+            </label>
+            <input type="range" id="torus-speed-slider" min="0.2" max="2.5" step="0.1" value="1.0" oninput="onTorusParamInput()">
+          </div>
+        </div>
+
+        <div class="asymmetric-grid">
+          <div class="observation-well">
+            <div class="field-label" style="margin-bottom: var(--space-sm);">
+              <span>Corte Meridiano: Agujero Blanco ↔ Envolvente Galáctica ↔ Agujero Negro</span>
+              <span class="status-chip is-amber" id="torus-scale-chip">Escala Cósmica</span>
+            </div>
+            <div class="canvas-frame is-tall">
+              <canvas id="canvas-cosmic-torus" aria-label="Simulación del toroide cósmico de Itzhak Bentov con flujo entre agujero blanco, envolvente espacio-temporal, agujero negro y protoespacio holográfico interior"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-panel" style="display: grid; gap: var(--space-md);">
+            <span class="coord-label" id="scale-tag">BENTOV · TOROIDE Y 49 UNIVERSOS</span>
+            <h3 class="subhead" id="scale-title">Big Bang Modesto y Continuo</h3>
+            <p class="prose" id="scale-desc" style="font-size: 0.95rem;">
+              En lugar de una explosión única, la materia brota continuamente del agujero blanco, viaja por la piel del toroide —donde el tiempo es simplemente la distancia recorrida— y vuelve por el agujero negro para reciclarse. Al alejarse, Bentov visualizó 7 anillos con 7 universos cada uno (49 en total) coronados por la letra Alef.
+            </p>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Parámetro Clave</span>
+              <span class="telemetry-val is-cyan" id="scale-param">Protoespacio: la luz no cruza, la psique sí</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="coord-label is-muted">Puente con Garnier Malet / Díez Faixat</span>
+              <span class="telemetry-val is-amber" id="scale-bridge">Dinámica toroidal A–Ω y expansión-recontracción</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: SINTESIS COMPARATIVA Y FUENTES -->
+    <section id="sec-sintesis" class="lab-section reveal">
+      <div class="section-header">
+        <span class="coord-label">07 · SÍNTESIS ESTRUCTURAL Y ALCANCE EPISTEMOLÓGICO</span>
+        <h2 class="section-title">Mapa comparativo de ambos modelos y estatus científico</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Eje de Análisis</th>
+              <th>Jean-Pierre Garnier Malet (Desdoblamiento)</th>
+              <th>Itzhak Bentov (Conciencia Oscilante)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Naturaleza del Tiempo</strong></td>
+              <td>Discretizado y estroboscópico (24 imágenes visibles + la 25ª apertura temporal imperceptible). Tres escalas simultáneas y siete tiempos dinámicos.</td>
+              <td>Dualidad entre tiempo objetivo lineal (distancia recorrida en la envolvente del toroide) y tiempo subjetivo elástico que puede detenerse en el punto cero.</td>
+            </tr>
+            <tr>
+              <td><strong>Mecanismo de Intercambio</strong></td>
+              <td>Hiperincursión entre el cuerpo corpuscular (presente) y el cuerpo ondulatorio (el Doble) a velocidades superiores a la de la luz.</td>
+              <td>Blinking off and on en velocidad cero hacia el Absoluto; la Psique atraviesa el protoespacio y accede al holograma de la Mente Universal.</td>
+            </tr>
+            <tr>
+              <td><strong>Interfaz Biológica</strong></td>
+              <td>Sueño paradójico (fase REM) y agua corporal (70% H<sub>2</sub>O) como medio de intercambio que actualiza la memoria al despertar.</td>
+              <td>Resonancia corporal mínima a 7 Hz, ondas alfa-theta (4–7 Hz), resonancia ventricular 3×, polarización del córtex derecho y pulsos de la pineal.</td>
+            </tr>
+            <tr>
+              <td><strong>Escala Astronómica</strong></td>
+              <td>Llegada de planetoides al cinturón de Kuiper, explosiones solares, corrección de la ley Titius-Bode y ciclo de 24.840 años (ligado a 25.920 años).</td>
+              <td>Toroide cósmico alargado (agujero blanco/negro espalda con espalda), anisotropía de cuásares (3C273 / 3C275.1) y espiral de 49 universos.</td>
+            </tr>
+            <tr>
+              <td><strong>Práctica Diaria</strong></td>
+              <td>Control del pensamiento diurno y entrega serena del problema en el último minuto antes de dormir sin forzar el resultado.</td>
+              <td>Silencio meditativo de 3 minutos, gratitud sentida en el pecho, certeza vibracional sin súplica, visualización multisensorial y escritura nocturna.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details class="epistemic-box">
+        <summary>Nota de rigor científico y fuentes consultadas</summary>
+        <div style="display: grid; gap: var(--space-sm); margin-top: var(--space-sm);">
+          <p class="prose" style="font-size: 0.92rem;">
+            <strong>Alcance epistemológico:</strong> En la física académica convencional, la teoría del desdoblamiento cuenta con artículos publicados en actas como <em>CASYS</em> (Universidad de Lieja, 1998–2002) y el <em>American Institute of Physics</em> (AIP, 2006 y 2010), además de interpretaciones sobre experimentos de entrelazamiento (Aspect, Gisin, Suarez); sin embargo, el consenso científico actual no ha validado experimentalmente la existencia del "Doble" humano como entidad física independiente. Asimismo, el modelo cosmológico de Itzhak Bentov fue formulado explícitamente como una síntesis descriptiva, cualitativa y filosófico-intuitiva —inspirada en experiencias meditativas y la ingeniería biomédica— más que como una teoría cosmológica cuantitativa estándar.
+          </p>
+          <p class="prose" style="font-size: 0.875rem;">
+            <strong>Fuentes base:</strong> Entrevista «Nosotros, como el tiempo, también nos desdoblamos» (La Vanguardia, Ima Sanchís, 2010); <em>Cambia tu futuro por las aperturas temporales</em> y <em>El doble... ¿cómo funciona?</em> de Jean-Pierre y Lucile Garnier Malet; análisis de la teoría del desdoblamiento y los 7 tiempos (artículos técnicos CASYS / AIP y divulgación de Salvador Mingo); <em>Stalking the Wild Pendulum</em> (<em>Al acecho del péndulo errante</em>) y <em>A Brief Tour of Higher Consciousness</em> de Itzhak Bentov; y <em>Non-Dual Singularity</em> de José Díez Faixat (<em>Evolution: Trajectories of Social Evolution</em>, 2022).
+          </p>
+        </div>
+      </details>
+
+      <div style="margin-top: 1.5rem;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(242, 190, 84, 0.45); background: rgba(242, 190, 84, 0.10); color: #f2be54; font-family: var(--font-label, monospace); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+      </div>
+
+      <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a></span>
+      </div>
+    </section>
+  </main>
+
+  <api-shim></api-shim>
+
+  <script>
+    // Safe color token reader from :root (zero inline hex literals in JS)
+    function cssToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    function colorWithAlpha(hexOrColor, alpha) {
+      if (!hexOrColor) return '';
+      if (hexOrColor.startsWith('rgba') || hexOrColor.startsWith('rgb')) {
+        const nums = hexOrColor.match(/[\d.]+/g);
+        if (nums && nums.length >= 3) {
+          return `rgba(${nums[0]}, ${nums[1]}, ${nums[2]}, ${alpha})`;
+        }
+      }
+      const clean = hexOrColor.replace('#', '');
+      if (clean.length === 6) {
+        const r = parseInt(clean.slice(0, 2), 16);
+        const g = parseInt(clean.slice(2, 4), 16);
+        const b = parseInt(clean.slice(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+      return hexOrColor;
+    }
+
+    const PALETTE = {
+      bg: '',
+      well: '',
+      text: '',
+      muted: '',
+      cyan: '',
+      amber: '',
+      positive: '',
+      violet: '',
+      error: '',
+      outline: ''
+    };
+
+    function refreshPalette() {
+      PALETTE.bg = cssToken('--background');
+      PALETTE.well = cssToken('--surface-well');
+      PALETTE.text = cssToken('--on-surface');
+      PALETTE.muted = cssToken('--on-surface-variant');
+      PALETTE.cyan = cssToken('--primary');
+      PALETTE.amber = cssToken('--tertiary');
+      PALETTE.positive = cssToken('--positive');
+      PALETTE.violet = cssToken('--data-4');
+      PALETTE.error = cssToken('--error');
+      PALETTE.outline = cssToken('--outline');
+    }
+
+    // Reduced motion check
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Helper for crisp HiDPI canvas setup
+    function prepCanvas(canvas) {
+      if (!canvas) return null;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.max(280, Math.floor(rect.width));
+      const h = Math.max(220, Math.floor(rect.height));
+      if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+      }
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return { ctx, w, h };
+    }
+
+    // =========================================================
+    // SIMULATION 1: ESTROBOSCOPIA & BENTOV PENDULUM
+    // =========================================================
+    const STROBE_FREQS = {
+      body: { label: `7 Hz (Mínimo medible)`, speed: 1.0, equiv: `Oscilación corporal completa en resonancia armónica` },
+      cell: { label: `10³ Hz (1.000 Hz)`, speed: 1.8, equiv: `Célula humana viva en vibración metabólica` },
+      atom: { label: `10¹⁵ Hz (Escala atómica)`, speed: 3.1, equiv: `Parpadeo electrónico y transiciones ópticas cuánticas` },
+      nucleus: { label: `10²² Hz (Red nuclear)`, speed: 4.5, equiv: `Oscilación fundamental del núcleo atómico` }
+    };
+
+    const strobeState = {
+      freqKey: 'body',
+      phase: 0.48,
+      playing: !prefersReducedMotion,
+      slowReveal: false
+    };
+
+    function setStrobeFreq(key) {
+      if (!STROBE_FREQS[key]) return;
+      strobeState.freqKey = key;
+      const ids = { body: 'freq-btn-7', cell: 'freq-btn-cell', atom: 'freq-btn-atom', nucleus: 'freq-btn-nuc' };
+      Object.keys(ids).forEach((k) => {
+        const btn = document.getElementById(ids[k]);
+        if (btn) btn.classList.toggle('is-active', k === key);
+      });
+      const teleFreq = document.getElementById('tele-strobe-freq');
+      const teleEquiv = document.getElementById('tele-strobe-equiv');
+      if (teleFreq) teleFreq.textContent = STROBE_FREQS[key].label;
+      if (teleEquiv) teleEquiv.textContent = STROBE_FREQS[key].equiv;
+    }
+
+    function onStrobeSliderInput(val) {
+      strobeState.playing = false;
+      const playBtn = document.getElementById('strobe-play-btn');
+      if (playBtn) playBtn.textContent = `Reproducir`;
+      strobeState.phase = parseFloat(val) / 100;
+      renderStrobeCanvases();
+    }
+
+    function toggleStrobePlay() {
+      strobeState.playing = !strobeState.playing;
+      const playBtn = document.getElementById('strobe-play-btn');
+      if (playBtn) playBtn.textContent = strobeState.playing ? `Pausar` : `Reproducir`;
+    }
+
+    function toggleStrobeSlowMode() {
+      strobeState.slowReveal = !strobeState.slowReveal;
+      const btn = document.getElementById('strobe-slow-btn');
+      if (btn) btn.classList.toggle('is-amber-active', strobeState.slowReveal);
+      if (btn) btn.textContent = strobeState.slowReveal ? `Modo Continuo (24 fps)` : `Revelar Aperturas`;
+    }
+
+    function renderStrobeCanvases() {
+      const p = strobeState.phase;
+      const frameFloat = p * 25;
+      const frameIdx = Math.min(25, Math.max(1, Math.floor(frameFloat) + 1));
+      const isOffWindow = frameIdx === 25 || (frameFloat % 1 > 0.72 && strobeState.slowReveal);
+      const angle = Math.sin(p * Math.PI * 2);
+      const velocity = Math.abs(Math.cos(p * Math.PI * 2));
+      const isBentovOff = velocity < 0.22;
+
+      const phaseLabel = document.getElementById('strobe-phase-val');
+      if (phaseLabel) phaseLabel.textContent = frameIdx === 25 ? `Apertura 25 / 25` : `Cuadro ${frameIdx} / 25`;
+
+      const bentovChip = document.getElementById('bentov-state-chip');
+      if (bentovChip) {
+        bentovChip.textContent = isBentovOff ? `OFF · Velocidad Cero (Absoluto)` : `ON · Plano Sólido`;
+        bentovChip.className = isBentovOff ? `status-chip is-cyan` : `status-chip is-amber`;
+      }
+
+      const garnierChip = document.getElementById('garnier-frame-chip');
+      if (garnierChip) {
+        garnierChip.textContent = isOffWindow ? `25ª Subliminal · Apertura Temporal` : `Imagen Perceptible (${frameIdx}/24)`;
+        garnierChip.className = isOffWindow ? `status-chip is-amber` : `status-chip is-cyan`;
+      }
+
+      const telePhase = document.getElementById('tele-strobe-phase');
+      if (telePhase) {
+        telePhase.textContent = (isBentovOff || isOffWindow)
+          ? `VACÍO ACTIVO (OFF / Apertura Temporal)`
+          : `Instante Manifiesto (ON · Ilusión Continua)`;
+      }
+
+      // Draw Bentov Pendulum
+      const bCanvas = prepCanvas(document.getElementById('canvas-bentov-pendulum'));
+      if (bCanvas) {
+        const { ctx, w, h } = bCanvas;
+        ctx.clearRect(0, 0, w, h);
+
+        // Background "Absolute" zone band at extremes
+        const padX = w * 0.14;
+        ctx.fillStyle = colorWithAlpha(PALETTE.cyan, isBentovOff ? 0.14 : 0.05);
+        ctx.fillRect(0, 0, padX, h);
+        ctx.fillRect(w - padX, 0, padX, h);
+
+        ctx.font = `500 11px "JetBrains Mono", monospace`;
+        ctx.fillStyle = PALETTE.cyan;
+        ctx.textAlign = `center`;
+        ctx.fillText(`OFF (v=0)`, padX * 0.5, 22);
+        ctx.fillText(`OFF (v=0)`, w - padX * 0.5, 22);
+
+        // Pivot & Arc
+        const pivotX = w * 0.5;
+        const pivotY = 34;
+        const armLen = Math.min(w * 0.34, h * 0.54);
+        const theta = angle * 0.72;
+        const bobX = pivotX + Math.sin(theta) * armLen;
+        const bobY = pivotY + Math.cos(theta) * armLen;
+
+        ctx.strokeStyle = colorWithAlpha(PALETTE.muted, 0.35);
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.arc(pivotX, pivotY, armLen, Math.PI * 0.5 - 0.75, Math.PI * 0.5 + 0.75);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Arm
+        ctx.strokeStyle = isBentovOff ? PALETTE.cyan : PALETTE.amber;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(pivotX, pivotY);
+        ctx.lineTo(bobX, bobY);
+        ctx.stroke();
+
+        // Bob glow
+        const bobGrad = ctx.createRadialGradient(bobX, bobY, 2, bobX, bobY, isBentovOff ? 28 : 18);
+        bobGrad.addColorStop(0, isBentovOff ? PALETTE.cyan : PALETTE.amber);
+        bobGrad.addColorStop(1, colorWithAlpha(isBentovOff ? PALETTE.cyan : PALETTE.amber, 0));
+        ctx.fillStyle = bobGrad;
+        ctx.beginPath();
+        ctx.arc(bobX, bobY, isBentovOff ? 28 : 18, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = isBentovOff ? PALETTE.cyan : PALETTE.amber;
+        ctx.beginPath();
+        ctx.arc(bobX, bobY, isBentovOff ? 7 : 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Infinite velocity flatline at bottom when OFF
+        const baseWaveY = h - 38;
+        ctx.strokeStyle = colorWithAlpha(PALETTE.muted, 0.3);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(20, baseWaveY);
+        ctx.lineTo(w - 20, baseWaveY);
+        ctx.stroke();
+
+        ctx.strokeStyle = isBentovOff ? PALETTE.cyan : PALETTE.amber;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let x = 20; x <= w - 20; x += 3) {
+          const nx = (x - 20) / (w - 40);
+          const amp = isBentovOff ? 1.5 : 15 * velocity;
+          const y = baseWaveY + Math.sin(nx * Math.PI * 10 + p * Math.PI * 6) * amp;
+          if (x === 20) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        ctx.fillStyle = PALETTE.muted;
+        ctx.textAlign = `left`;
+        ctx.fillText(isBentovOff ? `v = ∞ / reposo total (El Absoluto)` : `Oscilación material (v = ${(velocity * 100).toFixed(0)}%)`, 20, h - 12);
+      }
+
+      // Draw Garnier Stroboscopic Film Strip
+      const gCanvas = prepCanvas(document.getElementById('canvas-garnier-strobe'));
+      if (gCanvas) {
+        const { ctx, w, h } = gCanvas;
+        ctx.clearRect(0, 0, w, h);
+
+        const stripY = 44;
+        const stripH = 82;
+        const totalSlots = 25;
+        const margin = 20;
+        const slotW = (w - margin * 2) / totalSlots;
+
+        for (let i = 0; i < totalSlots; i++) {
+          const x = margin + i * slotW;
+          const isCurrent = i === frameIdx - 1;
+          const isSubliminal = i === 24;
+
+          if (isSubliminal) {
+            ctx.fillStyle = isCurrent ? colorWithAlpha(PALETTE.amber, 0.35) : colorWithAlpha(PALETTE.amber, 0.14);
+            ctx.fillRect(x + 1, stripY, Math.max(2, slotW - 2), stripH);
+            ctx.strokeStyle = PALETTE.amber;
+            ctx.lineWidth = isCurrent ? 2 : 1;
+            ctx.strokeRect(x + 1, stripY, Math.max(2, slotW - 2), stripH);
+          } else {
+            ctx.fillStyle = isCurrent
+              ? colorWithAlpha(PALETTE.cyan, 0.35)
+              : colorWithAlpha(PALETTE.cyan, strobeState.slowReveal ? 0.08 : 0.16);
+            ctx.fillRect(x + 1.5, stripY, Math.max(2, slotW - 4), stripH);
+            if (isCurrent) {
+              ctx.strokeStyle = PALETTE.cyan;
+              ctx.lineWidth = 2;
+              ctx.strokeRect(x + 1.5, stripY, Math.max(2, slotW - 4), stripH);
+            }
+          }
+
+          // Micro black gap (temporal opening) between frames when slowReveal is active
+          if (strobeState.slowReveal && i < totalSlots - 1) {
+            ctx.fillStyle = PALETTE.amber;
+            ctx.fillRect(x + slotW - 2, stripY + 8, 2, stripH - 16);
+          }
+        }
+
+        // Playhead
+        const headX = margin + p * (w - margin * 2);
+        ctx.strokeStyle = isOffWindow ? PALETTE.amber : PALETTE.cyan;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(headX, stripY - 12);
+        ctx.lineTo(headX, stripY + stripH + 14);
+        ctx.stroke();
+
+        // Bottom comparison waveform: Apparent Continuity vs Real Discretized Pulses
+        const waveY = h - 62;
+        ctx.font = `500 11px "JetBrains Mono", monospace`;
+        ctx.fillStyle = PALETTE.muted;
+        ctx.textAlign = `left`;
+        ctx.fillText(`Percepción cerebral continua (24 imágenes/s)`, margin, stripY - 18);
+        ctx.fillStyle = PALETTE.amber;
+        ctx.textAlign = `right`;
+        ctx.fillText(`25ª Apertura`, w - margin, stripY + stripH + 26);
+
+        // Discretized pulses
+        ctx.strokeStyle = PALETTE.cyan;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let i = 0; i < 24; i++) {
+          const px = margin + (i + 0.5) * slotW;
+          ctx.moveTo(px, waveY + 18);
+          ctx.lineTo(px, waveY - 14);
+        }
+        ctx.stroke();
+
+        // 25th burst
+        const px25 = margin + 24.5 * slotW;
+        ctx.strokeStyle = PALETTE.amber;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(px25, waveY + 24);
+        ctx.lineTo(px25, waveY - 24);
+        ctx.stroke();
+
+        ctx.fillStyle = PALETTE.muted;
+        ctx.textAlign = `left`;
+        ctx.fillText(strobeState.slowReveal
+          ? `Grietas estroboscópicas visibles: intercambio de información acelerado`
+          : `Pulsa "Revelar Aperturas" para exponer los intervalos negros entre cuadros`, margin, h - 12);
+      }
+    }
+
+    // =========================================================
+    // SIMULATION 2: DOS TIEMPOS SIMULTANEOS
+    // =========================================================
+    const twoTimesState = {
+      angle: 45,
+      tick: 0
+    };
+
+    function onTimeAngleInput(val) {
+      twoTimesState.angle = parseInt(val, 10) || 0;
+      updateTimeReadouts();
+    }
+
+    function setTimePreset(deg) {
+      twoTimesState.angle = deg;
+      const slider = document.getElementById('time-angle-slider');
+      if (slider) slider.value = deg;
+      updateTimeReadouts();
+    }
+
+    function updateTimeReadouts() {
+      const deg = twoTimesState.angle;
+      const ids = { 0: 'preset-time-0', 45: 'preset-time-45', 86: 'preset-time-86' };
+      Object.keys(ids).forEach((k) => {
+        const btn = document.getElementById(ids[k]);
+        if (btn) btn.classList.toggle('is-active', Math.abs(deg - parseInt(k, 10)) <= 2);
+      });
+
+      const rad = (deg * Math.PI) / 180;
+      const factor = Math.max(1, Math.round(1 / Math.max(0.001, Math.cos(rad)) * Math.pow(10, deg / 22)));
+      const pathways = Math.min(4096, Math.max(1, Math.round(Math.pow(2, deg / 8))));
+
+      const angleVal = document.getElementById('time-angle-val');
+      if (angleVal) {
+        const label = deg < 15 ? `Vigilia Lineal` : deg < 65 ? `Transición Alfa-Theta` : `Apertura Hiperlumínica`;
+        angleVal.textContent = `${deg}° · ${label}`;
+      }
+
+      const ratioChip = document.getElementById('time-ratio-chip');
+      if (ratioChip) {
+        ratioChip.textContent = deg >= 75
+          ? `1 µs consciente ≈ 1 día acelerado`
+          : `Dilatación ${factor.toLocaleString('es-419')}×`;
+      }
+
+      const subTime = document.getElementById('tele-sub-time');
+      if (subTime) {
+        subTime.textContent = `${factor.toLocaleString('es-419')} s subjetivos por cada 1 s 3D`;
+      }
+
+      const clockHand = document.getElementById('tele-clock-hand');
+      if (clockHand) {
+        clockHand.textContent = deg < 20
+          ? `Segundero normal (coinciden vectores)`
+          : deg < 70
+            ? `Segundero se ralentiza frente al observador`
+            : `Segundero parece detenerse (Estado Theta profundo)`;
+      }
+
+      const futuresCount = document.getElementById('tele-futures-count');
+      if (futuresCount) {
+        futuresCount.textContent = `${pathways.toLocaleString('es-419')} trayectorias simuladas`;
+      }
+    }
+
+    function renderTwoTimesCanvas(dt) {
+      const c = prepCanvas(document.getElementById('canvas-two-times'));
+      if (!c) return;
+      const { ctx, w, h } = c;
+      ctx.clearRect(0, 0, w, h);
+
+      const deg = twoTimesState.angle;
+      const norm = deg / 89;
+      if (!prefersReducedMotion) {
+        twoTimesState.tick += dt;
+      }
+
+      // Left zone: Two Clocks (Slow 3D vs Accelerated Quantum)
+      const clockR = Math.min(54, w * 0.11, h * 0.19);
+      const c1x = w * 0.22;
+      const c1y = h * 0.30;
+      const c2x = w * 0.22;
+      const c2y = h * 0.72;
+
+      // Clock 1: Slow Objective 3D (Bentov: slows down subjectively as angle increases)
+      const objSpeed = Math.max(0.06, 1 - norm * 0.92);
+      const a1 = twoTimesState.tick * objSpeed * 1.2 - Math.PI / 2;
+      drawClock(ctx, c1x, c1y, clockR, a1, PALETTE.amber, `RELOJ 3D (LENTO)`, `1 seg objetivo`);
+
+      // Clock 2: Accelerated Quantum
+      const accSpeed = 1 + norm * 18;
+      const a2 = twoTimesState.tick * accSpeed * 1.6 - Math.PI / 2;
+      drawClock(ctx, c2x, c2y, clockR, a2, PALETTE.cyan, `TIEMPO ACELERADO`, `${Math.round(1 + norm * 1000)}× horizonte`);
+
+      // Right zone: Chessboard / Branching Potential Futures
+      const treeX0 = w * 0.44;
+      const treeW = w * 0.50;
+      const centerY = h * 0.5;
+
+      ctx.font = `500 11px "JetBrains Mono", monospace`;
+      ctx.fillStyle = PALETTE.muted;
+      ctx.textAlign = `left`;
+      ctx.fillText(`SIMULACIÓN DE FUTUROS POTENCIALES (HIPERINCURSIÓN)`, treeX0, 26);
+
+      const branches = Math.max(3, Math.round(3 + norm * 12));
+      const bestIdx = Math.floor(branches * 0.42);
+
+      for (let i = 0; i < branches; i++) {
+        const frac = branches === 1 ? 0.5 : i / (branches - 1);
+        const endY = 58 + frac * (h - 96);
+        const midX = treeX0 + treeW * 0.48;
+        const endX = treeX0 + treeW;
+        const isBest = i === bestIdx;
+
+        ctx.strokeStyle = isBest
+          ? PALETTE.cyan
+          : colorWithAlpha(PALETTE.muted, 0.18 + norm * 0.22);
+        ctx.lineWidth = isBest ? 2.5 : 1;
+        ctx.beginPath();
+        ctx.moveTo(treeX0, centerY);
+        ctx.bezierCurveTo(midX, centerY, midX, endY, endX, endY);
+        ctx.stroke();
+
+        ctx.fillStyle = isBest ? PALETTE.cyan : colorWithAlpha(PALETTE.muted, 0.45);
+        ctx.beginPath();
+        ctx.arc(endX, endY, isBest ? 5 : 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (isBest) {
+          // Animated return packet from future to present
+          const packetT = 1 - ((twoTimesState.tick * (0.6 + norm * 1.4)) % 1);
+          const bx = (1 - packetT) * (1 - packetT) * (1 - packetT) * treeX0
+            + 3 * (1 - packetT) * (1 - packetT) * packetT * midX
+            + 3 * (1 - packetT) * packetT * packetT * midX
+            + packetT * packetT * packetT * endX;
+          const by = (1 - packetT) * (1 - packetT) * (1 - packetT) * centerY
+            + 3 * (1 - packetT) * (1 - packetT) * packetT * centerY
+            + 3 * (1 - packetT) * packetT * packetT * endY
+            + packetT * packetT * packetT * endY;
+
+          ctx.fillStyle = PALETTE.amber;
+          ctx.beginPath();
+          ctx.arc(bx, by, 4.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = PALETTE.cyan;
+          ctx.textAlign = `right`;
+          ctx.fillText(`Mejor potencial actualizado`, endX - 10, endY - 8);
+        }
+      }
+
+      // Present node
+      ctx.fillStyle = PALETTE.amber;
+      ctx.beginPath();
+      ctx.arc(treeX0, centerY, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = PALETTE.text;
+      ctx.textAlign = `center`;
+      ctx.fillText(`Presente`, treeX0, centerY + 22);
+    }
+
+    function drawClock(ctx, cx, cy, r, angle, color, topLabel, subLabel) {
+      ctx.strokeStyle = colorWithAlpha(color, 0.45);
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.stroke();
+
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2;
+        ctx.strokeStyle = colorWithAlpha(PALETTE.muted, 0.45);
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(a) * (r - 5), cy + Math.sin(a) * (r - 5));
+        ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+        ctx.stroke();
+      }
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(angle) * (r * 0.78), cy + Math.sin(angle) * (r * 0.78));
+      ctx.stroke();
+
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.font = `600 10px "JetBrains Mono", monospace`;
+      ctx.fillStyle = color;
+      ctx.textAlign = `center`;
+      ctx.fillText(topLabel, cx, cy - r - 10);
+      ctx.fillStyle = PALETTE.muted;
+      ctx.fillText(subLabel, cx, cy + r + 15);
+    }
+
+    // =========================================================
+    // SIMULATION 3: DOBLE CUANTICO VS OBSERVADOR / PSIQUE
+    // =========================================================
+    const PULSE_PROFILES = {
+      fear: {
+        title: `Miedo / Proyección Catastrófica`,
+        desc: `Al sostener temor o angustia, inscribes ese potencial en el horizonte futuro. El campo cuántico no juzga: refleja la vibración emitida, generando ruido e interferencias destructivas.`,
+        garnier: `Cuerpo ondulatorio proyecta potenciales de peligro al futuro`,
+        bentov: `Interferencia caótica en el campo; mente atrapada en estrés beta`,
+        chip: `Señal Distorsionada (Riesgo)`,
+        chipClass: `status-chip is-amber`,
+        coherence: 0.25
+      },
+      doubt: {
+        title: `Duda / Súplica desde la Carencia`,
+        desc: `Pedir desde el vacío ("ojalá algún día pase") emite una onda inconsistente que confirma al campo la ausencia de lo buscado. La señal se dispersa antes de condensar una ruta clara.`,
+        garnier: `Intercambio fragmentado; el ego intenta retener las riendas`,
+        bentov: `Antena cerebral desintonizada; el hemisferio racional bloquea la señal`,
+        chip: `Señal Atenuada (Duda)`,
+        chipClass: `status-chip is-amber`,
+        coherence: 0.45
+      },
+      calm: {
+        title: `Calma y Entrega Certera`,
+        desc: `Al serenar el sistema nervioso y entregar la pregunta sin ansiedad, el Doble viaja a velocidad ondulatoria a través de las aperturas temporales y la Psique cruza el protoespacio con nitidez.`,
+        garnier: `Entrega total al Doble; borrado nocturno de potenciales nocivos`,
+        bentov: `Psique libre cruza el protoespacio hacia el holograma informativo`,
+        chip: `Señal Estable`,
+        chipClass: `status-chip is-cyan`,
+        coherence: 0.82
+      },
+      gratitude: {
+        title: `Gratitud Coherente y Certeza`,
+        desc: `La onda atraviesa el límite del espacio-tiempo ordinario sin distorsión. El Doble selecciona un futuro armónico mediante hiperincursión y la Psique resuena con el holograma universal, devolviendo una intuición nítida y sincrónica.`,
+        garnier: `Cuerpo ondulatorio limpia potenciales nocivos con máxima velocidad`,
+        bentov: `Coherencia cardíaca + acceso directo al holograma de la Mente Universal`,
+        chip: `Resonancia Máxima`,
+        chipClass: `status-chip is-positive`,
+        coherence: 1.0
+      }
+    };
+
+    const observerState = {
+      mode: 'both',
+      pulse: 'gratitude',
+      wavePhase: 0
+    };
+
+    function setObserverMode(mode) {
+      observerState.mode = mode;
+      const ids = { both: 'mode-btn-both', garnier: 'mode-btn-garnier', bentov: 'mode-btn-bentov' };
+      Object.keys(ids).forEach((k) => {
+        const b = document.getElementById(ids[k]);
+        if (b) b.classList.toggle('is-active', k === mode);
+      });
+    }
+
+    function triggerWavePulse(type) {
+      if (!PULSE_PROFILES[type]) return;
+      observerState.pulse = type;
+      observerState.wavePhase = 0;
+
+      const ids = {
+        fear: 'pulse-btn-fear',
+        doubt: 'pulse-btn-doubt',
+        calm: 'pulse-btn-calm',
+        gratitude: 'pulse-btn-gratitude'
+      };
+      Object.keys(ids).forEach((k) => {
+        const b = document.getElementById(ids[k]);
+        if (b) {
+          b.classList.remove('is-primary', 'is-amber-active', 'is-active');
+          if (k === type) b.classList.add(type === 'fear' || type === 'doubt' ? 'is-amber-active' : 'is-primary');
+        }
+      });
+
+      const prof = PULSE_PROFILES[type];
+      const t = document.getElementById('pulse-title');
+      const d = document.getElementById('pulse-desc');
+      const g = document.getElementById('pulse-garnier-mech');
+      const b = document.getElementById('pulse-bentov-mech');
+      const c = document.getElementById('observer-signal-chip');
+      if (t) t.textContent = prof.title;
+      if (d) d.textContent = prof.desc;
+      if (g) g.textContent = prof.garnier;
+      if (b) b.textContent = prof.bentov;
+      if (c) {
+        c.textContent = prof.chip;
+        c.className = prof.chipClass;
+      }
+    }
+
+    function renderObserverCanvas(dt) {
+      const c = prepCanvas(document.getElementById('canvas-observer-field'));
+      if (!c) return;
+      const { ctx, w, h } = c;
+      ctx.clearRect(0, 0, w, h);
+
+      if (!prefersReducedMotion) {
+        observerState.wavePhase = (observerState.wavePhase + dt * 0.45) % 1;
+      }
+
+      const prof = PULSE_PROFILES[observerState.pulse];
+      const coh = prof.coherence;
+      const isChaos = coh < 0.5;
+      const waveColor = isChaos ? PALETTE.error : PALETTE.cyan;
+
+      // Top horizon: Holographic Universal Mind / 7th Time Double
+      const horizonY = h * 0.22;
+      const bodyX = w * 0.5;
+      const bodyY = h * 0.80;
+
+      // Proto-space boundary band
+      ctx.fillStyle = colorWithAlpha(PALETTE.amber, 0.06);
+      ctx.fillRect(0, horizonY, w, h * 0.34);
+      ctx.strokeStyle = colorWithAlpha(PALETTE.amber, 0.35);
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(0, horizonY);
+      ctx.lineTo(w, horizonY);
+      ctx.moveTo(0, horizonY + h * 0.34);
+      ctx.lineTo(w, horizonY + h * 0.34);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.font = `500 11px "JetBrains Mono", monospace`;
+      ctx.fillStyle = PALETTE.amber;
+      ctx.textAlign = `left`;
+      const topTag = observerState.mode === 'garnier'
+        ? `7º TIEMPO · EL DOBLE ONDULATORIO`
+        : observerState.mode === 'bentov'
+          ? `HOLOGRAMA CÓSMICO · MENTE UNIVERSAL`
+          : `HOLOGRAMA UNIVERSAL / DOBLE CUÁNTICO`;
+      ctx.fillText(topTag, 16, 22);
+
+      ctx.fillStyle = PALETTE.muted;
+      ctx.fillText(`PROTOESPACIO / APERTURA TEMPORAL (La luz no cruza; la onda de conciencia sí)`, 16, horizonY + 18);
+
+      // Holographic interference nodes along top
+      for (let i = 0; i < 9; i++) {
+        const nx = w * (0.12 + i * 0.095);
+        const ny = horizonY - 22 + Math.sin(i * 1.4 + observerState.wavePhase * Math.PI * 2) * 8;
+        ctx.fillStyle = i === 4 ? PALETTE.cyan : colorWithAlpha(PALETTE.amber, 0.55);
+        ctx.beginPath();
+        ctx.arc(nx, ny, i === 4 ? 6 : 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        if (i < 8) {
+          ctx.strokeStyle = colorWithAlpha(PALETTE.amber, 0.22);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(nx, ny);
+          ctx.lineTo(w * (0.12 + (i + 1) * 0.095), horizonY - 22 + Math.sin((i + 1) * 1.4 + observerState.wavePhase * Math.PI * 2) * 8);
+          ctx.stroke();
+        }
+      }
+
+      // Expanding outgoing waves from corpuscular body
+      for (let rIdx = 0; rIdx < 4; rIdx++) {
+        const prog = (observerState.wavePhase + rIdx * 0.25) % 1;
+        const radius = prog * (h * 0.68);
+        const alpha = (1 - prog) * 0.7;
+        ctx.strokeStyle = colorWithAlpha(waveColor, alpha);
+        ctx.lineWidth = isChaos ? 1.5 : 2;
+        ctx.beginPath();
+        if (isChaos) {
+          for (let a = Math.PI; a <= Math.PI * 2; a += 0.1) {
+            const jitter = Math.sin(a * 14 + prog * 18) * 9;
+            const px = bodyX + Math.cos(a) * (radius + jitter);
+            const py = bodyY + Math.sin(a) * (radius + jitter);
+            if (a === Math.PI) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+        } else {
+          ctx.arc(bodyX, bodyY, radius, Math.PI, Math.PI * 2);
+        }
+        ctx.stroke();
+      }
+
+      // Returning intuitive feedback beam
+      const retProg = (1 - observerState.wavePhase);
+      const retY = (horizonY - 22) + retProg * (bodyY - (horizonY - 22));
+      ctx.strokeStyle = colorWithAlpha(PALETTE.amber, coh * 0.8);
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(bodyX, horizonY - 22);
+      ctx.lineTo(bodyX, bodyY);
+      ctx.stroke();
+
+      ctx.fillStyle = isChaos ? PALETTE.error : PALETTE.amber;
+      ctx.beginPath();
+      ctx.arc(bodyX, retY, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Corpuscular Body / Brain Antenna at bottom
+      const glow = ctx.createRadialGradient(bodyX, bodyY, 2, bodyX, bodyY, 26);
+      glow.addColorStop(0, PALETTE.cyan);
+      glow.addColorStop(1, colorWithAlpha(PALETTE.cyan, 0));
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(bodyX, bodyY, 26, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = PALETTE.text;
+      ctx.beginPath();
+      ctx.arc(bodyX, bodyY, 8, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.textAlign = `center`;
+      ctx.fillStyle = PALETTE.text;
+      const bottomLabel = observerState.mode === 'garnier'
+        ? `CUERPO CORPUSCULAR (PRESENTE)`
+        : observerState.mode === 'bentov'
+          ? `CEREBRO RECEPTOR / ANTENA`
+          : `CUERPO CORPUSCULAR · ANTENA EN EL PRESENTE`;
+      ctx.fillText(bottomLabel, bodyX, bodyY + 26);
+    }
+
+    // =========================================================
+    // SIMULATION 4: SUENO REM Y TRANSDUCTORES BIOLOGICOS
+    // =========================================================
+    const bioState = {
+      mode: 'theta',
+      t: 0
+    };
+
+    const BIO_MODES = {
+      beta: { freq: 20, amp: 14, res: 1, coh: 0.2, chip: `Ruido Beta (20 Hz · Bloqueado)`, cls: `status-chip is-amber` },
+      theta: { freq: 6, amp: 26, res: 2.4, coh: 0.85, chip: `Canal Meditativo (6 Hz · Alfa-Theta)`, cls: `status-chip is-cyan` },
+      rem: { freq: 4.5, amp: 32, res: 3.0, coh: 1.0, chip: `Descarga REM Activa (4.5 Hz · 3× Resonancia)`, cls: `status-chip is-positive` }
+    };
+
+    function setBioState(mode) {
+      if (!BIO_MODES[mode]) return;
+      bioState.mode = mode;
+      const ids = { beta: 'bio-btn-beta', theta: 'bio-btn-theta', rem: 'bio-btn-rem' };
+      Object.keys(ids).forEach((k) => {
+        const b = document.getElementById(ids[k]);
+        if (b) b.classList.toggle('is-active', k === mode);
+      });
+      const chip = document.getElementById('bio-channel-chip');
+      if (chip) {
+        chip.textContent = BIO_MODES[mode].chip;
+        chip.className = BIO_MODES[mode].cls;
+      }
+    }
+
+    function renderBioCanvas(dt) {
+      const c = prepCanvas(document.getElementById('canvas-bio-transducer'));
+      if (!c) return;
+      const { ctx, w, h } = c;
+      ctx.clearRect(0, 0, w, h);
+
+      if (!prefersReducedMotion) bioState.t += dt;
+      const cfg = BIO_MODES[bioState.mode];
+
+      ctx.font = `500 11px "JetBrains Mono", monospace`;
+
+      // Channel 1: Brainwave EEG
+      const y1 = h * 0.22;
+      ctx.fillStyle = PALETTE.cyan;
+      ctx.textAlign = `left`;
+      ctx.fillText(`1. ONDAS CEREBRALES (${cfg.freq} Hz)`, 16, 24);
+
+      ctx.strokeStyle = cfg.coh > 0.5 ? PALETTE.cyan : PALETTE.error;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let x = 16; x <= w - 16; x += 2) {
+        const nx = (x - 16) / (w - 32);
+        const noise = cfg.coh < 0.5 ? Math.sin(nx * 65 + bioState.t * 14) * 8 : 0;
+        const y = y1 + Math.sin(nx * Math.PI * (cfg.freq * 0.8) + bioState.t * 3.2) * cfg.amp * 0.55 + noise;
+        if (x === 16) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Channel 2: Ventricular Acoustic Standing Wave + 3x Body Resonance
+      const y2 = h * 0.52;
+      ctx.fillStyle = PALETTE.amber;
+      ctx.fillText(`2. RESONANCIA VENTRICULAR Y PINEAL (${cfg.res}× AMPLITUD)`, 16, y2 - 28);
+
+      ctx.strokeStyle = PALETTE.amber;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let x = 16; x <= w - 16; x += 2) {
+        const nx = (x - 16) / (w - 32);
+        const envelope = Math.sin(nx * Math.PI * 3);
+        const y = y2 + envelope * Math.sin(bioState.t * 5) * (8 * cfg.res);
+        if (x === 16) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Channel 3: Body Water (70% H2O) Transducer Lattice
+      const y3 = h * 0.82;
+      ctx.fillStyle = PALETTE.positive;
+      ctx.fillText(`3. AGUA CORPORAL (70% H₂O) COMO TRANSDUCTOR DE MEMORIA`, 16, y3 - 26);
+
+      const cols = 12;
+      const stepX = (w - 64) / (cols - 1);
+      for (let i = 0; i < cols; i++) {
+        const cx = 32 + i * stepX;
+        const jitterX = cfg.coh < 0.5 ? Math.sin(bioState.t * 9 + i * 2) * 7 : 0;
+        const jitterY = cfg.coh < 0.5 ? Math.cos(bioState.t * 11 + i * 3) * 6 : Math.sin(bioState.t * 2 + i * 0.5) * 3;
+        const px = cx + jitterX;
+        const py = y3 + jitterY;
+
+        // Hexagonal / crystal node
+        ctx.strokeStyle = cfg.coh > 0.5 ? PALETTE.positive : colorWithAlpha(PALETTE.error, 0.65);
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        for (let k = 0; k < 6; k++) {
+          const ang = (k / 6) * Math.PI * 2 + (cfg.coh > 0.5 ? bioState.t * 0.4 : i);
+          const vx = px + Math.cos(ang) * 9;
+          const vy = py + Math.sin(ang) * 9;
+          if (k === 0) ctx.moveTo(vx, vy);
+          else ctx.lineTo(vx, vy);
+        }
+        ctx.closePath();
+        ctx.stroke();
+      }
+    }
+
+    // =========================================================
+    // SECTION 5: MATRIX FILTER & PERSISTENT CALIBRATOR
+    // =========================================================
+    function filterMatrix(cat) {
+      const ids = { all: 'filter-all', emocion: 'filter-emocion', tiempo: 'filter-tiempo', etica: 'filter-etica' };
+      Object.keys(ids).forEach((k) => {
+        const b = document.getElementById(ids[k]);
+        if (b) b.classList.toggle('is-active', k === cat);
+      });
+      const rows = document.querySelectorAll('#manifest-matrix-body tr');
+      rows.forEach((tr) => {
+        const rowCat = tr.getAttribute('data-cat');
+        tr.style.display = (cat === 'all' || rowCat === cat) ? '' : 'none';
+      });
+    }
+
+    let appState = {
+      ritualEntries: [],
+      calibrator: { control: 25, gratitude: 80, benevolence: 90 }
+    };
+
+    function computeCalibratorScore() {
+      const ctrl = parseInt(document.getElementById('slider-control')?.value ?? 25, 10);
+      const grat = parseInt(document.getElementById('slider-gratitude')?.value ?? 80, 10);
+      const benev = parseInt(document.getElementById('slider-benevolence')?.value ?? 90, 10);
+      const score = Math.round((100 - ctrl) * 0.34 + grat * 0.33 + benev * 0.33);
+      return { ctrl, grat, benev, score };
+    }
+
+    function updateCalibrator() {
+      const { ctrl, grat, benev, score } = computeCalibratorScore();
+      appState.calibrator = { control: ctrl, gratitude: grat, benevolence: benev };
+
+      const vc = document.getElementById('val-control');
+      const vg = document.getElementById('val-gratitude');
+      const vb = document.getElementById('val-benevolence');
+      const sc = document.getElementById('calib-score-val');
+      const chip = document.getElementById('calib-status-chip');
+      const gOut = document.getElementById('calib-garnier-out');
+      const bOut = document.getElementById('calib-bentov-out');
+
+      if (vc) vc.textContent = `${ctrl}%`;
+      if (vg) vg.textContent = `${grat}%`;
+      if (vb) vb.textContent = `${benev}%`;
+      if (sc) sc.textContent = `${score} / 100`;
+
+      if (score >= 72) {
+        if (chip) { chip.textContent = `Óptima · Canal Limpio`; chip.className = `status-chip is-positive`; }
+        if (gOut) gOut.textContent = `El Doble recibe una consulta clara sin carga ansiosa y puede seleccionar el mejor potencial durante la fase REM.`;
+        if (bOut) bOut.textContent = `Coherencia cardíaca alta; baja resistencia del ego, facilitando la transición hacia ondas alfa-theta (4–7 Hz).`;
+      } else if (score >= 45) {
+        if (chip) { chip.textContent = `Intermedia · Ruido Residual`; chip.className = `status-chip is-cyan`; }
+        if (gOut) gOut.textContent = `Existe apertura parcial, pero el apego al resultado limita el margen del Doble para ordenar un futuro óptimo.`;
+        if (bOut) bOut.textContent = `Oscilación mixta: dedica 3 minutos de respiración silenciosa antes de dormir para soltar el "cuándo".`;
+      } else {
+        if (chip) { chip.textContent = `Alta Interferencia · Riesgo`; chip.className = `status-chip is-amber`; }
+        if (gOut) gOut.textContent = `El exceso de control o falta de benevolencia inscribe potenciales de conflicto en la apertura nocturna.`;
+        if (bOut) bOut.textContent = `Antena saturada en estrés beta; evita emitir desde la carencia y limpia la mente escribiendo tus preocupaciones antes de acostarte.`;
+      }
+    }
+
+    function renderJournalList() {
+      const list = document.getElementById('journal-list');
+      if (!list) return;
+      if (!appState.ritualEntries || appState.ritualEntries.length === 0) {
+        list.innerHTML = `<p class="prose" style="font-size: 0.875rem;">Aún no has guardado registros nocturnos. Redacta una intención y calibra tus parámetros para conservar tu sesión.</p>`;
+        return;
+      }
+      list.innerHTML = appState.ritualEntries.map((entry) => `
+        <div class="journal-entry">
+          <div class="field-label">
+            <span>${entry.date}</span>
+            <span class="field-value">${entry.score}/100 Coherencia</span>
+          </div>
+          <p class="prose" style="font-size: 0.9rem; color: var(--on-surface);">${escapeHtml(entry.text)}</p>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          // Graceful fallback if host rejects
+        }
+      }
+    }
+
+    async function saveNightRitual() {
+      const input = document.getElementById('ritual-intent-input');
+      const feedback = document.getElementById('ritual-feedback');
+      if (!input || !feedback) return;
+
+      const text = input.value.trim();
+      if (text.length < 8) {
+        feedback.textContent = `Escribe al menos 8 caracteres describiendo tu intención serena antes de guardar.`;
+        feedback.className = `inline-feedback is-error`;
+        return;
+      }
+
+      const { score } = computeCalibratorScore();
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-419', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+      appState.ritualEntries.unshift({ date: dateStr, score, text });
+      if (appState.ritualEntries.length > 8) appState.ritualEntries = appState.ritualEntries.slice(0, 8);
+      input.value = ``;
+      renderJournalList();
+      await persistState();
+
+      feedback.textContent = `Intención registrada en tu bitácora con ${score}/100 de coherencia.`;
+      feedback.className = `inline-feedback`;
+    }
+
+    function exportRitualLog() {
+      const feedback = document.getElementById('ritual-feedback');
+      if (!appState.ritualEntries.length) {
+        if (feedback) {
+          feedback.textContent = `No hay registros en la bitácora para exportar todavía.`;
+          feedback.className = `inline-feedback is-error`;
+        }
+        return;
+      }
+      const lines = [
+        `BITACORA DE ENTREGA NOCTURNA (GARNIER MALET + BENTOV)`,
+        `=======================================================`,
+        ...appState.ritualEntries.map((e, idx) => `${idx + 1}. [${e.date}] Coherencia: ${e.score}/100\n   ${e.text}`)
+      ].join('\n\n');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: lines,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'bitacora_desdoblamiento.txt'
+        });
+        if (feedback) {
+          feedback.textContent = `Archivo bitacora_desdoblamiento.txt generado.`;
+          feedback.className = `inline-feedback`;
+        }
+      }
+    }
+
+    async function resetRitualLog(btn) {
+      const feedback = document.getElementById('ritual-feedback');
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.classList.add('is-danger-armed');
+        btn.textContent = `Confirmar reinicio`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.classList.remove('is-danger-armed');
+      btn.textContent = `Reiniciar Bitácora`;
+      appState.ritualEntries = [];
+      renderJournalList();
+      await persistState();
+      if (feedback) {
+        feedback.textContent = `Bitácora vaciada.`;
+        feedback.className = `inline-feedback`;
+      }
+    }
+
+    // =========================================================
+    // SIMULATION 6: TOROIDE COSMICO Y CICLOS FRACTALES
+    // =========================================================
+    const FRACTAL_SCALES = {
+      atom: {
+        tag: `ESCALA CUÁNTICA · ONDAS ESTACIONARIAS (1/3)`,
+        title: `Armónicos de Schrödinger y Cuerda Vibrante`,
+        desc: `Al igual que una cuerda de guitarra vibra en tercios sucesivos generando notas nuevas (Do → Sol → Re → La), los electrones y átomos se estabilizan en niveles discretos alrededor del vacío cuántico.`,
+        param: `Núcleo: 10²² Hz · Átomo completo: 10⁵ Hz`,
+        bridge: `Saltos armónicos 1/3 (Díez Faixat) y horizontes de partículas (Garnier Malet)`,
+        chip: `Escala Subatómica`
+      },
+      human: {
+        tag: `ESCALA HUMANA · MICRO-TOROIDE ÁURICO`,
+        title: `Cuerpo Electromagnético y los 7 Tiempos`,
+        desc: `El cuerpo humano recapitula la arquitectura toroidal: un campo electromagnético de información rodea al individuo conectando el presente (4º tiempo) con el Doble (7º tiempo) en la fase REM.`,
+        param: `Resonancia mínima: 7 Hz · Ondas Theta: 4–7 Hz`,
+        bridge: `Microcosmos holográfico reflejando la totalidad universal`,
+        chip: `Escala Humana`
+      },
+      solar: {
+        tag: `ESCALA PLANETARIA · CICLO DE 25.920 AÑOS`,
+        title: `Cinturón de Kuiper, Titius-Bode y Precesión`,
+        desc: `Garnier Malet aplicó el desdoblamiento para predecir la llegada de planetoides al cinturón de Kuiper y explicar explosiones solares, vinculando un ciclo de 24.840 años con la precesión de los equinoccios (25.920 años).`,
+        param: `Ciclo fundamental: 24.840 años / 25.920 años`,
+        bridge: `Culminación de ciclo solar (c. 2017) e intercambio acelerado de horizontes`,
+        chip: `Escala Solar`
+      },
+      cosmos: {
+        tag: `BENTOV · TOROIDE Y 49 UNIVERSOS`,
+        title: `Big Bang Modesto y Continuo`,
+        desc: `En lugar de una explosión única, la materia brota continuamente del agujero blanco, viaja por la piel del toroide —donde el tiempo es simplemente la distancia recorrida— y vuelve por el agujero negro para reciclarse. Al alejarse, Bentov visualizó 7 anillos con 7 universos cada uno (49 en total) coronados por la letra Alef.`,
+        param: `Protoespacio: la luz no cruza, la psique sí`,
+        bridge: `Dinámica toroidal A–Ω y expansión-recontracción`,
+        chip: `Escala Cósmica`
+      }
+    };
+
+    const torusState = {
+      scale: 'cosmos',
+      cutDeg: 105,
+      speed: 1.0,
+      phase: 0
+    };
+
+    function setFractalScale(key) {
+      if (!FRACTAL_SCALES[key]) return;
+      torusState.scale = key;
+      const ids = { atom: 'scale-btn-atom', human: 'scale-btn-human', solar: 'scale-btn-solar', cosmos: 'scale-btn-cosmos' };
+      Object.keys(ids).forEach((k) => {
+        const b = document.getElementById(ids[k]);
+        if (b) b.classList.toggle('is-active', k === key);
+      });
+      const info = FRACTAL_SCALES[key];
+      const tag = document.getElementById('scale-tag');
+      const title = document.getElementById('scale-title');
+      const desc = document.getElementById('scale-desc');
+      const param = document.getElementById('scale-param');
+      const bridge = document.getElementById('scale-bridge');
+      const chip = document.getElementById('torus-scale-chip');
+      if (tag) tag.textContent = info.tag;
+      if (title) title.textContent = info.title;
+      if (desc) desc.textContent = info.desc;
+      if (param) param.textContent = info.param;
+      if (bridge) bridge.textContent = info.bridge;
+      if (chip) chip.textContent = info.chip;
+    }
+
+    function onTorusParamInput() {
+      const cutEl = document.getElementById('torus-cut-slider');
+      const spdEl = document.getElementById('torus-speed-slider');
+      const cutVal = document.getElementById('torus-cut-val');
+      const spdVal = document.getElementById('torus-speed-val');
+      if (cutEl) torusState.cutDeg = parseInt(cutEl.value, 10) || 105;
+      if (spdEl) torusState.speed = parseFloat(spdEl.value) || 1.0;
+      if (cutVal) cutVal.textContent = `${torusState.cutDeg}°`;
+      if (spdVal) spdVal.textContent = `${torusState.speed.toFixed(1)}×`;
+    }
+
+    function renderTorusCanvas(dt) {
+      const c = prepCanvas(document.getElementById('canvas-cosmic-torus'));
+      if (!c) return;
+      const { ctx, w, h } = c;
+      ctx.clearRect(0, 0, w, h);
+
+      if (!prefersReducedMotion) {
+        torusState.phase = (torusState.phase + dt * 0.25 * torusState.speed) % 1;
+      }
+
+      const cx = w * 0.5;
+      const cy = h * 0.52;
+      const rx = Math.min(w * 0.36, 210);
+      const ry = Math.min(h * 0.39, 132);
+      const cutFactor = torusState.cutDeg / 180;
+
+      // Proto-space interior holographic interference waves
+      for (let ring = 1; ring <= 4; ring++) {
+        ctx.strokeStyle = colorWithAlpha(PALETTE.cyan, 0.08 + ring * 0.04);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, (rx * 0.45) * (ring / 4), (ry * 0.42) * (ring / 4), 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Outer elongated torus lobes (left & right meridian cross-section)
+      const lobeW = rx * (0.45 + 0.4 * cutFactor);
+      const lobeOffset = rx * 0.52;
+
+      [-1, 1].forEach((dir) => {
+        ctx.strokeStyle = colorWithAlpha(PALETTE.amber, 0.55);
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(cx + dir * lobeOffset, cy, lobeW * 0.5, ry * 0.88, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Inner poloidal flow streamlines
+        for (let k = 0; k < 5; k++) {
+          const p = (torusState.phase + k * 0.2) % 1;
+          const ang = p * Math.PI * 2 * dir;
+          const px = cx + dir * lobeOffset + Math.sin(ang) * (lobeW * 0.5) * dir;
+          const py = cy - Math.cos(ang) * (ry * 0.88);
+          ctx.fillStyle = p < 0.5 ? PALETTE.cyan : PALETTE.amber;
+          ctx.beginPath();
+          ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      // Central Seed Axis: White Hole (North) & Black Hole (South)
+      const northY = cy - ry * 0.78;
+      const southY = cy + ry * 0.78;
+
+      ctx.strokeStyle = colorWithAlpha(PALETTE.cyan, 0.65);
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(cx, southY);
+      ctx.lineTo(cx, northY);
+      ctx.stroke();
+
+      // White Hole burst at top
+      const whGrad = ctx.createRadialGradient(cx, northY, 2, cx, northY, 22);
+      whGrad.addColorStop(0, PALETTE.text);
+      whGrad.addColorStop(0.5, PALETTE.cyan);
+      whGrad.addColorStop(1, colorWithAlpha(PALETTE.cyan, 0));
+      ctx.fillStyle = whGrad;
+      ctx.beginPath();
+      ctx.arc(cx, northY, 22, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Black Hole sink at bottom
+      ctx.fillStyle = PALETTE.bg;
+      ctx.strokeStyle = PALETTE.amber;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(cx, southY, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Annotations
+      ctx.font = `500 11px "JetBrains Mono", monospace`;
+      ctx.textAlign = `center`;
+      ctx.fillStyle = PALETTE.cyan;
+      ctx.fillText(`POLO NORTE · AGUJERO BLANCO (Radiación)`, cx, northY - 22);
+      ctx.fillStyle = PALETTE.amber;
+      ctx.fillText(`POLO SUR · AGUJERO NEGRO (Retorno)`, cx, southY + 24);
+
+      ctx.fillStyle = PALETTE.muted;
+      ctx.textAlign = `left`;
+      ctx.fillText(`Protoespacio interior`, cx - rx * 0.28, cy + 4);
+      ctx.textAlign = `right`;
+      ctx.fillText(`Tiempo (t) = distancia en la cáscara`, w - 16, 22);
+    }
+
+    // =========================================================
+    // MAIN ANIMATION LOOP & SCROLL REVEAL & INIT
+    // =========================================================
+    let lastTs = 0;
+    let mainAnimId = 0;
+
+    function masterTick(ts) {
+      if (!lastTs) lastTs = ts;
+      const dt = Math.min(0.05, (ts - lastTs) / 1000);
+      lastTs = ts;
+
+      if (strobeState.playing && !prefersReducedMotion) {
+        const speedMul = STROBE_FREQS[strobeState.freqKey].speed;
+        const slowMul = strobeState.slowReveal ? 0.25 : 1.0;
+        strobeState.phase = (strobeState.phase + dt * 0.14 * speedMul * slowMul) % 1;
+        const slider = document.getElementById('strobe-phase-slider');
+        if (slider) slider.value = (strobeState.phase * 100).toFixed(1);
+      }
+
+      renderStrobeCanvases();
+      renderTwoTimesCanvas(dt);
+      renderObserverCanvas(dt);
+      renderBioCanvas(dt);
+      renderTorusCanvas(dt);
+
+      mainAnimId = requestAnimationFrame(masterTick);
+    }
+
+    function setupScrollReveal() {
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || prefersReducedMotion) {
+        els.forEach((el) => el.classList.add('is-visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      els.forEach((el) => io.observe(el));
+    }
+
+    async function initArtifact() {
+      refreshPalette();
+      setupScrollReveal();
+      updateTimeReadouts();
+      updateCalibrator();
+      setFractalScale('cosmos');
+
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+
+      // Restore persisted state via notebookAppApi
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (Array.isArray(saved.ritualEntries)) {
+              appState.ritualEntries = saved.ritualEntries;
+            }
+            if (saved.calibrator) {
+              const sc = document.getElementById('slider-control');
+              const sg = document.getElementById('slider-gratitude');
+              const sb = document.getElementById('slider-benevolence');
+              if (sc && typeof saved.calibrator.control === 'number') sc.value = saved.calibrator.control;
+              if (sg && typeof saved.calibrator.gratitude === 'number') sg.value = saved.calibrator.gratitude;
+              if (sb && typeof saved.calibrator.benevolence === 'number') sb.value = saved.calibrator.benevolence;
+              updateCalibrator();
+            }
+          }
+        } catch (err) {
+          // Ignore unavailable storage
+        }
+      }
+
+      renderJournalList();
+
+      cancelAnimationFrame(mainAnimId);
+      mainAnimId = requestAnimationFrame(masterTick);
+
+      window.addEventListener('resize', () => {
+        renderStrobeCanvases();
+        renderTwoTimesCanvas(0);
+        renderObserverCanvas(0);
+        renderBioCanvas(0);
+        renderTorusCanvas(0);
+      });
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initArtifact);
+  </script>
+</body>
+</html>
