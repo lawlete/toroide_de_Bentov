@@ -28,4 +28,4 @@ python -m http.server 8000
 
 ---
 
-Realizado por **VAE - IA - Consulting** · web: [vae-ai-consulting.com](https://vae-ai-consulting.com/) · Movil: `2355-69 26 16`
+Realizado por **VAE - IA - Consulting** · web: [vae-ai-consulting.com](https://vae-ai-consulting.com/)

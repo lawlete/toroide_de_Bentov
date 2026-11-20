@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,9 @@
   <title>Itzhak Bentov · Observatorio de la Conciencia y la Mecánica Cósmica</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
   <style>
     :root {
@@ -67,7 +70,7 @@
       --brass-glow: radial-gradient(circle at 86% 14%, rgba(223, 170, 91, 0.11), transparent 46%);
       --cyan-glow: radial-gradient(circle at 14% 78%, rgba(124, 196, 232, 0.08), transparent 48%);
       --holo-grid: linear-gradient(rgba(124, 196, 232, 0.04) 1px, transparent 1px),
-                   linear-gradient(90deg, rgba(124, 196, 232, 0.04) 1px, transparent 1px);
+        linear-gradient(90deg, rgba(124, 196, 232, 0.04) 1px, transparent 1px);
       --brass-ring: 0 0 0 1px rgba(223, 170, 91, 0.45), 0 0 24px rgba(223, 170, 91, 0.1);
       --cyan-ring: 0 0 0 1px rgba(124, 196, 232, 0.45), 0 0 24px rgba(124, 196, 232, 0.1);
       --heading-tracking: -0.015em;
@@ -103,9 +106,18 @@
     }
 
     /* Base reset */
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    html, body {
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
       overflow-x: clip;
       margin: 0;
       padding: 0;
@@ -122,7 +134,9 @@
       background-attachment: fixed;
     }
 
-    header { position: static !important; }
+    header {
+      position: static !important;
+    }
 
     /* Focus rings */
     :focus-visible {
@@ -130,7 +144,9 @@
       outline-offset: 2px;
     }
 
-    button, input, select {
+    button,
+    input,
+    select {
       font-family: inherit;
     }
 
@@ -142,7 +158,10 @@
       margin: 0 auto;
       overflow: hidden;
     }
-    .page-grid * { min-width: 0; }
+
+    .page-grid * {
+      min-width: 0;
+    }
 
     /* Top Observatory Header */
     .observatory-header {
@@ -204,8 +223,8 @@
       display: inline-flex;
       align-items: center;
       transition: color var(--dur-micro) var(--ease-out),
-                  border-color var(--dur-micro) var(--ease-out),
-                  background-color var(--dur-micro) var(--ease-out);
+        border-color var(--dur-micro) var(--ease-out),
+        background-color var(--dur-micro) var(--ease-out);
     }
 
     .nav-link:hover {
@@ -344,9 +363,9 @@
       text-decoration: none;
       border: 1px solid transparent;
       transition: background-color var(--dur-micro) var(--ease-out),
-                  color var(--dur-micro) var(--ease-out),
-                  border-color var(--dur-micro) var(--ease-out),
-                  transform var(--dur-micro) var(--ease-out);
+        color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
     }
 
     .btn-primary {
@@ -386,8 +405,8 @@
       align-items: center;
       gap: var(--space-xs);
       transition: background-color var(--dur-micro) var(--ease-out),
-                  color var(--dur-micro) var(--ease-out),
-                  box-shadow var(--dur-micro) var(--ease-out);
+        color var(--dur-micro) var(--ease-out),
+        box-shadow var(--dur-micro) var(--ease-out);
     }
 
     .btn-chip:hover {
@@ -579,8 +598,8 @@
       flex-direction: column;
       gap: var(--space-sm);
       transition: background-color var(--dur-short) var(--ease-out),
-                  box-shadow var(--dur-short) var(--ease-out),
-                  transform var(--dur-short) var(--ease-out);
+        box-shadow var(--dur-short) var(--ease-out),
+        transform var(--dur-short) var(--ease-out);
     }
 
     .module-map-card:hover {
@@ -811,8 +830,8 @@
       align-items: center;
       gap: var(--space-sm);
       transition: background-color var(--dur-micro) var(--ease-out),
-                  color var(--dur-micro) var(--ease-out),
-                  box-shadow var(--dur-micro) var(--ease-out);
+        color var(--dur-micro) var(--ease-out),
+        box-shadow var(--dur-micro) var(--ease-out);
     }
 
     .osc-step:hover {
@@ -986,7 +1005,7 @@
       opacity: 0;
       transform: translateY(10px);
       transition: opacity var(--dur-long) var(--ease-out),
-                  transform var(--dur-long) var(--ease-out);
+        transform var(--dur-long) var(--ease-out);
     }
 
     .reveal-on-scroll.is-visible {
@@ -996,6 +1015,7 @@
 
     /* Responsive breakpoints */
     @media (max-width: 960px) {
+
       .hero-section,
       .ecosystem-layout,
       .deep-module,
@@ -1010,12 +1030,14 @@
         padding: var(--space-md);
         gap: var(--space-xl);
       }
+
       .cosmovision-pillars,
       .module-cards-grid,
       .telemetry-strip,
       .kundalini-grid {
         grid-template-columns: 1fr;
       }
+
       .scale-row {
         grid-template-columns: 1fr;
         gap: var(--space-xs);
@@ -1023,7 +1045,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+
+      *,
+      *::before,
+      *::after {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
@@ -1031,6 +1056,7 @@
     }
   </style>
 </head>
+
 <body>
   <header class="observatory-header">
     <div class="header-inner">
@@ -1058,29 +1084,39 @@
         </div>
 
         <p class="prose-lead">
-          El ingeniero biomédico, inventor y místico <strong>Itzhak «Ben» Bentov</strong> (1923–1979) propuso uno de los puentes más audaces entre la física contemporánea, la fisiología humana y la conciencia. Para él, el universo no es una máquina rígida de objetos sólidos, sino una sinfonía de campos oscilantes que se encienden y se apagan miles de veces por segundo.
+          El ingeniero biomédico, inventor y místico <strong>Itzhak «Ben» Bentov</strong> (1923–1979) propuso uno de los
+          puentes más audaces entre la física contemporánea, la fisiología humana y la conciencia. Para él, el universo
+          no es una máquina rígida de objetos sólidos, sino una sinfonía de campos oscilantes que se encienden y se
+          apagan miles de veces por segundo.
         </p>
 
         <div class="cosmovision-pillars">
           <article class="pillar-item">
             <span class="coord-label">01 · Holograma Vivo</span>
             <h3>El todo en cada fragmento</h3>
-            <p>Al igual que una placa holográfica rota donde cada trozo conserva la imagen completa, cada conciencia y cada átomo contienen información del universo entero, sintonizando frecuencias de la <strong>Mente Universal</strong>.</p>
+            <p>Al igual que una placa holográfica rota donde cada trozo conserva la imagen completa, cada conciencia y
+              cada átomo contienen información del universo entero, sintonizando frecuencias de la <strong>Mente
+                Universal</strong>.</p>
           </article>
           <article class="pillar-item">
             <span class="coord-label">02 · El Estado Absoluto</span>
             <h3>Velocidad infinita, reposo total</h3>
-            <p>Cuando una vibración oscila tan rápido que sus puntos de quietud se superponen, la onda se vuelve una línea recta: presencia omnipresente sin tiempo ni distancia, el fondo inmóvil del que emerge toda materia.</p>
+            <p>Cuando una vibración oscila tan rápido que sus puntos de quietud se superponen, la onda se vuelve una
+              línea recta: presencia omnipresente sin tiempo ni distancia, el fondo inmóvil del que emerge toda materia.
+            </p>
           </article>
           <article class="pillar-item">
             <span class="coord-label">03 · Parpadeo ON / OFF</span>
             <h3>El péndulo de la existencia</h3>
-            <p>Todo oscila como un péndulo. En el instante extremo de su vaivén, antes de regresar, la velocidad cae a cero y la materia desaparece momentáneamente de la realidad manifiesta («momento OFF») para reingresar al instante siguiente.</p>
+            <p>Todo oscila como un péndulo. En el instante extremo de su vaivén, antes de regresar, la velocidad cae a
+              cero y la materia desaparece momentáneamente de la realidad manifiesta («momento OFF») para reingresar al
+              instante siguiente.</p>
           </article>
           <article class="pillar-item">
             <span class="coord-label">04 · Evolución</span>
             <h3>La banda transportadora</h3>
-            <p>La materia es conciencia en evolución. Todos viajamos en el mismo autobús hacia estados más nítidos de percepción; la meditación silenciosa simplemente alarga los «momentos OFF» y acelera el despertar.</p>
+            <p>La materia es conciencia en evolución. Todos viajamos en el mismo autobús hacia estados más nítidos de
+              percepción; la meditación silenciosa simplemente alarga los «momentos OFF» y acelera el despertar.</p>
           </article>
         </div>
 
@@ -1098,11 +1134,13 @@
         </div>
         <h2 class="subsection-title">Oscilación del péndulo y «momentos OFF»</h2>
         <p class="prose-body" style="font-size: 0.92rem;">
-          Desliza la coherencia meditativa para observar cómo el péndulo de la percepción desacelera su ruido mental, ensancha las pausas de quietud en los extremos y funde el tiempo lineal con el Estado Absoluto.
+          Desliza la coherencia meditativa para observar cómo el péndulo de la percepción desacelera su ruido mental,
+          ensancha las pausas de quietud en los extremos y funde el tiempo lineal con el Estado Absoluto.
         </p>
 
         <div class="observation-well">
-          <canvas id="pendulum-canvas" class="canvas-stage" aria-label="Animación de un péndulo oscilante que desaparece brevemente en los extremos de reposo"></canvas>
+          <canvas id="pendulum-canvas" class="canvas-stage"
+            aria-label="Animación de un péndulo oscilante que desaparece brevemente en los extremos de reposo"></canvas>
         </div>
 
         <div class="control-group">
@@ -1110,14 +1148,17 @@
             <span>Coherencia meditativa / Silencio mental</span>
             <span id="coherence-label" class="coord-label">35% · Mente cotidiana</span>
           </label>
-          <input type="range" id="coherence-slider" class="range-input" min="0" max="100" value="35" oninput="updatePendulumCoherence(this.value)">
+          <input type="range" id="coherence-slider" class="range-input" min="0" max="100" value="35"
+            oninput="updatePendulumCoherence(this.value)">
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
-          <button type="button" class="btn-chip" id="btn-freeze-off" aria-pressed="false" onclick="toggleAbsoluteFreeze(this)">
+          <button type="button" class="btn-chip" id="btn-freeze-off" aria-pressed="false"
+            onclick="toggleAbsoluteFreeze(this)">
             Congelar en punto neutro (OFF)
           </button>
-          <button type="button" class="btn-chip" id="btn-toggle-pendulum" aria-pressed="false" onclick="togglePendulumPause(this)">
+          <button type="button" class="btn-chip" id="btn-toggle-pendulum" aria-pressed="false"
+            onclick="togglePendulumPause(this)">
             Pausar oscilación
           </button>
         </div>
@@ -1146,7 +1187,8 @@
           <p class="deck-brass">Cartografía conceptual · Cuatro puertas de entrada</p>
           <h2 class="section-title" id="map-title">Mapa interactivo del ecosistema Bentov</h2>
           <p class="prose-body">
-            Selecciona cualquiera de los cuatro módulos para visualizar cómo se entrelazan dentro de la arquitectura holográfica de Bentov y saltar directamente a su laboratorio interactivo.
+            Selecciona cualquiera de los cuatro módulos para visualizar cómo se entrelazan dentro de la arquitectura
+            holográfica de Bentov y saltar directamente a su laboratorio interactivo.
           </p>
         </div>
         <span class="badge">4 MÓDULOS INTERCONECTADOS</span>
@@ -1154,40 +1196,48 @@
 
       <div class="ecosystem-layout">
         <div class="module-cards-grid" role="list">
-          <button type="button" class="module-map-card is-active" id="map-card-0" onclick="selectEcosystemNode(0)" role="listitem">
+          <button type="button" class="module-map-card is-active" id="map-card-0" onclick="selectEcosystemNode(0)"
+            role="listitem">
             <div class="module-card-top">
               <span class="coord-label">MÓDULO 01</span>
               <span class="badge badge-brass">Cosmología</span>
             </div>
             <h3>El Toroide Cósmico</h3>
-            <p>Un universo ovoide que se vuelve de adentro hacia afuera entre un agujero blanco, un agujero negro y el protoespacio interior.</p>
+            <p>Un universo ovoide que se vuelve de adentro hacia afuera entre un agujero blanco, un agujero negro y el
+              protoespacio interior.</p>
           </button>
 
-          <button type="button" class="module-map-card" id="map-card-1" onclick="selectEcosystemNode(1)" role="listitem">
+          <button type="button" class="module-map-card" id="map-card-1" onclick="selectEcosystemNode(1)"
+            role="listitem">
             <div class="module-card-top">
               <span class="coord-label">MÓDULO 02</span>
               <span class="badge">Física Sutil</span>
             </div>
             <h3>La Ilusión de la Materia y el Lenguaje de la Creación</h3>
-            <p>Átomos casi vacíos vibrando como ondas estacionarias, transductores arquetípicos y la escritura energética de la realidad.</p>
+            <p>Átomos casi vacíos vibrando como ondas estacionarias, transductores arquetípicos y la escritura
+              energética de la realidad.</p>
           </button>
 
-          <button type="button" class="module-map-card" id="map-card-2" onclick="selectEcosystemNode(2)" role="listitem">
+          <button type="button" class="module-map-card" id="map-card-2" onclick="selectEcosystemNode(2)"
+            role="listitem">
             <div class="module-card-top">
               <span class="coord-label">MÓDULO 03</span>
               <span class="badge badge-mint">Biofísica</span>
             </div>
             <h3>Fisiología de la Quietud y Resonancia a 7 Hz</h3>
-            <p>Respiración simétrica, onda senoidal corazón–aorta medida por sismógrafo y acoplamiento con la Resonancia Schumann.</p>
+            <p>Respiración simétrica, onda senoidal corazón–aorta medida por sismógrafo y acoplamiento con la Resonancia
+              Schumann.</p>
           </button>
 
-          <button type="button" class="module-map-card" id="map-card-3" onclick="selectEcosystemNode(3)" role="listitem">
+          <button type="button" class="module-map-card" id="map-card-3" onclick="selectEcosystemNode(3)"
+            role="listitem">
             <div class="module-card-top">
               <span class="coord-label">MÓDULO 04</span>
               <span class="badge badge-brass">Neurofisiología</span>
             </div>
             <h3>Fisiomecánica de la Kundalini</h3>
-            <p>Ondas estacionarias acústicas en los ventrículos cerebrales, circuito del homúnculo cortical y disolución de bloqueos.</p>
+            <p>Ondas estacionarias acústicas en los ventrículos cerebrales, circuito del homúnculo cortical y disolución
+              de bloqueos.</p>
           </button>
         </div>
 
@@ -1199,46 +1249,66 @@
           </div>
 
           <div class="observation-well">
-            <svg class="constellation-svg" viewBox="0 0 360 220" aria-label="Diagrama de interconexión entre los cuatro módulos de Bentov">
+            <svg class="constellation-svg" viewBox="0 0 360 220"
+              aria-label="Diagrama de interconexión entre los cuatro módulos de Bentov">
               <!-- Connections -->
-              <line x1="85" y1="58" x2="275" y2="58" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
-              <line x1="85" y1="58" x2="85" y2="164" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
-              <line x1="275" y1="58" x2="275" y2="164" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
-              <line x1="85" y1="164" x2="275" y2="164" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="85" y1="58" x2="275" y2="58" stroke="var(--outline)" stroke-width="1.5"
+                stroke-dasharray="4 4" />
+              <line x1="85" y1="58" x2="85" y2="164" stroke="var(--outline)" stroke-width="1.5"
+                stroke-dasharray="4 4" />
+              <line x1="275" y1="58" x2="275" y2="164" stroke="var(--outline)" stroke-width="1.5"
+                stroke-dasharray="4 4" />
+              <line x1="85" y1="164" x2="275" y2="164" stroke="var(--outline)" stroke-width="1.5"
+                stroke-dasharray="4 4" />
               <line x1="85" y1="58" x2="275" y2="164" stroke="var(--tertiary)" stroke-width="1" opacity="0.45" />
               <line x1="275" y1="58" x2="85" y2="164" stroke="var(--primary)" stroke-width="1" opacity="0.45" />
 
               <!-- Central Core: El Absoluto / Mente Universal -->
-              <circle cx="180" cy="111" r="24" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.5" />
-              <text x="180" y="108" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace" font-size="9">MENTE</text>
-              <text x="180" y="120" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8">UNIVERSAL</text>
+              <circle cx="180" cy="111" r="24" fill="var(--surface-container)" stroke="var(--primary)"
+                stroke-width="1.5" />
+              <text x="180" y="108" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace"
+                font-size="9">MENTE</text>
+              <text x="180" y="120" text-anchor="middle" fill="var(--on-surface)"
+                font-family="JetBrains Mono, monospace" font-size="8">UNIVERSAL</text>
 
               <!-- Node 0: Toroide -->
               <g style="cursor: pointer;" onclick="selectEcosystemNode(0)">
-                <circle id="svg-node-0" cx="85" cy="58" r="18" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" />
-                <text x="85" y="62" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">01</text>
-                <text x="85" y="30" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">TOROIDE</text>
+                <circle id="svg-node-0" cx="85" cy="58" r="18" fill="var(--primary-container)" stroke="var(--primary)"
+                  stroke-width="2" />
+                <text x="85" y="62" text-anchor="middle" fill="var(--on-surface)"
+                  font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">01</text>
+                <text x="85" y="30" text-anchor="middle" fill="var(--on-surface-variant)"
+                  font-family="JetBrains Mono, monospace" font-size="9">TOROIDE</text>
               </g>
 
               <!-- Node 1: Materia -->
               <g style="cursor: pointer;" onclick="selectEcosystemNode(1)">
-                <circle id="svg-node-1" cx="275" cy="58" r="18" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                <text x="275" y="62" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">02</text>
-                <text x="275" y="30" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">MATERIA &amp; CÓDIGO</text>
+                <circle id="svg-node-1" cx="275" cy="58" r="18" fill="var(--surface-container)" stroke="var(--tertiary)"
+                  stroke-width="1.5" />
+                <text x="275" y="62" text-anchor="middle" fill="var(--on-surface)"
+                  font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">02</text>
+                <text x="275" y="30" text-anchor="middle" fill="var(--on-surface-variant)"
+                  font-family="JetBrains Mono, monospace" font-size="9">MATERIA &amp; CÓDIGO</text>
               </g>
 
               <!-- Node 2: 7 Hz -->
               <g style="cursor: pointer;" onclick="selectEcosystemNode(2)">
-                <circle id="svg-node-2" cx="85" cy="164" r="18" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                <text x="85" y="168" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">03</text>
-                <text x="85" y="198" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">QUIETUD 7 HZ</text>
+                <circle id="svg-node-2" cx="85" cy="164" r="18" fill="var(--surface-container)" stroke="var(--tertiary)"
+                  stroke-width="1.5" />
+                <text x="85" y="168" text-anchor="middle" fill="var(--on-surface)"
+                  font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">03</text>
+                <text x="85" y="198" text-anchor="middle" fill="var(--on-surface-variant)"
+                  font-family="JetBrains Mono, monospace" font-size="9">QUIETUD 7 HZ</text>
               </g>
 
               <!-- Node 3: Kundalini -->
               <g style="cursor: pointer;" onclick="selectEcosystemNode(3)">
-                <circle id="svg-node-3" cx="275" cy="164" r="18" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                <text x="275" y="168" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">04</text>
-                <text x="275" y="198" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">KUNDALINI</text>
+                <circle id="svg-node-3" cx="275" cy="164" r="18" fill="var(--surface-container)"
+                  stroke="var(--tertiary)" stroke-width="1.5" />
+                <text x="275" y="168" text-anchor="middle" fill="var(--on-surface)"
+                  font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">04</text>
+                <text x="275" y="198" text-anchor="middle" fill="var(--on-surface-variant)"
+                  font-family="JetBrains Mono, monospace" font-size="9">KUNDALINI</text>
               </g>
             </svg>
           </div>
@@ -1247,11 +1317,13 @@
             <span class="coord-label" id="eco-detail-tag">MÓDULO 01 · MACROFÍSICA</span>
             <h4 class="subsection-title" id="eco-detail-title">El Toroide Cósmico</h4>
             <p class="prose-body" id="eco-detail-desc" style="font-size: 0.93rem;">
-              En lugar de una explosión aislada, el universo recicla materia y tiempo en un anillo de humo continuo entre un agujero blanco y un agujero negro.
+              En lugar de una explosión aislada, el universo recicla materia y tiempo en un anillo de humo continuo
+              entre un agujero blanco y un agujero negro.
             </p>
             <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xs);">
               <a class="btn btn-secondary" id="eco-detail-cta" href="#modulo-toroide">Ver resumen del módulo ↓</a>
-              <a class="btn btn-primary" id="eco-detail-full-cta" href="Simulación_del_Toroide_Cósmico_de_Bentov.html">Ampliar experiencia completa →</a>
+              <a class="btn btn-primary" id="eco-detail-full-cta"
+                href="Simulación_del_Toroide_Cósmico_de_Bentov.html">Ampliar experiencia completa →</a>
             </div>
           </div>
         </div>
@@ -1271,44 +1343,68 @@
       <div class="deep-module">
         <div class="module-narrative">
           <p class="prose-body">
-            En lugar de una única explosión surgida de la nada, Itzhak Bentov propuso en la década de 1970 que el cosmos posee la geometría de un <strong>toroide alargado y hueco</strong> —similar a un melón con embudos profundos en los polos, o a una dona estirada que se vuelve continuamente de adentro hacia afuera como un anillo de humo en rotación perpetua.
+            En lugar de una única explosión surgida de la nada, Itzhak Bentov propuso en la década de 1970 que el cosmos
+            posee la geometría de un <strong>toroide alargado y hueco</strong> —similar a un melón con embudos profundos
+            en los polos, o a una dona estirada que se vuelve continuamente de adentro hacia afuera como un anillo de
+            humo en rotación perpetua.
           </p>
           <ul class="fact-list">
-            <li><strong>La Semilla del Roble (Núcleo Kerr):</strong> En el eje central flotan espalda con espalda un <strong>agujero blanco</strong> y un <strong>agujero negro</strong> en rotación. Al igual que una bellota contiene el patrón entero del roble, el núcleo imprime el giro a electrones y galaxias.</li>
-            <li><strong>Envolvente espacio-temporal y tiempo como distancia:</strong> La radiación luminosa brota por el polo norte, se condensa en hidrógeno, helio, estrellas y galaxias que descienden por la piel exterior y reingresan por el polo sur. Para Bentov, el tiempo lineal es solo la distancia recorrida desde la salida del agujero blanco hasta el retorno en el negro.</li>
-            <li><strong>Protoespacio («la mermelada dentro de la dona»):</strong> Entre el chorro central y la cáscara exterior yace el protoespacio previo al espacio-tiempo. Los fotones de luz siguen la curvatura de la envolvente y no lo cruzan, pero las <strong>ondas de información de la Mente Universal</strong> y la psique en quietud sí atraviesan ese vacío central.</li>
-            <li><strong>Anisotropía de cuásares:</strong> En su carta de 1968 al astrofísico Fred Hoyle, Bentov señaló que la distribución desigual de cuásares entre polos galácticos (como 3C273 y 3C275.1) confirmaba una eyección bipolar continua donde coexisten el Big Bang y el Estado Estacionario.</li>
+            <li><strong>La Semilla del Roble (Núcleo Kerr):</strong> En el eje central flotan espalda con espalda un
+              <strong>agujero blanco</strong> y un <strong>agujero negro</strong> en rotación. Al igual que una bellota
+              contiene el patrón entero del roble, el núcleo imprime el giro a electrones y galaxias.
+            </li>
+            <li><strong>Envolvente espacio-temporal y tiempo como distancia:</strong> La radiación luminosa brota por el
+              polo norte, se condensa en hidrógeno, helio, estrellas y galaxias que descienden por la piel exterior y
+              reingresan por el polo sur. Para Bentov, el tiempo lineal es solo la distancia recorrida desde la salida
+              del agujero blanco hasta el retorno en el negro.</li>
+            <li><strong>Protoespacio («la mermelada dentro de la dona»):</strong> Entre el chorro central y la cáscara
+              exterior yace el protoespacio previo al espacio-tiempo. Los fotones de luz siguen la curvatura de la
+              envolvente y no lo cruzan, pero las <strong>ondas de información de la Mente Universal</strong> y la
+              psique en quietud sí atraviesan ese vacío central.</li>
+            <li><strong>Anisotropía de cuásares:</strong> En su carta de 1968 al astrofísico Fred Hoyle, Bentov señaló
+              que la distribución desigual de cuásares entre polos galácticos (como 3C273 y 3C275.1) confirmaba una
+              eyección bipolar continua donde coexisten el Big Bang y el Estado Estacionario.</li>
           </ul>
           <div style="margin-top: var(--space-lg);">
-            <a class="btn btn-primary" href="Simulación_del_Toroide_Cósmico_de_Bentov.html">Ampliar en Simulación 3D del Toroide Cósmico →</a>
+            <a class="btn btn-primary" href="Simulación_del_Toroide_Cósmico_de_Bentov.html">Ampliar en Simulación 3D del
+              Toroide Cósmico →</a>
           </div>
         </div>
 
         <div class="panel">
           <div class="interactive-toolbar">
-            <button type="button" class="btn-chip" id="toroid-view-flow" aria-pressed="true" onclick="setToroidMode('flow')">
+            <button type="button" class="btn-chip" id="toroid-view-flow" aria-pressed="true"
+              onclick="setToroidMode('flow')">
               Flujo Poloidal 3D
             </button>
-            <button type="button" class="btn-chip" id="toroid-view-meridian" aria-pressed="false" onclick="setToroidMode('meridian')">
+            <button type="button" class="btn-chip" id="toroid-view-meridian" aria-pressed="false"
+              onclick="setToroidMode('meridian')">
               Corte Meridiano (Hoyle)
             </button>
           </div>
 
           <div class="observation-well">
-            <canvas id="toroid-canvas" class="toroid-canvas" aria-label="Simulación del toroide cósmico de Itzhak Bentov con flujo entre agujero blanco y agujero negro"></canvas>
+            <canvas id="toroid-canvas" class="toroid-canvas"
+              aria-label="Simulación del toroide cósmico de Itzhak Bentov con flujo entre agujero blanco y agujero negro"></canvas>
           </div>
 
           <div class="interactive-toolbar" style="margin-top: var(--space-md); margin-bottom: 0;">
-            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectToroidZone(0, this)">Núcleo Blanco/Negro</button>
-            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(1, this)">Chorro Norte</button>
-            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(2, this)">Envolvente (Tiempo)</button>
-            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(3, this)">Protoespacio</button>
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectToroidZone(0, this)">Núcleo
+              Blanco/Negro</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(1, this)">Chorro
+              Norte</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(2, this)">Envolvente
+              (Tiempo)</button>
+            <button type="button" class="btn-chip" aria-pressed="false"
+              onclick="selectToroidZone(3, this)">Protoespacio</button>
           </div>
 
           <div class="zone-readout" aria-live="polite">
             <span class="coord-label" id="toroid-zone-label">REGIÓN 01 · SEMILLA DEL ROBLE</span>
             <p class="prose-body" id="toroid-zone-text" style="font-size: 0.93rem;">
-              Un agujero negro y un agujero blanco en rotación (agujero de Kerr) unidos espalda con espalda. La materia no colapsa en un punto cero, sino que atraviesa un anillo de transición para renacer como radiación primordial.
+              Un agujero negro y un agujero blanco en rotación (agujero de Kerr) unidos espalda con espalda. La materia
+              no colapsa en un punto cero, sino que atraviesa un anillo de transición para renacer como radiación
+              primordial.
             </p>
           </div>
         </div>
@@ -1333,19 +1429,27 @@
           </h3>
 
           <div class="interactive-toolbar">
-            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectHarmonicStep(0, this)">Fundamental (C)</button>
-            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(1, this)">1.ᵉʳ Armónico (1/2 · Octava)</button>
-            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(2, this)">2.º Armónico (1/3 · Salto G)</button>
-            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(3, this)">Espiral de Quintas (C–G–D–A–E)</button>
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectHarmonicStep(0, this)">Fundamental
+              (C)</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(1, this)">1.ᵉʳ
+              Armónico (1/2 · Octava)</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(2, this)">2.º
+              Armónico (1/3 · Salto G)</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(3, this)">Espiral de
+              Quintas (C–G–D–A–E)</button>
           </div>
 
           <div class="observation-well">
-            <svg class="harmonic-svg" id="harmonic-svg" viewBox="0 0 460 130" aria-label="Onda estacionaria y armónicos musicales">
-              <line x1="20" y1="65" x2="440" y2="65" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+            <svg class="harmonic-svg" id="harmonic-svg" viewBox="0 0 460 130"
+              aria-label="Onda estacionaria y armónicos musicales">
+              <line x1="20" y1="65" x2="440" y2="65" stroke="var(--outline-variant)" stroke-width="1"
+                stroke-dasharray="4 4" />
               <circle cx="20" cy="65" r="4" fill="var(--primary)" />
               <circle cx="440" cy="65" r="4" fill="var(--primary)" />
-              <path id="harmonic-wave-upper" d="M 20 65 Q 230 10 440 65" fill="none" stroke="var(--tertiary)" stroke-width="2.2" />
-              <path id="harmonic-wave-lower" d="M 20 65 Q 230 120 440 65" fill="none" stroke="var(--primary)" stroke-width="1.8" opacity="0.7" />
+              <path id="harmonic-wave-upper" d="M 20 65 Q 230 10 440 65" fill="none" stroke="var(--tertiary)"
+                stroke-width="2.2" />
+              <path id="harmonic-wave-lower" d="M 20 65 Q 230 120 440 65" fill="none" stroke="var(--primary)"
+                stroke-width="1.8" opacity="0.7" />
               <g id="harmonic-nodes"></g>
             </svg>
           </div>
@@ -1353,29 +1457,39 @@
           <div class="zone-readout" style="margin-top: var(--space-md);">
             <span class="coord-label" id="harmonic-label">ONDA FUNDAMENTAL · UNIDAD ORIGINARIA</span>
             <p class="prose-body" id="harmonic-text" style="font-size: 0.92rem;">
-              La cuerda vibra como una totalidad unificada. Tanto en los átomos (ecuación de Schrödinger) como en la música pitagórica y la evolución cósmica, la energía no fluye al azar: se estabiliza en nodos discretos de ondas estacionarias.
+              La cuerda vibra como una totalidad unificada. Tanto en los átomos (ecuación de Schrödinger) como en la
+              música pitagórica y la evolución cósmica, la energía no fluye al azar: se estabiliza en nodos discretos de
+              ondas estacionarias.
             </p>
           </div>
 
           <div class="scale-bars" aria-label="Escala de frecuencias vibratorias en el modelo de Bentov">
             <div class="scale-row">
               <span>Núcleo atómico</span>
-              <div class="scale-track"><div class="scale-fill" style="width: 100%;"></div></div>
+              <div class="scale-track">
+                <div class="scale-fill" style="width: 100%;"></div>
+              </div>
               <span style="color: var(--primary); text-align: right;">10²² Hz</span>
             </div>
             <div class="scale-row">
               <span>Átomo completo</span>
-              <div class="scale-track"><div class="scale-fill" style="width: 68%;"></div></div>
+              <div class="scale-track">
+                <div class="scale-fill" style="width: 68%;"></div>
+              </div>
               <span style="color: var(--tertiary); text-align: right;">10⁵ Hz</span>
             </div>
             <div class="scale-row">
               <span>Célula humana viva</span>
-              <div class="scale-track"><div class="scale-fill" style="width: 48%;"></div></div>
+              <div class="scale-track">
+                <div class="scale-fill" style="width: 48%;"></div>
+              </div>
               <span style="color: var(--tertiary); text-align: right;">~10³ Hz</span>
             </div>
             <div class="scale-row">
               <span>Molécula orgánica</span>
-              <div class="scale-track"><div class="scale-fill" style="width: 28%;"></div></div>
+              <div class="scale-track">
+                <div class="scale-fill" style="width: 28%;"></div>
+              </div>
               <span style="color: var(--positive); text-align: right;">~10 Hz</span>
             </div>
           </div>
@@ -1383,15 +1497,28 @@
 
         <div class="module-narrative">
           <p class="prose-body">
-            Para Bentov, la «materia sólida» es la mayor ilusión de nuestros sentidos. Si ampliáramos un solo átomo al tamaño de un gran estadio de fútbol, su núcleo sería un diminuto grano de arena en el centro del campo y los electrones zumbando en las gradas superiores: casi el 100% del estadio es espacio vacío. Cuando tocas una mesa, jamás tocas materia; percibes la repulsión electromagnética entre sus campos y los tuyos.
+            Para Bentov, la «materia sólida» es la mayor ilusión de nuestros sentidos. Si ampliáramos un solo átomo al
+            tamaño de un gran estadio de fútbol, su núcleo sería un diminuto grano de arena en el centro del campo y los
+            electrones zumbando en las gradas superiores: casi el 100% del estadio es espacio vacío. Cuando tocas una
+            mesa, jamás tocas materia; percibes la repulsión electromagnética entre sus campos y los tuyos.
           </p>
           <ul class="fact-list">
-            <li><strong>El cerebro como transductor holográfico:</strong> Las redes de energía vibrante forman patrones de interferencia en la matriz universal. Nuestro cerebro funciona como una antena y un decodificador que traduce esas frecuencias abstractas en formas sólidas, colores y texturas.</li>
-            <li><strong>Ondas estacionarias y arquetipos:</strong> Al igual que la mecánica cuántica y las escalas pitagóricas descubiertas por los antiguos —quienes llamaban a este código «vibración sagrada» o «intento»—, las ondas estacionarias dividen la vibración en proporciones exactas (como cada tercio de la cuerda o segundo armónico) que canalizan la creatividad del cosmos.</li>
-            <li><strong>Alfabetos sagrados y lenguaje de la forma:</strong> Cada símbolo, letra o trazo consciente actúa como un molde geométrico que organiza la vibración en materia. Como comprendieron tradiciones egipcias —donde Thoth simbolizaba la escritura como canal entre lo invisible y lo manifiesto—, la intención emocional imprime pulsos en el campo energético, y el lenguaje simbólico traduce la vibración pura en realidad tangible.</li>
+            <li><strong>El cerebro como transductor holográfico:</strong> Las redes de energía vibrante forman patrones
+              de interferencia en la matriz universal. Nuestro cerebro funciona como una antena y un decodificador que
+              traduce esas frecuencias abstractas en formas sólidas, colores y texturas.</li>
+            <li><strong>Ondas estacionarias y arquetipos:</strong> Al igual que la mecánica cuántica y las escalas
+              pitagóricas descubiertas por los antiguos —quienes llamaban a este código «vibración sagrada» o
+              «intento»—, las ondas estacionarias dividen la vibración en proporciones exactas (como cada tercio de la
+              cuerda o segundo armónico) que canalizan la creatividad del cosmos.</li>
+            <li><strong>Alfabetos sagrados y lenguaje de la forma:</strong> Cada símbolo, letra o trazo consciente actúa
+              como un molde geométrico que organiza la vibración en materia. Como comprendieron tradiciones egipcias
+              —donde Thoth simbolizaba la escritura como canal entre lo invisible y lo manifiesto—, la intención
+              emocional imprime pulsos en el campo energético, y el lenguaje simbólico traduce la vibración pura en
+              realidad tangible.</li>
           </ul>
           <div style="margin-top: var(--space-lg);">
-            <a class="btn btn-primary" href="Materia_y_Símbolos_de_la_Creación_(Bentov).html">Ampliar en Materia y Símbolos de la Creación →</a>
+            <a class="btn btn-primary" href="Materia_y_Símbolos_de_la_Creación_(Bentov).html">Ampliar en Materia y
+              Símbolos de la Creación →</a>
           </div>
         </div>
       </div>
@@ -1410,33 +1537,52 @@
       <div class="deep-module">
         <div class="module-narrative">
           <p class="prose-body">
-            Antes de publicar <em>Stalking the Wild Pendulum</em>, Bentov construyó en su laboratorio del sótano un sismógrafo de alta sensibilidad para medir los micromovimientos de una persona sentada en quietud. Descubrió que cada latido impulsa sangre por la aorta; la onda choca en la bifurcación ilíaca de las piernas y rebota hacia arriba. En una mente agitada, el pulso nuevo choca caóticamente con el eco anterior.
+            Antes de publicar <em>Stalking the Wild Pendulum</em>, Bentov construyó en su laboratorio del sótano un
+            sismógrafo de alta sensibilidad para medir los micromovimientos de una persona sentada en quietud. Descubrió
+            que cada latido impulsa sangre por la aorta; la onda choca en la bifurcación ilíaca de las piernas y rebota
+            hacia arriba. En una mente agitada, el pulso nuevo choca caóticamente con el eco anterior.
           </p>
           <ul class="fact-list">
-            <li><strong>La onda senoidal corazón–aorta:</strong> Al entrar en meditación profunda o ralentizar suavemente la respiración (con una breve pausa tras exhalar, o en ritmo simétrico de 6 segundos al inhalar y 6 al exhalar), la longitud de la aorta actúa como media longitud de onda resonante. El patrón caótico se transforma en una <strong>onda senoidal limpia</strong> cuya amplitud casi se triplica con un gasto energético mínimo.</li>
-            <li><strong>Oscilación cerebral y coherencia física:</strong> Todo el cuerpo —esqueleto, órganos y cerebro dentro de la duramadre, oscilando entre <strong>0.005 y 0.010 mm</strong>— vibra al unísono a unos <strong>7 ciclos por segundo (6.8 a 7.5 Hz)</strong>.</li>
-            <li><strong>Acoplamiento con la Resonancia Schumann:</strong> Entre la superficie terrestre y la ionosfera existe una gigantesca cavidad resonante alimentada por miles de rayos cada segundo, cuya frecuencia fundamental (~7.5 Hz, predicha por Winfried Schumann en 1952) coincide con la del cuerpo en quietud. Como los dos relojes de péndulo de Christiaan Huygens en 1665 sobre la misma viga, el organismo queda en fase con una onda planetaria de ~40,000 km que rodea la Tierra en una séptima parte de segundo.</li>
+            <li><strong>La onda senoidal corazón–aorta:</strong> Al entrar en meditación profunda o ralentizar
+              suavemente la respiración (con una breve pausa tras exhalar, o en ritmo simétrico de 6 segundos al inhalar
+              y 6 al exhalar), la longitud de la aorta actúa como media longitud de onda resonante. El patrón caótico se
+              transforma en una <strong>onda senoidal limpia</strong> cuya amplitud casi se triplica con un gasto
+              energético mínimo.</li>
+            <li><strong>Oscilación cerebral y coherencia física:</strong> Todo el cuerpo —esqueleto, órganos y cerebro
+              dentro de la duramadre, oscilando entre <strong>0.005 y 0.010 mm</strong>— vibra al unísono a unos
+              <strong>7 ciclos por segundo (6.8 a 7.5 Hz)</strong>.
+            </li>
+            <li><strong>Acoplamiento con la Resonancia Schumann:</strong> Entre la superficie terrestre y la ionosfera
+              existe una gigantesca cavidad resonante alimentada por miles de rayos cada segundo, cuya frecuencia
+              fundamental (~7.5 Hz, predicha por Winfried Schumann en 1952) coincide con la del cuerpo en quietud. Como
+              los dos relojes de péndulo de Christiaan Huygens en 1665 sobre la misma viga, el organismo queda en fase
+              con una onda planetaria de ~40,000 km que rodea la Tierra en una séptima parte de segundo.</li>
           </ul>
           <div style="margin-top: var(--space-lg);">
-            <a class="btn btn-primary" href="Fisiología_de_la_Quietud_y_Resonancia_7_Hz_(Bentov).html">Ampliar en Fisiología de la Quietud y 7 Hz →</a>
+            <a class="btn btn-primary" href="Fisiología_de_la_Quietud_y_Resonancia_7_Hz_(Bentov).html">Ampliar en
+              Fisiología de la Quietud y 7 Hz →</a>
           </div>
         </div>
 
         <div class="panel">
           <div class="interactive-toolbar">
-            <button type="button" class="btn-chip" id="wave-mode-chaos" aria-pressed="false" onclick="setWaveMode('chaos')">
+            <button type="button" class="btn-chip" id="wave-mode-chaos" aria-pressed="false"
+              onclick="setWaveMode('chaos')">
               Mente ocupada (Interferencia)
             </button>
-            <button type="button" class="btn-chip" id="wave-mode-sine" aria-pressed="true" onclick="setWaveMode('sine')">
+            <button type="button" class="btn-chip" id="wave-mode-sine" aria-pressed="true"
+              onclick="setWaveMode('sine')">
               Resonancia 7 Hz (Senoidal 3×)
             </button>
-            <button type="button" class="btn-chip" id="wave-mode-breath" aria-pressed="false" onclick="setWaveMode('breath')">
+            <button type="button" class="btn-chip" id="wave-mode-breath" aria-pressed="false"
+              onclick="setWaveMode('breath')">
               Guía simétrica 6s / 6s
             </button>
           </div>
 
           <div class="observation-well">
-            <canvas id="wave-canvas" class="wave-canvas" aria-label="Osciloscopio sismográfico comparando el pulso caótico con la onda senoidal resonante de 7 Hz"></canvas>
+            <canvas id="wave-canvas" class="wave-canvas"
+              aria-label="Osciloscopio sismográfico comparando el pulso caótico con la onda senoidal resonante de 7 Hz"></canvas>
           </div>
 
           <div class="breath-bar-wrap" id="breath-guide-box">
@@ -1448,7 +1594,8 @@
               <div class="breath-progress" id="breath-progress-bar"></div>
             </div>
             <p class="prose-body" id="wave-description" style="font-size: 0.9rem;">
-              La onda del pulso desciende por la aorta y coincide en fase con la reflexión ascendente, amplificando tres veces la señal armónica y sintonizando el cuerpo con el campo electrostático terrestre.
+              La onda del pulso desciende por la aorta y coincide en fase con la reflexión ascendente, amplificando tres
+              veces la señal armónica y sintonizando el cuerpo con el campo electrostático terrestre.
             </p>
           </div>
         </div>
@@ -1474,66 +1621,90 @@
 
           <div class="kundalini-grid">
             <div class="observation-well" style="padding: var(--space-sm);">
-              <svg class="homunculus-svg" viewBox="0 0 180 300" aria-label="Esquema de los cinco osciladores y la progresión ascendente de la fisio-kundalini">
+              <svg class="homunculus-svg" viewBox="0 0 180 300"
+                aria-label="Esquema de los cinco osciladores y la progresión ascendente de la fisio-kundalini">
                 <!-- Spine / Aorta central column -->
                 <line x1="90" y1="268" x2="90" y2="75" stroke="var(--outline)" stroke-width="3" />
-                <line id="kundalini-beam" x1="90" y1="268" x2="90" y2="62" stroke="var(--primary)" stroke-width="2.5" stroke-dasharray="5 4" />
+                <line id="kundalini-beam" x1="90" y1="268" x2="90" y2="62" stroke="var(--primary)" stroke-width="2.5"
+                  stroke-dasharray="5 4" />
 
                 <!-- Brain Cortex Arc (Homunculus representation) -->
-                <path d="M 48 68 C 44 30, 136 30, 132 68 C 128 90, 52 90, 48 68 Z" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                <ellipse cx="90" cy="60" rx="16" ry="9" fill="var(--sky-tint)" stroke="var(--tertiary)" stroke-width="1.2" />
+                <path d="M 48 68 C 44 30, 136 30, 132 68 C 128 90, 52 90, 48 68 Z" fill="var(--surface-container)"
+                  stroke="var(--tertiary)" stroke-width="1.5" />
+                <ellipse cx="90" cy="60" rx="16" ry="9" fill="var(--sky-tint)" stroke="var(--tertiary)"
+                  stroke-width="1.2" />
 
                 <!-- 5 Oscillator nodes along body/brain -->
                 <g style="cursor: pointer;" onclick="selectKundaliniStage(0)">
-                  <circle id="k-node-0" cx="90" cy="242" r="11" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" />
-                  <text x="90" y="246" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">1</text>
-                  <text x="112" y="246" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">PIES / AORTA</text>
+                  <circle id="k-node-0" cx="90" cy="242" r="11" fill="var(--primary-container)" stroke="var(--primary)"
+                    stroke-width="2" />
+                  <text x="90" y="246" text-anchor="middle" fill="var(--on-surface)"
+                    font-family="JetBrains Mono, monospace" font-size="9">1</text>
+                  <text x="112" y="246" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace"
+                    font-size="8">PIES / AORTA</text>
                 </g>
 
                 <g style="cursor: pointer;" onclick="selectKundaliniStage(1)">
-                  <circle id="k-node-1" cx="90" cy="196" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                  <text x="90" y="200" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">2</text>
-                  <text x="112" y="200" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">COLUMNA</text>
+                  <circle id="k-node-1" cx="90" cy="196" r="11" fill="var(--surface-container)" stroke="var(--tertiary)"
+                    stroke-width="1.5" />
+                  <text x="90" y="200" text-anchor="middle" fill="var(--on-surface)"
+                    font-family="JetBrains Mono, monospace" font-size="9">2</text>
+                  <text x="112" y="200" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace"
+                    font-size="8">COLUMNA</text>
                 </g>
 
                 <g style="cursor: pointer;" onclick="selectKundaliniStage(2)">
-                  <circle id="k-node-2" cx="90" cy="148" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                  <text x="90" y="152" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">3</text>
-                  <text x="112" y="152" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">CORAZÓN</text>
+                  <circle id="k-node-2" cx="90" cy="148" r="11" fill="var(--surface-container)" stroke="var(--tertiary)"
+                    stroke-width="1.5" />
+                  <text x="90" y="152" text-anchor="middle" fill="var(--on-surface)"
+                    font-family="JetBrains Mono, monospace" font-size="9">3</text>
+                  <text x="112" y="152" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace"
+                    font-size="8">CORAZÓN</text>
                 </g>
 
                 <g style="cursor: pointer;" onclick="selectKundaliniStage(3)">
-                  <circle id="k-node-3" cx="90" cy="102" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                  <text x="90" y="106" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">4</text>
-                  <text x="112" y="106" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">VENTRÍCULOS</text>
+                  <circle id="k-node-3" cx="90" cy="102" r="11" fill="var(--surface-container)" stroke="var(--tertiary)"
+                    stroke-width="1.5" />
+                  <text x="90" y="106" text-anchor="middle" fill="var(--on-surface)"
+                    font-family="JetBrains Mono, monospace" font-size="9">4</text>
+                  <text x="112" y="106" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace"
+                    font-size="8">VENTRÍCULOS</text>
                 </g>
 
                 <g style="cursor: pointer;" onclick="selectKundaliniStage(4)">
-                  <circle id="k-node-4" cx="90" cy="56" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
-                  <text x="90" y="60" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">5</text>
-                  <text x="90" y="24" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace" font-size="8">HOMÚNCULO CORTICAL</text>
+                  <circle id="k-node-4" cx="90" cy="56" r="11" fill="var(--surface-container)" stroke="var(--tertiary)"
+                    stroke-width="1.5" />
+                  <text x="90" y="60" text-anchor="middle" fill="var(--on-surface)"
+                    font-family="JetBrains Mono, monospace" font-size="9">5</text>
+                  <text x="90" y="24" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace"
+                    font-size="8">HOMÚNCULO CORTICAL</text>
                 </g>
               </svg>
             </div>
 
             <div class="oscillator-stack">
-              <button type="button" class="osc-step" id="osc-btn-0" aria-pressed="true" onclick="selectKundaliniStage(0)">
+              <button type="button" class="osc-step" id="osc-btn-0" aria-pressed="true"
+                onclick="selectKundaliniStage(0)">
                 <span><strong>1. Sistema corazón–aorta</strong></span>
                 <span class="coord-label">Inicio</span>
               </button>
-              <button type="button" class="osc-step" id="osc-btn-1" aria-pressed="false" onclick="selectKundaliniStage(1)">
+              <button type="button" class="osc-step" id="osc-btn-1" aria-pressed="false"
+                onclick="selectKundaliniStage(1)">
                 <span><strong>2. Resonancia esquelética y piernas</strong></span>
                 <span class="coord-label">7 Hz</span>
               </button>
-              <button type="button" class="osc-step" id="osc-btn-2" aria-pressed="false" onclick="selectKundaliniStage(2)">
+              <button type="button" class="osc-step" id="osc-btn-2" aria-pressed="false"
+                onclick="selectKundaliniStage(2)">
                 <span><strong>3. Cavidad craneal y flujo</strong></span>
                 <span class="coord-label">Ascenso</span>
               </button>
-              <button type="button" class="osc-step" id="osc-btn-3" aria-pressed="false" onclick="selectKundaliniStage(3)">
+              <button type="button" class="osc-step" id="osc-btn-3" aria-pressed="false"
+                onclick="selectKundaliniStage(3)">
                 <span><strong>4. Tercer ventrículo (ondas acústicas)</strong></span>
                 <span class="coord-label">Resonador</span>
               </button>
-              <button type="button" class="osc-step" id="osc-btn-4" aria-pressed="false" onclick="selectKundaliniStage(4)">
+              <button type="button" class="osc-step" id="osc-btn-4" aria-pressed="false"
+                onclick="selectKundaliniStage(4)">
                 <span><strong>5. Circuito del homúnculo y hemisferios</strong></span>
                 <span class="coord-label">Síntesis</span>
               </button>
@@ -1541,7 +1712,9 @@
               <div class="zone-readout" style="margin-top: var(--space-xs);" aria-live="polite">
                 <span class="coord-label" id="kundalini-stage-tag">FASE 01 · PULSO CARDÍACO AÓRTICO</span>
                 <p class="prose-body" id="kundalini-stage-text" style="font-size: 0.91rem;">
-                  La onda mecánica del latido inicia el efecto dominó entre los cinco osciladores acoplados. Al desaparecer las interferencias destructivas, la vibración limpia asciende por el eje corporal hacia el cráneo.
+                  La onda mecánica del latido inicia el efecto dominó entre los cinco osciladores acoplados. Al
+                  desaparecer las interferencias destructivas, la vibración limpia asciende por el eje corporal hacia el
+                  cráneo.
                 </p>
               </div>
             </div>
@@ -1550,15 +1723,31 @@
 
         <div class="module-narrative">
           <p class="prose-body">
-            Tradicionalmente, la energía Kundalini se describía como una serpiente dormida que despierta en la base de la columna y asciende por los chakras hasta la coronilla. Al observar que meditadores occidentales sin conocimiento previo del término reportaban exactamente las mismas sensaciones, Bentov propuso el primer modelo verificable en laboratorio: el <strong>síndrome fisio-kundalini</strong>.
+            Tradicionalmente, la energía Kundalini se describía como una serpiente dormida que despierta en la base de
+            la columna y asciende por los chakras hasta la coronilla. Al observar que meditadores occidentales sin
+            conocimiento previo del término reportaban exactamente las mismas sensaciones, Bentov propuso el primer
+            modelo verificable en laboratorio: el <strong>síndrome fisio-kundalini</strong>.
           </p>
           <ul class="fact-list">
-            <li><strong>Estimulación acústica de los ventrículos:</strong> El micromovimiento rítmico del cráneo genera <strong>ondas estacionarias acústicas</strong> en las cavidades cerebrales llenas de fluido (como el tercer ventrículo). Sobre ese «tambor» líquido vibran las fibras nerviosas que unen ambos hemisferios.</li>
-            <li><strong>El circuito del homúnculo sensorial:</strong> Esa vibración polariza progresivamente el mapa corporal dibujado en la corteza cerebral —el <em>homúnculo</em>—, comenzando habitualmente por el hemisferio derecho (lado izquierdo del cuerpo) y recorriendo pies, piernas, columna, cuello y rostro hasta activar los centros de placer. El cerebro traduce ese recorrido cortical como corrientes de calor, hormigueo, tonos internos similares a una flauta o ráfagas de luz blanca.</li>
-            <li><strong>Superación de bloqueos y madurez neurológica:</strong> Para Bentov, las emociones reprimidas actúan como «sedimentos en una tubería». Cuando el flujo coherente atraviesa una zona con tensión acumulada puede causar molestias transitorias hasta liberar el bloqueo —razón por la cual instó a la psiquiatría a distinguir este proceso evolutivo de cuadros patológicos—. Al completarse el circuito, el campo electromagnético craneal se expande hasta unos 50 cm (20 pulgadas) y sincroniza ambos hemisferios.</li>
+            <li><strong>Estimulación acústica de los ventrículos:</strong> El micromovimiento rítmico del cráneo genera
+              <strong>ondas estacionarias acústicas</strong> en las cavidades cerebrales llenas de fluido (como el
+              tercer ventrículo). Sobre ese «tambor» líquido vibran las fibras nerviosas que unen ambos hemisferios.
+            </li>
+            <li><strong>El circuito del homúnculo sensorial:</strong> Esa vibración polariza progresivamente el mapa
+              corporal dibujado en la corteza cerebral —el <em>homúnculo</em>—, comenzando habitualmente por el
+              hemisferio derecho (lado izquierdo del cuerpo) y recorriendo pies, piernas, columna, cuello y rostro hasta
+              activar los centros de placer. El cerebro traduce ese recorrido cortical como corrientes de calor,
+              hormigueo, tonos internos similares a una flauta o ráfagas de luz blanca.</li>
+            <li><strong>Superación de bloqueos y madurez neurológica:</strong> Para Bentov, las emociones reprimidas
+              actúan como «sedimentos en una tubería». Cuando el flujo coherente atraviesa una zona con tensión
+              acumulada puede causar molestias transitorias hasta liberar el bloqueo —razón por la cual instó a la
+              psiquiatría a distinguir este proceso evolutivo de cuadros patológicos—. Al completarse el circuito, el
+              campo electromagnético craneal se expande hasta unos 50 cm (20 pulgadas) y sincroniza ambos hemisferios.
+            </li>
           </ul>
           <div style="margin-top: var(--space-lg);">
-            <a class="btn btn-primary" href="Fisiomecánica_de_la_Kundalini_(Bentov).html">Ampliar en Fisiomecánica de la Kundalini →</a>
+            <a class="btn btn-primary" href="Fisiomecánica_de_la_Kundalini_(Bentov).html">Ampliar en Fisiomecánica de la
+              Kundalini →</a>
           </div>
         </div>
       </div>
@@ -1577,34 +1766,44 @@
       <div class="bio-grid">
         <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
           <blockquote class="quote-callout">
-            «Todos estamos en el mismo autobús viajando hacia el infinito; algunos tienen asiento de ventana y otros de pasillo, pero el viaje nos lleva a todos en la misma dirección.»
+            «Todos estamos en el mismo autobús viajando hacia el infinito; algunos tienen asiento de ventana y otros de
+            pasillo, pero el viaje nos lleva a todos en la misma dirección.»
             <span class="quote-attribution">Itzhak Bentov · Conferencias sobre la mecánica de la conciencia</span>
           </blockquote>
 
           <p class="prose-body">
-            Nacido en Checoslovaquia y formado de manera autodidacta e intuitiva en ingeniería mecánica, Bentov se definía con humor como «un hombre de herramientas, un plomero». Sin embargo, esa mente práctica y su taller en el sótano transformaron tanto la medicina cardiovascular como la investigación científica de la meditación.
+            Nacido en Checoslovaquia y formado de manera autodidacta e intuitiva en ingeniería mecánica, Bentov se
+            definía con humor como «un hombre de herramientas, un plomero». Sin embargo, esa mente práctica y su taller
+            en el sótano transformaron tanto la medicina cardiovascular como la investigación científica de la
+            meditación.
           </p>
 
           <div class="timeline-list">
             <div class="timeline-entry">
               <span class="coord-label">9 DE AGOSTO DE 1923 · CHECOSLOVAQUIA</span>
               <h3 class="subsection-title">Origen y traslado a Israel</h3>
-              <p class="prose-body">Nace en Checoslovaquia. Durante la Segunda Guerra Mundial se traslada a Israel, donde desarrolla su temprano ingenio técnico.</p>
+              <p class="prose-body">Nace en Checoslovaquia. Durante la Segunda Guerra Mundial se traslada a Israel,
+                donde desarrolla su temprano ingenio técnico.</p>
             </div>
             <div class="timeline-entry">
               <span class="coord-label">1954 · ESTADOS UNIDOS</span>
               <h3 class="subsection-title">Invenciones e ingeniería biomédica</h3>
-              <p class="prose-body">Emigra a Estados Unidos como inventor independiente. Crea desde hilos de papel hasta electrodos para marcapasos y el célebre <strong>catéter cardíaco dirigible</strong> (<em>steerable cardiac catheter</em>).</p>
+              <p class="prose-body">Emigra a Estados Unidos como inventor independiente. Crea desde hilos de papel hasta
+                electrodos para marcapasos y el célebre <strong>catéter cardíaco dirigible</strong> (<em>steerable
+                  cardiac catheter</em>).</p>
             </div>
             <div class="timeline-entry">
               <span class="coord-label">1976–1977 · SÍNTESIS EXPERIMENTAL</span>
               <h3 class="subsection-title">Sismógrafo del corazón y Kundalini</h3>
-              <p class="prose-body">Integra su práctica meditativa con mediciones de laboratorio. Publica su modelo fisio-kundalini junto a Lee Sannella y lanza su obra maestra ilustrada por él mismo con humor caricaturesco.</p>
+              <p class="prose-body">Integra su práctica meditativa con mediciones de laboratorio. Publica su modelo
+                fisio-kundalini junto a Lee Sannella y lanza su obra maestra ilustrada por él mismo con humor
+                caricaturesco.</p>
             </div>
             <div class="timeline-entry">
               <span class="coord-label">25 DE MAYO DE 1979 · LEGADO</span>
               <h3 class="subsection-title">Obra póstuma y huella científica</h3>
-              <p class="prose-body">Fallece prematuramente a los 55 años. Su esposa, la escultora Mirtala Bentov, completa sus manuscritos para publicar su segundo libro y preservar sus notas cosmológicas.</p>
+              <p class="prose-body">Fallece prematuramente a los 55 años. Su esposa, la escultora Mirtala Bentov,
+                completa sus manuscritos para publicar su segundo libro y preservar sus notas cosmológicas.</p>
             </div>
           </div>
         </div>
@@ -1619,7 +1818,9 @@
             </div>
             <h3 class="book-title">Stalking the Wild Pendulum: On the Mechanics of Consciousness</h3>
             <p class="prose-body">
-              Publicada en español como <em>Al acecho del péndulo errante</em> (o <em>Espiando al péndulo loco</em>). Introduce el péndulo de la realidad intermitente, el universo holográfico, la resonancia corporal de 7 Hz y el modelo del toroide cósmico.
+              Publicada en español como <em>Al acecho del péndulo errante</em> (o <em>Espiando al péndulo loco</em>).
+              Introduce el péndulo de la realidad intermitente, el universo holográfico, la resonancia corporal de 7 Hz
+              y el modelo del toroide cósmico.
             </p>
           </article>
 
@@ -1630,7 +1831,9 @@
             </div>
             <h3 class="book-title">A Brief Tour of Higher Consciousness: A Cosmic Book on the Mechanics of Creation</h3>
             <p class="prose-body">
-              Manual accesible e ilustrado sobre los siete niveles de realidad manifiesta, la evolución humana como destilación de conciencia y la interacción entre lo físico, lo astral, lo mental, lo causal y el Estado Absoluto.
+              Manual accesible e ilustrado sobre los siete niveles de realidad manifiesta, la evolución humana como
+              destilación de conciencia y la interacción entre lo físico, lo astral, lo mental, lo causal y el Estado
+              Absoluto.
             </p>
           </article>
 
@@ -1641,7 +1844,9 @@
             </div>
             <h3 class="book-title">Micromotion of the Body as a Factor in the Development of the Nervous System</h3>
             <p class="prose-body">
-              Incluido en <em>Kundalini: Psychosis or Transcendence?</em> del psiquiatra Lee Sannella. Presenta la primera hipótesis fisiológica experimental sobre las ondas estacionarias en los ventrículos cerebrales y el circuito cortical del homúnculo.
+              Incluido en <em>Kundalini: Psychosis or Transcendence?</em> del psiquiatra Lee Sannella. Presenta la
+              primera hipótesis fisiológica experimental sobre las ondas estacionarias en los ventrículos cerebrales y
+              el circuito cortical del homúnculo.
             </p>
           </article>
         </div>
@@ -1655,15 +1860,21 @@
           <p class="deck-brass">Archivo de referencias del ecosistema · Libros, estudios y audiovisual</p>
           <h2 class="section-title" id="sources-title">Fuentes clave, documentales y la conexión Gateway</h2>
           <p class="prose-body">
-            Explora el catálogo de obras escritas, investigaciones científicas y documentales en español que articulan este portal. Filtra por formato para consultar cada referencia.
+            Explora el catálogo de obras escritas, investigaciones científicas y documentales en español que articulan
+            este portal. Filtra por formato para consultar cada referencia.
           </p>
         </div>
 
-        <div class="interactive-toolbar" style="margin-bottom: 0;" role="group" aria-label="Filtrar fuentes del archivo">
-          <button type="button" class="btn-chip" aria-pressed="true" onclick="filterSources('all', this)">Todas (9)</button>
-          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('gateway', this)">Gateway y Ciencia</button>
-          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('video', this)">Documentales y YouTube</button>
-          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('texto', this)">Libros y Monografías</button>
+        <div class="interactive-toolbar" style="margin-bottom: 0;" role="group"
+          aria-label="Filtrar fuentes del archivo">
+          <button type="button" class="btn-chip" aria-pressed="true" onclick="filterSources('all', this)">Todas
+            (9)</button>
+          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('gateway', this)">Gateway y
+            Ciencia</button>
+          <button type="button" class="btn-chip" aria-pressed="false"
+            onclick="filterSources('video', this)">Documentales y YouTube</button>
+          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('texto', this)">Libros y
+            Monografías</button>
         </div>
       </div>
 
@@ -1673,7 +1884,10 @@
             <span class="badge badge-brass">Proyecto Gateway · CIA</span>
             <h3 style="margin-top: var(--space-sm);">El Proceso Gateway y la sincronización cerebral de ~7.5 Hz</h3>
             <p style="margin-top: var(--space-xs);">
-              Análisis desclasificado y estudio técnico («ITZHAK BENTOV: Gateway, técnica de la CIA para sincronizar el cerebro y expandir la consciencia», canal Vision Alterna). Explica cómo la sincronización hemisférica buscaba reproducir la coherencia cardiocerebral de 6.8–7.5 Hz descubierta por Bentov para operar como antena holográfica.
+              Análisis desclasificado y estudio técnico («ITZHAK BENTOV: Gateway, técnica de la CIA para sincronizar el
+              cerebro y expandir la consciencia», canal Vision Alterna). Explica cómo la sincronización hemisférica
+              buscaba reproducir la coherencia cardiocerebral de 6.8–7.5 Hz descubierta por Bentov para operar como
+              antena holográfica.
             </p>
           </div>
           <div class="source-meta">
@@ -1687,7 +1901,9 @@
             <span class="badge">Documental Completo</span>
             <h3 style="margin-top: var(--space-sm);">Itzhak Bentov: Del Átomo al Cosmos</h3>
             <p style="margin-top: var(--space-xs);">
-              Documental biográfico y conceptual en español («ITZHAK BENTOV ~ DEL ÁTOMO AL COSMOS», Vision Alterna). Recorre sus conferencias, la anatomía de los cinco osciladores, los ventrículos cerebrales, el toroide cósmico y su célebre sentido del humor.
+              Documental biográfico y conceptual en español («ITZHAK BENTOV ~ DEL ÁTOMO AL COSMOS», Vision Alterna).
+              Recorre sus conferencias, la anatomía de los cinco osciladores, los ventrículos cerebrales, el toroide
+              cósmico y su célebre sentido del humor.
             </p>
           </div>
           <div class="source-meta">
@@ -1701,7 +1917,9 @@
             <span class="badge">Documental</span>
             <h3 style="margin-top: var(--space-sm);">Descifró la realidad, y luego falleció misteriosamente</h3>
             <p style="margin-top: var(--space-xs);">
-              Perfil documental («El Código Escondido») sobre cómo Bentov unió física dura, neurociencia y misticismo oriental bajo la premisa de que el cerebro es una radio receptora y el corazón un emisor electromagnético rítmico.
+              Perfil documental («El Código Escondido») sobre cómo Bentov unió física dura, neurociencia y misticismo
+              oriental bajo la premisa de que el cerebro es una radio receptora y el corazón un emisor electromagnético
+              rítmico.
             </p>
           </div>
           <div class="source-meta">
@@ -1713,9 +1931,12 @@
         <article class="source-card" data-category="video">
           <div>
             <span class="badge badge-mint">Divulgación</span>
-            <h3 style="margin-top: var(--space-sm);">Cuando detienes tu mente por un microsegundo y ¿A dónde vas al morir?</h3>
+            <h3 style="margin-top: var(--space-sm);">Cuando detienes tu mente por un microsegundo y ¿A dónde vas al
+              morir?</h3>
             <p style="margin-top: var(--space-xs);">
-              Díptico en YouTube («Crecimiento Interno») sobre el sismógrafo del sótano, los átomos como estadios vacíos, la resonancia Schumann, los péndulos de Huygens y la continuidad de la conciencia en el holograma universal.
+              Díptico en YouTube («Crecimiento Interno») sobre el sismógrafo del sótano, los átomos como estadios
+              vacíos, la resonancia Schumann, los péndulos de Huygens y la continuidad de la conciencia en el holograma
+              universal.
             </p>
           </div>
           <div class="source-meta">
@@ -1729,7 +1950,9 @@
             <span class="badge">Síntesis Comparativa</span>
             <h3 style="margin-top: var(--space-sm);">Jacobo Grinberg vs. Itzhak Bentov: Cómo descifrar la realidad</h3>
             <p style="margin-top: var(--space-xs);">
-              Diálogo conceptual entre la Teoría Sintérgica de la Lattice (Grinberg) y el Reloj de la Creación / momentos OFF (Bentov) para comprender al cerebro como proyector y decodificador de la matriz energética («Crecimiento Interno»).
+              Diálogo conceptual entre la Teoría Sintérgica de la Lattice (Grinberg) y el Reloj de la Creación /
+              momentos OFF (Bentov) para comprender al cerebro como proyector y decodificador de la matriz energética
+              («Crecimiento Interno»).
             </p>
           </div>
           <div class="source-meta">
@@ -1741,9 +1964,12 @@
         <article class="source-card" data-category="video">
           <div>
             <span class="badge badge-brass">Práctica Aplicada</span>
-            <h3 style="margin-top: var(--space-sm);">5 Técnicas para comunicarte con el universo y la «Fórmula Bentov»</h3>
+            <h3 style="margin-top: var(--space-sm);">5 Técnicas para comunicarte con el universo y la «Fórmula Bentov»
+            </h3>
             <p style="margin-top: var(--space-xs);">
-              Videos («El Código Escondido») que traducen la coherencia cardíaca, la respiración simétrica de 6 segundos, la visualización en la glándula pineal, el silencio entre pensamientos y la escritura consciente en herramientas cotidianas de alineación vibracional.
+              Videos («El Código Escondido») que traducen la coherencia cardíaca, la respiración simétrica de 6
+              segundos, la visualización en la glándula pineal, el silencio entre pensamientos y la escritura consciente
+              en herramientas cotidianas de alineación vibracional.
             </p>
           </div>
           <div class="source-meta">
@@ -1757,7 +1983,9 @@
             <span class="badge badge-brass">Libro + Audiolibro</span>
             <h3 style="margin-top: var(--space-sm);">Al acecho del péndulo errante / Espiando al péndulo loco</h3>
             <p style="margin-top: var(--space-xs);">
-              Edición en español de <em>Stalking the Wild Pendulum</em> (Inner Traditions en Español) y su audiolibro comentado en el canal «Mirta Jakubowicz. Dale que te Leo?», con exposición detallada de las ondas aórticas, el prototipo toroidal y lo Absoluto.
+              Edición en español de <em>Stalking the Wild Pendulum</em> (Inner Traditions en Español) y su audiolibro
+              comentado en el canal «Mirta Jakubowicz. Dale que te Leo?», con exposición detallada de las ondas
+              aórticas, el prototipo toroidal y lo Absoluto.
             </p>
           </div>
           <div class="source-meta">
@@ -1771,7 +1999,9 @@
             <span class="badge">Cosmología y Archivo</span>
             <h3 style="margin-top: var(--space-sm);">El Toroide Cósmico y The Physio-Kundalini Syndrome</h3>
             <p style="margin-top: var(--space-xs);">
-              Síntesis técnica de la estructura toroidal (agujero blanco/negro, carta a Fred Hoyle de 1968 y analogía de la «mermelada dentro de la dona») junto al estudio de la Association for Transpersonal Psychology sobre el síndrome fisio-kundalini.
+              Síntesis técnica de la estructura toroidal (agujero blanco/negro, carta a Fred Hoyle de 1968 y analogía de
+              la «mermelada dentro de la dona») junto al estudio de la Association for Transpersonal Psychology sobre el
+              síndrome fisio-kundalini.
             </p>
           </div>
           <div class="source-meta">
@@ -1785,7 +2015,9 @@
             <span class="badge badge-mint">Paralelo Armónico</span>
             <h3 style="margin-top: var(--space-sm);">Non-Dual Singularity (José Díez Faixat, 2022)</h3>
             <p style="margin-top: var(--space-xs);">
-              Investigación publicada en <em>Evolution: Trajectories of Social Evolution</em> que converge con la visión vibratoria de Bentov: propone que la evolución cósmica y humana avanza por saltos discretos guiados por ondas estacionarias (segundos armónicos de 1/3) entre el polo energético Alfa y el polo consciente Omega.
+              Investigación publicada en <em>Evolution: Trajectories of Social Evolution</em> que converge con la visión
+              vibratoria de Bentov: propone que la evolución cósmica y humana avanza por saltos discretos guiados por
+              ondas estacionarias (segundos armónicos de 1/3) entre el polo energético Alfa y el polo consciente Omega.
             </p>
           </div>
           <div class="source-meta">
@@ -1802,14 +2034,18 @@
       <div>
         <span class="coord-label">OBSERVATORIO DE LA CONCIENCIA · PORTAL ITZHAK BENTOV</span>
         <p class="prose-body" style="font-size: 0.88rem; margin-top: var(--space-xs);">
-          Síntesis interactiva basada en <em>Stalking the Wild Pendulum</em>, <em>A Brief Tour of Higher Consciousness</em>, estudios sobre el modelo fisio-kundalini, análisis Gateway y material documental citado.
+          Síntesis interactiva basada en <em>Stalking the Wild Pendulum</em>, <em>A Brief Tour of Higher
+            Consciousness</em>, estudios sobre el modelo fisio-kundalini, análisis Gateway y material documental citado.
         </p>
       </div>
       <a class="btn btn-secondary" href="#inicio">Volver al observatorio ↑</a>
     </div>
 
-    <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 28px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-      <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a> &bull; Movil: 2355-69 26 16</span>
+    <div
+      style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 28px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+      <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/"
+          target="_blank" rel="noopener noreferrer"
+          style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a></span>
     </div>
   </footer>
 
@@ -1970,7 +2206,7 @@
         const rightExtX = pivotX + Math.sin(maxAngle) * armLen;
         const rightExtY = pivotY + Math.cos(maxAngle) * armLen;
 
-        [ [leftExtX, leftExtY], [rightExtX, rightExtY] ].forEach((pt) => {
+        [[leftExtX, leftExtY], [rightExtX, rightExtY]].forEach((pt) => {
           ctx.beginPath();
           ctx.arc(pt[0], pt[1], 5, 0, Math.PI * 2);
           ctx.fillStyle = isOff ? cCyan : cMuted;
@@ -2615,4 +2851,5 @@
     });
   </script>
 </body>
+
 </html>
