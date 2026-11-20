@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>El Método Bentov de Manifestación — La Fórmula de 5 Pasos para la Coherencia Vibracional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* 1. Nocturne base + 2. Cosmic electric-cyan & bright-gold aesthetic requested by user */
+      --background: #050914;
+      --surface-container-low: #091022;
+      --surface-container: #0d172e;
+      --surface-container-high: #132140;
+
+      --on-surface: #eef3fb;
+      --on-surface-variant: #9aaac6;
+
+      --outline: #2e456e;
+      --outline-variant: #1b2a47;
+
+      /* Bright gold primary & electric cyan tertiary */
+      --primary: #f2c14e;
+      --on-primary: #050914;
+      --primary-container: #2b2312;
+      --on-primary-container: #fde7aa;
+
+      --secondary: #687fa6;
+      --tertiary: #22e3ff;
+      --on-tertiary: #04131a;
+
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Data series */
+      --data-1: #22e3ff;
+      --data-2: #f2c14e;
+      --data-3: #4ade9a;
+      --data-4: #f28466;
+      --data-context: #3b5178;
+
+      /* Typography (modern clean sans + monospace telemetry) */
+      --font-headline: 'Instrument Sans', 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.75rem;
+      --rounded-full: 9999px;
+
+      /* Effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 color-mix(in srgb, var(--on-surface) 7%, transparent);
+      --cyan-tint: color-mix(in srgb, var(--tertiary) 12%, transparent);
+      --cyan-border: color-mix(in srgb, var(--tertiary) 35%, transparent);
+      --gold-tint: color-mix(in srgb, var(--primary) 13%, transparent);
+      --gold-border: color-mix(in srgb, var(--primary) 38%, transparent);
+      --positive-tint: color-mix(in srgb, var(--positive) 13%, transparent);
+      --error-tint: color-mix(in srgb, var(--error) 14%, transparent);
+      --cyan-glow: 0 0 24px color-mix(in srgb, var(--tertiary) 22%, transparent);
+      --gold-glow: 0 0 24px color-mix(in srgb, var(--primary) 24%, transparent);
+      --cosmic-wash: radial-gradient(circle at 82% 14%, color-mix(in srgb, var(--tertiary) 10%, transparent), transparent 45%),
+                     radial-gradient(circle at 18% 72%, color-mix(in srgb, var(--primary) 8%, transparent), transparent 48%);
+
+      /* 3. Shared tokens */
+      --positive: #4ade9a;
+      --warning: #f5b942;
+      --focus: var(--tertiary);
+
+      --display-size: clamp(2.15rem, 1.35rem + 3.2vw, 3.65rem);
+      --headline-size: clamp(1.55rem, 1.15rem + 1.6vw, 2.25rem);
+      --subhead-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.07em;
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 140ms;
+      --dur-short: 240ms;
+      --dur-long: 460ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    /* Cosmic backdrop canvas */
+    #cosmic-bg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.72;
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      background-image: var(--cosmic-wash);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1140px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      line-height: 1.08;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      line-height: 1.15;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+    }
+    p {
+      margin: 0;
+      max-width: 68ch;
+      color: var(--on-surface-variant);
+    }
+    p strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    .mono-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .deck-gold {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .accent-gold { color: var(--primary); }
+    .accent-cyan { color: var(--tertiary); }
+    .accent-positive { color: var(--positive); }
+
+    /* Panels & recessed wells */
+    .panel {
+      background: linear-gradient(180deg, var(--surface-container) 0%, var(--surface-container-low) 100%);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+    }
+    .well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+    }
+
+    /* Hero */
+    .hero-header {
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      border-bottom: var(--hairline);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .hero-copy {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .hero-lede {
+      font-size: var(--subhead-size);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+    }
+    .hero-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+    }
+    .anchor-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: var(--hairline-strong);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.03em;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .anchor-pill:hover {
+      background: var(--surface-container-high);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+    }
+
+    .hero-telemetry {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .stat-tile {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .stat-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .stat-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.85rem);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+    .stat-note {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+
+    /* Section structure */
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+      scroll-margin-top: var(--space-lg);
+    }
+    .section-head {
+      display: grid;
+      gap: var(--space-xs);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+    }
+    .section-head p {
+      margin-top: var(--space-xs);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--gold-glow);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--on-primary-container);
+    }
+    .btn-cyan {
+      background: var(--tertiary);
+      color: var(--on-tertiary);
+      box-shadow: var(--cyan-glow);
+    }
+    .btn-cyan:hover:not(:disabled) {
+      background: var(--on-surface);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--surface-container-high);
+      border-color: var(--tertiary);
+    }
+    .btn-sm {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+    }
+    .btn-active-cyan {
+      background: var(--cyan-tint);
+      color: var(--tertiary);
+      border-color: var(--cyan-border);
+    }
+    .btn-active-gold {
+      background: var(--gold-tint);
+      color: var(--primary);
+      border-color: var(--gold-border);
+    }
+
+    /* Section 1: Biophysical Wave Comparison */
+    .physics-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .wave-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .canvas-frame {
+      position: relative;
+      width: 100%;
+      min-height: 250px;
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--background);
+      overflow: hidden;
+    }
+    .canvas-frame canvas {
+      display: block;
+      width: 100%;
+      height: 250px;
+    }
+    .oscillator-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .oscillator-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+    }
+    .osc-index {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      background: var(--gold-tint);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+    }
+
+    /* Section 2: 5-Step Protocol Cards */
+    .steps-timeline {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .step-card {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      border-radius: var(--rounded-lg);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+      box-shadow: var(--panel-highlight);
+      transition: border-color var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out);
+    }
+    .step-card.is-highlighted {
+      border-color: var(--tertiary);
+      background: var(--surface-container);
+    }
+    .step-num-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .step-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--rounded-full);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 1.05rem;
+      border: 1px solid var(--gold-border);
+      background: var(--gold-tint);
+      color: var(--primary);
+    }
+    .step-time {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--tertiary);
+      text-align: center;
+    }
+    .step-body {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .step-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xs);
+    }
+    .step-callout {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--background);
+      border-left: 2px solid var(--tertiary);
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+    .step-callout.gold-border {
+      border-left-color: var(--primary);
+    }
+    .step-callout strong {
+      display: block;
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: var(--space-xs);
+    }
+    .step-callout.gold-border strong {
+      color: var(--primary);
+    }
+
+    /* Interactive Tool 1: 6-6 Breathing & 5-Minute Ritual Trainer */
+    .trainer-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .orb-stage {
+      display: grid;
+      place-items: center;
+      min-height: 360px;
+      position: relative;
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      overflow: hidden;
+    }
+    #breath-canvas {
+      display: block;
+      width: 100%;
+      max-width: 360px;
+      height: 320px;
+    }
+    .orb-readout-bar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+      width: 100%;
+      margin-top: var(--space-md);
+    }
+    .mini-readout {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      text-align: center;
+    }
+    .mini-readout span {
+      display: block;
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .mini-readout strong {
+      font-family: var(--font-label);
+      font-size: 1.05rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    .trainer-controls {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .phase-selector-list {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .phase-btn {
+      width: 100%;
+      text-align: left;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-md);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      transition: border-color var(--dur-micro) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .phase-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .phase-btn.is-active {
+      border-color: var(--tertiary);
+      background: var(--cyan-tint);
+      color: var(--on-surface);
+    }
+    .phase-btn .p-idx {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+    }
+    .phase-btn .p-dur {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--tertiary);
+    }
+    .live-instruction-box {
+      background: var(--background);
+      border: var(--hairline);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Sliders & inputs */
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+    }
+    .field-value-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-variant-numeric: tabular-nums;
+      color: var(--tertiary);
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-high);
+      border: var(--hairline);
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: var(--rounded-full);
+      background: var(--primary);
+      border: 2px solid var(--background);
+      box-shadow: var(--gold-glow);
+      cursor: pointer;
+    }
+    input[type="range"].cyan-slider::-webkit-slider-thumb {
+      background: var(--tertiary);
+      box-shadow: var(--cyan-glow);
+    }
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+    }
+    select {
+      padding-right: var(--space-xl);
+    }
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    /* Interactive Tool 2: Triad Modulator */
+    .triad-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .triad-svg-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+    }
+    .triad-svg-well svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      overflow: visible;
+    }
+    .diagnosis-card {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .preset-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .intention-checker {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--hairline);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .feedback-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+    }
+    .feedback-ok {
+      background: var(--positive-tint);
+      color: var(--positive);
+      border: 1px solid color-mix(in srgb, var(--positive) 35%, transparent);
+    }
+    .feedback-warn {
+      background: var(--gold-tint);
+      color: var(--primary);
+      border: 1px solid var(--gold-border);
+    }
+    .feedback-err {
+      background: var(--error-tint);
+      color: var(--error);
+      border: 1px solid color-mix(in srgb, var(--error) 35%, transparent);
+    }
+
+    /* Interactive Tool 3: Daily Calibrator & Log */
+    .calibrator-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .calibrator-form {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      cursor: pointer;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--tertiary);
+      cursor: pointer;
+    }
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .sparkline-box {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      min-height: 130px;
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .log-feed {
+      display: grid;
+      gap: var(--space-sm);
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: var(--space-xs);
+    }
+    .log-entry {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .log-entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .empty-state {
+      background: var(--background);
+      border: 1px dashed var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-xl);
+      text-align: center;
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+    }
+
+    /* Beliefs refiner */
+    .beliefs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .belief-card {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      cursor: pointer;
+      text-align: left;
+      color: var(--on-surface);
+      transition: border-color var(--dur-micro) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+    .belief-card:hover {
+      border-color: var(--tertiary);
+      background: var(--surface-container-high);
+    }
+    .belief-card.is-flipped {
+      border-color: var(--primary);
+      background: var(--primary-container);
+    }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding-top: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 860px) {
+      .hero-grid,
+      .physics-split,
+      .trainer-shell,
+      .triad-layout,
+      .calibrator-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .panel { padding: var(--space-md); }
+      .hero-telemetry,
+      .step-meta-grid,
+      .form-row-2,
+      .summary-strip,
+      .orb-readout-bar {
+        grid-template-columns: 1fr;
+      }
+      .step-card {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+      .step-num-col {
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cosmic-bg" aria-hidden="true"></canvas>
+
+  <div class="page-shell">
+    <main class="page-grid">
+
+      <!-- HERO -->
+      <header class="hero-header">
+        <div style="margin-bottom: 1rem;">
+          <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(242, 193, 78, 0.45); background: rgba(242, 193, 78, 0.10); color: var(--primary); font-family: var(--font-label); font-size: 0.78rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+        </div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="mono-kicker">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M3 12h4l2.5-5 4 10 2.5-5h5"/>
+              </svg>
+              Protocolo Biofísico · Itzhak Bentov
+            </span>
+            <h1>El Método Bentov de <span class="accent-gold">Manifestación</span></h1>
+            <div class="deck-gold">La Fórmula de 5 Pasos para la Coherencia Vibracional</div>
+            <p class="hero-lede">
+              Para el ingeniero biomédico Itzhak Bentov, manifestar no es suplicar ni repetir frases sin emoción: es afinar el cuerpo humano como un <strong>oscilador resonante</strong>. Cuando corazón, respiración y cerebro entran en fase alrededor de 7 ciclos por segundo, tu biología deja de emitir ruido y proyecta una señal láser coherente en el campo universal.
+            </p>
+            <nav class="hero-nav" aria-label="Secciones principales">
+              <a class="anchor-pill" href="#fundamento">1. Física de la Coherencia</a>
+              <a class="anchor-pill" href="#pasos">2. Protocolo de 5 Pasos</a>
+              <a class="anchor-pill" href="#entrenador">3. Entrenador 6-6 (5 min)</a>
+              <a class="anchor-pill" href="#triada">4. Modulador de la Tríada</a>
+              <a class="anchor-pill" href="#calibrador">5. Calibrador Diario</a>
+            </nav>
+          </div>
+
+          <div class="hero-telemetry" aria-label="Parámetros biofísicos de Bentov">
+            <div class="stat-tile">
+              <span class="stat-label">Frecuencia Resonante</span>
+              <span class="stat-value accent-cyan">6.8 – 7.5 Hz</span>
+              <span class="stat-note">Acoplamiento armónico corazón–aorta e ionosfera terrestre.</span>
+            </div>
+            <div class="stat-tile">
+              <span class="stat-label">Campo del Corazón</span>
+              <span class="stat-value accent-gold">5,000×</span>
+              <span class="stat-note">Más potente magnéticamente que el cerebro; actúa como onda portadora.</span>
+            </div>
+            <div class="stat-tile">
+              <span class="stat-label">Ritmo Simétrico</span>
+              <span class="stat-value accent-cyan">6 s / 6 s</span>
+              <span class="stat-note">Inhalación nasal y exhalación bucal para sincronizar fase eléctrica.</span>
+            </div>
+            <div class="stat-tile">
+              <span class="stat-label">Tránsito Global</span>
+              <span class="stat-value accent-gold">~1/7 seg</span>
+              <span class="stat-note">Longitud de onda planetaria (~40,000 km) sin atenuación por obstáculos.</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- SECTION 1: BIOPHYSICS -->
+      <section id="fundamento" class="section-block">
+        <div class="section-head">
+          <span class="deck-gold">Base Experimental · Sismógrafo de Micromovimientos</span>
+          <h2>De la interferencia destructiva a la onda senoidal coherente</h2>
+          <p>
+            En sus mediciones de laboratorio con un sismógrafo corporal de alta sensibilidad, Bentov descubrió que cada latido impulsa sangre contra la bifurcación de las piernas y genera una onda de retorno. Bajo estrés, los ecos chocan a destiempo contra el siguiente pulso; en quietud profunda, el sistema entra en resonancia limpia.
+          </p>
+        </div>
+
+        <div class="physics-split">
+          <div class="panel">
+            <div class="wave-controls" role="group" aria-label="Estado fisiológico de la onda">
+              <button type="button" id="btn-wave-coherent" class="btn btn-sm btn-active-cyan" onclick="setWaveMode('coherent')">
+                Coherencia (~7.2 Hz)
+              </button>
+              <button type="button" id="btn-wave-stress" class="btn btn-sm btn-ghost" onclick="setWaveMode('stress')">
+                Estrés / Interferencia
+              </button>
+            </div>
+            <div class="canvas-frame">
+              <canvas id="wave-canvas"></canvas>
+            </div>
+            <p id="wave-caption" style="margin-top: var(--space-md); font-size: 0.94rem;">
+              <strong class="accent-cyan">Resonancia armónica:</strong> La respiración suave y el pulso cardíaco se sincronizan. La amplitud sismográfica se triplica y los cinco osciladores internos vibran en fase con la cavidad terrestre (7.5 Hz).
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin-bottom: var(--space-md);">Los 5 osciladores acoplados de Bentov</h3>
+            <div class="oscillator-list">
+              <div class="oscillator-item">
+                <span class="osc-index">01</span>
+                <div>
+                  <strong>Sistema corazón–aorta (Onda Portadora)</strong>
+                  <p style="font-size: 0.9rem;">Genera el pulso mecánico y electromagnético principal (~100,000 latidos/día).</p>
+                </div>
+              </div>
+              <div class="oscillator-item">
+                <span class="osc-index">02</span>
+                <div>
+                  <strong>Esqueleto y órganos internos</strong>
+                  <p style="font-size: 0.9rem;">Resuenan en bloque entre 6.8 y 7.5 ciclos por segundo como una caja acústica.</p>
+                </div>
+              </div>
+              <div class="oscillator-item">
+                <span class="osc-index">03</span>
+                <div>
+                  <strong>Ventrículos cerebrales con fluido</strong>
+                  <p style="font-size: 0.9rem;">Transmiten la onda acústica hacia el cráneo; el cerebro oscila 0.005–0.010 mm.</p>
+                </div>
+              </div>
+              <div class="oscillator-item">
+                <span class="osc-index">04</span>
+                <div>
+                  <strong>Corteza sensorial y corrientes circulares</strong>
+                  <p style="font-size: 0.9rem;">La mente modula el mensaje sobre la portadora del corazón y proyecta intención.</p>
+                </div>
+              </div>
+              <div class="oscillator-item">
+                <span class="osc-index">05</span>
+                <div>
+                  <strong>Momentos OFF (Pausa del péndulo)</strong>
+                  <p style="font-size: 0.9rem;">En el instante de quietud entre inhalación, exhalación y pensamientos, la velocidad cae a cero y la conciencia toca el campo unificado.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: THE 5 STEPS -->
+      <section id="pasos" class="section-block">
+        <div class="section-head">
+          <span class="deck-gold">Protocolo Secuencial · Ritual de 5 Minutos</span>
+          <h2>Los 5 pasos de la Fórmula Bentov, paso a paso</h2>
+          <p>
+            Bentov sostenía que el problema al manifestar no es falta de poder, sino exceso de interferencia: pedir desde la duda o la tensión desfasea la señal. Esta secuencia de cinco minutos reordena primero la biología para luego modular el campo con precisión.
+          </p>
+        </div>
+
+        <div class="steps-timeline">
+          <article class="step-card" id="step-card-1">
+            <div class="step-num-col">
+              <div class="step-badge">01</div>
+              <span class="step-time">Min 0–1</span>
+            </div>
+            <div class="step-body">
+              <h3>Escuchar el pulso cardíaco como onda portadora</h3>
+              <p>
+                Siéntate de manera cómoda pero despierta: espalda larga, mentón suave y palmas abiertas, sin posturas teatrales. Cierra los ojos durante un minuto y dirige tu atención únicamente a sentir tu latido. No intentes controlar la respiración ni apagar la mente a la fuerza; deja que los pensamientos pasen como nubes.
+              </p>
+              <div class="step-meta-grid">
+                <div class="step-callout">
+                  <strong>Mecanismo Biofísico</strong>
+                  Tu pulso rítmico es la frecuencia base o <em>portadora</em> sobre la que viajará toda la señal. Al observar en silencio, pasas de ondas beta aceleradas a ritmos alfa/theta receptivos.
+                </div>
+                <div class="step-callout gold-border">
+                  <strong>Error a Evitar</strong>
+                  Pelear con los pensamientos o frustrarte por distraerte. Cada vez que vuelves al pulso, fortaleces la capacidad de sintonización de tu antena.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="step-card" id="step-card-2">
+            <div class="step-num-col">
+              <div class="step-badge">02</div>
+              <span class="step-time">Min 1–2</span>
+            </div>
+            <div class="step-body">
+              <h3>Respiración simétrica 6-6 para sincronizar el sistema cardiovascular</h3>
+              <p>
+                Sin romper la quietud inicial, inhala lento por la nariz durante <strong>6 segundos</strong> y exhala suave por la boca durante otros <strong>6 segundos</strong>, imaginando una ola continua que sube y baja. Repite al menos tres ciclos completos sin apuro.
+              </p>
+              <div class="step-meta-grid">
+                <div class="step-callout">
+                  <strong>Mecanismo Biofísico</strong>
+                  Genera <em>sincronía fisiológica</em>: pulmones, diafragma, corazón y cerebro se coordinan en fase. Cesa el choque de ecos en la aorta y el cuerpo entra en resonancia armónica.
+                </div>
+                <div class="step-callout gold-border">
+                  <strong>Señal de Ajuste</strong>
+                  Si bostezas o suspiras hondo, es buena señal: tu sistema nervioso acaba de soltar tensión acumulada y comprende que está seguro.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="step-card" id="step-card-3">
+            <div class="step-num-col">
+              <div class="step-badge">03</div>
+              <span class="step-time">Min 2–3</span>
+            </div>
+            <div class="step-body">
+              <h3>Evocar gratitud genuina en el centro del pecho</h3>
+              <p>
+                Desplaza tu atención de la cabeza —donde se analiza— hacia el centro del pecho. Evoca una gratitud real y cotidiana: el aroma del café, la mirada de tu perro, el agua caliente o el simple hecho de respirar. Siente el calor expandirse físicamente en el tórax y sostenlo unos segundos extra.
+              </p>
+              <div class="step-meta-grid">
+                <div class="step-callout">
+                  <strong>Mecanismo Biofísico</strong>
+                  La gratitud auténtica ordena la bioelectricidad del corazón y multiplica la amplitud de su campo electromagnético (5,000 veces mayor que el cerebral). Es la contraseña de acceso al campo.
+                </div>
+                <div class="step-callout gold-border">
+                  <strong>Error a Evitar</strong>
+                  La gratitud mecánica o automática de lista sin sentimiento. El universo no responde a palabras vacías, sino a la coherencia real de tu sistema nervioso.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="step-card" id="step-card-4">
+            <div class="step-num-col">
+              <div class="step-badge">04</div>
+              <span class="step-time">Min 3–4</span>
+            </div>
+            <div class="step-body">
+              <h3>Intención en presente y escena sensorial única (la mente como láser modulador)</h3>
+              <p>
+                Con el campo cardíaco estable, formula tu intención en <strong>tiempo presente, corta y directa (10 palabras o menos)</strong>: por ejemplo, <em>«Estoy en calma y rodeado de oportunidades reales»</em>. Luego visualiza <strong>una sola escena concreta</strong> donde ya estás viviendo ese estado, involucrando sensaciones físicas (temperatura, postura, sonido, alivio).
+              </p>
+              <div class="step-meta-grid">
+                <div class="step-callout">
+                  <strong>Mecanismo Biofísico</strong>
+                  El cerebro no distingue entre una experiencia vívida sentida en el cuerpo y un hecho externo. Tu mente actúa como un láser que modula la onda portadora del corazón con precisión.
+                </div>
+                <div class="step-callout gold-border">
+                  <strong>Error a Evitar</strong>
+                  Redactar párrafos largos, usar tiempo futuro («algún día tendré») o ver la escena como espectador lejano en una pantalla ajena.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="step-card" id="step-card-5">
+            <div class="step-num-col">
+              <div class="step-badge">05</div>
+              <span class="step-time">Min 4–5</span>
+            </div>
+            <div class="step-body">
+              <h3>Soltar la ansiedad del tiempo («suelto el cuándo») y ejecutar una acción coherente</h3>
+              <p>
+                Declara mentalmente con certeza: <strong>«Suelto el cuándo»</strong>. En ese silencio limpio, pregúntate: <em>«¿Qué acción coherente puedo hacer hoy?»</em>. Toma la primera respuesta concreta que surja —enviar un mensaje, ordenar tu espacio, salir a caminar, llamar a alguien— y ejecútala sin analizar ni postergar.
+              </p>
+              <div class="step-meta-grid">
+                <div class="step-callout">
+                  <strong>Mecanismo Biofísico</strong>
+                  La ansiedad («¿y si no pasa?») actúa como tijeras que cortan la onda. Al soltar el tiempo y actuar en congruencia, conviertes la coherencia eléctrica en movimiento físico observable.
+                </div>
+                <div class="step-callout gold-border">
+                  <strong>Principio de Retorno</strong>
+                  Pide como láser, actúa como imán. El universo responde al movimiento congruente, no al esfuerzo ansioso ni a esperar pasivamente señales del cielo.
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE TOOL 1: 6-6 BREATHING & 5-MIN RITUAL TRAINER -->
+      <section id="entrenador" class="section-block">
+        <div class="section-head">
+          <span class="deck-gold">Simulador Práctico · Herramienta Guiada</span>
+          <h2>Entrenador visual de respiración 6-6 y ritual de 5 minutos</h2>
+          <p>
+            Practica en tiempo real el ritmo simétrico <strong>6 s inhalación / 6 s exhalación</strong> sincronizado con tu pulso portador. Puedes recorrer las 5 fases completas del ritual (5:00 min) o usar el protocolo rápido de mantenimiento (2:00 min).
+          </p>
+        </div>
+
+        <div class="panel">
+          <div class="trainer-shell">
+            <div class="orb-stage">
+              <canvas id="breath-canvas"></canvas>
+              <div class="orb-readout-bar">
+                <div class="mini-readout">
+                  <span>Fase Respiratoria</span>
+                  <strong id="breath-phase-label" class="accent-cyan">Listo</strong>
+                </div>
+                <div class="mini-readout">
+                  <span>Temporizador</span>
+                  <strong id="breath-timer-display">05:00</strong>
+                </div>
+                <div class="mini-readout">
+                  <span>Ciclos 6-6</span>
+                  <strong id="breath-cycles-display" class="accent-gold">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="trainer-controls">
+              <div class="button-row" role="group" aria-label="Duración del ritual">
+                <button type="button" id="mode-5min-btn" class="btn btn-sm btn-active-gold" onclick="setRitualMode(300)">
+                  Ritual Completo · 5:00
+                </button>
+                <button type="button" id="mode-2min-btn" class="btn btn-sm btn-ghost" onclick="setRitualMode(120)">
+                  Mantenimiento · 2:00
+                </button>
+                <button type="button" id="audio-toggle-btn" class="btn btn-sm btn-ghost" onclick="toggleAudioGuide()" aria-pressed="false">
+                  Campana Armónica: Off
+                </button>
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label for="pulse-bpm-slider">Pulso Cardíaco Portador (LPM)</label>
+                  <span id="pulse-bpm-val" class="field-value-badge">64 lpm</span>
+                </div>
+                <input type="range" id="pulse-bpm-slider" class="cyan-slider" min="52" max="96" value="64" oninput="updatePulseBpm(this.value)">
+              </div>
+
+              <div class="phase-selector-list" role="list" aria-label="Fases del ritual Bentov">
+                <button type="button" class="phase-btn is-active" data-phase="0" onclick="jumpToPhase(0)">
+                  <span class="p-idx">PASO 1</span>
+                  <span>Escuchar el pulso (onda portadora)</span>
+                  <span class="p-dur" id="p-dur-0">0:00–1:00</span>
+                </button>
+                <button type="button" class="phase-btn" data-phase="1" onclick="jumpToPhase(1)">
+                  <span class="p-idx">PASO 2</span>
+                  <span>Respiración simétrica 6-6 en fase</span>
+                  <span class="p-dur" id="p-dur-1">1:00–2:00</span>
+                </button>
+                <button type="button" class="phase-btn" data-phase="2" onclick="jumpToPhase(2)">
+                  <span class="p-idx">PASO 3</span>
+                  <span>Gratitud genuina en el pecho</span>
+                  <span class="p-dur" id="p-dur-2">2:00–3:00</span>
+                </button>
+                <button type="button" class="phase-btn" data-phase="3" onclick="jumpToPhase(3)">
+                  <span class="p-idx">PASO 4</span>
+                  <span>Intención presente y escena láser</span>
+                  <span class="p-dur" id="p-dur-3">3:00–4:00</span>
+                </button>
+                <button type="button" class="phase-btn" data-phase="4" onclick="jumpToPhase(4)">
+                  <span class="p-idx">PASO 5</span>
+                  <span>«Suelto el cuándo» y microacción</span>
+                  <span class="p-dur" id="p-dur-4">4:00–5:00</span>
+                </button>
+              </div>
+
+              <div class="live-instruction-box" aria-live="polite">
+                <span class="mono-kicker" id="trainer-step-tag">Paso 1 · Silencio y Pulso</span>
+                <p id="trainer-instruction" style="font-size: 0.95rem; color: var(--on-surface);">
+                  Apoya tus pies, alarga la espalda y observa tu latido sin forzar la respiración. Deja pasar los pensamientos como nubes; sintoniza tu portadora base.
+                </p>
+              </div>
+
+              <div class="button-row">
+                <button type="button" id="trainer-start-btn" class="btn btn-primary" onclick="toggleTrainer()">
+                  Iniciar Sesión
+                </button>
+                <button type="button" class="btn btn-ghost" onclick="resetTrainer()">
+                  Reiniciar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE TOOL 2: MANIFESTATION TRIAD MODULATOR -->
+      <section id="triada" class="section-block">
+        <div class="section-head">
+          <span class="deck-gold">Laboratorio de Señal · Ecuación de Coherencia</span>
+          <h2>Modulador interactivo de la Tríada de Manifestación</h2>
+          <p>
+            Bentov advertía que el cuerpo emite ondas constantemente, pero solo se convierte en un <strong>láser vibracional</strong> cuando alinea tres vértices: Mente (imagen clara), Corazón (emoción coherente) e Intención/Acción (dirección y movimiento). Ajusta los parámetros o carga escenarios para observar qué sucede cuando falta un componente.
+          </p>
+        </div>
+
+        <div class="panel">
+          <div class="triad-layout">
+            <div>
+              <div class="triad-svg-well">
+                <svg id="triad-svg" viewBox="0 0 360 320" role="img" aria-label="Diagrama vectorial de la Tríada de Manifestación Bentov">
+                  <defs>
+                    <radialGradient id="laserCoreGrad" cx="50%" cy="54%" r="50%">
+                      <stop offset="0%" stop-color="var(--tertiary)" stop-opacity="0.7"/>
+                      <stop offset="55%" stop-color="var(--primary)" stop-opacity="0.28"/>
+                      <stop offset="100%" stop-color="var(--background)" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+                  <!-- Reference outer triangle -->
+                  <polygon points="180,36 48,262 312,262" fill="none" stroke="var(--outline-variant)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                  <!-- Center laser aura -->
+                  <circle id="triad-aura" cx="180" cy="186" r="68" fill="url(#laserCoreGrad)"/>
+                  <!-- Dynamic triad polygon -->
+                  <polygon id="triad-poly" points="180,58 76,246 284,246" fill="color-mix(in srgb, var(--tertiary) 14%, transparent)" stroke="var(--tertiary)" stroke-width="2.2"/>
+                  <!-- Laser beam vectors to center -->
+                  <line id="ray-mind" x1="180" y1="36" x2="180" y2="186" stroke="var(--tertiary)" stroke-width="1.6" stroke-opacity="0.7"/>
+                  <line id="ray-heart" x1="48" y1="262" x2="180" y2="186" stroke="var(--primary)" stroke-width="1.6" stroke-opacity="0.7"/>
+                  <line id="ray-action" x1="312" y1="262" x2="180" y2="186" stroke="var(--positive)" stroke-width="1.6" stroke-opacity="0.7"/>
+                  <!-- Interference noise ring -->
+                  <circle id="triad-noise-ring" cx="180" cy="186" r="46" fill="none" stroke="var(--error)" stroke-width="1.5" stroke-dasharray="5 5" stroke-opacity="0.25"/>
+                  <!-- Center laser core -->
+                  <circle id="triad-core" cx="180" cy="186" r="14" fill="var(--primary)" stroke="var(--on-surface)" stroke-width="1.5"/>
+                  <text id="triad-score-text" x="180" y="190" text-anchor="middle" fill="var(--on-primary)" font-family="var(--font-label)" font-size="11" font-weight="600">85%</text>
+                  <!-- Vertex labels -->
+                  <text x="180" y="20" text-anchor="middle" fill="var(--tertiary)" font-family="var(--font-label)" font-size="11" letter-spacing="0.06em">MENTE · VISUALIZACIÓN</text>
+                  <text x="58" y="292" text-anchor="middle" fill="var(--primary)" font-family="var(--font-label)" font-size="11" letter-spacing="0.06em">CORAZÓN · EMOCIÓN</text>
+                  <text x="302" y="292" text-anchor="middle" fill="var(--positive)" font-family="var(--font-label)" font-size="11" letter-spacing="0.06em">INTENCIÓN · ACCIÓN</text>
+                </svg>
+              </div>
+
+              <div class="diagnosis-card" aria-live="polite">
+                <div class="field-label-row">
+                  <span class="mono-kicker" id="triad-status-badge">Estado del Campo</span>
+                  <span class="field-value-badge accent-gold" id="triad-power-readout">85% Coherencia</span>
+                </div>
+                <h3 id="triad-diagnosis-title">Láser Vibracional Enfocado</h3>
+                <p id="triad-diagnosis-desc" style="font-size: 0.94rem;">
+                  La imagen clara de tu mente modula la onda portadora amplificada por tu corazón, mientras tu acción congruente ancla la señal en la materia.
+                </p>
+              </div>
+            </div>
+
+            <div class="trainer-controls">
+              <div class="field-group">
+                <label>Escenarios clásicos de Bentov (Preajustes)</label>
+                <div class="preset-strip">
+                  <button type="button" class="btn btn-sm btn-ghost" onclick="applyTriadPreset(90, 92, 88, 8)">Láser Coherente</button>
+                  <button type="button" class="btn btn-sm btn-ghost" onclick="applyTriadPreset(85, 18, 55, 45)">Visualización sin Emoción</button>
+                  <button type="button" class="btn btn-sm btn-ghost" onclick="applyTriadPreset(20, 88, 25, 30)">Emoción sin Dirección</button>
+                  <button type="button" class="btn btn-sm btn-ghost" onclick="applyTriadPreset(25, 20, 82, 75)">Súplica desde la Duda</button>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label for="slider-mind">1. Mente / Visualización (Escena Sensorial)</label>
+                  <span id="val-mind" class="field-value-badge">88%</span>
+                </div>
+                <input type="range" id="slider-mind" class="cyan-slider" min="0" max="100" value="88" oninput="updateTriad()">
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label for="slider-heart">2. Corazón / Emoción (Gratitud Genuina)</label>
+                  <span id="val-heart" class="field-value-badge accent-gold">86%</span>
+                </div>
+                <input type="range" id="slider-heart" min="0" max="100" value="86" oninput="updateTriad()">
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label for="slider-action">3. Intención / Acción Congruente</label>
+                  <span id="val-action" class="field-value-badge accent-positive">84%</span>
+                </div>
+                <input type="range" id="slider-action" class="cyan-slider" min="0" max="100" value="84" oninput="updateTriad()">
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label for="slider-doubt">4. Interferencia / Duda («¿y si no pasa?»)</label>
+                  <span id="val-doubt" class="field-value-badge" style="color: var(--error);">12%</span>
+                </div>
+                <input type="range" id="slider-doubt" min="0" max="100" value="12" oninput="updateTriad()">
+              </div>
+
+              <!-- Intention phrasing lab -->
+              <div class="intention-checker">
+                <label for="intention-draft">Depurador de Intención (Meta: ≤ 10 palabras en presente)</label>
+                <input type="text" id="intention-draft" value="Estoy en calma y rodeado de oportunidades reales" oninput="evaluateIntention()">
+                <div class="button-row" style="justify-content: space-between;">
+                  <div id="intention-feedback" class="feedback-pill feedback-ok">8 palabras · Presente directo y coherente</div>
+                  <button type="button" class="btn btn-sm btn-ghost" onclick="sendIntentionToLog()">Pasar al Calibrador</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BELIEF NOISE CLEANER (BRIEF INTERACTIVE REFERENCE) -->
+      <section class="section-block">
+        <div class="section-head">
+          <span class="deck-gold">Limpieza del Canal · Reemplazo de Interferencia</span>
+          <h2>Transmuta creencias limitantes antes de emitir</h2>
+          <p>
+            Si repites una afirmación mientras tu biología se tensa, envías interferencia. Haz clic en cada creencia de baja frecuencia para revelar su reencuadre vibracional en presente y sostenlo con tres respiraciones profundas.
+          </p>
+        </div>
+        <div class="beliefs-grid">
+          <button type="button" class="belief-card" onclick="toggleBelief(this)"
+            data-noise="«No soy suficiente o no me lo merezco»"
+            data-clean="«Estoy aprendiendo a recibir y mi abundancia beneficia a todos»">
+            <span class="mono-kicker">Señal con Ruido</span>
+            <strong>«No soy suficiente o no me lo merezco»</strong>
+            <span style="font-size: 0.88rem; color: var(--on-surface-variant);">Toca para sintonizar la frecuencia limpia →</span>
+          </button>
+          <button type="button" class="belief-card" onclick="toggleBelief(this)"
+            data-noise="«Por favor universo, necesito un milagro urgente»"
+            data-clean="«Gracias porque esto ya vibra en mí; suelto el cuándo»">
+            <span class="mono-kicker">Señal con Ruido</span>
+            <strong>«Por favor universo, necesito un milagro urgente»</strong>
+            <span style="font-size: 0.88rem; color: var(--on-surface-variant);">Toca para sintonizar la frecuencia limpia →</span>
+          </button>
+          <button type="button" class="belief-card" onclick="toggleBelief(this)"
+            data-noise="«No es para mí, siempre termino fallando»"
+            data-clean="«Estoy disponible para el amor, la claridad y el flujo armónico»">
+            <span class="mono-kicker">Señal con Ruido</span>
+            <strong>«No es para mí, siempre termino fallando»</strong>
+            <span style="font-size: 0.88rem; color: var(--on-surface-variant);">Toca para sintonizar la frecuencia limpia →</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE TOOL 3: DAILY COHERENCE CALIBRATOR & LOG -->
+      <section id="calibrador" class="section-block">
+        <div class="section-head">
+          <span class="deck-gold">Protocolo Diario 3×2 min · Mañana, Mediodía y Noche</span>
+          <h2>Calibrador y registro diario de coherencia</h2>
+          <p>
+            La mente humana pierde la señal con facilidad; por eso el protocolo sugiere recalibrar 2 minutos tres veces al día respondiendo tres líneas honestas: tu <strong>Señal de hoy</strong>, tu <strong>Intención de hoy</strong> y tu <strong>Acción física coherente</strong>. Tus registros se guardan automáticamente entre sesiones.
+          </p>
+        </div>
+
+        <div class="panel">
+          <div class="calibrator-grid">
+            <form class="calibrator-form" onsubmit="saveCalibrationEntry(event)">
+              <div class="form-row-2">
+                <div class="field-group">
+                  <label for="cal-slot">Bloque del Día</label>
+                  <select id="cal-slot">
+                    <option value="Mañana">Mañana (Arranque)</option>
+                    <option value="Mediodía">Mediodía (Recalibración)</option>
+                    <option value="Noche">Noche (Cierre / Carta)</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <div class="field-label-row">
+                    <label for="cal-level">Señal Actual (1–10)</label>
+                    <span id="cal-level-val" class="field-value-badge accent-gold">7 / 10</span>
+                  </div>
+                  <input type="range" id="cal-level" min="1" max="10" value="7" oninput="updateCalLevelLabel(this.value)">
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="cal-signal">1. Señal de hoy — ¿Cómo vibro realmente?</label>
+                <input type="text" id="cal-signal" placeholder="Ej.: Hombros tensos por prisa, pero respirando para ordenar">
+              </div>
+
+              <div class="field-group">
+                <label for="cal-intention">2. Intención de hoy — Versión que emito al campo (≤ 10 palabras)</label>
+                <input type="text" id="cal-intention" placeholder="Ej.: Estoy en calma y rodeado de oportunidades reales">
+              </div>
+
+              <div class="field-group">
+                <label for="cal-action">3. Acción de hoy — ¿Qué hago físicamente para volverlo real?</label>
+                <input type="text" id="cal-action" placeholder="Ej.: Enviar el correo pendiente y caminar 15 minutos sin teléfono">
+              </div>
+
+              <label class="checkbox-row">
+                <input type="checkbox" id="cal-breath-done" checked>
+                <span style="font-size: 0.94rem; color: var(--on-surface);">Completé la respiración 6-6 y el anclaje de gratitud en el pecho</span>
+              </label>
+
+              <div id="cal-form-msg" role="status" aria-live="polite" style="font-size: 0.9rem; color: var(--tertiary); min-height: 1.4em;"></div>
+
+              <div class="button-row">
+                <button type="submit" class="btn btn-cyan">Registrar Calibración</button>
+                <button type="button" class="btn btn-ghost" onclick="exportCalibrationsCsv()">Exportar CSV</button>
+                <button type="button" id="cal-clear-btn" class="btn btn-ghost" onclick="clearAllCalibrations(this)">Borrar Historial</button>
+              </div>
+            </form>
+
+            <div style="display: grid; gap: var(--space-md);">
+              <div class="summary-strip">
+                <div class="stat-tile">
+                  <span class="stat-label">Calibraciones</span>
+                  <span class="stat-value accent-cyan" id="stat-total-logs">0</span>
+                </div>
+                <div class="stat-tile">
+                  <span class="stat-label">Coherencia Media</span>
+                  <span class="stat-value accent-gold" id="stat-avg-score">—</span>
+                </div>
+                <div class="stat-tile">
+                  <span class="stat-label">Sesiones 6-6</span>
+                  <span class="stat-value accent-positive" id="stat-breath-count">0</span>
+                </div>
+              </div>
+
+              <div class="sparkline-box">
+                <div class="field-label-row">
+                  <span class="mono-kicker">Curva de Coherencia Registrada</span>
+                  <span class="field-value-badge" id="sparkline-meta">Sin datos aún</span>
+                </div>
+                <svg id="coherence-sparkline" viewBox="0 0 420 82" style="width: 100%; height: 82px;" aria-label="Tendencia de calibraciones de coherencia"></svg>
+              </div>
+
+              <div id="cal-log-container" class="log-feed"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOURCES FOOTER -->
+      <footer class="sources-footer">
+        <span class="mono-kicker">Fuentes y Marco Conceptual</span>
+        <p>
+          Basado en los modelos biofísicos y cosmológicos de Itzhak Bentov (<em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> y <em>A Brief Tour of Higher Consciousness</em>), el análisis fisiológico de resonancia corazón–aorta (~7 Hz) e ionosfera terrestre (7.5 Hz), la dinámica de la Tríada de Manifestación y el protocolo práctico de cinco pasos «La Fórmula Bentov».
+        </p>
+
+        <div style="margin-top: 1.5rem;">
+          <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(242, 193, 78, 0.45); background: rgba(242, 193, 78, 0.10); color: var(--primary); font-family: var(--font-label); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+        </div>
+
+        <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+          <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a></span>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // 1. TOKEN COLOR LOOKUP (no inline hex in JS rendering)
+    // =========================================================================
+    function getToken(name, fallback) {
+      const val = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return val || fallback;
+    }
+
+    const REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // =========================================================================
+    // 2. COSMIC PARTICLES & HARMONIC LINES BACKGROUND
+    // =========================================================================
+    let bgAnimId = 0;
+    function initCosmicBackground() {
+      const canvas = document.getElementById('cosmic-bg');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const colorCyan = getToken('--tertiary', '#22e3ff');
+      const colorGold = getToken('--primary', '#f2c14e');
+
+      let width = 0;
+      let height = 0;
+      const particles = [];
+      const count = 42;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: 1 + Math.random() * 1.6,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          gold: i % 3 === 0,
+          alpha: 0.2 + Math.random() * 0.45
+        });
+      }
+
+      let t = 0;
+      function drawFrame() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Subtle luminous standing-wave threads across background
+        ctx.lineWidth = 1;
+        for (let w = 0; w < 2; w++) {
+          ctx.beginPath();
+          ctx.strokeStyle = w === 0 ? colorCyan : colorGold;
+          ctx.globalAlpha = 0.06;
+          const baseY = height * (w === 0 ? 0.28 : 0.72);
+          for (let x = 0; x <= width; x += 24) {
+            const y = baseY + Math.sin(x * 0.006 + t * (w === 0 ? 0.5 : -0.4)) * 28 * Math.sin(x / width * Math.PI);
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+
+        // Particles & subtle connections
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          if (!REDUCED_MOTION) {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+          }
+
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = p.gold ? colorGold : colorCyan;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j];
+            const dx = p.x - q.x;
+            const dy = p.y - q.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 130) {
+              ctx.globalAlpha = (1 - dist / 130) * 0.08;
+              ctx.strokeStyle = p.gold ? colorGold : colorCyan;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+
+        if (!REDUCED_MOTION) {
+          t += 0.015;
+          bgAnimId = requestAnimationFrame(drawFrame);
+        }
+      }
+
+      cancelAnimationFrame(bgAnimId);
+      drawFrame();
+    }
+
+    // =========================================================================
+    // 3. SECTION 1: HEART-AORTA COHERENCE VS STRESS WAVEFORM
+    // =========================================================================
+    let waveMode = 'coherent';
+    let waveAnimId = 0;
+
+    function setWaveMode(mode) {
+      waveMode = mode;
+      const btnCoh = document.getElementById('btn-wave-coherent');
+      const btnStr = document.getElementById('btn-wave-stress');
+      const cap = document.getElementById('wave-caption');
+
+      if (btnCoh && btnStr) {
+        btnCoh.className = mode === 'coherent' ? 'btn btn-sm btn-active-cyan' : 'btn btn-sm btn-ghost';
+        btnStr.className = mode === 'stress' ? 'btn btn-sm btn-active-gold' : 'btn btn-sm btn-ghost';
+      }
+      if (cap) {
+        if (mode === 'coherent') {
+          cap.innerHTML = `<strong class="accent-cyan">Resonancia armónica:</strong> La respiración suave y el pulso cardíaco se sincronizan. La amplitud sismográfica se triplica y los cinco osciladores internos vibran en fase con la cavidad terrestre (7.5 Hz).`;
+        } else {
+          cap.innerHTML = `<strong class="accent-gold">Interferencia destructiva (estrés):</strong> Las ondas de sangre rebotan en la bifurcación de las piernas a destiempo y chocan con el siguiente latido. El corazón empuja contra su propio eco.`;
+        }
+      }
+      if (REDUCED_MOTION) drawWaveOnce(0);
+    }
+
+    let wavePhase = 0;
+    function drawWaveOnce(phaseOffset) {
+      const canvas = document.getElementById('wave-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const w = canvas.clientWidth || 520;
+      const h = 250;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.floor(w * dpr)) {
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+      }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      const gridCol = getToken('--outline-variant', '#1b2a47');
+      const cyanCol = getToken('--tertiary', '#22e3ff');
+      const goldCol = getToken('--primary', '#f2c14e');
+      const errCol = getToken('--error', '#f27474');
+      const textCol = getToken('--on-surface-variant', '#9aaac6');
+
+      // Subtle oscilloscope grid
+      ctx.strokeStyle = gridCol;
+      ctx.lineWidth = 1;
+      for (let gx = 0; gx < w; gx += 40) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.lineTo(gx, h);
+        ctx.stroke();
+      }
+      for (let gy = 0; gy < h; gy += 40) {
+        ctx.beginPath();
+        ctx.moveTo(0, gy);
+        ctx.lineTo(w, gy);
+        ctx.stroke();
+      }
+
+      const midY = h * 0.52;
+
+      // Earth ionosphere reference (7.5 Hz subtle gold wave)
+      ctx.beginPath();
+      ctx.strokeStyle = goldCol;
+      ctx.globalAlpha = waveMode === 'coherent' ? 0.55 : 0.22;
+      ctx.lineWidth = 1.4;
+      for (let x = 0; x <= w; x += 2) {
+        const y = midY + Math.sin(x * 0.055 - phaseOffset) * 26;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+
+      // Heart-Aorta primary trace
+      ctx.beginPath();
+      ctx.strokeStyle = waveMode === 'coherent' ? cyanCol : errCol;
+      ctx.lineWidth = 2.4;
+      for (let x = 0; x <= w; x += 2) {
+        let y;
+        if (waveMode === 'coherent') {
+          const envelope = 0.8 + 0.2 * Math.sin(x * 0.012 - phaseOffset * 0.35);
+          y = midY + Math.sin(x * 0.055 - phaseOffset) * 66 * envelope;
+        } else {
+          // Chaotic collision of forward pulse + out-of-phase aortic reflection
+          const forward = Math.sin(x * 0.08 - phaseOffset * 1.6) * 32;
+          const collision = Math.sin(x * 0.19 + phaseOffset * 2.1) * 21;
+          const jitter = Math.sin(x * 0.41 - phaseOffset * 3.3) * 11;
+          y = midY + forward + collision + jitter;
+        }
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Legend inside canvas
+      ctx.font = `500 11px "JetBrains Mono", monospace`;
+      ctx.fillStyle = waveMode === 'coherent' ? cyanCol : errCol;
+      ctx.fillText(waveMode === 'coherent' ? 'ONDA CORAZÓN-AORTA · ~7.2 HZ EN FASE' : 'PULSO + ECO AÓRTICO EN CONFLICTO', 14, 22);
+      ctx.fillStyle = goldCol;
+      ctx.fillText('RESONANCIA IONOSFERA · 7.5 HZ', 14, h - 14);
+      ctx.fillStyle = textCol;
+      ctx.fillText(waveMode === 'coherent' ? 'AMPLITUD ×3' : 'ENERGÍA DISPERSA', w - 125, 22);
+    }
+
+    function startWaveLoop() {
+      cancelAnimationFrame(waveAnimId);
+      function tick() {
+        drawWaveOnce(wavePhase);
+        if (!REDUCED_MOTION) {
+          wavePhase += 0.055;
+          waveAnimId = requestAnimationFrame(tick);
+        }
+      }
+      tick();
+    }
+
+    // =========================================================================
+    // 4. INTERACTIVE TOOL 1: 6-6 BREATHING & 5-MIN RITUAL TRAINER
+    // =========================================================================
+    const RITUAL_PHASES = [
+      {
+        tag: `Paso 1 · Silencio y Pulso`,
+        instruction: `Apoya tus pies, alarga la espalda y observa tu latido sin forzar la respiración. Deja pasar los pensamientos como nubes; sintoniza tu portadora base.`
+      },
+      {
+        tag: `Paso 2 · Respiración Simétrica 6-6`,
+        instruction: `Inhala lento por la nariz durante 6 segundos y exhala suave por la boca otros 6 segundos, como una ola. Sincroniza corazón, pulmones y cerebro.`
+      },
+      {
+        tag: `Paso 3 · Gratitud en el Centro del Pecho`,
+        instruction: `Lleva tu atención al pecho y evoca una gratitud real y cotidiana. Siente cómo el calor eléctrico se expande y eleva la amplitud de tu onda.`
+      },
+      {
+        tag: `Paso 4 · Intención Presente y Escena Láser`,
+        instruction: `Formula tu intención en presente (≤10 palabras) y habita una sola escena sensorial como si ya vibrara en tu cuerpo aquí y ahora.`
+      },
+      {
+        tag: `Paso 5 · «Suelto el cuándo» y Microacción`,
+        instruction: `Suelta el control diciendo «suelto el cuándo» y pregunta en silencio: «¿Qué acción coherente puedo hacer hoy?». Prepárate para dar ese paso inmediato.`
+      }
+    ];
+
+    let ritualTotalSec = 300;
+    let ritualElapsedSec = 0;
+    let trainerRunning = false;
+    let trainerLastTs = 0;
+    let trainerAnimId = 0;
+    let pulseBpm = 64;
+    let audioEnabled = false;
+    let audioCtx = null;
+    let lastCompletedHalfCycle = -1;
+    let lastPhaseIdx = 0;
+
+    function setRitualMode(seconds) {
+      ritualTotalSec = seconds;
+      ritualElapsedSec = 0;
+      trainerRunning = false;
+      lastCompletedHalfCycle = -1;
+      const b5 = document.getElementById('mode-5min-btn');
+      const b2 = document.getElementById('mode-2min-btn');
+      if (b5 && b2) {
+        b5.className = seconds === 300 ? 'btn btn-sm btn-active-gold' : 'btn btn-sm btn-ghost';
+        b2.className = seconds === 120 ? 'btn btn-sm btn-active-gold' : 'btn btn-sm btn-ghost';
+      }
+      const labels5 = [`0:00–1:00`, `1:00–2:00`, `2:00–3:00`, `3:00–4:00`, `4:00–5:00`];
+      const labels2 = [`0:00–0:24`, `0:24–0:48`, `0:48–1:12`, `1:12–1:36`, `1:36–2:00`];
+      for (let i = 0; i < 5; i++) {
+        const el = document.getElementById(`p-dur-${i}`);
+        if (el) el.textContent = seconds === 300 ? labels5[i] : labels2[i];
+      }
+      const startBtn = document.getElementById('trainer-start-btn');
+      if (startBtn) startBtn.textContent = 'Iniciar Sesión';
+      updateTrainerUI();
+      drawBreathOrb(0);
+    }
+
+    function updatePulseBpm(val) {
+      pulseBpm = Number(val) || 64;
+      const badge = document.getElementById('pulse-bpm-val');
+      if (badge) badge.textContent = `${pulseBpm} lpm`;
+    }
+
+    function toggleAudioGuide() {
+      audioEnabled = !audioEnabled;
+      const btn = document.getElementById('audio-toggle-btn');
+      if (btn) {
+        btn.textContent = audioEnabled ? 'Campana Armónica: On' : 'Campana Armónica: Off';
+        btn.className = audioEnabled ? 'btn btn-sm btn-active-cyan' : 'btn btn-sm btn-ghost';
+        btn.setAttribute('aria-pressed', String(audioEnabled));
+      }
+      if (audioEnabled) playHarmonicChime(432, 0.14);
+    }
+
+    function playHarmonicChime(freq, gainLevel) {
+      if (!audioEnabled) return;
+      try {
+        const AudioCtor = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtor) return;
+        if (!audioCtx) audioCtx = new AudioCtor();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(gainLevel, now + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.68);
+      } catch (e) {
+        // Ignore audio context restrictions
+      }
+    }
+
+    function jumpToPhase(idx) {
+      const phaseDuration = ritualTotalSec / 5;
+      ritualElapsedSec = idx * phaseDuration;
+      lastPhaseIdx = idx;
+      updateTrainerUI();
+      drawBreathOrb(ritualElapsedSec);
+    }
+
+    function toggleTrainer() {
+      trainerRunning = !trainerRunning;
+      const btn = document.getElementById('trainer-start-btn');
+      if (btn) btn.textContent = trainerRunning ? 'Pausar Sesión' : 'Reanudar Sesión';
+      if (trainerRunning) {
+        if (ritualElapsedSec >= ritualTotalSec) ritualElapsedSec = 0;
+        trainerLastTs = performance.now();
+        playHarmonicChime(528, 0.1);
+        trainerTick(trainerLastTs);
+      } else {
+        cancelAnimationFrame(trainerAnimId);
+      }
+    }
+
+    function resetTrainer() {
+      trainerRunning = false;
+      cancelAnimationFrame(trainerAnimId);
+      ritualElapsedSec = 0;
+      lastCompletedHalfCycle = -1;
+      lastPhaseIdx = 0;
+      const btn = document.getElementById('trainer-start-btn');
+      if (btn) btn.textContent = 'Iniciar Sesión';
+      updateTrainerUI();
+      drawBreathOrb(0);
+    }
+
+    function trainerTick(ts) {
+      if (!trainerRunning) return;
+      const dt = Math.min((ts - trainerLastTs) / 1000, 0.25);
+      trainerLastTs = ts;
+      ritualElapsedSec += dt;
+
+      if (ritualElapsedSec >= ritualTotalSec) {
+        ritualElapsedSec = ritualTotalSec;
+        trainerRunning = false;
+        const btn = document.getElementById('trainer-start-btn');
+        if (btn) btn.textContent = 'Sesión Completa · Repetir';
+        playHarmonicChime(660, 0.14);
+        updateTrainerUI();
+        drawBreathOrb(ritualElapsedSec);
+        return;
+      }
+
+      // Chime on 6-second half-cycle transitions
+      const halfCycle = Math.floor(ritualElapsedSec / 6);
+      if (halfCycle !== lastCompletedHalfCycle) {
+        lastCompletedHalfCycle = halfCycle;
+        if (ritualElapsedSec > 0.2) {
+          playHarmonicChime(halfCycle % 2 === 0 ? 432 : 324, 0.08);
+        }
+      }
+
+      updateTrainerUI();
+      drawBreathOrb(ritualElapsedSec);
+      trainerAnimId = requestAnimationFrame(trainerTick);
+    }
+
+    function updateTrainerUI() {
+      const remaining = Math.max(0, ritualTotalSec - ritualElapsedSec);
+      const mins = Math.floor(remaining / 60);
+      const secs = Math.floor(remaining % 60);
+      const timerEl = document.getElementById('breath-timer-display');
+      if (timerEl) {
+        timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
+
+      const cycleCount = Math.floor(ritualElapsedSec / 12);
+      const cyclesEl = document.getElementById('breath-cycles-display');
+      if (cyclesEl) cyclesEl.textContent = String(cycleCount);
+
+      const phaseLen = ritualTotalSec / 5;
+      const phaseIdx = Math.min(4, Math.floor(ritualElapsedSec / phaseLen));
+      if (phaseIdx !== lastPhaseIdx) {
+        lastPhaseIdx = phaseIdx;
+      }
+
+      const phaseBtns = document.querySelectorAll('.phase-btn');
+      phaseBtns.forEach((b, idx) => {
+        b.classList.toggle('is-active', idx === phaseIdx);
+      });
+
+      const stepCards = document.querySelectorAll('.step-card');
+      stepCards.forEach((c, idx) => {
+        c.classList.toggle('is-highlighted', trainerRunning && idx === phaseIdx);
+      });
+
+      const tagEl = document.getElementById('trainer-step-tag');
+      const instrEl = document.getElementById('trainer-instruction');
+      if (tagEl && instrEl) {
+        tagEl.textContent = RITUAL_PHASES[phaseIdx].tag;
+        instrEl.textContent = RITUAL_PHASES[phaseIdx].instruction;
+      }
+
+      const breathLabel = document.getElementById('breath-phase-label');
+      if (breathLabel) {
+        if (!trainerRunning && ritualElapsedSec === 0) {
+          breathLabel.textContent = 'Listo (6-6)';
+          breathLabel.className = 'accent-cyan';
+        } else if (ritualElapsedSec >= ritualTotalSec) {
+          breathLabel.textContent = 'Coherente';
+          breathLabel.className = 'accent-gold';
+        } else {
+          const inCycle = ritualElapsedSec % 12;
+          const isInhale = inCycle < 6;
+          const secLeft = Math.ceil(isInhale ? 6 - inCycle : 12 - inCycle);
+          breathLabel.textContent = isInhale ? `Inhala ${secLeft}s` : `Exhala ${secLeft}s`;
+          breathLabel.className = isInhale ? 'accent-cyan' : 'accent-gold';
+        }
+      }
+    }
+
+    function drawBreathOrb(elapsed) {
+      const canvas = document.getElementById('breath-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const w = 360;
+      const h = 320;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.floor(w * dpr)) {
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+      }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      const cyanCol = getToken('--tertiary', '#22e3ff');
+      const goldCol = getToken('--primary', '#f2c14e');
+      const outlineCol = getToken('--outline', '#2e456e');
+      const textCol = getToken('--on-surface', '#eef3fb');
+      const mutedCol = getToken('--on-surface-variant', '#9aaac6');
+
+      const cx = w / 2;
+      const cy = h / 2 - 4;
+
+      // 6-6 smooth cosine breathing curve (0..1)
+      const cyclePos = (elapsed % 12) / 12;
+      const isInhale = cyclePos < 0.5;
+      const phaseProgress = isInhale ? cyclePos * 2 : (cyclePos - 0.5) * 2;
+      const smooth = isInhale
+        ? 0.5 - 0.5 * Math.cos(phaseProgress * Math.PI)
+        : 0.5 + 0.5 * Math.cos(phaseProgress * Math.PI);
+
+      const baseR = 46 + smooth * 58;
+
+      // Heartbeat carrier pulse ripple (BPM)
+      const beatPeriod = 60 / pulseBpm;
+      const beatPhase = (elapsed % beatPeriod) / beatPeriod;
+      const heartPulse = Math.pow(Math.max(0, 1 - beatPhase * 2.4), 2);
+
+      // Outer reference compass ring
+      ctx.strokeStyle = outlineCol;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 118, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Progress arc around outer ring
+      const ritualProgress = Math.min(1, elapsed / ritualTotalSec);
+      ctx.strokeStyle = goldCol;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 118, -Math.PI / 2, -Math.PI / 2 + ritualProgress * Math.PI * 2);
+      ctx.stroke();
+
+      // Carrier heartbeat halo
+      ctx.strokeStyle = goldCol;
+      ctx.globalAlpha = 0.15 + heartPulse * 0.55;
+      ctx.lineWidth = 1.5 + heartPulse * 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, baseR + 14 + heartPulse * 10, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+
+      // Main breathing orb glow
+      const grad = ctx.createRadialGradient(cx, cy, 8, cx, cy, baseR);
+      grad.addColorStop(0, isInhale ? cyanCol : goldCol);
+      grad.addColorStop(1, 'transparent');
+      ctx.globalAlpha = 0.28;
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, baseR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Main breathing perimeter
+      ctx.strokeStyle = isInhale ? cyanCol : goldCol;
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.arc(cx, cy, baseR, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Pendulum "Momento OFF" horizontal axis
+      ctx.strokeStyle = outlineCol;
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath();
+      ctx.moveTo(cx - 126, cy);
+      ctx.lineTo(cx + 126, cy);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Center label
+      const secRemain = Math.ceil(isInhale ? 6 - (elapsed % 12) : 12 - (elapsed % 12));
+      ctx.textAlign = 'center';
+      ctx.fillStyle = textCol;
+      ctx.font = `600 24px "JetBrains Mono", monospace`;
+      ctx.fillText(trainerRunning || elapsed > 0 ? `${secRemain}s` : `6:6`, cx, cy + 5);
+      ctx.fillStyle = mutedCol;
+      ctx.font = `500 11px "JetBrains Mono", monospace`;
+      ctx.fillText(
+        !trainerRunning && elapsed === 0
+          ? `INHALA NARIZ · EXHALA BOCA`
+          : (isInhale ? `INHALA POR NARIZ` : `EXHALA POR BOCA`),
+        cx,
+        cy + 25
+      );
+    }
+
+    // =========================================================================
+    // 5. INTERACTIVE TOOL 2: MANIFESTATION TRIAD MODULATOR & INTENTION CHECKER
+    // =========================================================================
+    function applyTriadPreset(mind, heart, action, doubt) {
+      const sM = document.getElementById('slider-mind');
+      const sH = document.getElementById('slider-heart');
+      const sA = document.getElementById('slider-action');
+      const sD = document.getElementById('slider-doubt');
+      if (sM) sM.value = mind;
+      if (sH) sH.value = heart;
+      if (sA) sA.value = action;
+      if (sD) sD.value = doubt;
+      updateTriad();
+    }
+
+    function updateTriad() {
+      const mind = Number((document.getElementById('slider-mind') || {}).value || 0);
+      const heart = Number((document.getElementById('slider-heart') || {}).value || 0);
+      const action = Number((document.getElementById('slider-action') || {}).value || 0);
+      const doubt = Number((document.getElementById('slider-doubt') || {}).value || 0);
+
+      const vM = document.getElementById('val-mind');
+      const vH = document.getElementById('val-heart');
+      const vA = document.getElementById('val-action');
+      const vD = document.getElementById('val-doubt');
+      if (vM) vM.textContent = `${mind}%`;
+      if (vH) vH.textContent = `${heart}%`;
+      if (vA) vA.textContent = `${action}%`;
+      if (vD) vD.textContent = `${doubt}%`;
+
+      // Geometric mean penalizes any missing vertex ("sin emoción no hay amplitud")
+      const harmonicAlign = Math.cbrt((mind / 100) * (heart / 100) * (action / 100)) * 100;
+      const noiseFactor = 1 - (doubt / 100) * 0.78;
+      const score = Math.max(0, Math.min(100, Math.round(harmonicAlign * noiseFactor)));
+
+      // Update SVG polygon vertices around center (180, 186)
+      const cx = 180;
+      const cy = 186;
+      const pMind = { x: 180, y: cy - (mind / 100) * 150 };
+      const pHeart = { x: cx - (heart / 100) * 132, y: cy + (heart / 100) * 76 };
+      const pAction = { x: cx + (action / 100) * 132, y: cy + (action / 100) * 76 };
+
+      const poly = document.getElementById('triad-poly');
+      if (poly) {
+        poly.setAttribute('points', `${pMind.x.toFixed(1)},${pMind.y.toFixed(1)} ${pHeart.x.toFixed(1)},${pHeart.y.toFixed(1)} ${pAction.x.toFixed(1)},${pAction.y.toFixed(1)}`);
+      }
+      const rayM = document.getElementById('ray-mind');
+      const rayH = document.getElementById('ray-heart');
+      const rayA = document.getElementById('ray-action');
+      if (rayM) { rayM.setAttribute('x1', pMind.x); rayM.setAttribute('y1', pMind.y); }
+      if (rayH) { rayH.setAttribute('x1', pHeart.x); rayH.setAttribute('y1', pHeart.y); }
+      if (rayA) { rayA.setAttribute('x1', pAction.x); rayA.setAttribute('y1', pAction.y); }
+
+      const core = document.getElementById('triad-core');
+      const aura = document.getElementById('triad-aura');
+      const noiseRing = document.getElementById('triad-noise-ring');
+      const scoreText = document.getElementById('triad-score-text');
+      if (core) core.setAttribute('r', String(11 + (score / 100) * 9));
+      if (aura) aura.setAttribute('r', String(24 + (score / 100) * 74));
+      if (noiseRing) {
+        noiseRing.setAttribute('stroke-opacity', String(0.1 + (doubt / 100) * 0.85));
+        noiseRing.setAttribute('r', String(32 + (doubt / 100) * 32));
+      }
+      if (scoreText) scoreText.textContent = `${score}%`;
+
+      const readout = document.getElementById('triad-power-readout');
+      const titleEl = document.getElementById('triad-diagnosis-title');
+      const descEl = document.getElementById('triad-diagnosis-desc');
+      if (readout) readout.textContent = `${score}% Coherencia`;
+
+      let title = '';
+      let desc = '';
+      if (doubt >= 60) {
+        title = `Interferencia por Duda («Tijeras en la Onda»)`;
+        desc = `Aunque visualices o actúes, la duda sostenida (${doubt}%) desfasea la señal. Vuelve al Paso 2 (respiración 6-6) y declara «suelto el cuándo» antes de emitir.`;
+      } else if (heart < 35 && mind >= 55) {
+        title = `Visualización sin Emoción (Señal Plana)`;
+        desc = `La mente proyecta una imagen, pero sin gratitud ni emoción en el pecho la onda portadora carece de amplitud para impactar el campo.`;
+      } else if (mind < 35 && heart >= 55) {
+        title = `Emoción sin Dirección («Wi-Fi sin Contraseña»)`;
+        desc = `Tu corazón genera abundante energía emocional, pero sin una escena concreta y breve la vibración se dispersa sin foco.`;
+      } else if (action < 40 && mind >= 55 && heart >= 55) {
+        title = `Intención Pasiva (Falta Anclaje Físico)`;
+        desc = `La señal interna es clara, pero sin una microacción congruente hoy te quedas mirando el resultado desde lejos. Cruza el puente físico.`;
+      } else if (score >= 70) {
+        title = `Láser Vibracional Coherente`;
+        desc = `Mente, corazón y acción vibran en fase con mínima duda. Tu cuerpo opera como una antena enfocada que modula el campo con nitidez.`;
+      } else {
+        title = `Señal en Calibración Parcial`;
+        desc = `Los tres vértices están presentes pero con intensidad moderada. Refuerza la emoción de gratitud en el pecho y define una escena sensorial única.`;
+      }
+
+      if (titleEl) titleEl.textContent = title;
+      if (descEl) descEl.textContent = desc;
+    }
+
+    function evaluateIntention() {
+      const input = document.getElementById('intention-draft');
+      const fb = document.getElementById('intention-feedback');
+      if (!input || !fb) return;
+
+      const raw = input.value.trim();
+      if (!raw) {
+        fb.className = 'feedback-pill feedback-warn';
+        fb.textContent = `Escribe una intención corta en tiempo presente.`;
+        return;
+      }
+
+      const words = raw.split(/\s+/).filter(Boolean);
+      const lower = raw.toLowerCase();
+      const lackTerms = ['quiero', 'necesito', 'ojalá', 'por favor', 'algún día', 'deseo', 'espero', 'tendré', 'voy a', 'no quiero'];
+      const hasLack = lackTerms.some(term => lower.includes(term));
+
+      if (hasLack) {
+        fb.className = 'feedback-pill feedback-err';
+        fb.textContent = `${words.length} palabras · Detectado tono de carencia o futuro; formula como «Ya vibra en mí»`;
+      } else if (words.length > 10) {
+        fb.className = 'feedback-pill feedback-warn';
+        fb.textContent = `${words.length} palabras · Acórtala a ≤10 palabras para lograr enfoque láser`;
+      } else {
+        fb.className = 'feedback-pill feedback-ok';
+        fb.textContent = `${words.length} palabras · Presente directo y coherente`;
+      }
+    }
+
+    function sendIntentionToLog() {
+      const draft = document.getElementById('intention-draft');
+      const target = document.getElementById('cal-intention');
+      const msg = document.getElementById('cal-form-msg');
+      if (draft && target) {
+        target.value = draft.value.trim();
+        target.focus();
+        if (msg) msg.textContent = `Intención copiada al Calibrador Diario.`;
+      }
+    }
+
+    // =========================================================================
+    // 6. BELIEF NOISE REFINER
+    // =========================================================================
+    function toggleBelief(btn) {
+      if (!btn) return;
+      const flipped = btn.classList.toggle('is-flipped');
+      const noise = btn.dataset.noise || '';
+      const clean = btn.dataset.clean || '';
+      if (flipped) {
+        btn.innerHTML = `<span class="mono-kicker accent-gold">Frecuencia Coherente (Respira 3×)</span><strong class="accent-gold">${clean}</strong><span style="font-size: 0.88rem; color: var(--on-surface-variant);">Siente esta verdad en el centro del pecho</span>`;
+      } else {
+        btn.innerHTML = `<span class="mono-kicker">Señal con Ruido</span><strong>${noise}</strong><span style="font-size: 0.88rem; color: var(--on-surface-variant);">Toca para sintonizar la frecuencia limpia →</span>`;
+      }
+    }
+
+    // =========================================================================
+    // 7. INTERACTIVE TOOL 3: DAILY COHERENCE CALIBRATOR & PERSISTENT STATE
+    // =========================================================================
+    let appState = {
+      calibrations: []
+    };
+
+    function updateCalLevelLabel(val) {
+      const lbl = document.getElementById('cal-level-val');
+      if (lbl) lbl.textContent = `${val} / 10`;
+    }
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (e) {
+        // Ignore persistence error in standalone preview
+      }
+    }
+
+    async function saveCalibrationEntry(e) {
+      if (e) e.preventDefault();
+      const slotEl = document.getElementById('cal-slot');
+      const levelEl = document.getElementById('cal-level');
+      const signalEl = document.getElementById('cal-signal');
+      const intentionEl = document.getElementById('cal-intention');
+      const actionEl = document.getElementById('cal-action');
+      const breathEl = document.getElementById('cal-breath-done');
+      const msgEl = document.getElementById('cal-form-msg');
+
+      const signalText = signalEl ? signalEl.value.trim() : '';
+      const intentionText = intentionEl ? intentionEl.value.trim() : '';
+      const actionText = actionEl ? actionEl.value.trim() : '';
+
+      if (!signalText || !intentionText || !actionText) {
+        if (msgEl) {
+          msgEl.style.color = 'var(--error)';
+          msgEl.textContent = `Completa las 3 líneas (Señal, Intención y Acción) para registrar tu calibración.`;
+        }
+        return;
+      }
+
+      const entry = {
+        id: Date.now(),
+        timestamp: new Date().toLocaleString('es-419', {
+          day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+        }),
+        slot: slotEl ? slotEl.value : 'Mañana',
+        level: Number(levelEl ? levelEl.value : 7),
+        signal: signalText,
+        intention: intentionText,
+        action: actionText,
+        breathDone: Boolean(breathEl ? breathEl.checked : true)
+      };
+
+      appState.calibrations.unshift(entry);
+      if (appState.calibrations.length > 50) appState.calibrations.pop();
+
+      await persistState();
+      renderCalibrations();
+
+      if (signalEl) signalEl.value = '';
+      if (actionEl) actionEl.value = '';
+      if (msgEl) {
+        msgEl.style.color = 'var(--positive)';
+        msgEl.textContent = `Calibración guardada. Ahora ejecuta tu microacción sin postergar.`;
+      }
+    }
+
+    async function deleteCalibration(id) {
+      appState.calibrations = appState.calibrations.filter(item => item.id !== id);
+      await persistState();
+      renderCalibrations();
+    }
+
+    async function clearAllCalibrations(btn) {
+      if (!btn) return;
+      if (appState.calibrations.length === 0) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Confirmar Borrado';
+        btn.classList.add('btn-active-gold');
+        setTimeout(() => {
+          if (btn.dataset.armed === 'true') {
+            btn.dataset.armed = 'false';
+            btn.textContent = 'Borrar Historial';
+            btn.classList.remove('btn-active-gold');
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Borrar Historial';
+      btn.classList.remove('btn-active-gold');
+      appState.calibrations = [];
+      await persistState();
+      renderCalibrations();
+    }
+
+    function exportCalibrationsCsv() {
+      const msgEl = document.getElementById('cal-form-msg');
+      if (appState.calibrations.length === 0) {
+        if (msgEl) {
+          msgEl.style.color = 'var(--primary)';
+          msgEl.textContent = `Registra al menos una calibración antes de exportar.`;
+        }
+        return;
+      }
+      const esc = (s) => `"${String(s).replace(/"/g, '""')}"`;
+      const lines = ['Fecha,Bloque,Nivel_1_10,Respiracion_6_6,Senal,Intencion,Accion'];
+      appState.calibrations.forEach(row => {
+        lines.push([
+          esc(row.timestamp),
+          esc(row.slot),
+          row.level,
+          row.breathDone ? 'Si' : 'No',
+          esc(row.signal),
+          esc(row.intention),
+          esc(row.action)
+        ].join(','));
+      });
+      const csv = lines.join('\n');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: csv,
+          contentType: 'text/csv',
+          encoding: 'UTF-8',
+          filename: 'calibrador-bentov.csv'
+        });
+      }
+      if (msgEl) {
+        msgEl.style.color = 'var(--tertiary)';
+        msgEl.textContent = `Archivo calibrador-bentov.csv preparado para descarga.`;
+      }
+    }
+
+    function renderCalibrations() {
+      const container = document.getElementById('cal-log-container');
+      const totalEl = document.getElementById('stat-total-logs');
+      const avgEl = document.getElementById('stat-avg-score');
+      const breathEl = document.getElementById('stat-breath-count');
+      const sparkMeta = document.getElementById('sparkline-meta');
+      const sparkSvg = document.getElementById('coherence-sparkline');
+
+      const list = appState.calibrations || [];
+      if (totalEl) totalEl.textContent = String(list.length);
+
+      if (list.length === 0) {
+        if (avgEl) avgEl.textContent = '—';
+        if (breathEl) breathEl.textContent = '0';
+        if (sparkMeta) sparkMeta.textContent = 'Sin datos aún';
+        if (sparkSvg) {
+          sparkSvg.innerHTML = `<line x1="8" y1="41" x2="412" y2="41" stroke="var(--outline-variant)" stroke-dasharray="4 4"/>` +
+            `<text x="210" y="45" text-anchor="middle" fill="var(--on-surface-variant)" font-family="var(--font-label)" font-size="11">Tu curva de coherencia aparecerá al guardar la primera entrada</text>`;
+        }
+        if (container) {
+          container.innerHTML = `<div class="empty-state"><span class="mono-kicker">Estado Inicial Vacío</span><p style="font-size: 0.92rem;">Aún no has registrado ninguna calibración diaria. Completa tus 3 líneas honestas a la izquierda para iniciar tu bitácora vibracional.</p></div>`;
+        }
+        return;
+      }
+
+      const avg = (list.reduce((acc, r) => acc + Number(r.level || 0), 0) / list.length).toFixed(1);
+      const breathCount = list.filter(r => r.breathDone).length;
+      if (avgEl) avgEl.textContent = `${avg}/10`;
+      if (breathEl) breathEl.textContent = String(breathCount);
+      if (sparkMeta) sparkMeta.textContent = `Últimas ${Math.min(list.length, 14)} sesiones`;
+
+      // Render SVG sparkline (chronological left to right)
+      if (sparkSvg) {
+        const recent = list.slice(0, 14).reverse();
+        const w = 420;
+        const h = 82;
+        const padX = 16;
+        const padY = 12;
+        const stepX = recent.length > 1 ? (w - padX * 2) / (recent.length - 1) : 0;
+
+        const pts = recent.map((item, i) => {
+          const x = recent.length > 1 ? padX + i * stepX : w / 2;
+          const y = h - padY - ((item.level - 1) / 9) * (h - padY * 2);
+          return { x, y, level: item.level };
+        });
+
+        let svgHtml = `<line x1="${padX}" y1="${h - padY}" x2="${w - padX}" y2="${h - padY}" stroke="var(--outline-variant)" stroke-width="1"/>`;
+        if (pts.length > 1) {
+          const polyPts = pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+          svgHtml += `<polyline points="${polyPts}" fill="none" stroke="var(--tertiary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+        }
+        pts.forEach(p => {
+          svgHtml += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.8" fill="var(--primary)" stroke="var(--background)" stroke-width="1.2"/>`;
+        });
+        sparkSvg.innerHTML = svgHtml;
+      }
+
+      // Render log feed safely
+      if (container) {
+        container.innerHTML = '';
+        list.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'log-entry';
+
+          const head = document.createElement('div');
+          head.className = 'log-entry-head';
+
+          const meta = document.createElement('span');
+          meta.className = 'mono-kicker';
+          meta.textContent = `${item.slot} · ${item.timestamp}`;
+
+          const rightWrap = document.createElement('div');
+          rightWrap.style.display = 'flex';
+          rightWrap.style.gap = 'var(--space-sm)';
+          rightWrap.style.alignItems = 'center';
+
+          const scoreBadge = document.createElement('span');
+          scoreBadge.className = 'field-value-badge accent-gold';
+          scoreBadge.textContent = `Señal ${item.level}/10`;
+
+          const delBtn = document.createElement('button');
+          delBtn.type = 'button';
+          delBtn.className = 'btn btn-sm btn-ghost';
+          delBtn.textContent = 'Quitar';
+          delBtn.onclick = function() { deleteCalibration(item.id); };
+
+          rightWrap.appendChild(scoreBadge);
+          rightWrap.appendChild(delBtn);
+          head.appendChild(meta);
+          head.appendChild(rightWrap);
+
+          const p1 = document.createElement('p');
+          p1.style.fontSize = '0.9rem';
+          const s1 = document.createElement('strong');
+          s1.textContent = 'Señal: ';
+          p1.appendChild(s1);
+          p1.appendChild(document.createTextNode(item.signal));
+
+          const p2 = document.createElement('p');
+          p2.style.fontSize = '0.9rem';
+          const s2 = document.createElement('strong');
+          s2.textContent = 'Intención: ';
+          p2.appendChild(s2);
+          p2.appendChild(document.createTextNode(item.intention));
+
+          const p3 = document.createElement('p');
+          p3.style.fontSize = '0.9rem';
+          const s3 = document.createElement('strong');
+          s3.textContent = 'Acción: ';
+          p3.appendChild(s3);
+          p3.appendChild(document.createTextNode(item.action + (item.breathDone ? ' · [6-6 completado]' : '')));
+
+          card.appendChild(head);
+          card.appendChild(p1);
+          card.appendChild(p2);
+          card.appendChild(p3);
+          container.appendChild(card);
+        });
+      }
+    }
+
+    // =========================================================================
+    // 8. APP INITIALIZATION & NOTEBOOK SHIM LIFECYCLE
+    // =========================================================================
+    async function initApp() {
+      initCosmicBackground();
+      startWaveLoop();
+      setRitualMode(300);
+      updateTriad();
+      evaluateIntention();
+
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && Array.isArray(saved.calibrations)) {
+            appState.calibrations = saved.calibrations;
+          }
+        }
+      } catch (e) {
+        // Fallback cleanly to empty state
+      }
+
+      renderCalibrations();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

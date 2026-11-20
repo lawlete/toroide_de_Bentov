@@ -1191,14 +1191,14 @@
     <section class="section-block reveal-on-scroll" id="mapa-ecosistema" aria-labelledby="map-title">
       <div class="section-header-row">
         <div class="section-header-text">
-          <p class="deck-brass">Cartografía conceptual · Cuatro puertas de entrada</p>
+          <p class="deck-brass">Cartografía conceptual · Cinco puertas de entrada</p>
           <h2 class="section-title" id="map-title">Mapa interactivo del ecosistema Bentov</h2>
           <p class="prose-body">
-            Selecciona cualquiera de los cuatro módulos para visualizar cómo se entrelazan dentro de la arquitectura
+            Selecciona cualquiera de los cinco módulos para visualizar cómo se entrelazan dentro de la arquitectura
             holográfica de Bentov y saltar directamente a su laboratorio interactivo.
           </p>
         </div>
-        <span class="badge">4 MÓDULOS INTERCONECTADOS</span>
+        <span class="badge">5 MÓDULOS INTERCONECTADOS</span>
       </div>
 
       <div class="ecosystem-layout">
@@ -1245,6 +1245,17 @@
             <h3>Fisiomecánica de la Kundalini</h3>
             <p>Ondas estacionarias acústicas en los ventrículos cerebrales, circuito del homúnculo cortical y disolución
               de bloqueos.</p>
+          </button>
+
+          <button type="button" class="module-map-card" id="map-card-4" onclick="selectEcosystemNode(4)"
+            role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 05</span>
+              <span class="badge badge-mint">Manifestación</span>
+            </div>
+            <h3>El Método Bentov de Manifestación</h3>
+            <p>La Fórmula de 5 Pasos: pulso portador, respiración 6-6, gratitud cardíaca, láser mental y acción
+              congruente.</p>
           </button>
         </div>
 
@@ -1753,6 +1764,71 @@
           <div style="margin-top: var(--space-lg);">
             <a class="btn btn-primary" href="Fisiomecánica_de_la_Kundalini_(Bentov).html">Ampliar en Fisiomecánica de la
               Kundalini →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 05: EL MÉTODO BENTOV DE MANIFESTACIÓN -->
+    <section class="section-block reveal-on-scroll" id="modulo-manifestacion" aria-labelledby="manifest-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 05 · Protocolo Biofísico de Coherencia Vibracional</p>
+          <h2 class="section-title" id="manifest-title">El Método Bentov de Manifestación (Fórmula de 5 Pasos)</h2>
+        </div>
+        <span class="badge badge-mint">TRÍADA DE COHERENCIA · 5 MIN</span>
+      </div>
+
+      <div class="deep-module">
+        <div class="module-narrative">
+          <p class="prose-body">
+            Para Itzhak Bentov, manifestar no consiste en repetir afirmaciones mecánicas desde la ansiedad, sino en afinar el cuerpo humano como un <strong>oscilador resonante</strong>. Cuando corazón, respiración y cerebro entran en fase cerca de los 7 Hz, la biología deja de emitir interferencia destructiva y proyecta una señal coherente.
+          </p>
+          <ul class="fact-list">
+            <li><strong>Onda portadora cardíaca (Min 0–2):</strong> Escuchar el latido en silencio y aplicar respiración simétrica <strong>6s inhalar / 6s exhalar</strong> elimina el choque de ecos en la aorta y alinea el sistema nervioso en fase armónica.</li>
+            <li><strong>Gratitud como contraseña (Min 2–3):</strong> Evocar gratitud genuina en el centro del pecho ordena la bioelectricidad del corazón, cuyo campo electromagnético es ~5,000 veces mayor que el cerebral.</li>
+            <li><strong>La mente como láser modulador (Min 3–4):</strong> Con el campo cardíaco estable, una intención breve en tiempo presente (&le;10 palabras) y una única escena sensorial vívida modulan la onda portadora con precisión.</li>
+            <li><strong>Soltar el cuándo y actuar (Min 4–5):</strong> La ansiedad corta la onda como tijeras. Declarar <em>«Suelto el cuándo»</em> y ejecutar una acción física congruente transforma la coherencia eléctrica en movimiento observable.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="El_Método_Bentov_de_Manifestación.html">Ampliar en El Método Bentov de Manifestación →</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <span class="coord-label">EXPLORADOR DEL PROTOCOLO · 5 MINUTOS</span>
+          <h3 class="subsection-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+            Secuencia operativa de la Fórmula Bentov
+          </h3>
+
+          <div class="interactive-toolbar">
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectManifestStep(0, this)">01 · Pulso</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectManifestStep(1, this)">02 · Resp. 6-6</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectManifestStep(2, this)">03 · Gratitud</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectManifestStep(3, this)">04 · Láser</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectManifestStep(4, this)">05 · Acción</button>
+          </div>
+
+          <div class="zone-readout" aria-live="polite" style="margin-top: 0;">
+            <span class="coord-label" id="manifest-step-tag">PASO 01 (MIN 0–1) · ONDA PORTADORA</span>
+            <p class="prose-body" id="manifest-step-text" style="font-size: 0.93rem; margin-top: var(--space-xs);">
+              Siéntate cómodo con espalda larga y dirige tu atención al latido cardíaco. El pulso rítmico es la frecuencia portadora sobre la que viajará toda la señal; al observar en silencio pasas de ondas beta aceleradas a ritmos alfa/theta receptivos.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); margin-top: var(--space-md);">
+            <div style="background: var(--surface-container-low); border: var(--hairline); border-radius: var(--rounded); padding: var(--space-sm);">
+              <span class="coord-label" style="display: block;">PORTADORA</span>
+              <strong style="font-size: 0.88rem; color: var(--primary);">Corazón · 7 Hz</strong>
+            </div>
+            <div style="background: var(--surface-container-low); border: var(--hairline); border-radius: var(--rounded); padding: var(--space-sm);">
+              <span class="coord-label" style="display: block;">AMPLIFICADOR</span>
+              <strong style="font-size: 0.88rem; color: var(--positive);">Gratitud Real</strong>
+            </div>
+            <div style="background: var(--surface-container-low); border: var(--hairline); border-radius: var(--rounded); padding: var(--space-sm);">
+              <span class="coord-label" style="display: block;">MODULADOR</span>
+              <strong style="font-size: 0.88rem; color: var(--tertiary);">Escena Presente</strong>
+            </div>
           </div>
         </div>
       </div>
@@ -2296,6 +2372,13 @@
         desc: `Las ondas estacionarias en los ventrículos cerebrales estimulan secuencialmente el homúnculo sensorial, liberando bloqueos y sincronizando ambos hemisferios.`,
         href: `#modulo-kundalini`,
         pageHref: `Fisiomecánica_de_la_Kundalini_(Bentov).html`
+      },
+      {
+        tag: `MÓDULO 05 · MANIFESTACIÓN COHERENTE`,
+        title: `El Método Bentov de Manifestación`,
+        desc: `La Fórmula de 5 Pasos para sintonizar pulso, respiración 6-6, gratitud cardíaca, intención láser en presente y acción congruente sin ansiedad.`,
+        href: `#modulo-manifestacion`,
+        pageHref: `El_Método_Bentov_de_Manifestación.html`
       }
     ];
 
@@ -2303,7 +2386,7 @@
       const mod = ecosystemModules[idx];
       if (!mod) return;
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 5; i++) {
         const card = document.getElementById(`map-card-${i}`);
         const svgNode = document.getElementById(`svg-node-${i}`);
         if (card) {
@@ -2328,6 +2411,45 @@
       if (descEl) descEl.textContent = mod.desc;
       if (ctaEl) ctaEl.setAttribute('href', mod.href);
       if (fullCtaEl && mod.pageHref) fullCtaEl.setAttribute('href', mod.pageHref);
+    }
+
+    const manifestSteps = [
+      {
+        tag: `PASO 01 (MIN 0–1) · ONDA PORTADORA`,
+        text: `Siéntate cómodo con espalda larga y dirige tu atención al latido cardíaco. El pulso rítmico es la frecuencia portadora sobre la que viajará toda la señal; al observar en silencio pasas de ondas beta aceleradas a ritmos alfa/theta receptivos.`
+      },
+      {
+        tag: `PASO 02 (MIN 1–2) · RESPIRACIÓN SIMÉTRICA 6-6`,
+        text: `Inhala 6 segundos por la nariz y exhala 6 segundos suave por la boca durante al menos tres ciclos. Esta simetría coordina pulmones, diafragma, corazón y cerebro, cesando el choque de ecos en la aorta.`
+      },
+      {
+        tag: `PASO 03 (MIN 2–3) · GRATITUD EN EL CENTRO DEL PECHO`,
+        text: `Evoca una gratitud real y cotidiana sintiendo el calor físico en el tórax. La gratitud auténtica ordena la bioelectricidad del corazón y multiplica la amplitud de su campo electromagnético.`
+      },
+      {
+        tag: `PASO 04 (MIN 3–4) · INTENCIÓN LÁSER EN PRESENTE`,
+        text: `Formula una frase corta (10 palabras o menos) en tiempo presente y visualiza una única escena sensorial concreta donde ya estás viviendo ese estado desde adentro.`
+      },
+      {
+        tag: `PASO 05 (MIN 4–5) · SOLTAR EL CUÁNDO + ACCIÓN`,
+        text: `Declara con certeza «Suelto el cuándo» para evitar que la ansiedad corte la onda, y ejecuta de inmediato una primera acción física concreta y congruente.`
+      }
+    ];
+
+    function selectManifestStep(idx, btnEl) {
+      const item = manifestSteps[idx];
+      if (!item) return;
+      const toolbar = btnEl ? btnEl.parentElement : null;
+      if (toolbar) {
+        toolbar.querySelectorAll('.btn-chip').forEach(function (b) {
+          b.setAttribute('aria-pressed', 'false');
+        });
+      }
+      if (btnEl) btnEl.setAttribute('aria-pressed', 'true');
+      const tagEl = document.getElementById('manifest-step-tag');
+      const textEl = document.getElementById('manifest-step-text');
+      if (tagEl) tagEl.textContent = item.tag;
+      if (textEl) textEl.textContent = item.text;
     }
 
     // ---------------------------------------------------------

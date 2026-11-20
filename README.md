@@ -9,6 +9,7 @@ Portal de exploraciones interactivas sobre la cosmología de la conciencia y la 
 3. **[Materia y Símbolos de la Creación](./Materia_y_Símbolos_de_la_Creación_(Bentov).html)** — Recorrido narrativo y simulaciones vibracionales sobre cómo el Absoluto condensa energía en materia mediante parpadeo atómico, discos moduladores sánscritos y matrices de interferencia del Álef hebreo.
 4. **[Fisiología de la Quietud y Resonancia a 7 Hz](./Fisiología_de_la_Quietud_y_Resonancia_7_Hz_(Bentov).html)** — Biofísica de laboratorio sobre el acoplamiento corazón–aorta, onda senoidal resonante de ~7 Hz, micromovimiento craneal y sincronía con la Resonancia Schumann.
 5. **[Fisiomecánica de la Kundalini](./Fisiomecánica_de_la_Kundalini_(Bentov).html)** — Modelo biomecánico de Bentov–Sannella sobre los 5 osciladores acoplados, ondas estacionarias en los ventrículos cerebrales y el circuito del homúnculo sensorial.
+6. **[El Método Bentov de Manifestación](./El_Método_Bentov_de_Manifestación.html)** — La Fórmula de 5 Pasos para la coherencia vibracional: pulso portador, respiración simétrica 6-6, gratitud cardíaca, láser mental en presente y acción congruente.
 
 ## Despliegue en GitHub Pages
 
