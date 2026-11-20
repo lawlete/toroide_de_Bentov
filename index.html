@@ -3,69 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="artifact-type" content="portal">
+  <meta name="artifact-type" content="narrative">
   <meta name="design-style" content="nocturne">
-  <title>Cosmología de Itzhak Bentov · Exploraciones Interactivas</title>
+  <title>Itzhak Bentov · Observatorio de la Conciencia y la Mecánica Cósmica</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
   <style>
     :root {
       color-scheme: dark;
 
-      /* Deep space surfaces (Nocturne cosmic base) */
-      --background: #060b14;
-      --surface-container-low: #0a1220;
-      --surface-container: #0e1829;
-      --surface-container-high: #152238;
+      /* Nocturne: Prussian midnight surfaces */
+      --background: #0a101d;
+      --surface-container-low: #0e1626;
+      --surface-container: #111b2e;
+      --surface-container-high: #17243c;
 
       /* Text */
-      --on-surface: #f4f7fb;
-      --on-surface-variant: #9eb2c7;
+      --on-surface: #f2ece1;
+      --on-surface-variant: #9ba8bf;
 
       /* Borders */
-      --outline: #364f73;
-      --outline-variant: #1e2f4a;
+      --outline: #384d73;
+      --outline-variant: #21304d;
 
-      /* Luminous cosmic accents: Gold, Cyan */
-      --primary: #efc062;
-      --on-primary: #060b14;
-      --primary-container: #2a2314;
-      --on-primary-container: #fae1a8;
-      --tertiary: #5be0f0;
-      --on-tertiary: #041317;
-      --tertiary-container: #0e2c36;
-      --on-tertiary-container: #c8f7fc;
-      --positive: #5de0a8;
+      /* Accents: Celestial brass (gold) & Horizon sky (cyan) */
+      --primary: #dfaa5b;
+      --on-primary: #0a101d;
+      --primary-container: #2b261c;
+      --on-primary-container: #f5dcb0;
+      --secondary: #687a99;
+      --tertiary: #7cc4e8;
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Data series */
+      --data-1: #dfaa5b;
+      --data-2: #7cc4e8;
+      --data-3: #52d19c;
+      --data-4: #e07a5f;
+      --data-context: #4a5d80;
+
+      /* Semantic & Focus */
+      --positive: #52d19c;
+      --warning: #dfaa5b;
+      --focus: #dfaa5b;
 
       /* Fonts */
-      --font-headline: 'Space Grotesk', sans-serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-headline: 'EB Garamond', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
       --font-label: 'JetBrains Mono', monospace;
 
-      /* Type scale */
-      --display-size: clamp(2.25rem, 1.35rem + 3.4vw, 3.85rem);
-      --subhead-size: clamp(1.15rem, 1.02rem + 0.55vw, 1.45rem);
-      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
-      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
-
-      /* Shape & effects */
-      --rounded: 0.375rem;
-      --rounded-lg: 0.875rem;
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
       --rounded-full: 9999px;
+
+      /* Style effects & holographic hairlines */
       --hairline: 1px solid var(--outline-variant);
       --hairline-strong: 1px solid var(--outline);
-      --panel-highlight: inset 0 1px 0 rgba(244, 247, 251, 0.06);
+      --panel-highlight: inset 0 1px 0 rgba(242, 236, 225, 0.06);
+      --brass-glow: radial-gradient(circle at 86% 14%, rgba(223, 170, 91, 0.11), transparent 46%);
+      --cyan-glow: radial-gradient(circle at 14% 78%, rgba(124, 196, 232, 0.08), transparent 48%);
+      --holo-grid: linear-gradient(rgba(124, 196, 232, 0.04) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(124, 196, 232, 0.04) 1px, transparent 1px);
+      --brass-ring: 0 0 0 1px rgba(223, 170, 91, 0.45), 0 0 24px rgba(223, 170, 91, 0.1);
+      --cyan-ring: 0 0 0 1px rgba(124, 196, 232, 0.45), 0 0 24px rgba(124, 196, 232, 0.1);
+      --heading-tracking: -0.015em;
+      --label-tracking: 0.06em;
+      --sky-tint: color-mix(in srgb, var(--tertiary) 12%, transparent);
+      --brass-tint: color-mix(in srgb, var(--primary) 14%, transparent);
+      --mint-tint: color-mix(in srgb, var(--positive) 12%, transparent);
+      --sky-border: color-mix(in srgb, var(--tertiary) 35%, transparent);
+      --brass-border: color-mix(in srgb, var(--primary) 35%, transparent);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.5rem, 1.45rem + 4vw, 4.35rem);
+      --headline-size: clamp(1.85rem, 1.25rem + 2vw, 2.65rem);
+      --subhead-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+      --body-size: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 140ms;
+      --dur-short: 240ms;
+      --dur-long: 460ms;
     }
 
+    /* Base reset */
     *, *::before, *::after { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     html, body {
       overflow-x: clip;
       margin: 0;
       padding: 0;
-      min-height: 100%;
       background-color: var(--background);
       color: var(--on-surface);
       font-family: var(--font-body);
@@ -74,359 +117,2502 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Deep space ambient starfield backdrop */
-    .cosmos-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 86% 14%, rgba(239, 192, 98, 0.11), transparent 46%),
-        radial-gradient(circle at 14% 28%, rgba(91, 224, 240, 0.09), transparent 48%),
-        radial-gradient(ellipse at 50% 0%, #0e1a30 0%, #060b14 70%);
+    body {
+      background-image: var(--brass-glow), var(--cyan-glow);
+      background-attachment: fixed;
     }
 
-    .cosmos-backdrop::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.32;
-      background-image:
-        radial-gradient(1px 1px at 12% 18%, #f4f7fb 50%, transparent 100%),
-        radial-gradient(1px 1px at 28% 72%, #5be0f0 50%, transparent 100%),
-        radial-gradient(1.2px 1.2px at 44% 34%, #efc062 50%, transparent 100%),
-        radial-gradient(1px 1px at 63% 14%, #f4f7fb 50%, transparent 100%),
-        radial-gradient(1px 1px at 78% 58%, #5be0f0 50%, transparent 100%),
-        radial-gradient(1.2px 1.2px at 91% 27%, #efc062 50%, transparent 100%),
-        radial-gradient(1px 1px at 19% 88%, #f4f7fb 50%, transparent 100%),
-        radial-gradient(1px 1px at 54% 82%, #f4f7fb 50%, transparent 100%),
-        radial-gradient(1px 1px at 84% 86%, #5be0f0 50%, transparent 100%);
+    header { position: static !important; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
     }
 
-    .page-shell {
-      position: relative;
-      z-index: 1;
-      max-width: 1120px;
+    button, input, select {
+      font-family: inherit;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1240px;
       margin: 0 auto;
-      padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 2.5rem) 2rem;
-      min-height: 100vh;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Top Observatory Header */
+    .observatory-header {
+      border-bottom: var(--hairline);
+      background: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .brand-coords {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: var(--space-xs);
     }
 
-    /* Hero */
-    .hero-header {
-      text-align: left;
-      padding-bottom: clamp(2rem, 4vw, 3rem);
-      border-bottom: var(--hairline);
-    }
-
-    .deck-brass {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+    .coord-label {
       font-family: var(--font-label);
       font-size: var(--label-size);
-      letter-spacing: 0.08em;
+      letter-spacing: var(--label-tracking);
       text-transform: uppercase;
-      color: var(--primary);
-      background: color-mix(in srgb, var(--primary) 12%, transparent);
-      border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
-      padding: 0.35rem 0.85rem;
-      border-radius: var(--rounded-full);
-      margin-bottom: 1.25rem;
+      color: var(--tertiary);
     }
 
+    .brand-name {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 500;
+      color: var(--on-surface);
+      letter-spacing: var(--heading-tracking);
+    }
+
+    .nav-rail {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .nav-link {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: 1px solid transparent;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .nav-link:hover {
+      color: var(--on-surface);
+      border-color: var(--outline-variant);
+      background-color: var(--surface-container);
+    }
+
+    /* Typography helpers */
     .display-title {
       font-family: var(--font-headline);
       font-size: var(--display-size);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.025em;
-      margin: 0 0 1.15rem;
+      font-weight: 500;
+      line-height: 1.06;
+      letter-spacing: var(--heading-tracking);
       color: var(--on-surface);
-    }
-
-    .accent-gold { color: var(--primary); }
-    .accent-cyan { color: var(--tertiary); }
-
-    .hero-lede {
-      max-width: 68ch;
-      color: var(--on-surface-variant);
       margin: 0;
-      font-size: clamp(1.02rem, 0.98rem + 0.25vw, 1.16rem);
     }
 
-    .hero-lede strong {
+    .display-title em,
+    .section-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--primary);
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .subsection-title {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .deck-brass {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .prose-lead {
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      color: var(--on-surface);
+      max-width: 62ch;
+      margin: 0;
+    }
+
+    .prose-body {
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+      margin: 0;
+    }
+
+    .prose-body strong {
       color: var(--on-surface);
       font-weight: 600;
     }
 
-    /* Portal Cards Grid */
-    .portal-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(1.25rem, 2.5vw, 2rem);
-      margin: clamp(2rem, 4vw, 3rem) 0;
+    /* Nocturne Panels & Recessed Wells */
+    .panel {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
     }
 
-    @media (max-width: 820px) {
-      .portal-grid {
+    .observation-well {
+      background-color: var(--background);
+      background-image: var(--holo-grid);
+      background-size: 28px 28px;
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border: 1px solid var(--sky-border);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge-brass {
+      background: var(--brass-tint);
+      color: var(--primary);
+      border-color: var(--brass-border);
+    }
+
+    .badge-mint {
+      background: var(--mint-tint);
+      color: var(--positive);
+      border-color: color-mix(in srgb, var(--positive) 35%, transparent);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-container-high);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+    }
+
+    .btn-chip {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      border: var(--hairline-strong);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-chip:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+
+    .btn-chip[aria-pressed="true"] {
+      background: var(--primary-container);
+      color: var(--primary);
+      box-shadow: var(--brass-ring);
+      border-color: var(--primary);
+    }
+
+    /* Hero Layout */
+    .hero-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: var(--space-xl);
+      align-items: start;
+      padding-top: var(--space-md);
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .cosmovision-pillars {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+
+    .pillar-item {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .pillar-item h3 {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin: 0;
+      color: var(--on-surface);
+    }
+
+    .pillar-item p {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* Lab / Canvas Controls */
+    .pendulum-lab {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .canvas-stage {
+      width: 100%;
+      min-height: 290px;
+      height: 290px;
+      display: block;
+    }
+
+    .telemetry-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+      border-top: var(--hairline);
+      padding-top: var(--space-md);
+    }
+
+    .telemetry-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .telemetry-key {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+
+    .telemetry-val {
+      font-family: var(--font-label);
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--tertiary);
+    }
+
+    .telemetry-val.is-brass {
+      color: var(--primary);
+    }
+
+    /* Sliders */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface);
+    }
+
+    .range-input {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+      min-height: 32px;
+    }
+
+    /* Section Header Pattern */
+    .section-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      padding-top: var(--space-xl);
+      border-top: var(--hairline);
+    }
+
+    .section-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: var(--space-md);
+    }
+
+    .section-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      max-width: 68ch;
+    }
+
+    /* Ecosystem Interactive Map */
+    .ecosystem-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+
+    .module-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .module-map-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  transform var(--dur-short) var(--ease-out);
+    }
+
+    .module-map-card:hover {
+      background: var(--surface-container-high);
+      transform: translateY(-2px);
+    }
+
+    .module-map-card.is-active {
+      background: var(--surface-container-high);
+      box-shadow: var(--brass-ring);
+      border-color: var(--primary);
+    }
+
+    .module-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .module-map-card h3 {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 500;
+      margin: 0;
+      color: var(--on-surface);
+      line-height: 1.18;
+    }
+
+    .module-map-card p {
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    .constellation-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .constellation-svg {
+      width: 100%;
+      min-height: 240px;
+      height: 240px;
+      display: block;
+    }
+
+    .constellation-detail {
+      border-top: var(--hairline);
+      padding-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    /* Deep Dive Modules */
+    .deep-module {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .deep-module.is-reversed {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+
+    .module-narrative {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .fact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .fact-list li {
+      padding-left: var(--space-md);
+      border-left: 2px solid var(--outline);
+      color: var(--on-surface-variant);
+      font-size: 0.96rem;
+    }
+
+    .fact-list li strong {
+      color: var(--on-surface);
+    }
+
+    .interactive-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .toroid-canvas {
+      width: 100%;
+      min-height: 310px;
+      height: 310px;
+      display: block;
+    }
+
+    .zone-readout {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    /* Scale Explorer (Module 2) */
+    .scale-bars {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .scale-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr) 90px;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+    }
+
+    .scale-track {
+      height: 8px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+    }
+
+    .scale-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--tertiary), var(--primary));
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+
+    .harmonic-svg {
+      width: 100%;
+      min-height: 140px;
+      height: 140px;
+      display: block;
+    }
+
+    /* Oscilloscope & Breathing Guide (Module 3) */
+    .wave-canvas {
+      width: 100%;
+      min-height: 220px;
+      height: 220px;
+      display: block;
+    }
+
+    .breath-bar-wrap {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .breath-track {
+      width: 100%;
+      height: 10px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+    }
+
+    .breath-progress {
+      height: 100%;
+      width: 50%;
+      background: var(--tertiary);
+      border-radius: var(--rounded-full);
+      transition: width 100ms linear;
+    }
+
+    /* Kundalini Homunculus Explorer (Module 4) */
+    .kundalini-grid {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .homunculus-svg {
+      width: 100%;
+      min-height: 310px;
+      height: 310px;
+      display: block;
+    }
+
+    .oscillator-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .osc-step {
+      text-align: left;
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .osc-step:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+
+    .osc-step[aria-pressed="true"] {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      box-shadow: var(--cyan-ring);
+      border-color: var(--tertiary);
+    }
+
+    /* Biography & Bibliography */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      border-left: 1px solid var(--outline);
+      padding-left: var(--space-lg);
+      margin-left: var(--space-xs);
+    }
+
+    .timeline-entry {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .timeline-entry::before {
+      content: "";
+      position: absolute;
+      left: calc(-1 * var(--space-lg) - 5px);
+      top: 6px;
+      width: 9px;
+      height: 9px;
+      border-radius: var(--rounded-full);
+      background: var(--primary);
+      border: 2px solid var(--background);
+    }
+
+    .biblio-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .book-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .book-title {
+      font-family: var(--font-headline);
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    /* Sources & References Archive */
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .source-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .source-card[hidden] {
+      display: none;
+    }
+
+    .source-card h3 {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.22;
+      margin: 0;
+      color: var(--on-surface);
+    }
+
+    .source-card p {
+      font-size: 0.93rem;
+      line-height: 1.52;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    .source-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--tertiary);
+    }
+
+    .quote-callout {
+      border-left: 2px solid var(--primary);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--surface-container-low);
+      border-radius: 0 var(--rounded-lg) var(--rounded-lg) 0;
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .quote-attribution {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-style: normal;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    /* Footer */
+    .observatory-footer {
+      border-top: var(--hairline);
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface-container-low);
+      margin-top: var(--space-xl);
+    }
+
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    /* Scroll reveal */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out);
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 960px) {
+      .hero-section,
+      .ecosystem-layout,
+      .deep-module,
+      .deep-module.is-reversed,
+      .bio-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    .portal-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(180deg, rgba(21, 34, 56, 0.72) 0%, rgba(10, 18, 32, 0.92) 100%);
-      border: var(--hairline);
-      border-radius: var(--rounded-lg);
-      padding: clamp(1.5rem, 3vw, 2.25rem);
-      box-shadow: var(--panel-highlight), 0 18px 40px -24px rgba(0, 0, 0, 0.8);
-      transition: transform 240ms var(--ease-out), border-color 240ms var(--ease-out), box-shadow 240ms var(--ease-out);
-      overflow: hidden;
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .cosmovision-pillars,
+      .module-cards-grid,
+      .telemetry-strip,
+      .kundalini-grid {
+        grid-template-columns: 1fr;
+      }
+      .scale-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
     }
 
-    .portal-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      opacity: 0.85;
-    }
-
-    .portal-card--gold::before {
-      background: linear-gradient(90deg, var(--primary), transparent 85%);
-    }
-
-    .portal-card--cyan::before {
-      background: linear-gradient(90deg, var(--tertiary), transparent 85%);
-    }
-
-    .portal-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--outline);
-      box-shadow: var(--panel-highlight), 0 24px 48px -20px rgba(0, 0, 0, 0.9);
-    }
-
-    .portal-card--gold:hover {
-      border-color: color-mix(in srgb, var(--primary) 55%, var(--outline));
-    }
-
-    .portal-card--cyan:hover {
-      border-color: color-mix(in srgb, var(--tertiary) 55%, var(--outline));
-    }
-
-    .card-kicker {
-      font-family: var(--font-label);
-      font-size: var(--label-size);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .portal-card--gold .card-kicker { color: var(--primary); }
-    .portal-card--cyan .card-kicker { color: var(--tertiary); }
-
-    .card-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .portal-card--gold .card-dot {
-      background: var(--primary);
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    .portal-card--cyan .card-dot {
-      background: var(--tertiary);
-      box-shadow: 0 0 10px var(--tertiary);
-    }
-
-    .card-title {
-      font-family: var(--font-headline);
-      font-size: clamp(1.45rem, 1.2rem + 1vw, 1.85rem);
-      font-weight: 600;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 0 0 0.85rem;
-      color: var(--on-surface);
-    }
-
-    .card-desc {
-      color: var(--on-surface-variant);
-      margin: 0 0 1.4rem;
-      font-size: 0.98rem;
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .tag-pill {
-      font-family: var(--font-label);
-      font-size: 0.72rem;
-      color: var(--on-surface-variant);
-      background: rgba(14, 24, 41, 0.9);
-      border: 1px solid var(--outline-variant);
-      padding: 0.25rem 0.6rem;
-      border-radius: var(--rounded);
-    }
-
-    .card-actions {
-      margin-top: auto;
-    }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      width: 100%;
-      padding: 0.85rem 1.35rem;
-      border-radius: var(--rounded);
-      font-family: var(--font-headline);
-      font-size: 0.98rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      text-decoration: none;
-      transition: transform 160ms var(--ease-out), filter 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
-    }
-
-    .cta-btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.08);
-    }
-
-    .cta-btn:focus-visible {
-      outline: 2px solid var(--tertiary);
-      outline-offset: 3px;
-    }
-
-    .cta-btn--gold {
-      background: linear-gradient(135deg, #efc062 0%, #d49b38 100%);
-      color: var(--on-primary);
-      box-shadow: 0 8px 24px -10px rgba(239, 192, 98, 0.55);
-    }
-
-    .cta-btn--cyan {
-      background: linear-gradient(135deg, #5be0f0 0%, #3a9d96 100%);
-      color: var(--on-tertiary);
-      box-shadow: 0 8px 24px -10px rgba(91, 224, 240, 0.5);
-    }
-
-    .cta-arrow {
-      transition: transform 180ms var(--ease-out);
-    }
-
-    .cta-btn:hover .cta-arrow {
-      transform: translateX(4px);
-    }
-
-    /* Footer */
-    .sources-footer {
-      border-top: var(--hairline);
-      padding-top: 1.5rem;
-      color: var(--on-surface-variant);
-      font-size: 0.88rem;
-    }
-
-    .sources-footer p {
-      margin: 0;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="cosmos-backdrop" aria-hidden="true"></div>
-
-  <div class="page-shell">
-    <main>
-      <header class="hero-header">
-        <div class="deck-brass">Cosmología de la Conciencia · Obra de Itzhak Bentov</div>
-        <h1 class="display-title">
-          El Universo de <span class="accent-gold">Itzhak Bentov</span>: <span class="accent-cyan">Toroide</span> y Creación
-        </h1>
-        <p class="hero-lede">
-          Portal de exploraciones interactivas basadas en <em>Stalking the Wild Pendulum</em> y <em>A Brief Tour of Higher Consciousness</em>. Selecciona una experiencia para inspeccionar la geometría tridimensional del cosmos o la física vibracional que condensa el vacío en materia.
-        </p>
-      </header>
-
-      <section class="portal-grid" aria-label="Experiencias interactivas del proyecto">
-        <!-- Link 1: Toroide Cósmico -->
-        <article class="portal-card portal-card--gold">
-          <div>
-            <div class="card-kicker">
-              <span class="card-dot" aria-hidden="true"></span>
-              01 · Observatorio Interactivo 3D
-            </div>
-            <h2 class="card-title">Simulación del Toroide Cósmico</h2>
-            <p class="card-desc">
-              Modelo tridimensional de un universo en Big Bang modesto y continuo. Rota y secciona el toroide para observar el agujero blanco, el agujero negro, el protoespacio interior y la evolución de la conciencia.
-            </p>
-            <div class="card-tags">
-              <span class="tag-pill">WebGL / Three.js</span>
-              <span class="tag-pill">Corte transversal</span>
-              <span class="tag-pill">Protoespacio</span>
-            </div>
-          </div>
-          <div class="card-actions">
-            <a class="cta-btn cta-btn--gold" href="Simulación_del_Toroide_Cósmico_de_Bentov.html">
-              <span>Abrir Simulación del Toroide</span>
-              <span class="cta-arrow" aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- Link 2: Materia y Símbolos -->
-        <article class="portal-card portal-card--cyan">
-          <div>
-            <div class="card-kicker">
-              <span class="card-dot" aria-hidden="true"></span>
-              02 · Narrativa &amp; Simulaciones Vibracionales
-            </div>
-            <h2 class="card-title">Materia y Símbolos de la Creación</h2>
-            <p class="card-desc">
-              Cómo el Absoluto vibra para formar átomos y realidad física a través de matrices de interferencia tridimensionales reflejadas en los alfabetos sagrados sánscrito y hebreo.
-            </p>
-            <div class="card-tags">
-              <span class="tag-pill">Parpadeo Atómico</span>
-              <span class="tag-pill">Discos Sánscritos</span>
-              <span class="tag-pill">Interferencia Álef</span>
-            </div>
-          </div>
-          <div class="card-actions">
-            <a class="cta-btn cta-btn--cyan" href="Materia_y_Símbolos_de_la_Creación_(Bentov).html">
-              <span>Explorar Materia y Símbolos</span>
-              <span class="cta-arrow" aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </article>
-      </section>
-    </main>
-
-    <footer class="sources-footer">
-      <p>
-        Basado en la obra de <strong>Itzhak Bentov</strong>: <em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> y <em>A Brief Tour of Higher Consciousness</em>.
-      </p>
-
-      <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 28px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-        <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a> &bull; Movil: 2355-69 26 16</span>
+  <header class="observatory-header">
+    <div class="header-inner">
+      <div class="brand-coords">
+        <span class="coord-label">OBSERVATORIO DE LA CONCIENCIA · RESONANCIA 7.5 HZ</span>
+        <span class="brand-name">Universo Itzhak Bentov</span>
       </div>
-    </footer>
-  </div>
+      <nav class="nav-rail" aria-label="Navegación principal">
+        <a class="nav-link" href="#cosmovision">Cosmovisión</a>
+        <a class="nav-link" href="#mapa-ecosistema">Mapa</a>
+        <a class="nav-link" href="#modulo-toroide">Módulos</a>
+        <a class="nav-link" href="#biografia">Biografía</a>
+        <a class="nav-link" href="#fuentes">Fuentes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-grid" id="inicio">
+    <!-- 1. INTRODUCCIÓN INMERSIVA -->
+    <section class="hero-section" id="cosmovision" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div>
+          <p class="deck-brass">Del átomo al cosmos · De lo humano a lo infinito</p>
+          <h1 class="display-title" id="hero-title">La realidad es un holograma que <em>parpadea</em> en el vacío</h1>
+        </div>
+
+        <p class="prose-lead">
+          El ingeniero biomédico, inventor y místico <strong>Itzhak «Ben» Bentov</strong> (1923–1979) propuso uno de los puentes más audaces entre la física contemporánea, la fisiología humana y la conciencia. Para él, el universo no es una máquina rígida de objetos sólidos, sino una sinfonía de campos oscilantes que se encienden y se apagan miles de veces por segundo.
+        </p>
+
+        <div class="cosmovision-pillars">
+          <article class="pillar-item">
+            <span class="coord-label">01 · Holograma Vivo</span>
+            <h3>El todo en cada fragmento</h3>
+            <p>Al igual que una placa holográfica rota donde cada trozo conserva la imagen completa, cada conciencia y cada átomo contienen información del universo entero, sintonizando frecuencias de la <strong>Mente Universal</strong>.</p>
+          </article>
+          <article class="pillar-item">
+            <span class="coord-label">02 · El Estado Absoluto</span>
+            <h3>Velocidad infinita, reposo total</h3>
+            <p>Cuando una vibración oscila tan rápido que sus puntos de quietud se superponen, la onda se vuelve una línea recta: presencia omnipresente sin tiempo ni distancia, el fondo inmóvil del que emerge toda materia.</p>
+          </article>
+          <article class="pillar-item">
+            <span class="coord-label">03 · Parpadeo ON / OFF</span>
+            <h3>El péndulo de la existencia</h3>
+            <p>Todo oscila como un péndulo. En el instante extremo de su vaivén, antes de regresar, la velocidad cae a cero y la materia desaparece momentáneamente de la realidad manifiesta («momento OFF») para reingresar al instante siguiente.</p>
+          </article>
+          <article class="pillar-item">
+            <span class="coord-label">04 · Evolución</span>
+            <h3>La banda transportadora</h3>
+            <p>La materia es conciencia en evolución. Todos viajamos en el mismo autobús hacia estados más nítidos de percepción; la meditación silenciosa simplemente alarga los «momentos OFF» y acelera el despertar.</p>
+          </article>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa-ecosistema">Explorar mapa del ecosistema</a>
+          <a class="btn btn-secondary" href="#fuentes">Ver archivo y documental</a>
+        </div>
+      </div>
+
+      <!-- Interactive Pendulum & Blinking Reality Simulation -->
+      <aside class="panel pendulum-lab" aria-label="Simulador interactivo del péndulo y el parpadeo cuántico">
+        <div class="module-card-top">
+          <span class="coord-label">INSTRUMENTO 01 · RELOJ DE LA CREACIÓN</span>
+          <span class="badge badge-brass" id="pendulum-phase-badge">FASE ON · MANIFESTACIÓN</span>
+        </div>
+        <h2 class="subsection-title">Oscilación del péndulo y «momentos OFF»</h2>
+        <p class="prose-body" style="font-size: 0.92rem;">
+          Desliza la coherencia meditativa para observar cómo el péndulo de la percepción desacelera su ruido mental, ensancha las pausas de quietud en los extremos y funde el tiempo lineal con el Estado Absoluto.
+        </p>
+
+        <div class="observation-well">
+          <canvas id="pendulum-canvas" class="canvas-stage" aria-label="Animación de un péndulo oscilante que desaparece brevemente en los extremos de reposo"></canvas>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="coherence-slider">
+            <span>Coherencia meditativa / Silencio mental</span>
+            <span id="coherence-label" class="coord-label">35% · Mente cotidiana</span>
+          </label>
+          <input type="range" id="coherence-slider" class="range-input" min="0" max="100" value="35" oninput="updatePendulumCoherence(this.value)">
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+          <button type="button" class="btn-chip" id="btn-freeze-off" aria-pressed="false" onclick="toggleAbsoluteFreeze(this)">
+            Congelar en punto neutro (OFF)
+          </button>
+          <button type="button" class="btn-chip" id="btn-toggle-pendulum" aria-pressed="false" onclick="togglePendulumPause(this)">
+            Pausar oscilación
+          </button>
+        </div>
+
+        <div class="telemetry-strip">
+          <div class="telemetry-cell">
+            <span class="telemetry-key">Estado actual</span>
+            <span class="telemetry-val is-brass" id="tel-state">ON · Espacio-tiempo</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-key">Tiempo subjetivo</span>
+            <span class="telemetry-val" id="tel-time">Lineal (1.00×)</span>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-key">Nitidez holograma</span>
+            <span class="telemetry-val" id="tel-clarity">35% · Enfoque local</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- 2. MAPA INTERACTIVO DE NAVEGACIÓN DEL ECOSISTEMA -->
+    <section class="section-block reveal-on-scroll" id="mapa-ecosistema" aria-labelledby="map-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Cartografía conceptual · Cuatro puertas de entrada</p>
+          <h2 class="section-title" id="map-title">Mapa interactivo del ecosistema Bentov</h2>
+          <p class="prose-body">
+            Selecciona cualquiera de los cuatro módulos para visualizar cómo se entrelazan dentro de la arquitectura holográfica de Bentov y saltar directamente a su laboratorio interactivo.
+          </p>
+        </div>
+        <span class="badge">4 MÓDULOS INTERCONECTADOS</span>
+      </div>
+
+      <div class="ecosystem-layout">
+        <div class="module-cards-grid" role="list">
+          <button type="button" class="module-map-card is-active" id="map-card-0" onclick="selectEcosystemNode(0)" role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 01</span>
+              <span class="badge badge-brass">Cosmología</span>
+            </div>
+            <h3>El Toroide Cósmico</h3>
+            <p>Un universo ovoide que se vuelve de adentro hacia afuera entre un agujero blanco, un agujero negro y el protoespacio interior.</p>
+          </button>
+
+          <button type="button" class="module-map-card" id="map-card-1" onclick="selectEcosystemNode(1)" role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 02</span>
+              <span class="badge">Física Sutil</span>
+            </div>
+            <h3>La Ilusión de la Materia y el Lenguaje de la Creación</h3>
+            <p>Átomos casi vacíos vibrando como ondas estacionarias, transductores arquetípicos y la escritura energética de la realidad.</p>
+          </button>
+
+          <button type="button" class="module-map-card" id="map-card-2" onclick="selectEcosystemNode(2)" role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 03</span>
+              <span class="badge badge-mint">Biofísica</span>
+            </div>
+            <h3>Fisiología de la Quietud y Resonancia a 7 Hz</h3>
+            <p>Respiración simétrica, onda senoidal corazón–aorta medida por sismógrafo y acoplamiento con la Resonancia Schumann.</p>
+          </button>
+
+          <button type="button" class="module-map-card" id="map-card-3" onclick="selectEcosystemNode(3)" role="listitem">
+            <div class="module-card-top">
+              <span class="coord-label">MÓDULO 04</span>
+              <span class="badge badge-brass">Neurofisiología</span>
+            </div>
+            <h3>Fisiomecánica de la Kundalini</h3>
+            <p>Ondas estacionarias acústicas en los ventrículos cerebrales, circuito del homúnculo cortical y disolución de bloqueos.</p>
+          </button>
+        </div>
+
+        <!-- Constellation SVG Map & Active Node Summary -->
+        <div class="panel constellation-panel">
+          <div>
+            <span class="coord-label">TOPOLOGÍA DEL MODELO</span>
+            <h3 class="subsection-title" style="margin-top: var(--space-xs);">Red de resonancia mutua</h3>
+          </div>
+
+          <div class="observation-well">
+            <svg class="constellation-svg" viewBox="0 0 360 220" aria-label="Diagrama de interconexión entre los cuatro módulos de Bentov">
+              <!-- Connections -->
+              <line x1="85" y1="58" x2="275" y2="58" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="85" y1="58" x2="85" y2="164" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="275" y1="58" x2="275" y2="164" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="85" y1="164" x2="275" y2="164" stroke="var(--outline)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="85" y1="58" x2="275" y2="164" stroke="var(--tertiary)" stroke-width="1" opacity="0.45" />
+              <line x1="275" y1="58" x2="85" y2="164" stroke="var(--primary)" stroke-width="1" opacity="0.45" />
+
+              <!-- Central Core: El Absoluto / Mente Universal -->
+              <circle cx="180" cy="111" r="24" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.5" />
+              <text x="180" y="108" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace" font-size="9">MENTE</text>
+              <text x="180" y="120" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8">UNIVERSAL</text>
+
+              <!-- Node 0: Toroide -->
+              <g style="cursor: pointer;" onclick="selectEcosystemNode(0)">
+                <circle id="svg-node-0" cx="85" cy="58" r="18" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" />
+                <text x="85" y="62" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">01</text>
+                <text x="85" y="30" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">TOROIDE</text>
+              </g>
+
+              <!-- Node 1: Materia -->
+              <g style="cursor: pointer;" onclick="selectEcosystemNode(1)">
+                <circle id="svg-node-1" cx="275" cy="58" r="18" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                <text x="275" y="62" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">02</text>
+                <text x="275" y="30" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">MATERIA &amp; CÓDIGO</text>
+              </g>
+
+              <!-- Node 2: 7 Hz -->
+              <g style="cursor: pointer;" onclick="selectEcosystemNode(2)">
+                <circle id="svg-node-2" cx="85" cy="164" r="18" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                <text x="85" y="168" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">03</text>
+                <text x="85" y="198" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">QUIETUD 7 HZ</text>
+              </g>
+
+              <!-- Node 3: Kundalini -->
+              <g style="cursor: pointer;" onclick="selectEcosystemNode(3)">
+                <circle id="svg-node-3" cx="275" cy="164" r="18" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                <text x="275" y="168" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">04</text>
+                <text x="275" y="198" text-anchor="middle" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9">KUNDALINI</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="constellation-detail">
+            <span class="coord-label" id="eco-detail-tag">MÓDULO 01 · MACROFÍSICA</span>
+            <h4 class="subsection-title" id="eco-detail-title">El Toroide Cósmico</h4>
+            <p class="prose-body" id="eco-detail-desc" style="font-size: 0.93rem;">
+              En lugar de una explosión aislada, el universo recicla materia y tiempo en un anillo de humo continuo entre un agujero blanco y un agujero negro.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xs);">
+              <a class="btn btn-secondary" id="eco-detail-cta" href="#modulo-toroide">Ver resumen del módulo ↓</a>
+              <a class="btn btn-primary" id="eco-detail-full-cta" href="Simulación_del_Toroide_Cósmico_de_Bentov.html">Ampliar experiencia completa →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 01: EL TOROIDE CÓSMICO -->
+    <section class="section-block reveal-on-scroll" id="modulo-toroide" aria-labelledby="toroid-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 01 · Cosmología de Bentov (Stalking the Wild Pendulum, Cap. 8)</p>
+          <h2 class="section-title" id="toroid-title">El Toroide Cósmico y el «Big Bang modesto y continuo»</h2>
+        </div>
+        <span class="badge badge-brass">CARTA A FRED HOYLE · 13 MAR 1968</span>
+      </div>
+
+      <div class="deep-module">
+        <div class="module-narrative">
+          <p class="prose-body">
+            En lugar de una única explosión surgida de la nada, Itzhak Bentov propuso en la década de 1970 que el cosmos posee la geometría de un <strong>toroide alargado y hueco</strong> —similar a un melón con embudos profundos en los polos, o a una dona estirada que se vuelve continuamente de adentro hacia afuera como un anillo de humo en rotación perpetua.
+          </p>
+          <ul class="fact-list">
+            <li><strong>La Semilla del Roble (Núcleo Kerr):</strong> En el eje central flotan espalda con espalda un <strong>agujero blanco</strong> y un <strong>agujero negro</strong> en rotación. Al igual que una bellota contiene el patrón entero del roble, el núcleo imprime el giro a electrones y galaxias.</li>
+            <li><strong>Envolvente espacio-temporal y tiempo como distancia:</strong> La radiación luminosa brota por el polo norte, se condensa en hidrógeno, helio, estrellas y galaxias que descienden por la piel exterior y reingresan por el polo sur. Para Bentov, el tiempo lineal es solo la distancia recorrida desde la salida del agujero blanco hasta el retorno en el negro.</li>
+            <li><strong>Protoespacio («la mermelada dentro de la dona»):</strong> Entre el chorro central y la cáscara exterior yace el protoespacio previo al espacio-tiempo. Los fotones de luz siguen la curvatura de la envolvente y no lo cruzan, pero las <strong>ondas de información de la Mente Universal</strong> y la psique en quietud sí atraviesan ese vacío central.</li>
+            <li><strong>Anisotropía de cuásares:</strong> En su carta de 1968 al astrofísico Fred Hoyle, Bentov señaló que la distribución desigual de cuásares entre polos galácticos (como 3C273 y 3C275.1) confirmaba una eyección bipolar continua donde coexisten el Big Bang y el Estado Estacionario.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="Simulación_del_Toroide_Cósmico_de_Bentov.html">Ampliar en Simulación 3D del Toroide Cósmico →</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="interactive-toolbar">
+            <button type="button" class="btn-chip" id="toroid-view-flow" aria-pressed="true" onclick="setToroidMode('flow')">
+              Flujo Poloidal 3D
+            </button>
+            <button type="button" class="btn-chip" id="toroid-view-meridian" aria-pressed="false" onclick="setToroidMode('meridian')">
+              Corte Meridiano (Hoyle)
+            </button>
+          </div>
+
+          <div class="observation-well">
+            <canvas id="toroid-canvas" class="toroid-canvas" aria-label="Simulación del toroide cósmico de Itzhak Bentov con flujo entre agujero blanco y agujero negro"></canvas>
+          </div>
+
+          <div class="interactive-toolbar" style="margin-top: var(--space-md); margin-bottom: 0;">
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectToroidZone(0, this)">Núcleo Blanco/Negro</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(1, this)">Chorro Norte</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(2, this)">Envolvente (Tiempo)</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectToroidZone(3, this)">Protoespacio</button>
+          </div>
+
+          <div class="zone-readout" aria-live="polite">
+            <span class="coord-label" id="toroid-zone-label">REGIÓN 01 · SEMILLA DEL ROBLE</span>
+            <p class="prose-body" id="toroid-zone-text" style="font-size: 0.93rem;">
+              Un agujero negro y un agujero blanco en rotación (agujero de Kerr) unidos espalda con espalda. La materia no colapsa en un punto cero, sino que atraviesa un anillo de transición para renacer como radiación primordial.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 02: LA ILUSIÓN DE LA MATERIA Y EL LENGUAJE DE LA CREACIÓN -->
+    <section class="section-block reveal-on-scroll" id="modulo-materia" aria-labelledby="matter-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 02 · Física de la percepción y transductores arquetípicos</p>
+          <h2 class="section-title" id="matter-title">La Ilusión de la Materia y el Lenguaje de la Creación</h2>
+        </div>
+        <span class="badge">ESTRUCTURA HOLOGRÁFICA Y ARMÓNICOS</span>
+      </div>
+
+      <div class="deep-module is-reversed">
+        <div class="panel">
+          <span class="coord-label">LABORATORIO DE ESCALA Y ONDAS ESTACIONARIAS</span>
+          <h3 class="subsection-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+            De los átomos casi vacíos al código armónico
+          </h3>
+
+          <div class="interactive-toolbar">
+            <button type="button" class="btn-chip" aria-pressed="true" onclick="selectHarmonicStep(0, this)">Fundamental (C)</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(1, this)">1.ᵉʳ Armónico (1/2 · Octava)</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(2, this)">2.º Armónico (1/3 · Salto G)</button>
+            <button type="button" class="btn-chip" aria-pressed="false" onclick="selectHarmonicStep(3, this)">Espiral de Quintas (C–G–D–A–E)</button>
+          </div>
+
+          <div class="observation-well">
+            <svg class="harmonic-svg" id="harmonic-svg" viewBox="0 0 460 130" aria-label="Onda estacionaria y armónicos musicales">
+              <line x1="20" y1="65" x2="440" y2="65" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+              <circle cx="20" cy="65" r="4" fill="var(--primary)" />
+              <circle cx="440" cy="65" r="4" fill="var(--primary)" />
+              <path id="harmonic-wave-upper" d="M 20 65 Q 230 10 440 65" fill="none" stroke="var(--tertiary)" stroke-width="2.2" />
+              <path id="harmonic-wave-lower" d="M 20 65 Q 230 120 440 65" fill="none" stroke="var(--primary)" stroke-width="1.8" opacity="0.7" />
+              <g id="harmonic-nodes"></g>
+            </svg>
+          </div>
+
+          <div class="zone-readout" style="margin-top: var(--space-md);">
+            <span class="coord-label" id="harmonic-label">ONDA FUNDAMENTAL · UNIDAD ORIGINARIA</span>
+            <p class="prose-body" id="harmonic-text" style="font-size: 0.92rem;">
+              La cuerda vibra como una totalidad unificada. Tanto en los átomos (ecuación de Schrödinger) como en la música pitagórica y la evolución cósmica, la energía no fluye al azar: se estabiliza en nodos discretos de ondas estacionarias.
+            </p>
+          </div>
+
+          <div class="scale-bars" aria-label="Escala de frecuencias vibratorias en el modelo de Bentov">
+            <div class="scale-row">
+              <span>Núcleo atómico</span>
+              <div class="scale-track"><div class="scale-fill" style="width: 100%;"></div></div>
+              <span style="color: var(--primary); text-align: right;">10²² Hz</span>
+            </div>
+            <div class="scale-row">
+              <span>Átomo completo</span>
+              <div class="scale-track"><div class="scale-fill" style="width: 68%;"></div></div>
+              <span style="color: var(--tertiary); text-align: right;">10⁵ Hz</span>
+            </div>
+            <div class="scale-row">
+              <span>Célula humana viva</span>
+              <div class="scale-track"><div class="scale-fill" style="width: 48%;"></div></div>
+              <span style="color: var(--tertiary); text-align: right;">~10³ Hz</span>
+            </div>
+            <div class="scale-row">
+              <span>Molécula orgánica</span>
+              <div class="scale-track"><div class="scale-fill" style="width: 28%;"></div></div>
+              <span style="color: var(--positive); text-align: right;">~10 Hz</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-narrative">
+          <p class="prose-body">
+            Para Bentov, la «materia sólida» es la mayor ilusión de nuestros sentidos. Si ampliáramos un solo átomo al tamaño de un gran estadio de fútbol, su núcleo sería un diminuto grano de arena en el centro del campo y los electrones zumbando en las gradas superiores: casi el 100% del estadio es espacio vacío. Cuando tocas una mesa, jamás tocas materia; percibes la repulsión electromagnética entre sus campos y los tuyos.
+          </p>
+          <ul class="fact-list">
+            <li><strong>El cerebro como transductor holográfico:</strong> Las redes de energía vibrante forman patrones de interferencia en la matriz universal. Nuestro cerebro funciona como una antena y un decodificador que traduce esas frecuencias abstractas en formas sólidas, colores y texturas.</li>
+            <li><strong>Ondas estacionarias y arquetipos:</strong> Al igual que la mecánica cuántica y las escalas pitagóricas descubiertas por los antiguos —quienes llamaban a este código «vibración sagrada» o «intento»—, las ondas estacionarias dividen la vibración en proporciones exactas (como cada tercio de la cuerda o segundo armónico) que canalizan la creatividad del cosmos.</li>
+            <li><strong>Alfabetos sagrados y lenguaje de la forma:</strong> Cada símbolo, letra o trazo consciente actúa como un molde geométrico que organiza la vibración en materia. Como comprendieron tradiciones egipcias —donde Thoth simbolizaba la escritura como canal entre lo invisible y lo manifiesto—, la intención emocional imprime pulsos en el campo energético, y el lenguaje simbólico traduce la vibración pura en realidad tangible.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="Materia_y_Símbolos_de_la_Creación_(Bentov).html">Ampliar en Materia y Símbolos de la Creación →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 03: FISIOLOGÍA DE LA QUIETUD Y RESONANCIA A 7 HZ -->
+    <section class="section-block reveal-on-scroll" id="modulo-resonancia" aria-labelledby="resonance-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 03 · Biofísica de laboratorio y sismógrafo corporal</p>
+          <h2 class="section-title" id="resonance-title">Fisiología de la Quietud y Resonancia a 7 Hz</h2>
+        </div>
+        <span class="badge badge-mint">SINCRONÍA SCHUMANN · 6.8–7.5 HZ</span>
+      </div>
+
+      <div class="deep-module">
+        <div class="module-narrative">
+          <p class="prose-body">
+            Antes de publicar <em>Stalking the Wild Pendulum</em>, Bentov construyó en su laboratorio del sótano un sismógrafo de alta sensibilidad para medir los micromovimientos de una persona sentada en quietud. Descubrió que cada latido impulsa sangre por la aorta; la onda choca en la bifurcación ilíaca de las piernas y rebota hacia arriba. En una mente agitada, el pulso nuevo choca caóticamente con el eco anterior.
+          </p>
+          <ul class="fact-list">
+            <li><strong>La onda senoidal corazón–aorta:</strong> Al entrar en meditación profunda o ralentizar suavemente la respiración (con una breve pausa tras exhalar, o en ritmo simétrico de 6 segundos al inhalar y 6 al exhalar), la longitud de la aorta actúa como media longitud de onda resonante. El patrón caótico se transforma en una <strong>onda senoidal limpia</strong> cuya amplitud casi se triplica con un gasto energético mínimo.</li>
+            <li><strong>Oscilación cerebral y coherencia física:</strong> Todo el cuerpo —esqueleto, órganos y cerebro dentro de la duramadre, oscilando entre <strong>0.005 y 0.010 mm</strong>— vibra al unísono a unos <strong>7 ciclos por segundo (6.8 a 7.5 Hz)</strong>.</li>
+            <li><strong>Acoplamiento con la Resonancia Schumann:</strong> Entre la superficie terrestre y la ionosfera existe una gigantesca cavidad resonante alimentada por miles de rayos cada segundo, cuya frecuencia fundamental (~7.5 Hz, predicha por Winfried Schumann en 1952) coincide con la del cuerpo en quietud. Como los dos relojes de péndulo de Christiaan Huygens en 1665 sobre la misma viga, el organismo queda en fase con una onda planetaria de ~40,000 km que rodea la Tierra en una séptima parte de segundo.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="Fisiología_de_la_Quietud_y_Resonancia_7_Hz_(Bentov).html">Ampliar en Fisiología de la Quietud y 7 Hz →</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="interactive-toolbar">
+            <button type="button" class="btn-chip" id="wave-mode-chaos" aria-pressed="false" onclick="setWaveMode('chaos')">
+              Mente ocupada (Interferencia)
+            </button>
+            <button type="button" class="btn-chip" id="wave-mode-sine" aria-pressed="true" onclick="setWaveMode('sine')">
+              Resonancia 7 Hz (Senoidal 3×)
+            </button>
+            <button type="button" class="btn-chip" id="wave-mode-breath" aria-pressed="false" onclick="setWaveMode('breath')">
+              Guía simétrica 6s / 6s
+            </button>
+          </div>
+
+          <div class="observation-well">
+            <canvas id="wave-canvas" class="wave-canvas" aria-label="Osciloscopio sismográfico comparando el pulso caótico con la onda senoidal resonante de 7 Hz"></canvas>
+          </div>
+
+          <div class="breath-bar-wrap" id="breath-guide-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+              <span class="coord-label" id="breath-phase-label">MODO SISMÓGRAFO · ACOPLAMIENTO SCHUMANN</span>
+              <span class="telemetry-val is-brass" id="breath-timer-readout">7.2 Hz · 3.0× Amplitud</span>
+            </div>
+            <div class="breath-track" aria-hidden="true">
+              <div class="breath-progress" id="breath-progress-bar"></div>
+            </div>
+            <p class="prose-body" id="wave-description" style="font-size: 0.9rem;">
+              La onda del pulso desciende por la aorta y coincide en fase con la reflexión ascendente, amplificando tres veces la señal armónica y sintonizando el cuerpo con el campo electrostático terrestre.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 04: FISIOMECÁNICA DE LA KUNDALINI -->
+    <section class="section-block reveal-on-scroll" id="modulo-kundalini" aria-labelledby="kundalini-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Módulo 04 · Modelo Fisio-Kundalini (Publicado con Lee Sannella, 1976)</p>
+          <h2 class="section-title" id="kundalini-title">Fisiomecánica de la Kundalini y el Circuito del Homúnculo</h2>
+        </div>
+        <span class="badge badge-brass">5 OSCILADORES EN SERIE</span>
+      </div>
+
+      <div class="deep-module is-reversed">
+        <div class="panel">
+          <span class="coord-label">EXPLORADOR ANATÓMICO-CORTICAL</span>
+          <h3 class="subsection-title" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+            De los ventrículos cerebrales a la corteza sensorial
+          </h3>
+
+          <div class="kundalini-grid">
+            <div class="observation-well" style="padding: var(--space-sm);">
+              <svg class="homunculus-svg" viewBox="0 0 180 300" aria-label="Esquema de los cinco osciladores y la progresión ascendente de la fisio-kundalini">
+                <!-- Spine / Aorta central column -->
+                <line x1="90" y1="268" x2="90" y2="75" stroke="var(--outline)" stroke-width="3" />
+                <line id="kundalini-beam" x1="90" y1="268" x2="90" y2="62" stroke="var(--primary)" stroke-width="2.5" stroke-dasharray="5 4" />
+
+                <!-- Brain Cortex Arc (Homunculus representation) -->
+                <path d="M 48 68 C 44 30, 136 30, 132 68 C 128 90, 52 90, 48 68 Z" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                <ellipse cx="90" cy="60" rx="16" ry="9" fill="var(--sky-tint)" stroke="var(--tertiary)" stroke-width="1.2" />
+
+                <!-- 5 Oscillator nodes along body/brain -->
+                <g style="cursor: pointer;" onclick="selectKundaliniStage(0)">
+                  <circle id="k-node-0" cx="90" cy="242" r="11" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" />
+                  <text x="90" y="246" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">1</text>
+                  <text x="112" y="246" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">PIES / AORTA</text>
+                </g>
+
+                <g style="cursor: pointer;" onclick="selectKundaliniStage(1)">
+                  <circle id="k-node-1" cx="90" cy="196" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                  <text x="90" y="200" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">2</text>
+                  <text x="112" y="200" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">COLUMNA</text>
+                </g>
+
+                <g style="cursor: pointer;" onclick="selectKundaliniStage(2)">
+                  <circle id="k-node-2" cx="90" cy="148" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                  <text x="90" y="152" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">3</text>
+                  <text x="112" y="152" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">CORAZÓN</text>
+                </g>
+
+                <g style="cursor: pointer;" onclick="selectKundaliniStage(3)">
+                  <circle id="k-node-3" cx="90" cy="102" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                  <text x="90" y="106" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">4</text>
+                  <text x="112" y="106" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="8">VENTRÍCULOS</text>
+                </g>
+
+                <g style="cursor: pointer;" onclick="selectKundaliniStage(4)">
+                  <circle id="k-node-4" cx="90" cy="56" r="11" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.5" />
+                  <text x="90" y="60" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">5</text>
+                  <text x="90" y="24" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace" font-size="8">HOMÚNCULO CORTICAL</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="oscillator-stack">
+              <button type="button" class="osc-step" id="osc-btn-0" aria-pressed="true" onclick="selectKundaliniStage(0)">
+                <span><strong>1. Sistema corazón–aorta</strong></span>
+                <span class="coord-label">Inicio</span>
+              </button>
+              <button type="button" class="osc-step" id="osc-btn-1" aria-pressed="false" onclick="selectKundaliniStage(1)">
+                <span><strong>2. Resonancia esquelética y piernas</strong></span>
+                <span class="coord-label">7 Hz</span>
+              </button>
+              <button type="button" class="osc-step" id="osc-btn-2" aria-pressed="false" onclick="selectKundaliniStage(2)">
+                <span><strong>3. Cavidad craneal y flujo</strong></span>
+                <span class="coord-label">Ascenso</span>
+              </button>
+              <button type="button" class="osc-step" id="osc-btn-3" aria-pressed="false" onclick="selectKundaliniStage(3)">
+                <span><strong>4. Tercer ventrículo (ondas acústicas)</strong></span>
+                <span class="coord-label">Resonador</span>
+              </button>
+              <button type="button" class="osc-step" id="osc-btn-4" aria-pressed="false" onclick="selectKundaliniStage(4)">
+                <span><strong>5. Circuito del homúnculo y hemisferios</strong></span>
+                <span class="coord-label">Síntesis</span>
+              </button>
+
+              <div class="zone-readout" style="margin-top: var(--space-xs);" aria-live="polite">
+                <span class="coord-label" id="kundalini-stage-tag">FASE 01 · PULSO CARDÍACO AÓRTICO</span>
+                <p class="prose-body" id="kundalini-stage-text" style="font-size: 0.91rem;">
+                  La onda mecánica del latido inicia el efecto dominó entre los cinco osciladores acoplados. Al desaparecer las interferencias destructivas, la vibración limpia asciende por el eje corporal hacia el cráneo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-narrative">
+          <p class="prose-body">
+            Tradicionalmente, la energía Kundalini se describía como una serpiente dormida que despierta en la base de la columna y asciende por los chakras hasta la coronilla. Al observar que meditadores occidentales sin conocimiento previo del término reportaban exactamente las mismas sensaciones, Bentov propuso el primer modelo verificable en laboratorio: el <strong>síndrome fisio-kundalini</strong>.
+          </p>
+          <ul class="fact-list">
+            <li><strong>Estimulación acústica de los ventrículos:</strong> El micromovimiento rítmico del cráneo genera <strong>ondas estacionarias acústicas</strong> en las cavidades cerebrales llenas de fluido (como el tercer ventrículo). Sobre ese «tambor» líquido vibran las fibras nerviosas que unen ambos hemisferios.</li>
+            <li><strong>El circuito del homúnculo sensorial:</strong> Esa vibración polariza progresivamente el mapa corporal dibujado en la corteza cerebral —el <em>homúnculo</em>—, comenzando habitualmente por el hemisferio derecho (lado izquierdo del cuerpo) y recorriendo pies, piernas, columna, cuello y rostro hasta activar los centros de placer. El cerebro traduce ese recorrido cortical como corrientes de calor, hormigueo, tonos internos similares a una flauta o ráfagas de luz blanca.</li>
+            <li><strong>Superación de bloqueos y madurez neurológica:</strong> Para Bentov, las emociones reprimidas actúan como «sedimentos en una tubería». Cuando el flujo coherente atraviesa una zona con tensión acumulada puede causar molestias transitorias hasta liberar el bloqueo —razón por la cual instó a la psiquiatría a distinguir este proceso evolutivo de cuadros patológicos—. Al completarse el circuito, el campo electromagnético craneal se expande hasta unos 50 cm (20 pulgadas) y sincroniza ambos hemisferios.</li>
+          </ul>
+          <div style="margin-top: var(--space-lg);">
+            <a class="btn btn-primary" href="Fisiomecánica_de_la_Kundalini_(Bentov).html">Ampliar en Fisiomecánica de la Kundalini →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. BIOGRAFÍA Y BIBLIOGRAFÍA -->
+    <section class="section-block reveal-on-scroll" id="biografia" aria-labelledby="bio-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">El hombre detrás del modelo · 1923–1979</p>
+          <h2 class="section-title" id="bio-title">Biografía y Bibliografía de Itzhak «Ben» Bentov</h2>
+        </div>
+        <span class="badge">INGENIERO BIOMÉDICO Y MÍSTICO</span>
+      </div>
+
+      <div class="bio-grid">
+        <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
+          <blockquote class="quote-callout">
+            «Todos estamos en el mismo autobús viajando hacia el infinito; algunos tienen asiento de ventana y otros de pasillo, pero el viaje nos lleva a todos en la misma dirección.»
+            <span class="quote-attribution">Itzhak Bentov · Conferencias sobre la mecánica de la conciencia</span>
+          </blockquote>
+
+          <p class="prose-body">
+            Nacido en Checoslovaquia y formado de manera autodidacta e intuitiva en ingeniería mecánica, Bentov se definía con humor como «un hombre de herramientas, un plomero». Sin embargo, esa mente práctica y su taller en el sótano transformaron tanto la medicina cardiovascular como la investigación científica de la meditación.
+          </p>
+
+          <div class="timeline-list">
+            <div class="timeline-entry">
+              <span class="coord-label">9 DE AGOSTO DE 1923 · CHECOSLOVAQUIA</span>
+              <h3 class="subsection-title">Origen y traslado a Israel</h3>
+              <p class="prose-body">Nace en Checoslovaquia. Durante la Segunda Guerra Mundial se traslada a Israel, donde desarrolla su temprano ingenio técnico.</p>
+            </div>
+            <div class="timeline-entry">
+              <span class="coord-label">1954 · ESTADOS UNIDOS</span>
+              <h3 class="subsection-title">Invenciones e ingeniería biomédica</h3>
+              <p class="prose-body">Emigra a Estados Unidos como inventor independiente. Crea desde hilos de papel hasta electrodos para marcapasos y el célebre <strong>catéter cardíaco dirigible</strong> (<em>steerable cardiac catheter</em>).</p>
+            </div>
+            <div class="timeline-entry">
+              <span class="coord-label">1976–1977 · SÍNTESIS EXPERIMENTAL</span>
+              <h3 class="subsection-title">Sismógrafo del corazón y Kundalini</h3>
+              <p class="prose-body">Integra su práctica meditativa con mediciones de laboratorio. Publica su modelo fisio-kundalini junto a Lee Sannella y lanza su obra maestra ilustrada por él mismo con humor caricaturesco.</p>
+            </div>
+            <div class="timeline-entry">
+              <span class="coord-label">25 DE MAYO DE 1979 · LEGADO</span>
+              <h3 class="subsection-title">Obra póstuma y huella científica</h3>
+              <p class="prose-body">Fallece prematuramente a los 55 años. Su esposa, la escultora Mirtala Bentov, completa sus manuscritos para publicar su segundo libro y preservar sus notas cosmológicas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="biblio-stack">
+          <span class="coord-label">BIBLIOGRAFÍA ESENCIAL</span>
+
+          <article class="book-card">
+            <div class="module-card-top">
+              <span class="coord-label">1977 · E. P. DUTTON / DESTINY BOOKS</span>
+              <span class="badge badge-brass">Obra Central</span>
+            </div>
+            <h3 class="book-title">Stalking the Wild Pendulum: On the Mechanics of Consciousness</h3>
+            <p class="prose-body">
+              Publicada en español como <em>Al acecho del péndulo errante</em> (o <em>Espiando al péndulo loco</em>). Introduce el péndulo de la realidad intermitente, el universo holográfico, la resonancia corporal de 7 Hz y el modelo del toroide cósmico.
+            </p>
+          </article>
+
+          <article class="book-card">
+            <div class="module-card-top">
+              <span class="coord-label">PÓSTUMO · CON MIRTALA BENTOV</span>
+              <span class="badge">Cosmología</span>
+            </div>
+            <h3 class="book-title">A Brief Tour of Higher Consciousness: A Cosmic Book on the Mechanics of Creation</h3>
+            <p class="prose-body">
+              Manual accesible e ilustrado sobre los siete niveles de realidad manifiesta, la evolución humana como destilación de conciencia y la interacción entre lo físico, lo astral, lo mental, lo causal y el Estado Absoluto.
+            </p>
+          </article>
+
+          <article class="book-card">
+            <div class="module-card-top">
+              <span class="coord-label">1976 · APÉNDICE CLÍNICO</span>
+              <span class="badge badge-mint">Neurofisiología</span>
+            </div>
+            <h3 class="book-title">Micromotion of the Body as a Factor in the Development of the Nervous System</h3>
+            <p class="prose-body">
+              Incluido en <em>Kundalini: Psychosis or Transcendence?</em> del psiquiatra Lee Sannella. Presenta la primera hipótesis fisiológica experimental sobre las ondas estacionarias en los ventrículos cerebrales y el circuito cortical del homúnculo.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ARCHIVO DE FUENTES, DOCUMENTALES Y PROYECTO GATEWAY -->
+    <section class="section-block reveal-on-scroll" id="fuentes" aria-labelledby="sources-title">
+      <div class="section-header-row">
+        <div class="section-header-text">
+          <p class="deck-brass">Archivo de referencias del ecosistema · Libros, estudios y audiovisual</p>
+          <h2 class="section-title" id="sources-title">Fuentes clave, documentales y la conexión Gateway</h2>
+          <p class="prose-body">
+            Explora el catálogo de obras escritas, investigaciones científicas y documentales en español que articulan este portal. Filtra por formato para consultar cada referencia.
+          </p>
+        </div>
+
+        <div class="interactive-toolbar" style="margin-bottom: 0;" role="group" aria-label="Filtrar fuentes del archivo">
+          <button type="button" class="btn-chip" aria-pressed="true" onclick="filterSources('all', this)">Todas (9)</button>
+          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('gateway', this)">Gateway y Ciencia</button>
+          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('video', this)">Documentales y YouTube</button>
+          <button type="button" class="btn-chip" aria-pressed="false" onclick="filterSources('texto', this)">Libros y Monografías</button>
+        </div>
+      </div>
+
+      <div class="sources-grid" id="sources-grid">
+        <article class="source-card" data-category="gateway">
+          <div>
+            <span class="badge badge-brass">Proyecto Gateway · CIA</span>
+            <h3 style="margin-top: var(--space-sm);">El Proceso Gateway y la sincronización cerebral de ~7.5 Hz</h3>
+            <p style="margin-top: var(--space-xs);">
+              Análisis desclasificado y estudio técnico («ITZHAK BENTOV: Gateway, técnica de la CIA para sincronizar el cerebro y expandir la consciencia», canal Vision Alterna). Explica cómo la sincronización hemisférica buscaba reproducir la coherencia cardiocerebral de 6.8–7.5 Hz descubierta por Bentov para operar como antena holográfica.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Fuente: Archivo Gateway / Vision Alterna</span>
+            <span>Frecuencia: 7.5 Hz</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="video">
+          <div>
+            <span class="badge">Documental Completo</span>
+            <h3 style="margin-top: var(--space-sm);">Itzhak Bentov: Del Átomo al Cosmos</h3>
+            <p style="margin-top: var(--space-xs);">
+              Documental biográfico y conceptual en español («ITZHAK BENTOV ~ DEL ÁTOMO AL COSMOS», Vision Alterna). Recorre sus conferencias, la anatomía de los cinco osciladores, los ventrículos cerebrales, el toroide cósmico y su célebre sentido del humor.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Canal: Vision Alterna</span>
+            <span>Audiovisual</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="video">
+          <div>
+            <span class="badge">Documental</span>
+            <h3 style="margin-top: var(--space-sm);">Descifró la realidad, y luego falleció misteriosamente</h3>
+            <p style="margin-top: var(--space-xs);">
+              Perfil documental («El Código Escondido») sobre cómo Bentov unió física dura, neurociencia y misticismo oriental bajo la premisa de que el cerebro es una radio receptora y el corazón un emisor electromagnético rítmico.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Canal: El Código Escondido</span>
+            <span>Audiovisual</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="video">
+          <div>
+            <span class="badge badge-mint">Divulgación</span>
+            <h3 style="margin-top: var(--space-sm);">Cuando detienes tu mente por un microsegundo y ¿A dónde vas al morir?</h3>
+            <p style="margin-top: var(--space-xs);">
+              Díptico en YouTube («Crecimiento Interno») sobre el sismógrafo del sótano, los átomos como estadios vacíos, la resonancia Schumann, los péndulos de Huygens y la continuidad de la conciencia en el holograma universal.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Canal: Crecimiento Interno</span>
+            <span>Serie en 2 partes</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="video">
+          <div>
+            <span class="badge">Síntesis Comparativa</span>
+            <h3 style="margin-top: var(--space-sm);">Jacobo Grinberg vs. Itzhak Bentov: Cómo descifrar la realidad</h3>
+            <p style="margin-top: var(--space-xs);">
+              Diálogo conceptual entre la Teoría Sintérgica de la Lattice (Grinberg) y el Reloj de la Creación / momentos OFF (Bentov) para comprender al cerebro como proyector y decodificador de la matriz energética («Crecimiento Interno»).
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Canal: Crecimiento Interno</span>
+            <span>Física y Conciencia</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="video">
+          <div>
+            <span class="badge badge-brass">Práctica Aplicada</span>
+            <h3 style="margin-top: var(--space-sm);">5 Técnicas para comunicarte con el universo y la «Fórmula Bentov»</h3>
+            <p style="margin-top: var(--space-xs);">
+              Videos («El Código Escondido») que traducen la coherencia cardíaca, la respiración simétrica de 6 segundos, la visualización en la glándula pineal, el silencio entre pensamientos y la escritura consciente en herramientas cotidianas de alineación vibracional.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Canal: El Código Escondido</span>
+            <span>Guía práctica</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="texto">
+          <div>
+            <span class="badge badge-brass">Libro + Audiolibro</span>
+            <h3 style="margin-top: var(--space-sm);">Al acecho del péndulo errante / Espiando al péndulo loco</h3>
+            <p style="margin-top: var(--space-xs);">
+              Edición en español de <em>Stalking the Wild Pendulum</em> (Inner Traditions en Español) y su audiolibro comentado en el canal «Mirta Jakubowicz. Dale que te Leo?», con exposición detallada de las ondas aórticas, el prototipo toroidal y lo Absoluto.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Itzhak Bentov · 240 pp.</span>
+            <span>Obra primaria</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="gateway">
+          <div>
+            <span class="badge">Cosmología y Archivo</span>
+            <h3 style="margin-top: var(--space-sm);">El Toroide Cósmico y The Physio-Kundalini Syndrome</h3>
+            <p style="margin-top: var(--space-xs);">
+              Síntesis técnica de la estructura toroidal (agujero blanco/negro, carta a Fred Hoyle de 1968 y analogía de la «mermelada dentro de la dona») junto al estudio de la Association for Transpersonal Psychology sobre el síndrome fisio-kundalini.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>Monografía y Paper ATP</span>
+            <span>Modelo físico</span>
+          </div>
+        </article>
+
+        <article class="source-card" data-category="texto">
+          <div>
+            <span class="badge badge-mint">Paralelo Armónico</span>
+            <h3 style="margin-top: var(--space-sm);">Non-Dual Singularity (José Díez Faixat, 2022)</h3>
+            <p style="margin-top: var(--space-xs);">
+              Investigación publicada en <em>Evolution: Trajectories of Social Evolution</em> que converge con la visión vibratoria de Bentov: propone que la evolución cósmica y humana avanza por saltos discretos guiados por ondas estacionarias (segundos armónicos de 1/3) entre el polo energético Alfa y el polo consciente Omega.
+            </p>
+          </div>
+          <div class="source-meta">
+            <span>J. Díez Faixat · pp. 214–256</span>
+            <span>Ondas estacionarias</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="observatory-footer">
+    <div class="footer-inner">
+      <div>
+        <span class="coord-label">OBSERVATORIO DE LA CONCIENCIA · PORTAL ITZHAK BENTOV</span>
+        <p class="prose-body" style="font-size: 0.88rem; margin-top: var(--space-xs);">
+          Síntesis interactiva basada en <em>Stalking the Wild Pendulum</em>, <em>A Brief Tour of Higher Consciousness</em>, estudios sobre el modelo fisio-kundalini, análisis Gateway y material documental citado.
+        </p>
+      </div>
+      <a class="btn btn-secondary" href="#inicio">Volver al observatorio ↑</a>
+    </div>
+
+    <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 28px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+      <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a> &bull; Movil: 2355-69 26 16</span>
+    </div>
+  </footer>
+
+  <script>
+    // Helper to resolve CSS tokens cleanly without hardcoding colors
+    function getToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------------------------------------------------------
+    // 1. HERO: PENDULUM & BLINKING REALITY SIMULATION (CANVAS)
+    // ---------------------------------------------------------
+    const pendulumState = {
+      coherence: 35,
+      frozenOff: false,
+      paused: false,
+      phase: 0
+    };
+
+    function updatePendulumCoherence(val) {
+      const num = Number(val);
+      pendulumState.coherence = num;
+      const label = document.getElementById('coherence-label');
+      const clarity = document.getElementById('tel-clarity');
+      const timeEl = document.getElementById('tel-time');
+
+      let desc = 'Mente cotidiana';
+      let clarityDesc = 'Enfoque local';
+      if (num >= 85) {
+        desc = 'Quietud · Umbral Absoluto';
+        clarityDesc = 'Holograma expandido';
+      } else if (num >= 60) {
+        desc = 'Meditación profunda';
+        clarityDesc = 'Coherencia neuronal';
+      } else if (num < 20) {
+        desc = 'Ruido beta elevado';
+        clarityDesc = 'Señal fragmentada';
+      }
+
+      if (label) label.textContent = `${num}% · ${desc}`;
+      if (clarity) clarity.textContent = `${num}% · ${clarityDesc}`;
+      if (timeEl) {
+        const factor = Math.max(0.04, 1 - (num / 105)).toFixed(2);
+        timeEl.textContent = num >= 96 ? `Atemporal (≈ 0.00×)` : `Lineal (${factor}×)`;
+      }
+    }
+
+    function toggleAbsoluteFreeze(btn) {
+      pendulumState.frozenOff = !pendulumState.frozenOff;
+      if (btn) btn.setAttribute('aria-pressed', String(pendulumState.frozenOff));
+      if (pendulumState.frozenOff) {
+        pendulumState.phase = Math.PI / 2;
+      }
+      updatePendulumReadout(true);
+    }
+
+    function togglePendulumPause(btn) {
+      pendulumState.paused = !pendulumState.paused;
+      if (btn) {
+        btn.setAttribute('aria-pressed', String(pendulumState.paused));
+        btn.textContent = pendulumState.paused ? `Reanudar oscilación` : `Pausar oscilación`;
+      }
+    }
+
+    function updatePendulumReadout(isOff) {
+      const badge = document.getElementById('pendulum-phase-badge');
+      const telState = document.getElementById('tel-state');
+      if (isOff || pendulumState.frozenOff) {
+        if (badge) {
+          badge.textContent = `FASE OFF · REPOSO ABSOLUTO`;
+          badge.className = `badge`;
+        }
+        if (telState) telState.textContent = `OFF · Sin tiempo ni espacio`;
+      } else {
+        if (badge) {
+          badge.textContent = `FASE ON · MANIFESTACIÓN`;
+          badge.className = `badge badge-brass`;
+        }
+        if (telState) telState.textContent = `ON · Espacio-tiempo`;
+      }
+    }
+
+    function initPendulumCanvas() {
+      const canvas = document.getElementById('pendulum-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const cBrass = getToken('--primary');
+      const cCyan = getToken('--tertiary');
+      const cIvory = getToken('--on-surface');
+      const cMuted = getToken('--secondary');
+      const cOutline = getToken('--outline-variant');
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = canvas.offsetWidth * dpr;
+        canvas.height = canvas.offsetHeight * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      let lastT = performance.now();
+      function frame(now) {
+        const dt = Math.min((now - lastT) / 1000, 0.05);
+        lastT = now;
+
+        const w = canvas.offsetWidth;
+        const h = canvas.offsetHeight;
+        ctx.clearRect(0, 0, w, h);
+
+        if (!pendulumState.paused && !pendulumState.frozenOff && !reduceMotion) {
+          const speed = 2.4 - (pendulumState.coherence / 100) * 1.45;
+          pendulumState.phase += dt * speed;
+        }
+
+        const pivotX = w / 2;
+        const pivotY = 26;
+        const armLen = Math.min(h - 68, 195);
+        const maxAngle = 0.62;
+        const sinVal = Math.sin(pendulumState.phase);
+        const angle = sinVal * maxAngle;
+
+        const bobX = pivotX + Math.sin(angle) * armLen;
+        const bobY = pivotY + Math.cos(angle) * armLen;
+
+        // Threshold for "OFF" moment at swing extremes
+        const offThreshold = 0.94 - (pendulumState.coherence / 100) * 0.18;
+        const isOff = pendulumState.frozenOff || Math.abs(sinVal) >= offThreshold;
+        updatePendulumReadout(isOff);
+
+        // Draw arc of reality & "OFF" zones
+        ctx.beginPath();
+        ctx.arc(pivotX, pivotY, armLen, Math.PI / 2 - maxAngle, Math.PI / 2 + maxAngle);
+        ctx.strokeStyle = cOutline;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Draw holographic wave background ripple when OFF or high coherence
+        const rippleAlpha = isOff ? 0.55 : 0.12 + (pendulumState.coherence / 100) * 0.25;
+        ctx.save();
+        ctx.globalAlpha = rippleAlpha;
+        for (let r = 1; r <= 3; r++) {
+          ctx.beginPath();
+          ctx.arc(bobX, bobY, 18 + r * 18 + (isOff ? Math.sin(now * 0.008) * 4 : 0), 0, Math.PI * 2);
+          ctx.strokeStyle = isOff ? cCyan : cBrass;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Draw extreme "OFF" nodes
+        const leftExtX = pivotX + Math.sin(-maxAngle) * armLen;
+        const leftExtY = pivotY + Math.cos(-maxAngle) * armLen;
+        const rightExtX = pivotX + Math.sin(maxAngle) * armLen;
+        const rightExtY = pivotY + Math.cos(maxAngle) * armLen;
+
+        [ [leftExtX, leftExtY], [rightExtX, rightExtY] ].forEach((pt) => {
+          ctx.beginPath();
+          ctx.arc(pt[0], pt[1], 5, 0, Math.PI * 2);
+          ctx.fillStyle = isOff ? cCyan : cMuted;
+          ctx.fill();
+        });
+
+        // Draw pendulum rod
+        ctx.beginPath();
+        ctx.moveTo(pivotX, pivotY);
+        ctx.lineTo(bobX, bobY);
+        ctx.strokeStyle = isOff ? cCyan : cIvory;
+        ctx.lineWidth = 1.5;
+        if (isOff) ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Draw pivot
+        ctx.beginPath();
+        ctx.arc(pivotX, pivotY, 4, 0, Math.PI * 2);
+        ctx.fillStyle = cBrass;
+        ctx.fill();
+
+        // Draw bob (fades / dissolves into holographic halo in OFF state)
+        ctx.beginPath();
+        ctx.arc(bobX, bobY, isOff ? 13 : 11, 0, Math.PI * 2);
+        if (isOff) {
+          ctx.strokeStyle = cCyan;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.fillStyle = cCyan;
+          ctx.globalAlpha = 0.22;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        } else {
+          ctx.fillStyle = cBrass;
+          ctx.fill();
+        }
+
+        // Labels on canvas
+        ctx.font = `500 11px "JetBrains Mono", monospace`;
+        ctx.fillStyle = cCyan;
+        ctx.textAlign = 'center';
+        ctx.fillText(`OFF`, leftExtX, leftExtY + 22);
+        ctx.fillText(`OFF`, rightExtX, rightExtY + 22);
+
+        ctx.fillStyle = isOff ? cCyan : cIvory;
+        ctx.fillText(isOff ? `VELOCIDAD = 0 · ACCESO AL ABSOLUTO` : `FASE ON · MATERIA MANIFIESTA`, pivotX, h - 14);
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // ---------------------------------------------------------
+    // 2. ECOSYSTEM MAP SELECTION
+    // ---------------------------------------------------------
+    const ecosystemModules = [
+      {
+        tag: `MÓDULO 01 · MACROFÍSICA`,
+        title: `El Toroide Cósmico`,
+        desc: `Un universo ovoide y hueco donde materia y tiempo fluyen desde un agujero blanco por la piel exterior y retornan al agujero negro central, rodeando el protoespacio.`,
+        href: `#modulo-toroide`,
+        pageHref: `Simulación_del_Toroide_Cósmico_de_Bentov.html`
+      },
+      {
+        tag: `MÓDULO 02 · ONDAS ESTACIONARIAS`,
+        title: `La Ilusión de la Materia y el Lenguaje de la Creación`,
+        desc: `Los átomos son casi por completo espacio vacío y ondas vibrantes. La conciencia decodifica patrones de interferencia y los moldea mediante arquetipos y lenguaje.`,
+        href: `#modulo-materia`,
+        pageHref: `Materia_y_Símbolos_de_la_Creación_(Bentov).html`
+      },
+      {
+        tag: `MÓDULO 03 · BIOFÍSICA DE LABORATORIO`,
+        title: `Fisiología de la Quietud y Resonancia a 7 Hz`,
+        desc: `Cuando la respiración se serena, la aorta entra en fase con el latido creando una onda senoidal limpia a ~7 Hz que sintoniza con la ionosfera terrestre (Schumann).`,
+        href: `#modulo-resonancia`,
+        pageHref: `Fisiología_de_la_Quietud_y_Resonancia_7_Hz_(Bentov).html`
+      },
+      {
+        tag: `MÓDULO 04 · NEUROFISIOLOGÍA`,
+        title: `Fisiomecánica de la Kundalini`,
+        desc: `Las ondas estacionarias en los ventrículos cerebrales estimulan secuencialmente el homúnculo sensorial, liberando bloqueos y sincronizando ambos hemisferios.`,
+        href: `#modulo-kundalini`,
+        pageHref: `Fisiomecánica_de_la_Kundalini_(Bentov).html`
+      }
+    ];
+
+    function selectEcosystemNode(idx) {
+      const mod = ecosystemModules[idx];
+      if (!mod) return;
+
+      for (let i = 0; i < 4; i++) {
+        const card = document.getElementById(`map-card-${i}`);
+        const svgNode = document.getElementById(`svg-node-${i}`);
+        if (card) {
+          if (i === idx) card.classList.add('is-active');
+          else card.classList.remove('is-active');
+        }
+        if (svgNode) {
+          svgNode.setAttribute('fill', i === idx ? 'var(--primary-container)' : 'var(--surface-container)');
+          svgNode.setAttribute('stroke', i === idx ? 'var(--primary)' : 'var(--tertiary)');
+          svgNode.setAttribute('stroke-width', i === idx ? '2.5' : '1.5');
+        }
+      }
+
+      const tagEl = document.getElementById('eco-detail-tag');
+      const titleEl = document.getElementById('eco-detail-title');
+      const descEl = document.getElementById('eco-detail-desc');
+      const ctaEl = document.getElementById('eco-detail-cta');
+      const fullCtaEl = document.getElementById('eco-detail-full-cta');
+
+      if (tagEl) tagEl.textContent = mod.tag;
+      if (titleEl) titleEl.textContent = mod.title;
+      if (descEl) descEl.textContent = mod.desc;
+      if (ctaEl) ctaEl.setAttribute('href', mod.href);
+      if (fullCtaEl && mod.pageHref) fullCtaEl.setAttribute('href', mod.pageHref);
+    }
+
+    // ---------------------------------------------------------
+    // 3. MODULE 01: COSMIC TOROID SIMULATION (CANVAS)
+    // ---------------------------------------------------------
+    const toroidState = {
+      mode: 'flow',
+      zone: 0,
+      t: 0
+    };
+
+    const toroidZones = [
+      {
+        label: `REGIÓN 01 · SEMILLA DEL ROBLE (NÚCLEO KERR)`,
+        text: `Un agujero negro y un agujero blanco en rotación unidos espalda con espalda. La materia no desaparece en un punto cero, sino que atraviesa un anillo de transición que imprime su giro a todo el cosmos.`
+      },
+      {
+        label: `REGIÓN 02 · POLO NORTE Y CHORRO DE RADIACIÓN`,
+        text: `Un chorro luminoso continuo emerge del agujero blanco. Al alejarse y enfriarse, la radiación se condensa en protones, neutrones, electrones, hidrógeno, helio, estrellas y galaxias.`
+      },
+      {
+        label: `REGIÓN 03 · ENVOLVENTE ESPACIO-TEMPORAL`,
+        text: `La gravedad curva el chorro formando una fuente cósmica descendente. La luz queda atrapada en esta cáscara exterior y el tiempo lineal equivale a la distancia recorrida hacia el polo sur.`
+      },
+      {
+        label: `REGIÓN 04 · PROTOESPACIO Y MENTE UNIVERSAL`,
+        text: `La «mermelada dentro de la dona» previa al espacio-tiempo. Los fotones no lo cruzan, pero las ondas informativas de toda la materia se superponen aquí creando el holograma de la Mente Universal.`
+      }
+    ];
+
+    function setToroidMode(mode) {
+      toroidState.mode = mode;
+      const btnFlow = document.getElementById('toroid-view-flow');
+      const btnMeridian = document.getElementById('toroid-view-meridian');
+      if (btnFlow) btnFlow.setAttribute('aria-pressed', String(mode === 'flow'));
+      if (btnMeridian) btnMeridian.setAttribute('aria-pressed', String(mode === 'meridian'));
+    }
+
+    function selectToroidZone(idx, btn) {
+      toroidState.zone = idx;
+      const data = toroidZones[idx];
+      if (!data) return;
+
+      if (btn && btn.parentElement) {
+        const siblings = btn.parentElement.querySelectorAll('.btn-chip');
+        siblings.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      const labelEl = document.getElementById('toroid-zone-label');
+      const textEl = document.getElementById('toroid-zone-text');
+      if (labelEl) labelEl.textContent = data.label;
+      if (textEl) textEl.textContent = data.text;
+    }
+
+    function initToroidCanvas() {
+      const canvas = document.getElementById('toroid-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const cBrass = getToken('--primary');
+      const cCyan = getToken('--tertiary');
+      const cMint = getToken('--positive');
+      const cIvory = getToken('--on-surface');
+      const cOutline = getToken('--outline');
+      const cMuted = getToken('--on-surface-variant');
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = canvas.offsetWidth * dpr;
+        canvas.height = canvas.offsetHeight * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function render(now) {
+        if (!reduceMotion) toroidState.t = now * 0.001;
+        const t = toroidState.t;
+        const w = canvas.offsetWidth;
+        const h = canvas.offsetHeight;
+        const cx = w / 2;
+        const cy = h / 2;
+        ctx.clearRect(0, 0, w, h);
+
+        const rx = Math.min(w * 0.38, 170);
+        const ry = Math.min(h * 0.39, 118);
+
+        // Protospace interior ambient glow
+        ctx.save();
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rx * 0.72, ry * 0.78, 0, 0, Math.PI * 2);
+        ctx.fillStyle = cCyan;
+        ctx.globalAlpha = toroidState.zone === 3 ? 0.14 : 0.05;
+        ctx.fill();
+        ctx.restore();
+
+        if (toroidState.mode === 'flow') {
+          // Outer toroidal shell curves (poloidal fountain loops)
+          for (let side of [-1, 1]) {
+            for (let layer = 0; layer < 3; layer++) {
+              const spread = 0.75 + layer * 0.16;
+              ctx.beginPath();
+              ctx.moveTo(cx, cy - ry * 0.45);
+              ctx.bezierCurveTo(
+                cx + side * rx * spread * 1.35, cy - ry * 1.15,
+                cx + side * rx * spread * 1.35, cy + ry * 1.15,
+                cx, cy + ry * 0.45
+              );
+              ctx.strokeStyle = toroidState.zone === 2 ? cBrass : cOutline;
+              ctx.lineWidth = toroidState.zone === 2 ? 2 : 1.2;
+              ctx.globalAlpha = 0.65 - layer * 0.15;
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+            }
+          }
+
+          // Animated flowing matter/galaxy particles along shell
+          const count = 16;
+          for (let i = 0; i < count; i++) {
+            const p = ((t * 0.24 + i / count) % 1);
+            const side = i % 2 === 0 ? 1 : -1;
+            // Cubic bezier interpolation from north funnel -> outer shell -> south funnel
+            const u = p;
+            const p0 = { x: cx, y: cy - ry * 0.42 };
+            const p1 = { x: cx + side * rx * 1.32, y: cy - ry * 1.05 };
+            const p2 = { x: cx + side * rx * 1.32, y: cy + ry * 1.05 };
+            const p3 = { x: cx, y: cy + ry * 0.42 };
+
+            const px = Math.pow(1 - u, 3) * p0.x + 3 * Math.pow(1 - u, 2) * u * p1.x + 3 * (1 - u) * Math.pow(u, 2) * p2.x + Math.pow(u, 3) * p3.x;
+            const py = Math.pow(1 - u, 3) * p0.y + 3 * Math.pow(1 - u, 2) * u * p1.y + 3 * (1 - u) * Math.pow(u, 2) * p2.y + Math.pow(u, 3) * p3.y;
+
+            ctx.beginPath();
+            ctx.arc(px, py, u > 0.2 && u < 0.8 ? 3.2 : 2.2, 0, Math.PI * 2);
+            ctx.fillStyle = u < 0.22 ? cIvory : (u > 0.78 ? cCyan : cBrass);
+            ctx.fill();
+          }
+        } else {
+          // Meridian cross-section (Fred Hoyle 1968 letter schematic)
+          for (let side of [-1, 1]) {
+            ctx.beginPath();
+            ctx.ellipse(cx + side * rx * 0.48, cy, rx * 0.42, ry * 0.86, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = toroidState.zone === 3 ? cCyan : cBrass;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Protospace cross-hatch hint inside section
+            ctx.beginPath();
+            ctx.ellipse(cx + side * rx * 0.48, cy, rx * 0.24, ry * 0.54, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = cCyan;
+            ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+            ctx.setLineDash([]);
+          }
+          // Holographic mind wave lines crossing protospace to axis
+          ctx.beginPath();
+          ctx.moveTo(cx - rx * 0.85, cy);
+          ctx.lineTo(cx + rx * 0.85, cy);
+          ctx.strokeStyle = cMint;
+          ctx.lineWidth = 1.3;
+          ctx.setLineDash([3, 3]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        // Central axis jet (North white hole -> South black hole)
+        ctx.beginPath();
+        ctx.moveTo(cx, cy + ry * 0.45);
+        ctx.lineTo(cx, cy - ry * 0.85);
+        ctx.strokeStyle = toroidState.zone === 1 ? cIvory : cCyan;
+        ctx.lineWidth = toroidState.zone === 1 ? 3 : 2;
+        ctx.stroke();
+
+        // Nucleus: White Hole (top half) & Black Hole (bottom half)
+        ctx.beginPath();
+        ctx.arc(cx, cy - 8, 10, Math.PI, 0);
+        ctx.fillStyle = cIvory;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(cx, cy + 8, 10, 0, Math.PI);
+        ctx.fillStyle = getToken('--background');
+        ctx.fill();
+        ctx.strokeStyle = cBrass;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        if (toroidState.zone === 0) {
+          ctx.beginPath();
+          ctx.arc(cx, cy, 22 + Math.sin(t * 3) * 2, 0, Math.PI * 2);
+          ctx.strokeStyle = cBrass;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        }
+
+        // Labels
+        ctx.font = `500 10px "JetBrains Mono", monospace`;
+        ctx.textAlign = 'center';
+        ctx.fillStyle = cIvory;
+        ctx.fillText(`POLO NORTE · AGUJERO BLANCO`, cx, 20);
+        ctx.fillStyle = cMuted;
+        ctx.fillText(`POLO SUR · RETORNO AGUJERO NEGRO`, cx, h - 12);
+
+        if (toroidState.mode === 'meridian') {
+          ctx.fillStyle = cCyan;
+          ctx.fillText(`PROTOESPACIO`, cx - rx * 0.48, cy + 4);
+          ctx.fillText(`PROTOESPACIO`, cx + rx * 0.48, cy + 4);
+        }
+
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+    }
+
+    // ---------------------------------------------------------
+    // 4. MODULE 02: HARMONICS & MATTER SCALE EXPLORER
+    // ---------------------------------------------------------
+    const harmonicSteps = [
+      {
+        label: `ONDA FUNDAMENTAL (C) · UNIDAD ORIGINARIA`,
+        text: `La cuerda vibra como una totalidad unificada. Tanto en los átomos (ecuación de Schrödinger) como en la música pitagórica y la evolución cósmica, la energía se estabiliza en nodos discretos de ondas estacionarias.`,
+        segments: 1
+      },
+      {
+        label: `PRIMER ARMÓNICO (1/2) · OCTAVA RESONANTE`,
+        text: `Dividir la longitud vibratoria por la mitad produce la misma nota una octava más alta: un nuevo nivel de estabilidad sin alterar la identidad tonal básica.`,
+        segments: 2
+      },
+      {
+        label: `SEGUNDO ARMÓNICO (1/3) · SALTO CREATIVO (G)`,
+        text: `Al inducir la vibración en un tercio de la cuerda emerge una nota cualitativamente distinta (Sol). Según el paralelismo evolutivo, cada tercio genera una bifurcación o salto hacia una forma más compleja.`,
+        segments: 3
+      },
+      {
+        label: `ESPIRAL DE QUINTAS (C–G–D–A–E) · ARQUETIPOS`,
+        text: `Iterando los tercios emerge la espiral pitagórica de quintas. Así como los sonidos ordenan la música, los símbolos, letras y geometrías arquetípicas actúan como moldes que dan forma tangible a la vibración.`,
+        segments: 5
+      }
+    ];
+
+    function selectHarmonicStep(idx, btn) {
+      const data = harmonicSteps[idx];
+      if (!data) return;
+
+      if (btn && btn.parentElement) {
+        btn.parentElement.querySelectorAll('.btn-chip').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      const labelEl = document.getElementById('harmonic-label');
+      const textEl = document.getElementById('harmonic-text');
+      if (labelEl) labelEl.textContent = data.label;
+      if (textEl) textEl.textContent = data.text;
+
+      const upper = document.getElementById('harmonic-wave-upper');
+      const lower = document.getElementById('harmonic-wave-lower');
+      const nodesGroup = document.getElementById('harmonic-nodes');
+      if (!upper || !lower || !nodesGroup) return;
+
+      const n = data.segments;
+      const startX = 20;
+      const endX = 440;
+      const span = endX - startX;
+      const segW = span / n;
+      const midY = 65;
+      const amp = 48;
+
+      let dUp = `M ${startX} ${midY}`;
+      let dDown = `M ${startX} ${midY}`;
+      let nodesHtml = ``;
+
+      for (let i = 0; i < n; i++) {
+        const x1 = startX + i * segW;
+        const xMid = x1 + segW / 2;
+        const x2 = x1 + segW;
+        const dir = i % 2 === 0 ? -1 : 1;
+        dUp += ` Q ${xMid.toFixed(1)} ${(midY + dir * amp).toFixed(1)} ${x2.toFixed(1)} ${midY}`;
+        dDown += ` Q ${xMid.toFixed(1)} ${(midY - dir * amp).toFixed(1)} ${x2.toFixed(1)} ${midY}`;
+        if (i > 0) {
+          nodesHtml += `<circle cx="${x1.toFixed(1)}" cy="${midY}" r="4.5" fill="var(--primary)" />`;
+        }
+      }
+
+      upper.setAttribute('d', dUp);
+      lower.setAttribute('d', dDown);
+      nodesGroup.innerHTML = nodesHtml;
+    }
+
+    // ---------------------------------------------------------
+    // 5. MODULE 03: 7 HZ SEISMOGRAPH OSCILLOSCOPE & BREATH GUIDE
+    // ---------------------------------------------------------
+    const waveState = {
+      mode: 'sine'
+    };
+
+    function setWaveMode(mode) {
+      waveState.mode = mode;
+      const btnChaos = document.getElementById('wave-mode-chaos');
+      const btnSine = document.getElementById('wave-mode-sine');
+      const btnBreath = document.getElementById('wave-mode-breath');
+
+      if (btnChaos) btnChaos.setAttribute('aria-pressed', String(mode === 'chaos'));
+      if (btnSine) btnSine.setAttribute('aria-pressed', String(mode === 'sine'));
+      if (btnBreath) btnBreath.setAttribute('aria-pressed', String(mode === 'breath'));
+
+      const labelEl = document.getElementById('breath-phase-label');
+      const descEl = document.getElementById('wave-description');
+      const readoutEl = document.getElementById('breath-timer-readout');
+
+      if (mode === 'chaos') {
+        if (labelEl) labelEl.textContent = `MODO COTIDIANO · INTERFERENCIA DESTRUCTIVA`;
+        if (readoutEl) readoutEl.textContent = `1.0× Amplitud · Ruido`;
+        if (descEl) descEl.textContent = `Con la mente agitada y respiración irregular, la onda reflejada desde la bifurcación de las piernas choca contra el siguiente pulso aórtico generando un trazo caótico.`;
+      } else if (mode === 'sine') {
+        if (labelEl) labelEl.textContent = `MODO SISMÓGRAFO · ACOPLAMIENTO SCHUMANN`;
+        if (readoutEl) readoutEl.textContent = `7.2 Hz · 3.0× Amplitud`;
+        if (descEl) descEl.textContent = `La onda del pulso desciende por la aorta y coincide en fase con la reflexión ascendente, amplificando tres veces la señal armónica y sintonizando el cuerpo con el campo electrostático terrestre.`;
+      } else {
+        if (labelEl) labelEl.textContent = `PRÁCTICA SIMÉTRICA · 6 S INHALAR / 6 S EXHALAR`;
+        if (descEl) descEl.textContent = `Sigue la barra luminosa durante tres ciclos lentos sin apuro. Al suavizar la exhalación y reposar en el instante final, activas el freno natural del sistema nervioso hacia la banda de 7 Hz.`;
+      }
+    }
+
+    function initWaveCanvas() {
+      const canvas = document.getElementById('wave-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const cBrass = getToken('--primary');
+      const cCyan = getToken('--tertiary');
+      const cMint = getToken('--positive');
+      const cCoral = getToken('--data-4');
+      const cOutline = getToken('--outline-variant');
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = canvas.offsetWidth * dpr;
+        canvas.height = canvas.offsetHeight * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function render(now) {
+        const t = reduceMotion ? 0 : now * 0.001;
+        const w = canvas.offsetWidth;
+        const h = canvas.offsetHeight;
+        const midY = h / 2;
+        ctx.clearRect(0, 0, w, h);
+
+        // Baseline
+        ctx.beginPath();
+        ctx.moveTo(0, midY);
+        ctx.lineTo(w, midY);
+        ctx.strokeStyle = cOutline;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Schumann reference faint carrier wave (7.5 Hz)
+        if (waveState.mode !== 'chaos') {
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += 4) {
+            const y = midY + Math.sin(x * 0.055 - t * 5.2) * (h * 0.18);
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = cCyan;
+          ctx.globalAlpha = 0.28;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+
+        // Main heart-aorta seismograph waveform
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += 2) {
+          let y = midY;
+          if (waveState.mode === 'chaos') {
+            const n1 = Math.sin(x * 0.08 - t * 7.5) * (h * 0.12);
+            const n2 = Math.sin(x * 0.21 + t * 11.3) * (h * 0.09);
+            const n3 = Math.cos(x * 0.37 - t * 4.1) * (h * 0.06);
+            y = midY + n1 + n2 + n3;
+          } else {
+            const breathMod = waveState.mode === 'breath'
+              ? 0.65 + 0.35 * (0.5 - 0.5 * Math.cos((t / 6) * Math.PI))
+              : 1;
+            y = midY + Math.sin(x * 0.055 - t * 5.2) * (h * 0.34 * breathMod);
+          }
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = waveState.mode === 'chaos' ? cCoral : (waveState.mode === 'breath' ? cMint : cBrass);
+        ctx.lineWidth = 2.4;
+        ctx.stroke();
+
+        // Update breath bar when in breath mode
+        const bar = document.getElementById('breath-progress-bar');
+        const label = document.getElementById('breath-phase-label');
+        const readout = document.getElementById('breath-timer-readout');
+        if (waveState.mode === 'breath' && bar) {
+          const cycle = (t % 12);
+          const inhaling = cycle < 6;
+          const pct = inhaling ? (cycle / 6) * 100 : ((12 - cycle) / 6) * 100;
+          bar.style.width = `${pct.toFixed(1)}%`;
+          bar.style.background = inhaling ? cCyan : cMint;
+          if (label) label.textContent = inhaling ? `INHALA SUAVE POR LA NARIZ (6 s)` : `EXHALA LENTO Y REPOSA AL FINAL (6 s)`;
+          if (readout) readout.textContent = `${(inhaling ? cycle : cycle - 6).toFixed(1)} s / 6.0 s`;
+        } else if (bar) {
+          bar.style.width = waveState.mode === 'chaos' ? `28%` : `92%`;
+          bar.style.background = waveState.mode === 'chaos' ? cCoral : cBrass;
+        }
+
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+    }
+
+    // ---------------------------------------------------------
+    // 6. MODULE 04: PHYSIO-KUNDALINI HOMUNCULUS EXPLORER
+    // ---------------------------------------------------------
+    const kundaliniStages = [
+      {
+        tag: `FASE 01 · PULSO CARDÍACO AÓRTICO`,
+        text: `La onda mecánica del latido inicia el efecto dominó entre los cinco osciladores acoplados. Al desaparecer las interferencias destructivas, la vibración limpia asciende por el eje corporal hacia el cráneo.`,
+        beamY: 242
+      },
+      {
+        tag: `FASE 02 · RESONANCIA DEL ESQUELETO (7 HZ)`,
+        text: `El esqueleto y los órganos internos se mueven coherentemente a ~7 ciclos por segundo. En personas con bloqueos emocionales o tensión acumulada, la corriente produce cosquilleo o calor en piernas y espalda hasta despejar el conducto.`,
+        beamY: 196
+      },
+      {
+        tag: `FASE 03 · CAVIDAD CRANEAL Y MEMBRANA DURAMADRE`,
+        text: `La vibración asciende por la columna hasta el cuello y el cráneo, donde el cerebro oscila suavemente (0.005–0.010 mm) dentro de su bolsa de fluido amortiguador.`,
+        beamY: 148
+      },
+      {
+        tag: `FASE 04 · TERCER VENTRÍCULO Y ONDAS ACÚSTICAS`,
+        text: `El fluido de los ventrículos cerebrales genera ondas estacionarias acústicas. Sobre el «tambor» del tercer ventrículo vibran las fibras nerviosas que comunican ambos hemisferios cerebrales.`,
+        beamY: 102
+      },
+      {
+        tag: `FASE 05 · CIRCUITO DEL HOMÚNCULO Y SINCRONÍA HEMISFÉRICA`,
+        text: `La polarización eléctrica recorre punto por punto el homúnculo sensorial y motor (dedos de pies, piernas, torso, rostro) y alcanza los centros de placer, expandiendo el campo electromagnético alrededor de la cabeza (~50 cm).`,
+        beamY: 56
+      }
+    ];
+
+    function selectKundaliniStage(idx) {
+      const stage = kundaliniStages[idx];
+      if (!stage) return;
+
+      for (let i = 0; i < 5; i++) {
+        const btn = document.getElementById(`osc-btn-${i}`);
+        const node = document.getElementById(`k-node-${i}`);
+        if (btn) btn.setAttribute('aria-pressed', String(i === idx));
+        if (node) {
+          node.setAttribute('fill', i === idx ? 'var(--primary-container)' : 'var(--surface-container)');
+          node.setAttribute('stroke', i === idx ? 'var(--primary)' : 'var(--tertiary)');
+          node.setAttribute('stroke-width', i === idx ? '2.4' : '1.5');
+        }
+      }
+
+      const tagEl = document.getElementById('kundalini-stage-tag');
+      const textEl = document.getElementById('kundalini-stage-text');
+      const beamEl = document.getElementById('kundalini-beam');
+
+      if (tagEl) tagEl.textContent = stage.tag;
+      if (textEl) textEl.textContent = stage.text;
+      if (beamEl) beamEl.setAttribute('y2', String(stage.beamY));
+    }
+
+    // ---------------------------------------------------------
+    // 7. ARCHIVE FILTERING
+    // ---------------------------------------------------------
+    function filterSources(category, btn) {
+      if (btn && btn.parentElement) {
+        btn.parentElement.querySelectorAll('.btn-chip').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      const cards = document.querySelectorAll('#sources-grid .source-card');
+      cards.forEach((card) => {
+        const cat = card.getAttribute('data-category');
+        if (category === 'all' || cat === category) {
+          card.removeAttribute('hidden');
+        } else {
+          card.setAttribute('hidden', 'true');
+        }
+      });
+    }
+
+    // ---------------------------------------------------------
+    // 8. SCROLL REVEAL & BOOTSTRAP
+    // ---------------------------------------------------------
+    function initScrollReveal() {
+      const els = document.querySelectorAll('.reveal-on-scroll');
+      if (!('IntersectionObserver' in window) || reduceMotion) {
+        els.forEach((el) => el.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      els.forEach((el) => observer.observe(el));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+      initPendulumCanvas();
+      initToroidCanvas();
+      initWaveCanvas();
+      initScrollReveal();
+    });
+  </script>
 </body>
 </html>

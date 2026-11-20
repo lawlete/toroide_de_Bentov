@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="es-419">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>El Modelo Biomecánico de la Fisio-Kundalini — Itzhak Bentov y Lee Sannella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* 1. Nocturne base + deep cosmic adaptation */
+      --background: #060913;
+      --surface-container-low: #0a1020;
+      --surface-container: #0f172a;
+      --surface-container-high: #16223b;
+
+      /* Text */
+      --on-surface: #eef2f8;
+      --on-surface-variant: #98a8c4;
+
+      /* Borders */
+      --outline: #384f75;
+      --outline-variant: #1d2b46;
+
+      /* 2. User-requested accents: Warm Gold & Neon Cyan */
+      --primary: #f2be54;                 /* oro cálido */
+      --on-primary: #070b14;
+      --primary-container: #2a2112;
+      --on-primary-container: #fde4a8;
+      --secondary: #687fa3;               /* muted slate for context/axes */
+      --tertiary: #2ee6ff;                /* cian neón */
+      --on-tertiary: #04131a;
+      --error: #f87171;
+      --on-error: #1f0707;
+
+      /* Data series */
+      --data-1: #f2be54;                  /* oro cálido */
+      --data-2: #2ee6ff;                  /* cian neón */
+      --data-3: #4ade80;                  /* verde coherencia */
+      --data-4: #fb7185;                  /* coral interferencia */
+      --data-context: #475c80;
+
+      /* Fonts: Crisp modern sans + monospace */
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.75rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --luminous-cyan: 1px solid color-mix(in srgb, var(--tertiary) 34%, transparent);
+      --luminous-gold: 1px solid color-mix(in srgb, var(--primary) 36%, transparent);
+      --panel-highlight: inset 0 1px 0 rgba(238, 242, 248, 0.06);
+      --glow-cyan: 0 0 24px color-mix(in srgb, var(--tertiary) 18%, transparent);
+      --glow-gold: 0 0 24px color-mix(in srgb, var(--primary) 18%, transparent);
+      --cosmic-wash:
+        radial-gradient(circle at 14% 10%, color-mix(in srgb, var(--tertiary) 11%, transparent), transparent 44%),
+        radial-gradient(circle at 86% 14%, color-mix(in srgb, var(--primary) 11%, transparent), transparent 42%),
+        radial-gradient(circle at 50% 88%, color-mix(in srgb, var(--tertiary) 6%, transparent), transparent 52%);
+      --panel-gradient: linear-gradient(180deg, color-mix(in srgb, var(--surface-container-high) 70%, var(--surface-container)) 0%, var(--surface-container-low) 100%);
+      --cyan-tint: color-mix(in srgb, var(--tertiary) 12%, transparent);
+      --gold-tint: color-mix(in srgb, var(--primary) 14%, transparent);
+      --error-tint: color-mix(in srgb, var(--error) 14%, transparent);
+      --positive-tint: color-mix(in srgb, var(--positive) 13%, transparent);
+      --heading-tracking: -0.025em;
+      --label-tracking: 0.07em;
+
+      /* 3. Shared tokens */
+      --positive: #4ade80;
+      --warning: #fbbf24;
+      --focus: var(--tertiary);
+
+      /* Type scale: Narrative */
+      --display-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.25rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.8vw, 2.4rem);
+      --subhead-size: clamp(1.15rem, 1.02rem + 0.55vw, 1.4rem);
+      --body-size: clamp(1.02rem, 0.98rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 240ms;
+      --dur-long: 480ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background-image: var(--cosmic-wash);
+      background-attachment: fixed;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.12;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    p {
+      margin: 0;
+      max-width: 68ch;
+      color: var(--on-surface-variant);
+    }
+    p strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    .mono-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+    .mono-gold {
+      color: var(--primary);
+    }
+
+    /* Top Observatory Bar */
+    .top-bar {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-lg) 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-md);
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface);
+    }
+    .brand-mark svg {
+      color: var(--primary);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .nav-link {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link:hover {
+      color: var(--tertiary);
+      background-color: var(--cyan-tint);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: var(--space-xl) 0 var(--space-lg);
+      display: grid;
+      gap: var(--space-xl);
+    }
+    .hero-copy {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      font-weight: 700;
+      max-width: 22ch;
+    }
+    .hero-title .accent-gold {
+      color: var(--primary);
+    }
+    .hero-title .accent-cyan {
+      color: var(--tertiary);
+    }
+    .hero-lede {
+      font-size: var(--subhead-size);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      max-width: 64ch;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .kpi-card {
+      background: var(--panel-gradient);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .kpi-card.is-cyan { border: var(--luminous-cyan); box-shadow: var(--panel-highlight), var(--glow-cyan); }
+    .kpi-card.is-gold { border: var(--luminous-gold); box-shadow: var(--panel-highlight), var(--glow-gold); }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.35rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+      letter-spacing: -0.02em;
+    }
+    .kpi-card.is-cyan .kpi-value { color: var(--tertiary); }
+    .kpi-card.is-gold .kpi-value { color: var(--primary); }
+    .kpi-desc {
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+
+    /* Section Architecture */
+    .chapter {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-xl);
+      border-top: var(--hairline);
+    }
+    .chapter-head {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .chapter-title {
+      font-size: var(--headline-size);
+    }
+    .chapter-lead {
+      font-size: var(--body-size);
+      color: var(--on-surface-variant);
+      max-width: 68ch;
+    }
+
+    /* Two-column Narrative Split */
+    .split-narrative {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    /* Luminous Panels */
+    .panel {
+      background: var(--panel-gradient);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .panel-cyan {
+      border: var(--luminous-cyan);
+      box-shadow: var(--panel-highlight), var(--glow-cyan);
+    }
+    .panel-gold {
+      border: var(--luminous-gold);
+      box-shadow: var(--panel-highlight), var(--glow-gold);
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .compare-card {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .compare-card.is-stress {
+      border-color: color-mix(in srgb, var(--error) 35%, transparent);
+    }
+    .compare-card.is-coherent {
+      border-color: color-mix(in srgb, var(--tertiary) 35%, transparent);
+    }
+    .compare-title {
+      font-size: var(--subhead-size);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Simulation Deck Shell */
+    .sim-deck {
+      background: var(--surface-container-low);
+      border: var(--luminous-cyan);
+      box-shadow: var(--panel-highlight), var(--glow-cyan);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .sim-deck.is-gold-deck {
+      border: var(--luminous-gold);
+      box-shadow: var(--panel-highlight), var(--glow-gold);
+    }
+
+    .sim-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+    }
+    .control-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: var(--space-sm);
+    }
+    .slider-field {
+      display: grid;
+      gap: var(--space-xs);
+      min-width: 170px;
+    }
+    .slider-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .slider-label span:last-child {
+      color: var(--tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+    input[type="range"] {
+      width: 100%;
+      min-height: 44px;
+      accent-color: var(--tertiary);
+      cursor: pointer;
+      margin: 0;
+    }
+    .is-gold-deck input[type="range"] {
+      accent-color: var(--primary);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .btn:hover {
+      background-color: var(--surface-container-high);
+      border-color: var(--tertiary);
+    }
+    .btn.is-active-cyan {
+      background-color: var(--cyan-tint);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+      box-shadow: var(--glow-cyan);
+    }
+    .btn.is-active-gold {
+      background-color: var(--gold-tint);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: var(--glow-gold);
+    }
+    .btn.is-active-error {
+      background-color: var(--error-tint);
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .btn-primary-gold {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+    .btn-primary-gold:hover {
+      background-color: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+      color: var(--on-primary);
+    }
+
+    /* Canvas Wells */
+    .sim-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-md);
+      align-items: stretch;
+    }
+    .canvas-well {
+      background-color: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: var(--space-sm);
+      position: relative;
+    }
+    .well-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .canvas-box {
+      width: 100%;
+      min-height: 340px;
+      position: relative;
+    }
+    .canvas-box.is-tall {
+      min-height: 410px;
+    }
+    .canvas-box canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Telemetry Strip */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .tele-cell {
+      background-color: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      display: grid;
+      gap: 2px;
+    }
+    .tele-key {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .tele-val {
+      font-family: var(--font-label);
+      font-size: 1rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+    .tele-val.is-cyan { color: var(--tertiary); }
+    .tele-val.is-gold { color: var(--primary); }
+    .tele-val.is-positive { color: var(--positive); }
+    .tele-val.is-error { color: var(--error); }
+
+    /* 5 Oscillators Cascade */
+    .osc-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .osc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .osc-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+      text-align: left;
+      cursor: pointer;
+      color: var(--on-surface);
+      transition: border-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out),
+                  transform var(--dur-short) var(--ease-out);
+    }
+    .osc-card:hover {
+      border-color: var(--tertiary);
+      background-color: var(--surface-container-high);
+      transform: translateY(-2px);
+    }
+    .osc-card.is-lit {
+      border: var(--luminous-gold);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 12%, var(--surface-container-high)) 0%, var(--surface-container) 100%);
+      box-shadow: var(--glow-gold);
+    }
+    .osc-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .osc-card.is-lit .osc-num {
+      color: var(--primary);
+    }
+    .osc-name {
+      font-family: var(--font-headline);
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .osc-desc {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+    .osc-detail-bar {
+      background: var(--background);
+      border: var(--luminous-gold);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    /* Homunculus Interactive List & Detail */
+    .homunculus-panel {
+      display: grid;
+      gap: var(--space-md);
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .somatic-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
+      gap: var(--space-xs);
+    }
+    .somatic-btn {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: border-color var(--dur-micro) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .somatic-btn:hover {
+      border-color: var(--tertiary);
+      color: var(--on-surface);
+    }
+    .somatic-btn.is-current {
+      background-color: var(--gold-tint);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .somatic-detail {
+      background-color: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .somatic-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-xs);
+    }
+    .chip {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      padding: 3px var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background-color: var(--surface-container-high);
+      color: var(--on-surface-variant);
+    }
+    .chip.is-cyan {
+      background-color: var(--cyan-tint);
+      border-color: color-mix(in srgb, var(--tertiary) 35%, transparent);
+      color: var(--tertiary);
+    }
+    .chip.is-gold {
+      background-color: var(--gold-tint);
+      border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+      color: var(--primary);
+    }
+
+    /* Synthesis Table */
+    .data-table-wrap {
+      overflow-x: auto;
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      background-color: var(--surface-container-low);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.94rem;
+    }
+    th, td {
+      padding: var(--space-md);
+      border-bottom: var(--hairline);
+      vertical-align: top;
+    }
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--tertiary);
+      background-color: var(--surface-container);
+    }
+    td {
+      color: var(--on-surface-variant);
+    }
+    td strong {
+      color: var(--on-surface);
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding: var(--space-xl) 0 var(--space-2xl);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .sources-list {
+      display: grid;
+      gap: var(--space-xs);
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .split-narrative,
+      .sim-stage,
+      .osc-detail-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .top-bar {
+        padding: var(--space-md) var(--space-md) var(--space-sm);
+      }
+      .canvas-box {
+        min-height: 290px;
+      }
+      .canvas-box.is-tall {
+        min-height: 340px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-bar">
+    <div class="brand-mark">
+      <i data-lucide="activity" aria-hidden="true"></i>
+      <span>Observatorio Bioeléctrico · Modelo Bentov–Sannella</span>
+    </div>
+    <nav class="nav-links" aria-label="Navegación de capítulos">
+      <a class="nav-link" href="index.html" style="border-color: rgba(242, 190, 84, 0.45); color: var(--primary);">&larr; Portal Principal</a>
+      <a class="nav-link" href="#fisiologia">I. Fisiología</a>
+      <a class="nav-link" href="#sim-aorta">II. Sistema Aorta</a>
+      <a class="nav-link" href="#osciladores">III. 5 Osciladores</a>
+      <a class="nav-link" href="#sim-homunculo">IV. Homúnculo</a>
+      <a class="nav-link" href="#sim-schumann">V. Antena 7.5 Hz</a>
+    </nav>
+  </header>
+
+  <main class="page-grid">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="mono-label">Ingeniería Biomédica y Neurofisiología Contemplativa</span>
+        <h1 class="hero-title">El Modelo Biomecánico de la <span class="accent-gold">Fisio-Kundalini</span> y la <span class="accent-cyan">Resonancia</span></h1>
+        <p class="hero-lede">
+          En la década de 1970, el ingeniero biomédico Itzhak Bentov y el psiquiatra Lee Sannella propusieron el primer modelo experimental para explicar los síntomas de la kundalini no como fuerzas místicas indescifrables, sino como una reacción en cadena de osciladores mecánicos, ondas acústicas estacionarias y corrientes corticales que conducen al sistema nervioso hacia su madurez evolutiva.
+        </p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card is-gold">
+          <span class="mono-label mono-gold">Frecuencia de Acoplamiento</span>
+          <div class="kpi-value">6.8 – 7.5 Hz</div>
+          <p class="kpi-desc">Ritmo armónico del conjunto corazón–aorta en meditación profunda, coincidente con la cavidad ionosférica terrestre.</p>
+        </div>
+        <div class="kpi-card is-cyan">
+          <span class="mono-label">Micromovimiento Cerebral</span>
+          <div class="kpi-value">0.005 – 0.010 mm</div>
+          <p class="kpi-desc">Oscilación vertical rítmica del cerebro suspendido en el líquido cefalorraquídeo, suficiente para generar pulsos piezoeléctricos.</p>
+        </div>
+        <div class="kpi-card">
+          <span class="mono-label">Cascada Simpática</span>
+          <div class="kpi-value">5 Osciladores</div>
+          <p class="kpi-desc">Desde el ventrículo izquierdo y la aorta hasta la corteza sensorial, convirtiendo el cráneo en una antena coherente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO I: EVOLUCIÓN Y PURIFICACIÓN -->
+    <section id="fisiologia" class="chapter">
+      <div class="chapter-head">
+        <span class="mono-label">Capítulo I · Evolución del Sistema Nervioso</span>
+        <h2 class="chapter-title">La «mayoría de edad» biológica y la purificación de tensiones</h2>
+        <p class="chapter-lead">
+          Para Bentov, la evolución humana no se detuvo en la anatomía actual: el sistema nervioso posee un mecanismo latente de aceleración evolutiva que integra la mente consciente con la regulación autónoma del organismo.
+        </p>
+      </div>
+
+      <div class="split-narrative">
+        <div class="panel">
+          <h3>Integración cerebroespinal y autónoma</h3>
+          <p>
+            En <em>Stalking the Wild Pendulum</em> y en el apéndice técnico del tratado clínico de Lee Sannella, M.D. (<em>Kundalini: Psychosis or Transcendence?</em>, 1976), Bentov describió el <strong>síndrome de Fisio-Kundalini</strong> como un proceso fisiológico de transición hacia la «adultez joven» del sistema nervioso.
+          </p>
+          <p>
+            Su propósito funcional es tender un puente entre el <strong>sistema cerebroespinal</strong> (voluntario) y el <strong>sistema nervioso autónomo</strong> (involuntario). Una vez completado el circuito, funciones que la medicina occidental consideraba inaccesibles a la voluntad —como el ritmo cardíaco, la respiración superficial y la circulación periférica— pasan a ser modulables con precisión, tal como se ha documentado en practicantes avanzados de meditación.
+          </p>
+        </div>
+
+        <div class="panel panel-gold">
+          <span class="mono-label mono-gold">Evidencia Clínica · Sannella &amp; Greyson</span>
+          <h3>Diferenciar evolución de patología</h3>
+          <p>
+            El psiquiatra Lee Sannella observó que muchos occidentales sin conocimiento previo de textos yóguicos experimentaban espasmos, corrientes de calor, zumbidos internos y oleadas de dicha, siendo diagnosticados erróneamente con psicosis.
+          </p>
+          <p>
+            Posteriormente, Bruce Greyson (1993) evaluó un cuestionario de 19 síntomas de Fisio-Kundalini y halló que quienes habían atravesado experiencias cercanas a la muerte reportaban un promedio de <strong>7.6 síntomas</strong> frente a <strong>4.6</strong> en los grupos de control, respaldando la base neurofisiológica del modelo.
+          </p>
+        </div>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-card is-stress">
+          <h3 class="compare-title">Ruido mecánico y surcos de tensión</h3>
+          <p>
+            Bentov comparaba las emociones intensas reprimidas con la música grabada en un disco de vinilo: dejan microtensiones físicas permanentes en el tejido y la red neural. Un sistema nervioso saturado de ruido gasta toda su energía en contener esas tensiones y no puede sintonizar frecuencias sutiles.
+          </p>
+        </div>
+        <div class="compare-card is-coherent">
+          <h3 class="compare-title">Purificación por corriente cortical</h3>
+          <p>
+            Al estabilizarse la calma meditativa, la corriente bioeléctrica que recorre la corteza encuentra esos «bloqueos» o resistencias musculares y nerviosas. El roce provoca sensaciones transitorias de dolor referido, calor extremo, frío o vibración hasta disolver la resistencia y liberar la energía retenida.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO II: SIMULACIÓN 1 - CORAZÓN Y AORTA -->
+    <section id="sim-aorta" class="chapter">
+      <div class="chapter-head">
+        <span class="mono-label">Capítulo II · Simulación Biomecánica 01</span>
+        <h2 class="chapter-title">El oscilador Corazón–Aorta: de la turbulencia a la onda estacionaria</h2>
+        <p class="chapter-lead">
+          Cada latido cardíaco impulsa sangre hacia la aorta —la arteria elástica más grande del cuerpo— y sacude todo el organismo. Cuando respiramos de forma agitada o normal, el pulso que baja choca contra el eco que rebota desde la bifurcación ilíaca en el bajo abdomen. Al aquietar la respiración en meditación, el corazón sincroniza su expulsión con el eco de retorno, transformando la aorta en un tubo musical resonante de media longitud de onda a ~7 Hz.
+        </p>
+      </div>
+
+      <div class="sim-deck">
+        <div class="sim-controls">
+          <div class="control-group" role="group" aria-label="Modo fisiológico del sistema aorta">
+            <button type="button" id="aorta-mode-stress" class="btn is-active-error" onclick="setAortaMode('stress')">
+              Modo Normal / Estrés
+            </button>
+            <button type="button" id="aorta-mode-res" class="btn" onclick="setAortaMode('resonance')">
+              Modo Resonancia 7 Hz
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="slider-field">
+              <label class="slider-label" for="aorta-coupling">
+                <span>Calma / Acople Respiratorio</span>
+                <span id="aorta-coupling-val">15%</span>
+              </label>
+              <input type="range" id="aorta-coupling" min="0" max="100" value="15" oninput="setAortaCoupling(this.value)">
+            </div>
+
+            <div class="slider-field">
+              <label class="slider-label" for="aorta-speed">
+                <span>Velocidad de Simulación</span>
+                <span id="aorta-speed-val">1.0×</span>
+              </label>
+              <input type="range" id="aorta-speed" min="0.25" max="2.0" step="0.05" value="1.0" oninput="setAortaSpeed(this.value)">
+            </div>
+
+            <button type="button" id="aorta-play-btn" class="btn is-active-cyan" onclick="toggleAortaPlay()">
+              <i data-lucide="pause" aria-hidden="true"></i>
+              <span>Pausar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sim-stage">
+          <div class="canvas-well">
+            <div class="well-header">
+              <span class="mono-label">Sección Vascular · Ventrículo Izquierdo → Bifurcación Ilíaca</span>
+              <span class="chip is-gold" id="aorta-wave-badge">Interferencia Destructiva</span>
+            </div>
+            <div class="canvas-box is-tall">
+              <canvas id="canvas-aorta" aria-label="Animación biomecánica del corazón, cayado aórtico, aorta descendente y bifurcación ilíaca"></canvas>
+            </div>
+            <p id="aorta-caption" style="font-size: 0.88rem;">
+              En vigilia o estrés, el pulso descendente (oro) y el eco reflejado en la bifurcación (cian) colisionan a destiempo, creando turbulencia mecánica a lo largo de la arteria.
+            </p>
+          </div>
+
+          <div class="canvas-well">
+            <div class="well-header">
+              <span class="mono-label">Sismógrafo Corporal · Micromovimiento (Fig. 13 vs Fig. 14)</span>
+              <span class="chip is-cyan" id="aorta-seismo-badge">Señal Irregular</span>
+            </div>
+            <div class="canvas-box is-tall">
+              <canvas id="canvas-seismo" aria-label="Gráfico en tiempo real de la onda de micromovimiento corporal medida con sismógrafo"></canvas>
+            </div>
+            <p style="font-size: 0.88rem;">
+              Cuando el sistema entra en fase, el patrón caótico se convierte en una onda senoidal pura que <strong>triplica la amplitud</strong> con un gasto energético mínimo.
+            </p>
+          </div>
+        </div>
+
+        <div class="telemetry-grid">
+          <div class="tele-cell">
+            <span class="tele-key">Frecuencia de Oscilación</span>
+            <span class="tele-val is-cyan" id="tele-aorta-freq">Irregular (0.8–4.2 Hz)</span>
+          </div>
+          <div class="tele-cell">
+            <span class="tele-key">Amplitud Sismográfica</span>
+            <span class="tele-val is-gold" id="tele-aorta-amp">1.0× Basal</span>
+          </div>
+          <div class="tele-cell">
+            <span class="tele-key">Estado de Fase</span>
+            <span class="tele-val is-error" id="tele-aorta-phase">Colisión de Frentes</span>
+          </div>
+          <div class="tele-cell">
+            <span class="tele-key">Economía Energética</span>
+            <span class="tele-val" id="tele-aorta-energy">Alto Gasto (Disrupción)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO III: LOS 5 OSCILADORES ACOPLADOS -->
+    <section id="osciladores" class="chapter">
+      <div class="chapter-head">
+        <span class="mono-label">Capítulo III · Resonancia Simpática</span>
+        <h2 class="chapter-title">La reacción en cadena de los 5 osciladores biológicos</h2>
+        <p class="chapter-lead">
+          Si colocas dos violines afinados en la misma habitación y pulsas una cuerda en el primero, la misma cuerda del segundo vibrará sin ser tocada. La naturaleza prefiere el arrastre rítmico por economía energética. En el cuerpo humano, cuando el primer oscilador alcanza coherencia, arrastra a los cuatro siguientes en un efecto dominó.
+        </p>
+      </div>
+
+      <div class="osc-controls">
+        <p style="font-size: 0.94rem;">Selecciona cualquier oscilador o activa la secuencia completa para observar cómo se propaga la frecuencia de ~7 Hz:</p>
+        <button type="button" id="osc-cascade-btn" class="btn btn-primary-gold" onclick="triggerOscillatorCascade()">
+          <i data-lucide="zap" aria-hidden="true"></i>
+          <span>Activar Efecto Dominó</span>
+        </button>
+      </div>
+
+      <div class="osc-grid" id="osc-grid">
+        <button type="button" class="osc-card is-lit" data-osc="0" onclick="selectOscillator(0)">
+          <div class="osc-num"><span>OSCILADOR 01</span><span>~7.0 Hz</span></div>
+          <div class="osc-name">Sistema Corazón–Aorta</div>
+          <div class="osc-desc">El pulso cardíaco y su eco en la bifurcación ilíaca forman una onda estacionaria de media longitud de onda.</div>
+        </button>
+
+        <button type="button" class="osc-card" data-osc="1" onclick="selectOscillator(1)">
+          <div class="osc-num"><span>OSCILADOR 02</span><span>0.005–0.010 mm</span></div>
+          <div class="osc-name">Columna y Cráneo</div>
+          <div class="osc-desc">La onda estacionaria sacude armónicamente la caja torácica y la columna, haciendo vibrar la bóveda craneal.</div>
+        </button>
+
+        <button type="button" class="osc-card" data-osc="2" onclick="selectOscillator(2)">
+          <div class="osc-num"><span>OSCILADOR 03</span><span>Acústica LCR</span></div>
+          <div class="osc-name">Ventrículos Cerebrales</div>
+          <div class="osc-desc">El cerebro, gelatinoso en su fluido, oscila verticalmente y establece ondas estacionarias en el tercer ventrículo.</div>
+        </button>
+
+        <button type="button" class="osc-card" data-osc="3" onclick="selectOscillator(3)">
+          <div class="osc-num"><span>OSCILADOR 04</span><span>Piezoeléctrico</span></div>
+          <div class="osc-name">Corteza Sensorial</div>
+          <div class="osc-desc">Las vibraciones estimulan las fibras del cuerpo calloso y polarizan la corteza sensorial creando un bucle cerrado.</div>
+        </button>
+
+        <button type="button" class="osc-card" data-osc="4" onclick="selectOscillator(4)">
+          <div class="osc-num"><span>OSCILADOR 05</span><span>~7.5 Hz Global</span></div>
+          <div class="osc-name">Antena Electromagnética</div>
+          <div class="osc-desc">La corriente circular genera un campo electromagnético coherente alrededor de la cabeza acoplado al campo terrestre.</div>
+        </button>
+      </div>
+
+      <div class="osc-detail-bar" id="osc-detail-bar">
+        <div>
+          <span class="mono-label mono-gold" id="osc-detail-tag">Paso 01 · Generador Primario</span>
+          <h3 id="osc-detail-title" style="margin-top: var(--space-xs);">Sistema Corazón–Aorta: el metrónomo maestro</h3>
+          <p id="osc-detail-body" style="margin-top: var(--space-xs);">
+            Al suavizarse la respiración, el corazón sincroniza la eyección del ventrículo izquierdo con el retorno de la onda reflejada en el bajo abdomen. Este sistema resonante consume la mínima energía y multiplica por tres la fuerza mecánica vertical transmitida al tronco.
+          </p>
+        </div>
+        <div class="chip is-cyan" id="osc-detail-metric">Mecanismo: Onda Estacionaria Vascular</div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO IV: SIMULACIÓN 2 - CIRCUITO CRANEAL Y HOMÚNCULO -->
+    <section id="sim-homunculo" class="chapter">
+      <div class="chapter-head">
+        <span class="mono-label">Capítulo IV · Simulación Neuroanatómica 02</span>
+        <h2 class="chapter-title">Ventrículos, efecto piezoeléctrico y el mapa del Homúnculo</h2>
+        <p class="chapter-lead">
+          Bentov comparó el cerebro dentro del cráneo con un durazno blando dentro de una lata con almíbar pesado. Al vibrar a 7 Hz, el líquido cefalorraquídeo del tercer ventrículo genera ondas estacionarias acústicas y corrientes piezoeléctricas que polarizan el mapa corporal de la corteza sensorial —el homúnculo— explicando por qué la «serpiente ascendente» sigue exactamente esta ruta anatómica.
+        </p>
+      </div>
+
+      <div class="sim-deck is-gold-deck">
+        <div class="sim-controls">
+          <div class="control-group" role="group" aria-label="Modo de circulación cortical">
+            <button type="button" id="brain-mode-loop" class="btn is-active-gold" onclick="setBrainMode('kundalini')">
+              Bucle Fisio-Kundalini (Cerrado)
+            </button>
+            <button type="button" id="brain-mode-normal" class="btn" onclick="setBrainMode('normal')">
+              Señal Sensorial Normal
+            </button>
+            <button type="button" id="brain-block-toggle" class="btn" onclick="toggleBrainBlock()">
+              Simular Bloqueo Somático
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="slider-field">
+              <label class="slider-label" for="brain-speed">
+                <span>Velocidad de Corriente</span>
+                <span id="brain-speed-val">1.0×</span>
+              </label>
+              <input type="range" id="brain-speed" min="0.25" max="2.2" step="0.05" value="1.0" oninput="setBrainSpeed(this.value)">
+            </div>
+
+            <button type="button" id="brain-play-btn" class="btn is-active-gold" onclick="toggleBrainPlay()">
+              <i data-lucide="pause" aria-hidden="true"></i>
+              <span>Pausar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sim-stage">
+          <div class="canvas-well">
+            <div class="well-header">
+              <span class="mono-label mono-gold">Corte Coronal / Sagital · Cráneo, 3.er Ventrículo y Homúnculo</span>
+              <span class="chip is-gold" id="brain-state-badge">Corriente en Bucle Polarizado</span>
+            </div>
+            <div class="canvas-box is-tall">
+              <canvas id="canvas-brain" aria-label="Simulación del cráneo, ventrículos cerebrales vibrando y corriente eléctrica recorriendo el homúnculo cortical"></canvas>
+            </div>
+            <p id="brain-caption" style="font-size: 0.88rem;">
+              Las ondas estacionarias del tercer ventrículo estimulan la corteza en la base de la fisura interhemisférica (dedos de los pies) y viajan en bucle cerrado hasta los centros de placer.
+            </p>
+          </div>
+
+          <div class="homunculus-panel">
+            <div class="well-header">
+              <span class="mono-label">Ruta Somática Secuencial (Haz clic para inspeccionar)</span>
+              <span class="chip is-cyan" id="somatic-progress-chip">Etapa 1 / 9</span>
+            </div>
+
+            <div class="somatic-steps" id="somatic-steps">
+              <button type="button" class="somatic-btn is-current" onclick="selectSomaticStage(0)">1. Pie / Dedos</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(1)">2. Pierna</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(2)">3. Pelvis / Tronco</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(3)">4. Brazo / Mano</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(4)">5. Cuello / Cabeza</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(5)">6. Frente / Cara</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(6)">7. Garganta</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(7)">8. Abdomen</button>
+              <button type="button" class="somatic-btn" onclick="selectSomaticStage(8)">9. Centros Placer</button>
+            </div>
+
+            <div class="somatic-detail" id="somatic-detail">
+              <span class="mono-label mono-gold" id="somatic-zone-label">Zona 01 · Fondo de la fisura interhemisférica</span>
+              <h4 id="somatic-zone-title" style="font-size: 1.15rem;">Dedos de los pies (inicio típico en el pie izquierdo)</h4>
+              <p id="somatic-zone-desc" style="font-size: 0.92rem;">
+                La corriente comienza en la profundidad de la fisura central. Como nuestra cultura sobreutiliza el hemisferio izquierdo analítico, la polarización suele iniciar en el hemisferio derecho, proyectando hormigueo o vibración en el dedo gordo del pie izquierdo.
+              </p>
+              <div class="somatic-meta">
+                <span class="chip is-cyan" id="somatic-plexus">Plexo / Referencia: Base periférica</span>
+                <span class="chip is-gold" id="somatic-symptom">Síntoma clínico: Hormigueo / Vibración</span>
+              </div>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--on-surface-variant);">
+              <strong>Diafonía motora (cross-talk):</strong> Al estar la corteza motora adyacente a la sensorial con un mapa casi idéntico, el paso de la corriente puede desencadenar posturas espontáneas, temblores o movimientos rítmicos involuntarios mientras se liberan tensiones.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO V: SIMULACIÓN 3 - HEMI-SYNC Y RESONANCIA SCHUMANN -->
+    <section id="sim-schumann" class="chapter">
+      <div class="chapter-head">
+        <span class="mono-label">Capítulo V · Simulación Electromagnética 03</span>
+        <h2 class="chapter-title">Sincronización interhemisférica y acoplamiento Schumann (~7.5 Hz)</h2>
+        <p class="chapter-lead">
+          La Tierra (carga negativa) y la ionosfera (carga positiva) forman una cavidad resonante cuyo latido electromagnético fundamental —la Resonancia Schumann— vibra cerca de 7.5 ciclos por segundo. Cuando ambos hemisferios cerebrales se sincronizan en fase (principio Hemi-Sync), el cuerpo pasa de emitir ruido disperso a funcionar como un «rayo láser» acoplado al pulso planetario.
+        </p>
+      </div>
+
+      <div class="sim-deck">
+        <div class="sim-controls">
+          <div class="control-group" role="group" aria-label="Estado de coherencia cerebral y planetaria">
+            <button type="button" id="sch-mode-beta" class="btn is-active-error" onclick="setSchumannMode('beta')">
+              Mente Dispersa (Beta)
+            </button>
+            <button type="button" id="sch-mode-alpha" class="btn" onclick="setSchumannMode('alpha')">
+              Transición (Alfa / Theta)
+            </button>
+            <button type="button" id="sch-mode-sync" class="btn" onclick="setSchumannMode('sync')">
+              Coherencia 7.5 Hz (Hemi-Sync)
+            </button>
+          </div>
+
+          <div class="control-group">
+            <div class="slider-field">
+              <label class="slider-label" for="sch-speed">
+                <span>Velocidad de Onda</span>
+                <span id="sch-speed-val">1.0×</span>
+              </label>
+              <input type="range" id="sch-speed" min="0.25" max="2.0" step="0.05" value="1.0" oninput="setSchumannSpeed(this.value)">
+            </div>
+
+            <button type="button" id="sch-play-btn" class="btn is-active-cyan" onclick="toggleSchumannPlay()">
+              <i data-lucide="pause" aria-hidden="true"></i>
+              <span>Pausar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sim-stage">
+          <div class="canvas-well">
+            <div class="well-header">
+              <span class="mono-label">Cavidad Tierra–Ionosfera (~40,000 km) &amp; Toroide Humano</span>
+              <span class="chip is-cyan" id="sch-cavity-badge">Desacoplado · Ruido Ambiental</span>
+            </div>
+            <div class="canvas-box is-tall">
+              <canvas id="canvas-planet" aria-label="Visualización del campo electromagnético del cuerpo acoplándose a la cavidad ionosférica de la Tierra a 7.5 Hz"></canvas>
+            </div>
+            <p id="sch-caption" style="font-size: 0.88rem;">
+              En estado Beta asimétrico, la mente dispersa energía en un área amplia y poco profunda. En coherencia de 7.5 Hz, la señal corporal rodea el planeta en ~1/7 de segundo sin atenuarse.
+            </p>
+          </div>
+
+          <div class="canvas-well">
+            <div class="well-header">
+              <span class="mono-label">Monitor Hemi-Sync · Hemisferio Izquierdo vs. Derecho</span>
+              <span class="chip is-gold" id="sch-eeg-badge">Asimetría Cortical</span>
+            </div>
+            <div class="canvas-box is-tall">
+              <canvas id="canvas-eeg" aria-label="Comparación de ondas cerebrales entre hemisferio izquierdo y derecho mostrando sincronización de fase"></canvas>
+            </div>
+            <p style="font-size: 0.88rem;">
+              Al estimularse las fibras sobre el tercer ventrículo, ambos hemisferios alcanzan coherencia de fase (7–13 Hz), disolviendo la sensación de separación y actuando como un oscilador maestro contagioso.
+            </p>
+          </div>
+        </div>
+
+        <div class="telemetry-grid">
+          <div class="tele-cell">
+            <span class="tele-key">Frecuencia Corporal</span>
+            <span class="tele-val is-cyan" id="tele-sch-bodyfreq">18.4 Hz (Beta)</span>
+          </div>
+          <div class="tele-cell">
+            <span class="tele-key">Resonancia Schumann</span>
+            <span class="tele-val is-gold">7.5 Hz (Constante)</span>
+          </div>
+          <div class="tele-cell">
+            <span class="tele-key">Coherencia Interhemisférica</span>
+            <span class="tele-val is-error" id="tele-sch-coherence">24% · Dispersa</span>
+          </div>
+          <div class="tele-cell">
+            <span class="tele-key">Tránsito Planetario</span>
+            <span class="tele-val" id="tele-sch-transit">Atenuado (Local)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPÍTULO VI: TABLA DE SÍNTESIS -->
+    <section class="chapter">
+      <div class="chapter-head">
+        <span class="mono-label">Síntesis Comparativa</span>
+        <h2 class="chapter-title">Traducción entre la tradición contemplativa y la física biomédica</h2>
+        <p class="chapter-lead">
+          Lejos de invalidar las observaciones milenarias de las escuelas yóguicas, el modelo de Bentov y Sannella ofrece un mapa anatómico y electromagnético de por qué las prácticas de quietud producen transformaciones perceptivas tan consistentes.
+        </p>
+      </div>
+
+      <div class="data-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Concepto Tradicional</th>
+              <th>Mecanismo en el Modelo Bentov–Sannella</th>
+              <th>Firma Física o Clínica Medible</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Energía Kundalini en la base</strong></td>
+              <td>Acoplamiento resonante del sistema corazón–aorta y vibración transmitida por la columna al cráneo.</td>
+              <td>Onda senoidal sismográfica a 6.8–7.5 Hz; triple amplitud con mínimo esfuerzo.</td>
+            </tr>
+            <tr>
+              <td><strong>Ascenso de la serpiente y chakras</strong></td>
+              <td>Corriente polarizada recorriendo el homúnculo en la corteza sensorial y refiriendo estímulos a plexos frontales (pélvico, solar, cardíaco, laríngeo y cefálico).</td>
+              <td>Secuencia somática predecible: pie izquierdo → pierna → tronco → cuello → cara → garganta → abdomen.</td>
+            </tr>
+            <tr>
+              <td><strong>Nudos o bloqueos energéticos</strong></td>
+              <td>Resistencia mecánica o neural por tensiones emocionales grabadas en el sistema nervioso.</td>
+              <td>Dolor referido localizado, calor/frío súbito o espasmos por diafonía motora hasta disolver el bloqueo.</td>
+            </tr>
+            <tr>
+              <td><strong>Dicha (Bliss) y unión con el Todo</strong></td>
+              <td>Cierre del bucle eléctrico al estimular los centros de placer bajo los dedos del pie del homúnculo y coherencia EEG bilateral.</td>
+              <td>Coherencia de fase de 7–13 Hz entre hemisferios y acoplamiento electrostático con la cavidad terrestre (~40,000 km).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FUENTES -->
+    <footer class="sources-footer">
+      <span class="mono-label">Fuentes y Marco de Referencia</span>
+      <div class="sources-list">
+        <p>Itzhak Bentov — <em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em> (1977) y <em>A Brief Tour of Higher Consciousness</em>.</p>
+        <p>Lee Sannella, M.D. — <em>Kundalini: Psychosis or Transcendence?</em> (1976 / 1987), incluyendo el Apéndice A técnico de Itzhak Bentov sobre micromovimiento corporal y desarrollo del sistema nervioso.</p>
+        <p>Bruce Greyson, M.D. — <em>The Physio-Kundalini Syndrome and Mental Illness</em> (1993), evaluación clínica con el índice de 19 síntomas.</p>
+        <p>Estudios complementarios de coherencia hemisférica (J. Millay, 1976; modelo Gateway / Hemi-Sync), Resonancia Schumann (Winfried Schumann, 1952) y arrastre cardíaco colectivo (observación de San Pedro Manrique, 2011).</p>
+      </div>
+
+      <div style="margin-top: 1.5rem;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(242, 190, 84, 0.45); background: rgba(242, 190, 84, 0.10); color: var(--primary); font-family: var(--font-label); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+      </div>
+
+      <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a> &bull; Movil: 2355-69 26 16</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      /* Read theme palette directly from :root custom properties */
+      const rootStyles = getComputedStyle(document.documentElement);
+      function tok(name) {
+        return rootStyles.getPropertyValue(name).trim();
+      }
+
+      const C = {
+        bg: tok('--background') || '#060913',
+        panel: tok('--surface-container') || '#0f172a',
+        panelLow: tok('--surface-container-low') || '#0a1020',
+        text: tok('--on-surface') || '#eef2f8',
+        muted: tok('--on-surface-variant') || '#98a8c4',
+        outline: tok('--outline') || '#384f75',
+        grid: tok('--outline-variant') || '#1d2b46',
+        gold: tok('--primary') || '#f2be54',
+        cyan: tok('--tertiary') || '#2ee6ff',
+        positive: tok('--positive') || '#4ade80',
+        error: tok('--error') || '#f87171',
+        context: tok('--data-context') || '#475c80'
+      };
+
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* Helper for crisp HiDPI Canvas */
+      function fitCanvas(canvas) {
+        if (!canvas || !canvas.parentElement) return null;
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = Math.max(260, Math.floor(rect.width));
+        const h = Math.max(260, Math.floor(rect.height));
+        if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+          canvas.width = w * dpr;
+          canvas.height = h * dpr;
+        }
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx: ctx, w: w, h: h };
+      }
+
+      /* =================================================================
+         SIMULATION 1: HEART - AORTA - ILIAC BIFURCATION & SEISMOGRAPH
+         ================================================================= */
+      const aortaState = {
+        mode: 'stress',     /* 'stress' | 'resonance' */
+        coupling: 0.15,     /* 0.0 -> 1.0 */
+        speed: 1.0,
+        playing: !prefersReducedMotion,
+        t: 0,
+        seismoHistory: []
+      };
+
+      window.setAortaMode = function (mode) {
+        aortaState.mode = mode;
+        const targetCoupling = mode === 'resonance' ? 100 : 15;
+        aortaState.coupling = targetCoupling / 100;
+        const slider = document.getElementById('aorta-coupling');
+        const valLabel = document.getElementById('aorta-coupling-val');
+        if (slider) slider.value = targetCoupling;
+        if (valLabel) valLabel.textContent = targetCoupling + '%';
+        updateAortaUI();
+      };
+
+      window.setAortaCoupling = function (val) {
+        const num = Number(val);
+        aortaState.coupling = num / 100;
+        aortaState.mode = num >= 65 ? 'resonance' : 'stress';
+        const valLabel = document.getElementById('aorta-coupling-val');
+        if (valLabel) valLabel.textContent = num + '%';
+        updateAortaUI();
+      };
+
+      window.setAortaSpeed = function (val) {
+        aortaState.speed = Number(val);
+        const label = document.getElementById('aorta-speed-val');
+        if (label) label.textContent = Number(val).toFixed(2).replace(/\.00$/, '.0') + '×';
+      };
+
+      window.toggleAortaPlay = function () {
+        aortaState.playing = !aortaState.playing;
+        const btn = document.getElementById('aorta-play-btn');
+        if (btn) {
+          btn.innerHTML = aortaState.playing
+            ? '<i data-lucide="pause" aria-hidden="true"></i><span>Pausar</span>'
+            : '<i data-lucide="play" aria-hidden="true"></i><span>Reanudar</span>';
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+      };
+
+      function updateAortaUI() {
+        const isRes = aortaState.coupling >= 0.65;
+        const btnStress = document.getElementById('aorta-mode-stress');
+        const btnRes = document.getElementById('aorta-mode-res');
+        const waveBadge = document.getElementById('aorta-wave-badge');
+        const seismoBadge = document.getElementById('aorta-seismo-badge');
+        const caption = document.getElementById('aorta-caption');
+        const tFreq = document.getElementById('tele-aorta-freq');
+        const tAmp = document.getElementById('tele-aorta-amp');
+        const tPhase = document.getElementById('tele-aorta-phase');
+        const tEnergy = document.getElementById('tele-aorta-energy');
+
+        if (btnStress) btnStress.className = isRes ? 'btn' : 'btn is-active-error';
+        if (btnRes) btnRes.className = isRes ? 'btn is-active-cyan' : 'btn';
+
+        if (isRes) {
+          if (waveBadge) { waveBadge.textContent = 'Onda Estacionaria ~7 Hz'; waveBadge.className = 'chip is-cyan'; }
+          if (seismoBadge) { seismoBadge.textContent = 'Senoidal Pura (3×)'; seismoBadge.className = 'chip is-gold'; }
+          if (caption) caption.textContent = 'La respiración se aquieta: el corazón espera el eco reflejado en la bifurcación y ambos viajan en sincronía perfecta, formando una onda estacionaria limpia.';
+          if (tFreq) { tFreq.textContent = '~7.1 Hz (Armónica)'; tFreq.className = 'tele-val is-cyan'; }
+          if (tAmp) { tAmp.textContent = (1 + aortaState.coupling * 2).toFixed(1) + '× Basal'; tAmp.className = 'tele-val is-gold'; }
+          if (tPhase) { tPhase.textContent = 'Resonancia en Fase'; tPhase.className = 'tele-val is-positive'; }
+          if (tEnergy) { tEnergy.textContent = 'Mínimo (Autosostenida)'; tEnergy.className = 'tele-val is-positive'; }
+        } else {
+          if (waveBadge) { waveBadge.textContent = 'Interferencia Destructiva'; waveBadge.className = 'chip is-gold'; }
+          if (seismoBadge) { seismoBadge.textContent = 'Señal Irregular'; seismoBadge.className = 'chip is-cyan'; }
+          if (caption) caption.textContent = 'En vigilia o estrés, el pulso descendente (oro) y el eco reflejado en la bifurcación (cian) colisionan a destiempo, creando turbulencia mecánica a lo largo de la arteria.';
+          if (tFreq) { tFreq.textContent = 'Irregular (0.8–4.2 Hz)'; tFreq.className = 'tele-val is-error'; }
+          if (tAmp) { tAmp.textContent = (1 + aortaState.coupling * 0.8).toFixed(1) + '× Basal'; tAmp.className = 'tele-val is-gold'; }
+          if (tPhase) { tPhase.textContent = 'Colisión de Frentes'; tPhase.className = 'tele-val is-error'; }
+          if (tEnergy) { tEnergy.textContent = 'Alto Gasto (Disrupción)'; tEnergy.className = 'tele-val'; }
+        }
+      }
+
+      function drawAortaSim(dt) {
+        if (aortaState.playing) {
+          aortaState.t += dt * aortaState.speed;
+        }
+        const fitA = fitCanvas(document.getElementById('canvas-aorta'));
+        if (fitA) {
+          const { ctx, w, h } = fitA;
+          ctx.clearRect(0, 0, w, h);
+
+          const c = aortaState.coupling;
+          const time = aortaState.t;
+
+          /* Subtle technical grid */
+          ctx.strokeStyle = C.grid;
+          ctx.lineWidth = 1;
+          for (let gx = 24; gx < w; gx += 40) {
+            ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
+          }
+          for (let gy = 24; gy < h; gy += 40) {
+            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+          }
+
+          const cx = w * 0.48;
+          const topY = h * 0.17;
+          const bifY = h * 0.78;
+          const legY = h * 0.92;
+
+          /* Standing wave / breathing indicator at top-left */
+          const breathAmp = (1 - c) * 7 + 1.2;
+          const breathOffset = Math.sin(time * 1.4) * breathAmp;
+
+          /* Draw Spine / Thoracic frame silhouette */
+          ctx.strokeStyle = C.outline;
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          ctx.roundRect(cx - w * 0.28, h * 0.08, w * 0.56, h * 0.86, 18);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          /* Draw Aorta Path: Arch + Descending + Iliac Bifurcation */
+          const archStartX = cx - 38;
+          const archStartY = topY + 26;
+          const aortaX = cx + 6;
+
+          /* Outer arterial wall */
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.strokeStyle = C.outline;
+          ctx.lineWidth = 22;
+          ctx.beginPath();
+          ctx.moveTo(archStartX, archStartY);
+          ctx.bezierCurveTo(archStartX - 6, topY - 26, aortaX + 2, topY - 26, aortaX, topY + 28);
+          ctx.lineTo(aortaX, bifY);
+          ctx.stroke();
+
+          /* Iliac branches */
+          ctx.lineWidth = 13;
+          ctx.beginPath();
+          ctx.moveTo(aortaX, bifY);
+          ctx.quadraticCurveTo(aortaX - 18, bifY + 22, aortaX - 42, legY);
+          ctx.moveTo(aortaX, bifY);
+          ctx.quadraticCurveTo(aortaX + 18, bifY + 22, aortaX + 42, legY);
+          ctx.stroke();
+
+          /* Inner blood channel */
+          ctx.strokeStyle = C.panelLow;
+          ctx.lineWidth = 14;
+          ctx.beginPath();
+          ctx.moveTo(archStartX, archStartY);
+          ctx.bezierCurveTo(archStartX - 6, topY - 26, aortaX + 2, topY - 26, aortaX, topY + 28);
+          ctx.lineTo(aortaX, bifY);
+          ctx.stroke();
+
+          ctx.lineWidth = 7;
+          ctx.beginPath();
+          ctx.moveTo(aortaX, bifY);
+          ctx.quadraticCurveTo(aortaX - 18, bifY + 22, aortaX - 42, legY);
+          ctx.moveTo(aortaX, bifY);
+          ctx.quadraticCurveTo(aortaX + 18, bifY + 22, aortaX + 42, legY);
+          ctx.stroke();
+
+          /* Wave physics along descending aorta (y from topY+28 to bifY) */
+          const yStart = topY + 28;
+          const len = bifY - yStart;
+          const freq = 2.6 + c * 2.8; /* faster harmonious rhythm in 7 Hz mode */
+
+          /* In stress mode, heart rate and reflection lag mismatch; in resonance, exact half-wave lock */
+          const phaseDown = (time * freq) % 1;
+          const phaseUp = c >= 0.65
+            ? (1 - phaseDown) /* perfect mirror reflection leaving bifurcation as new pulse leaves heart */
+            : (1 - ((time * freq * 0.73 + 0.37) % 1));
+
+          const downY = yStart + phaseDown * len;
+          const upY = yStart + phaseUp * len;
+
+          /* Draw Standing Wave Envelope or Interference along Aorta */
+          const samples = 42;
+          ctx.beginPath();
+          for (let i = 0; i <= samples; i++) {
+            const u = i / samples;
+            const sy = yStart + u * len;
+            let disp;
+            if (c >= 0.65) {
+              /* Pure half-wave standing wave envelope */
+              const standing = Math.sin(u * Math.PI) * Math.sin(time * freq * Math.PI * 2);
+              disp = standing * (12 + c * 14);
+            } else {
+              /* Colliding wave distortion */
+              const wDown = Math.exp(-Math.pow((sy - downY) / 26, 2)) * 12;
+              const wUp = Math.exp(-Math.pow((sy - upY) / 26, 2)) * -10;
+              const jitter = Math.sin(u * 19 + time * 11) * (4 * (1 - c));
+              disp = wDown + wUp + jitter;
+            }
+            if (i === 0) ctx.moveTo(aortaX + disp, sy);
+            else ctx.lineTo(aortaX + disp, sy);
+          }
+          ctx.strokeStyle = c >= 0.65 ? C.cyan : C.gold;
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+
+          /* Draw downward pressure pulse (Gold) */
+          const pulseBulge = 9 + Math.sin(phaseDown * Math.PI) * 5;
+          const gradDown = ctx.createRadialGradient(aortaX, downY, 1, aortaX, downY, 24);
+          gradDown.addColorStop(0, C.gold);
+          gradDown.addColorStop(1, 'rgba(242, 190, 84, 0)');
+          ctx.fillStyle = gradDown;
+          ctx.beginPath();
+          ctx.arc(aortaX, downY, 24, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = C.gold;
+          ctx.beginPath();
+          ctx.ellipse(aortaX, downY, pulseBulge, 6, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          /* Draw reflected echo wave (Cyan) */
+          const gradUp = ctx.createRadialGradient(aortaX, upY, 1, aortaX, upY, 22);
+          gradUp.addColorStop(0, C.cyan);
+          gradUp.addColorStop(1, 'rgba(46, 230, 255, 0)');
+          ctx.fillStyle = gradUp;
+          ctx.beginPath();
+          ctx.arc(aortaX, upY, 22, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = C.cyan;
+          ctx.beginPath();
+          ctx.ellipse(aortaX, upY, 8, 5, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          /* Collision detection & turbulence burst in Stress mode */
+          const dist = Math.abs(downY - upY);
+          if (c < 0.65 && dist < 34) {
+            const intensity = 1 - dist / 34;
+            const colY = (downY + upY) / 2;
+            ctx.strokeStyle = C.error;
+            ctx.lineWidth = 2;
+            for (let r = 0; r < 6; r++) {
+              const ang = (r / 6) * Math.PI * 2 + time * 5;
+              const rLen = 14 + intensity * 18;
+              ctx.beginPath();
+              ctx.moveTo(aortaX + Math.cos(ang) * 6, colY + Math.sin(ang) * 6);
+              ctx.lineTo(aortaX + Math.cos(ang) * rLen, colY + Math.sin(ang) * rLen);
+              ctx.stroke();
+            }
+            ctx.fillStyle = C.error;
+            ctx.font = '600 11px "JetBrains Mono", monospace';
+            ctx.fillText('¡COLISIÓN!', aortaX + 26, colY + 4);
+          }
+
+          /* Heart Left Ventricle (contracting) */
+          const beatPhase = Math.sin(phaseDown * Math.PI * 2);
+          const heartScale = 1 + (beatPhase > 0 ? beatPhase * 0.14 : 0);
+          ctx.save();
+          ctx.translate(archStartX - 8, archStartY + 18 + breathOffset * 0.25);
+          ctx.scale(heartScale, heartScale);
+
+          const hGrad = ctx.createRadialGradient(0, 0, 4, 0, 0, 32);
+          hGrad.addColorStop(0, C.gold);
+          hGrad.addColorStop(0.7, C.error);
+          hGrad.addColorStop(1, 'rgba(248, 113, 113, 0.15)');
+          ctx.fillStyle = hGrad;
+          ctx.beginPath();
+          ctx.moveTo(0, -18);
+          ctx.bezierCurveTo(24, -28, 34, 4, 0, 26);
+          ctx.bezierCurveTo(-34, 4, -24, -28, 0, -18);
+          ctx.fill();
+          ctx.strokeStyle = C.gold;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          ctx.restore();
+
+          /* Labels */
+          ctx.font = '500 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = C.muted;
+          ctx.fillText('VENTRÍCULO IZQ.', 14, archStartY + 20);
+          ctx.fillText('CAYADO AÓRTICO', aortaX + 24, topY + 6);
+          ctx.fillText('AORTA DESCENDENTE', aortaX + 24, (yStart + bifY) / 2 - 20);
+          ctx.fillStyle = C.cyan;
+          ctx.fillText('BIFURCACIÓN ILÍACA', aortaX + 24, bifY + 4);
+          ctx.fillStyle = C.gold;
+          ctx.fillText('↓ Pulso descendente', 14, h - 28);
+          ctx.fillStyle = C.cyan;
+          ctx.fillText('↑ Eco reflejado', 14, h - 12);
+        }
+
+        /* Seismograph Canvas */
+        const fitS = fitCanvas(document.getElementById('canvas-seismo'));
+        if (fitS) {
+          const { ctx, w, h } = fitS;
+          ctx.clearRect(0, 0, w, h);
+
+          const c = aortaState.coupling;
+          const time = aortaState.t;
+
+          /* Grid & baseline */
+          ctx.strokeStyle = C.grid;
+          ctx.lineWidth = 1;
+          for (let gy = 30; gy < h; gy += 40) {
+            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+          }
+          ctx.strokeStyle = C.outline;
+          ctx.beginPath(); ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2); ctx.stroke();
+
+          /* Plot real-time waveform across width */
+          const pts = 180;
+          ctx.beginPath();
+          for (let i = 0; i <= pts; i++) {
+            const x = (i / pts) * w;
+            const wt = time - (1 - i / pts) * 2.8;
+
+            /* Stress signal: sharp heart spike + chaotic destructive interference */
+            const cycle = ((wt * 1.15) % 1 + 1) % 1;
+            const heartSpike = Math.exp(-Math.pow((cycle - 0.15) / 0.04, 2)) * 42;
+            const chaos = (Math.sin(wt * 17.3) * 14 + Math.cos(wt * 29.1) * 11 + Math.sin(wt * 7.7) * 9);
+            const stressY = heartSpike + chaos - 8;
+
+            /* Resonance 7 Hz signal: pure large-amplitude sine wave (3x avg) */
+            const resY = Math.sin(wt * Math.PI * 2 * 3.2) * (h * 0.34);
+
+            const yVal = stressY * (1 - c) + resY * c;
+            const py = h / 2 - yVal;
+            if (i === 0) ctx.moveTo(x, py);
+            else ctx.lineTo(x, py);
+          }
+
+          ctx.strokeStyle = c >= 0.65 ? C.cyan : C.gold;
+          ctx.lineWidth = c >= 0.65 ? 2.8 : 2.0;
+          ctx.stroke();
+
+          /* Legend / Annotations inside chart */
+          ctx.font = '500 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = C.muted;
+          ctx.fillText('AMPLITUD SÍSMICA VERTICAL', 12, 20);
+          ctx.fillStyle = c >= 0.65 ? C.positive : C.error;
+          ctx.fillText(c >= 0.65 ? 'ONDA SENOIDAL PURA (~7 Hz · 3×)' : 'INTERFERENCIA DESTRUCTIVA', 12, h - 14);
+        }
+      }
+
+      /* =================================================================
+         5 COUPLED OSCILLATORS CASCADE
+         ================================================================= */
+      const oscData = [
+        {
+          tag: 'Paso 01 · Generador Primario',
+          title: 'Sistema Corazón–Aorta: el metrónomo maestro',
+          body: 'Al suavizarse la respiración, el corazón sincroniza la eyección del ventrículo izquierdo con el retorno de la onda reflejada en el bajo abdomen. Este sistema resonante consume la mínima energía y multiplica por tres la fuerza mecánica vertical transmitida al tronco.',
+          metric: 'Mecanismo: Onda Estacionaria Vascular'
+        },
+        {
+          tag: 'Paso 02 · Transmisión Mecánica',
+          title: 'Columna vertebral y caja craneal en vibración armónica',
+          body: 'La oscilación rítmica de ~7 Hz recorre el esqueleto y los órganos internos, impulsando el cráneo hacia arriba y abajo como un pistón suave sobre la columna. Toda la estructura corporal pasa a moverse en coherencia mecánica.',
+          metric: 'Amplitud Craneal: 0.005 – 0.010 mm'
+        },
+        {
+          tag: 'Paso 03 · Cámara Hidráulica Cerebral',
+          title: 'Ventrículos cerebrales y efecto piezoeléctrico',
+          body: 'El cerebro gelatinoso flota en líquido cefalorraquídeo y rebota suavemente contra la bóveda craneal. Su tejido piezoeléctrico convierte el estímulo mecánico en un campo eléctrico rítmico, estableciendo ondas estacionarias acústicas dentro del tercer ventrículo.',
+          metric: 'Frecuencia Ventricular: ~7 ciclos/seg'
+        },
+        {
+          tag: 'Paso 04 · Polarización Cortical',
+          title: 'Cuerpo calloso y bucle en la corteza sensorial',
+          body: 'Sobre el tercer ventrículo hay un tejido como un tambor con fibras nerviosas que unen ambos hemisferios. Al vibrar en fase, polariza la materia gris de la fisura interhemisférica e inicia la corriente continua a lo largo del homúnculo cortical.',
+          metric: 'Efecto: Circuito Fisio-Kundalini'
+        },
+        {
+          tag: 'Paso 05 · Emisor Bioeléctrico',
+          title: 'Antena electromagnética cefálica y acople terrestre',
+          body: 'La corriente circular en la corteza sensorial irradia un campo electromagnético ordenado alrededor de la cabeza. Sintonizado a ~7.5 Hz, el organismo queda acoplado a la frecuencia resonante de la biosfera terrestre.',
+          metric: 'Longitud de Onda: ~40,000 km'
+        }
+      ];
+
+      let cascadeTimer = null;
+
+      window.selectOscillator = function (idx) {
+        const cards = document.querySelectorAll('.osc-card');
+        cards.forEach(function (card, i) {
+          if (i === idx) card.classList.add('is-lit');
+          else card.classList.remove('is-lit');
+        });
+        const item = oscData[idx];
+        if (!item) return;
+        const tag = document.getElementById('osc-detail-tag');
+        const title = document.getElementById('osc-detail-title');
+        const body = document.getElementById('osc-detail-body');
+        const metric = document.getElementById('osc-detail-metric');
+        if (tag) tag.textContent = item.tag;
+        if (title) title.textContent = item.title;
+        if (body) body.textContent = item.body;
+        if (metric) metric.textContent = item.metric;
+      };
+
+      window.triggerOscillatorCascade = function () {
+        if (cascadeTimer) clearInterval(cascadeTimer);
+        let step = 0;
+        selectOscillator(0);
+        cascadeTimer = setInterval(function () {
+          step += 1;
+          if (step >= oscData.length) {
+            clearInterval(cascadeTimer);
+            cascadeTimer = null;
+            return;
+          }
+          selectOscillator(step);
+        }, 700);
+      };
+
+      /* =================================================================
+         SIMULATION 2: CRANIAL VENTRICLES & HOMUNCULUS LOOP
+         ================================================================= */
+      const somaticStages = [
+        {
+          label: 'Zona 01 · Fondo de la fisura interhemisférica',
+          title: 'Dedos de los pies (inicio típico en el pie izquierdo)',
+          desc: 'La corriente comienza en la profundidad de la fisura central. Como nuestra cultura sobreutiliza el hemisferio izquierdo analítico, la polarización suele iniciar en el hemisferio derecho, proyectando hormigueo o vibración en el dedo gordo del pie izquierdo.',
+          plexus: 'Referencia: Extremidad inferior',
+          symptom: 'Síntoma: Cosquilleo / Vibración inicial'
+        },
+        {
+          label: 'Zona 02 · Fisura medial superior',
+          title: 'Piernas, pantorrillas y rodillas',
+          desc: 'Al ascender por la franja cortical medial, la persona siente oleadas de energía, calor o ligeros espasmos musculares subiendo desde los tobillos hacia los muslos sin estimulación externa real.',
+          plexus: 'Referencia: Trayecto ascendente',
+          symptom: 'Síntoma: Espasmos / Corriente ascendente'
+        },
+        {
+          label: 'Zona 03 · Corona de la fisura cortical',
+          title: 'Pelvis, espalda y tronco',
+          desc: 'El estímulo alcanza la parte superior del surco central. En la literatura clásica se describe como el ascenso por la columna vertebral estimulando los plexos pélvico, solar y cardíaco.',
+          plexus: 'Plexos: Pélvico, Solar y Cardíaco',
+          symptom: 'Síntoma: Presión / Expansión torácica'
+        },
+        {
+          label: 'Zona 04 · Convexidad cortical lateral',
+          title: 'Hombros, brazos y manos',
+          desc: 'El homúnculo dedica una amplia superficie a manos y dedos. La corriente provoca ardor o vibración en las palmas y movimientos espontáneos en los brazos por diafonía con la corteza motora.',
+          plexus: 'Referencia: Extremidades superiores',
+          symptom: 'Síntoma: Calor en palmas / Posturas reflejas'
+        },
+        {
+          label: 'Zona 05 · Región lateral media',
+          title: 'Cuello y bóveda craneal',
+          desc: 'Al llegar a la zona cefálica del homúnculo, muchos practicantes perciben presión intensa dentro del cráneo, sonidos internos (silbidos o rugidos) o destellos de luz interior.',
+          plexus: 'Plexo: Centro cefálico',
+          symptom: 'Síntoma: Luces y sonidos internos'
+        },
+        {
+          label: 'Zona 06 · Corteza lateral inferior',
+          title: 'Frente, ojos y rostro',
+          desc: 'El impulso desciende por la representación facial del mapa cortical, produciendo sensaciones de cosquilleo en el entrecejo, frente o mejillas mientras continúa su trayectoria hacia abajo.',
+          plexus: 'Referencia: Proyección facial',
+          symptom: 'Síntoma: Pulsación en frente y rostro'
+        },
+        {
+          label: 'Zona 07 · Umbral inferior cortical',
+          title: 'Garganta (Vagshwari — Diosa del Habla)',
+          desc: 'Penúltima estación del bucle. Las escrituras hindúes llaman a la kundalini «Vagshwari» porque la apertura del centro laríngeo marca el umbral previo a la culminación completa del circuito.',
+          plexus: 'Plexo: Laríngeo / Garganta',
+          symptom: 'Síntoma: Apertura y flujo expresivo'
+        },
+        {
+          label: 'Zona 08 · Encima del lóbulo temporal',
+          title: 'Abdomen (Cierre fisiológico del recorrido)',
+          desc: 'En el mapa del homúnculo, el área abdominal está representada en el extremo inferior lateral, justo sobre el lóbulo temporal. Al llegar aquí se completa el ciclo clásico descrito por Sannella.',
+          plexus: 'Referencia: Culminación visceral',
+          symptom: 'Síntoma: Calma abdominal profunda'
+        },
+        {
+          label: 'Zona 09 · Retorno subcortical en ambos hemisferios',
+          title: 'Centros de placer (Bucle cerrado completo)',
+          desc: 'Debajo de los dedos del pie del homúnculo residen los centros cerebrales del placer. Al cerrarse el bucle, la corriente autoestimula continuamente estos núcleos, explicando los estados sostenidos de dicha (bliss).',
+          plexus: 'Circuito: Retroalimentación límbica',
+          symptom: 'Síntoma: Dicha profunda y serenidad'
+        }
+      ];
+
+      const brainState = {
+        mode: 'kundalini', /* 'kundalini' | 'normal' */
+        blockEnabled: false,
+        playing: !prefersReducedMotion,
+        speed: 1.0,
+        progress: 0.08,    /* 0 -> 1 around loop */
+        manualStage: null,
+        t: 0
+      };
+
+      window.setBrainMode = function (mode) {
+        brainState.mode = mode;
+        const btnLoop = document.getElementById('brain-mode-loop');
+        const btnNorm = document.getElementById('brain-mode-normal');
+        const badge = document.getElementById('brain-state-badge');
+        const cap = document.getElementById('brain-caption');
+        if (btnLoop) btnLoop.className = mode === 'kundalini' ? 'btn is-active-gold' : 'btn';
+        if (btnNorm) btnNorm.className = mode === 'normal' ? 'btn is-active-cyan' : 'btn';
+        if (mode === 'kundalini') {
+          if (badge) { badge.textContent = 'Corriente en Bucle Polarizado'; badge.className = 'chip is-gold'; }
+          if (cap) cap.textContent = 'Las ondas estacionarias del tercer ventrículo estimulan la corteza en la base de la fisura interhemisférica (dedos de los pies) y viajan en bucle cerrado hasta los centros de placer.';
+        } else {
+          if (badge) { badge.textContent = 'Entrada/Salida Perpendicular'; badge.className = 'chip is-cyan'; }
+          if (cap) cap.textContent = 'En la actividad cerebral ordinaria, las señales sensoriales entran y salen de la corteza en ángulo recto; no existe circulación continua a lo largo del homúnculo.';
+        }
+      };
+
+      window.toggleBrainBlock = function () {
+        brainState.blockEnabled = !brainState.blockEnabled;
+        const btn = document.getElementById('brain-block-toggle');
+        if (btn) {
+          btn.className = brainState.blockEnabled ? 'btn is-active-error' : 'btn';
+          btn.textContent = brainState.blockEnabled ? 'Bloqueo Activo (Zona 4)' : 'Simular Bloqueo Somático';
+        }
+      };
+
+      window.setBrainSpeed = function (val) {
+        brainState.speed = Number(val);
+        const label = document.getElementById('brain-speed-val');
+        if (label) label.textContent = Number(val).toFixed(2).replace(/\.00$/, '.0') + '×';
+      };
+
+      window.toggleBrainPlay = function () {
+        brainState.playing = !brainState.playing;
+        const btn = document.getElementById('brain-play-btn');
+        if (btn) {
+          btn.innerHTML = brainState.playing
+            ? '<i data-lucide="pause" aria-hidden="true"></i><span>Pausar</span>'
+            : '<i data-lucide="play" aria-hidden="true"></i><span>Reanudar</span>';
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+      };
+
+      window.selectSomaticStage = function (idx) {
+        brainState.progress = (idx + 0.15) / somaticStages.length;
+        updateSomaticPanel(idx);
+      };
+
+      function updateSomaticPanel(idx) {
+        const safeIdx = Math.max(0, Math.min(somaticStages.length - 1, idx));
+        const btns = document.querySelectorAll('.somatic-btn');
+        btns.forEach(function (b, i) {
+          if (i === safeIdx) b.classList.add('is-current');
+          else b.classList.remove('is-current');
+        });
+        const st = somaticStages[safeIdx];
+        const chip = document.getElementById('somatic-progress-chip');
+        const lbl = document.getElementById('somatic-zone-label');
+        const ttl = document.getElementById('somatic-zone-title');
+        const dsc = document.getElementById('somatic-zone-desc');
+        const plx = document.getElementById('somatic-plexus');
+        const sym = document.getElementById('somatic-symptom');
+        if (chip) chip.textContent = 'Etapa ' + (safeIdx + 1) + ' / 9';
+        if (lbl) lbl.textContent = st.label;
+        if (ttl) ttl.textContent = st.title;
+        if (dsc) dsc.textContent = st.desc;
+        if (plx) plx.textContent = st.plexus;
+        if (sym) sym.textContent = st.symptom;
+      }
+
+      /* Compute coronal cortical loop point (normalized 0..1) */
+      function getCoronalLoopPoint(u, cx, cy, rx, ry) {
+        /* Path: starts at bottom of fissure (cx, cy - 20), goes UP fissure to top (cx, cy - ry), curves RIGHT & DOWN outer hemisphere to temporal lobe (cx + rx, cy + 28), then returns INWARD through pleasure center below toes */
+        const t = ((u % 1) + 1) % 1;
+        if (t < 0.30) {
+          /* Up the medial fissure: Toe -> Leg -> Pelvis/Trunk */
+          const k = t / 0.30;
+          return { x: cx + 10, y: (cy - 18) - k * (ry - 24) };
+        } else if (t < 0.78) {
+          /* Over top and down lateral sensory strip: Trunk -> Arm/Hand -> Neck -> Face -> Throat -> Abdomen */
+          const k = (t - 0.30) / 0.48;
+          const ang = -Math.PI / 2 + k * (Math.PI * 0.72);
+          return {
+            x: cx + 10 + Math.cos(ang) * (rx - 14) * (k < 0.1 ? k * 10 : 1),
+            y: cy - 8 + Math.sin(ang) * (ry - 10)
+          };
+        } else {
+          /* Return subcortically through pleasure center back to fissure base */
+          const k = (t - 0.78) / 0.22;
+          const startX = cx + 10 + Math.cos(-Math.PI / 2 + Math.PI * 0.72) * (rx - 14);
+          const startY = cy - 8 + Math.sin(-Math.PI / 2 + Math.PI * 0.72) * (ry - 10);
+          const endX = cx + 10;
+          const endY = cy - 18;
+          return {
+            x: startX + (endX - startX) * k,
+            y: startY + (endY - startY) * k + Math.sin(k * Math.PI) * 16
+          };
+        }
+      }
+
+      let lastSomaticIdx = 0;
+
+      function drawBrainSim(dt) {
+        if (brainState.playing) {
+          brainState.t += dt * brainState.speed;
+          if (brainState.mode === 'kundalini') {
+            /* Slow down slightly if passing through block at stage 3/4 */
+            const curIdx = Math.floor(brainState.progress * somaticStages.length);
+            const blockFactor = (brainState.blockEnabled && (curIdx === 3 || curIdx === 4)) ? 0.35 : 1.0;
+            brainState.progress = (brainState.progress + dt * 0.085 * brainState.speed * blockFactor) % 1;
+            const newIdx = Math.min(somaticStages.length - 1, Math.floor(brainState.progress * somaticStages.length));
+            if (newIdx !== lastSomaticIdx) {
+              lastSomaticIdx = newIdx;
+              updateSomaticPanel(newIdx);
+            }
+          }
+        }
+
+        const fit = fitCanvas(document.getElementById('canvas-brain'));
+        if (!fit) return;
+        const { ctx, w, h } = fit;
+        ctx.clearRect(0, 0, w, h);
+
+        const cx = w * 0.5;
+        const cy = h * 0.52;
+        const rx = Math.min(w * 0.38, 155);
+        const ry = Math.min(h * 0.36, 138);
+        const time = brainState.t;
+
+        /* Subtle vertical micromotion representing 0.005-0.010 mm brain bounce in CSF */
+        const microBounce = Math.sin(time * 14) * (brainState.mode === 'kundalini' ? 3.5 : 0.8);
+
+        /* Outer Skull Casing */
+        ctx.strokeStyle = C.outline;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rx + 18, ry + 18, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        /* CSF / Dura layer label */
+        ctx.fillStyle = C.panelLow;
+        ctx.fill();
+
+        /* Brain Hemispheres (Left & Right in coronal slice) */
+        ctx.save();
+        ctx.translate(0, microBounce);
+
+        /* Left hemisphere (on viewer's left) */
+        ctx.fillStyle = C.panel;
+        ctx.strokeStyle = C.context;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(cx - rx * 0.46, cy, rx * 0.48, ry * 0.92, -0.06, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        /* Right hemisphere (on viewer's right - primary Fisio-Kundalini loop shown here) */
+        ctx.beginPath();
+        ctx.ellipse(cx + rx * 0.46, cy, rx * 0.48, ry * 0.92, 0.06, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        /* Central Interhemispheric Fissure */
+        ctx.strokeStyle = C.bg;
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - ry * 0.94);
+        ctx.lineTo(cx, cy + 4);
+        ctx.stroke();
+
+        /* Corpus Callosum / Roof of 3rd Ventricle (drumhead) */
+        ctx.strokeStyle = C.cyan;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 28, cy + 4);
+        ctx.quadraticCurveTo(cx, cy - 8, cx + 28, cy + 4);
+        ctx.stroke();
+
+        /* Third Ventricle (fluid-filled cavity oscillating) */
+        const ventPulse = 1 + Math.sin(time * 14) * (brainState.mode === 'kundalini' ? 0.18 : 0.04);
+        ctx.save();
+        ctx.translate(cx, cy + 32);
+        ctx.scale(ventPulse, ventPulse);
+        const vGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 22);
+        vGrad.addColorStop(0, C.cyan);
+        vGrad.addColorStop(1, 'rgba(46, 230, 255, 0.1)');
+        ctx.fillStyle = vGrad;
+        ctx.beginPath();
+        ctx.moveTo(0, -20);
+        ctx.quadraticCurveTo(14, -6, 6, 18);
+        ctx.lineTo(-6, 18);
+        ctx.quadraticCurveTo(-14, -6, 0, -20);
+        ctx.fill();
+        ctx.strokeStyle = C.cyan;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+
+        /* Acoustic standing waves radiating from 3rd ventricle */
+        if (brainState.mode === 'kundalini') {
+          for (let r = 0; r < 3; r++) {
+            const wavePhase = ((time * 1.8 + r * 0.33) % 1);
+            const rad = 16 + wavePhase * 72;
+            ctx.strokeStyle = 'rgba(46, 230, 255, ' + (1 - wavePhase) * 0.45 + ')';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(cx, cy + 28, rad, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+
+        /* Sensory Cortex Strip along Right Hemisphere */
+        const loopSteps = 60;
+        ctx.beginPath();
+        for (let i = 0; i <= loopSteps; i++) {
+          const pt = getCoronalLoopPoint(i / loopSteps, cx, cy, rx, ry);
+          if (i === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = brainState.mode === 'kundalini' ? 'rgba(242, 190, 84, 0.35)' : 'rgba(152, 168, 196, 0.2)';
+        ctx.lineWidth = 6;
+        ctx.stroke();
+
+        /* Pleasure Center Node below toes */
+        const pCenter = { x: cx + 18, y: cy - 2 };
+        ctx.fillStyle = brainState.mode === 'kundalini' ? C.positive : C.context;
+        ctx.beginPath();
+        ctx.arc(pCenter.x, pCenter.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (brainState.mode === 'kundalini') {
+          /* Draw active glowing bioelectric current packet moving along homunculus */
+          const headPt = getCoronalLoopPoint(brainState.progress, cx, cy, rx, ry);
+
+          /* Trail */
+          for (let tStep = 14; tStep >= 0; tStep--) {
+            const pt = getCoronalLoopPoint(brainState.progress - tStep * 0.012, cx, cy, rx, ry);
+            const alpha = (1 - tStep / 15) * 0.85;
+            ctx.fillStyle = 'rgba(242, 190, 84, ' + alpha + ')';
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, 4.5 - tStep * 0.18, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          /* Bright Current Head */
+          const hGlow = ctx.createRadialGradient(headPt.x, headPt.y, 2, headPt.x, headPt.y, 18);
+          hGlow.addColorStop(0, C.text);
+          hGlow.addColorStop(0.4, C.gold);
+          hGlow.addColorStop(1, 'rgba(242, 190, 84, 0)');
+          ctx.fillStyle = hGlow;
+          ctx.beginPath();
+          ctx.arc(headPt.x, headPt.y, 18, 0, Math.PI * 2);
+          ctx.fill();
+
+          /* Blockade sparks if enabled */
+          if (brainState.blockEnabled) {
+            const blkPt = getCoronalLoopPoint(0.44, cx, cy, rx, ry);
+            ctx.strokeStyle = C.error;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(blkPt.x, blkPt.y, 10 + Math.sin(time * 12) * 3, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.fillStyle = C.error;
+            ctx.font = '600 10px "JetBrains Mono", monospace';
+            ctx.fillText('RESISTENCIA', blkPt.x + 12, blkPt.y);
+          }
+        } else {
+          /* Normal perpendicular signals entering & exiting cortex */
+          for (let s = 0; s < 5; s++) {
+            const angle = -Math.PI * 0.35 + s * 0.25;
+            const px = cx + 10 + Math.cos(angle) * (rx - 18);
+            const py = cy - 8 + Math.sin(angle) * (ry - 14);
+            const pulse = ((time * 1.4 + s * 0.2) % 1);
+            ctx.strokeStyle = C.cyan;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(cx + 12, cy + 20);
+            ctx.lineTo(px, py);
+            ctx.stroke();
+
+            const dotX = (cx + 12) + (px - (cx + 12)) * pulse;
+            const dotY = (cy + 20) + (py - (cy + 20)) * pulse;
+            ctx.fillStyle = C.cyan;
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        /* Homunculus Zone Markers */
+        ctx.font = '500 10px "JetBrains Mono", monospace';
+        const toePt = getCoronalLoopPoint(0.02, cx, cy, rx, ry);
+        const legPt = getCoronalLoopPoint(0.28, cx, cy, rx, ry);
+        const armPt = getCoronalLoopPoint(0.46, cx, cy, rx, ry);
+        const facePt = getCoronalLoopPoint(0.64, cx, cy, rx, ry);
+        const abdPt = getCoronalLoopPoint(0.77, cx, cy, rx, ry);
+
+        ctx.fillStyle = C.gold;
+        ctx.fillText('PIES', toePt.x + 10, toePt.y + 4);
+        ctx.fillText('TRONCO', legPt.x + 8, legPt.y - 8);
+        ctx.fillText('MANO', armPt.x + 10, armPt.y);
+        ctx.fillText('CARA/GARG.', facePt.x + 10, facePt.y + 4);
+        ctx.fillText('ABDOMEN', abdPt.x + 8, abdPt.y + 12);
+
+        ctx.fillStyle = C.cyan;
+        ctx.fillText('3.er VENTRÍCULO', cx - 44, cy + 68);
+        ctx.fillStyle = C.positive;
+        ctx.fillText('PLACER', pCenter.x + 8, pCenter.y + 4);
+
+        ctx.restore();
+
+        /* Top caption inside canvas */
+        ctx.font = '500 11px "JetBrains Mono", monospace';
+        ctx.fillStyle = C.muted;
+        ctx.fillText('OSCILACIÓN CEREBRAL: 0.005–0.010 mm', 12, 20);
+      }
+
+      /* =================================================================
+         SIMULATION 3: SCHUMANN RESONANCE (~7.5 HZ) & HEMI-SYNC EEG
+         ================================================================= */
+      const schState = {
+        mode: 'beta',       /* 'beta' | 'alpha' | 'sync' */
+        speed: 1.0,
+        playing: !prefersReducedMotion,
+        t: 0
+      };
+
+      window.setSchumannMode = function (mode) {
+        schState.mode = mode;
+        const bBeta = document.getElementById('sch-mode-beta');
+        const bAlpha = document.getElementById('sch-mode-alpha');
+        const bSync = document.getElementById('sch-mode-sync');
+        const cavBadge = document.getElementById('sch-cavity-badge');
+        const eegBadge = document.getElementById('sch-eeg-badge');
+        const cap = document.getElementById('sch-caption');
+
+        const tBody = document.getElementById('tele-sch-bodyfreq');
+        const tCoh = document.getElementById('tele-sch-coherence');
+        const tTrans = document.getElementById('tele-sch-transit');
+
+        if (bBeta) bBeta.className = mode === 'beta' ? 'btn is-active-error' : 'btn';
+        if (bAlpha) bAlpha.className = mode === 'alpha' ? 'btn is-active-gold' : 'btn';
+        if (bSync) bSync.className = mode === 'sync' ? 'btn is-active-cyan' : 'btn';
+
+        if (mode === 'beta') {
+          if (cavBadge) { cavBadge.textContent = 'Desacoplado · Ruido'; cavBadge.className = 'chip is-gold'; }
+          if (eegBadge) { eegBadge.textContent = 'Asimetría Cortical'; eegBadge.className = 'chip is-cyan'; }
+          if (cap) cap.textContent = 'En estado Beta asimétrico, la mente dispersa energía en un área amplia y poco profunda, dominada por el hemisferio izquierdo.';
+          if (tBody) { tBody.textContent = '18.4 Hz (Beta)'; tBody.className = 'tele-val is-error'; }
+          if (tCoh) { tCoh.textContent = '24% · Dispersa'; tCoh.className = 'tele-val is-error'; }
+          if (tTrans) { tTrans.textContent = 'Atenuado (Local)'; tTrans.className = 'tele-val'; }
+        } else if (mode === 'alpha') {
+          if (cavBadge) { cavBadge.textContent = 'Aproximación de Fase'; cavBadge.className = 'chip is-gold'; }
+          if (eegBadge) { eegBadge.textContent = 'Convergencia Alfa/Theta'; eegBadge.className = 'chip is-cyan'; }
+          if (cap) cap.textContent = 'Al cerrar los ojos y observar la respiración, los hemisferios reducen el ruido y convergen hacia la frecuencia del planeta.';
+          if (tBody) { tBody.textContent = '9.8 Hz (Alfa)'; tBody.className = 'tele-val is-gold'; }
+          if (tCoh) { tCoh.textContent = '68% · Convergente'; tCoh.className = 'tele-val is-gold'; }
+          if (tTrans) { tTrans.textContent = 'Acoplamiento Parcial'; tTrans.className = 'tele-val is-gold'; }
+        } else {
+          if (cavBadge) { cavBadge.textContent = 'Acoplado a 7.5 Hz'; cavBadge.className = 'chip is-cyan'; }
+          if (eegBadge) { eegBadge.textContent = 'Hemi-Sync · Rayo Láser'; eegBadge.className = 'chip is-gold'; }
+          if (cap) cap.textContent = 'En coherencia de 7.5 Hz, ambos hemisferios vibran en fase exacta y la señal corporal rodea el planeta (~40,000 km) en ~1/7 de segundo.';
+          if (tBody) { tBody.textContent = '7.5 Hz (Resonancia)'; tBody.className = 'tele-val is-cyan'; }
+          if (tCoh) { tCoh.textContent = '98% · Fase Bloqueada'; tCoh.className = 'tele-val is-positive'; }
+          if (tTrans) { tTrans.textContent = '~0.14 s (1/7 s Global)'; tTrans.className = 'tele-val is-positive'; }
+        }
+      };
+
+      window.setSchumannSpeed = function (val) {
+        schState.speed = Number(val);
+        const label = document.getElementById('sch-speed-val');
+        if (label) label.textContent = Number(val).toFixed(2).replace(/\.00$/, '.0') + '×';
+      };
+
+      window.toggleSchumannPlay = function () {
+        schState.playing = !schState.playing;
+        const btn = document.getElementById('sch-play-btn');
+        if (btn) {
+          btn.innerHTML = schState.playing
+            ? '<i data-lucide="pause" aria-hidden="true"></i><span>Pausar</span>'
+            : '<i data-lucide="play" aria-hidden="true"></i><span>Reanudar</span>';
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+      };
+
+      function drawSchumannSim(dt) {
+        if (schState.playing) {
+          schState.t += dt * schState.speed;
+        }
+        const time = schState.t;
+        const coh = schState.mode === 'sync' ? 1.0 : (schState.mode === 'alpha' ? 0.55 : 0.12);
+
+        /* Left Canvas: Earth - Ionosphere Cavity + Biological Antenna */
+        const fitP = fitCanvas(document.getElementById('canvas-planet'));
+        if (fitP) {
+          const { ctx, w, h } = fitP;
+          ctx.clearRect(0, 0, w, h);
+
+          const cx = w * 0.5;
+          const cy = h * 0.56;
+          const earthR = Math.min(w, h) * 0.24;
+          const ionoR = earthR * 1.56;
+
+          /* Ionosphere positive outer shell */
+          ctx.strokeStyle = coh > 0.8 ? C.cyan : C.outline;
+          ctx.lineWidth = coh > 0.8 ? 2.5 : 1.5;
+          ctx.setLineDash([6, 4]);
+          ctx.beginPath();
+          ctx.arc(cx, cy, ionoR, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          /* Schumann standing wave ring inside Earth-Ionosphere cavity */
+          const ringPts = 96;
+          ctx.beginPath();
+          for (let i = 0; i <= ringPts; i++) {
+            const ang = (i / ringPts) * Math.PI * 2;
+            const wave = Math.sin(ang * 7 + time * 4.5) * (4 + coh * 6);
+            const r = (earthR + ionoR) * 0.5 + wave;
+            const px = cx + Math.cos(ang) * r;
+            const py = cy + Math.sin(ang) * r;
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.closePath();
+          ctx.strokeStyle = coh > 0.8 ? 'rgba(46, 230, 255, 0.7)' : 'rgba(152, 168, 196, 0.25)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          /* Traveling global pulse along cavity (~1/7s transit) */
+          if (coh > 0.5) {
+            const pAng = -Math.PI / 2 + (time * 2.2) % (Math.PI * 2);
+            const px = cx + Math.cos(pAng) * ((earthR + ionoR) * 0.5);
+            const py = cy + Math.sin(pAng) * ((earthR + ionoR) * 0.5);
+            ctx.fillStyle = C.gold;
+            ctx.beginPath();
+            ctx.arc(px, py, 5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          /* Earth Globe (negative surface) */
+          const eGrad = ctx.createRadialGradient(cx - 12, cy - 12, 8, cx, cy, earthR);
+          eGrad.addColorStop(0, C.panel);
+          eGrad.addColorStop(1, C.bg);
+          ctx.fillStyle = eGrad;
+          ctx.beginPath();
+          ctx.arc(cx, cy, earthR, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = C.gold;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          /* Biological Antenna Silhouette at North Pole */
+          const antX = cx;
+          const antY = cy - earthR;
+
+          /* Toroidal electromagnetic field around human body */
+          if (coh > 0.8) {
+            for (let t = 1; t <= 3; t++) {
+              ctx.strokeStyle = 'rgba(242, 190, 84, ' + (0.65 - t * 0.16) + ')';
+              ctx.lineWidth = 1.6;
+              ctx.beginPath();
+              ctx.ellipse(antX - t * 14, antY - 22, t * 14, t * 18, 0, 0, Math.PI * 2);
+              ctx.stroke();
+              ctx.beginPath();
+              ctx.ellipse(antX + t * 14, antY - 22, t * 14, t * 18, 0, 0, Math.PI * 2);
+              ctx.stroke();
+            }
+          } else {
+            /* Scattered erratic rays */
+            ctx.strokeStyle = C.error;
+            ctx.lineWidth = 1.2;
+            for (let r = 0; r < 8; r++) {
+              const a = -Math.PI + (r / 7) * Math.PI + Math.sin(time * 8 + r) * 0.3;
+              const len = 18 + Math.abs(Math.cos(time * 6 + r)) * 22;
+              ctx.beginPath();
+              ctx.moveTo(antX, antY - 20);
+              ctx.lineTo(antX + Math.cos(a) * len, antY - 20 + Math.sin(a) * len);
+              ctx.stroke();
+            }
+          }
+
+          /* Meditator figure icon */
+          ctx.fillStyle = coh > 0.8 ? C.cyan : C.text;
+          ctx.beginPath();
+          ctx.arc(antX, antY - 30, 5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(antX - 10, antY - 4);
+          ctx.lineTo(antX, antY - 24);
+          ctx.lineTo(antX + 10, antY - 4);
+          ctx.closePath();
+          ctx.fill();
+
+          /* Labels */
+          ctx.font = '500 10px "JetBrains Mono", monospace';
+          ctx.fillStyle = C.gold;
+          ctx.fillText('TIERRA (–)', cx - 32, cy + 4);
+          ctx.fillStyle = C.cyan;
+          ctx.fillText('IONOSFERA (+) · 7.5 Hz', cx - 68, cy + ionoR + 18);
+          ctx.fillStyle = C.muted;
+          ctx.fillText('λ ≈ 40,000 km', 12, 20);
+        }
+
+        /* Right Canvas: Dual-Hemisphere EEG Monitor */
+        const fitE = fitCanvas(document.getElementById('canvas-eeg'));
+        if (fitE) {
+          const { ctx, w, h } = fitE;
+          ctx.clearRect(0, 0, w, h);
+
+          /* Grid */
+          ctx.strokeStyle = C.grid;
+          ctx.lineWidth = 1;
+          for (let gy = 30; gy < h; gy += 40) {
+            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+          }
+
+          const midTop = h * 0.32;
+          const midBot = h * 0.68;
+          const pts = 160;
+
+          /* Left Hemisphere Wave (Cyan) */
+          ctx.beginPath();
+          for (let i = 0; i <= pts; i++) {
+            const x = (i / pts) * w;
+            const wt = time - (1 - i / pts) * 2.2;
+            const yBeta = Math.sin(wt * 22) * 18 + Math.cos(wt * 37) * 11;
+            const ySync = Math.sin(wt * Math.PI * 2 * 2.6) * 32;
+            const y = midTop - (yBeta * (1 - coh) + ySync * coh);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = C.cyan;
+          ctx.lineWidth = 2.2;
+          ctx.stroke();
+
+          /* Right Hemisphere Wave (Gold) */
+          ctx.beginPath();
+          for (let i = 0; i <= pts; i++) {
+            const x = (i / pts) * w;
+            const wt = time - (1 - i / pts) * 2.2;
+            /* Phase & frequency mismatch shrinks as coh -> 1 */
+            const phaseErr = (1 - coh) * 2.4;
+            const yBeta = Math.sin(wt * 13 + phaseErr) * 11 + Math.sin(wt * 29) * 8;
+            const ySync = Math.sin(wt * Math.PI * 2 * 2.6) * 32;
+            const y = midBot - (yBeta * (1 - coh) + ySync * coh);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = C.gold;
+          ctx.lineWidth = 2.2;
+          ctx.stroke();
+
+          /* Labels */
+          ctx.font = '500 11px "JetBrains Mono", monospace';
+          ctx.fillStyle = C.cyan;
+          ctx.fillText('HEMISFERIO IZQ. (Analítico)', 12, 22);
+          ctx.fillStyle = C.gold;
+          ctx.fillText('HEMISFERIO DER. (Intuitivo)', 12, h * 0.53);
+          ctx.fillStyle = coh > 0.8 ? C.positive : C.muted;
+          ctx.fillText(coh > 0.8 ? 'COHERENCIA DE FASE: RAYO LÁSER (7–13 Hz)' : 'ONDAS INCOHERENTES / DISPERSAS', 12, h - 14);
+        }
+      }
+
+      /* =================================================================
+         SINGLE UNIFIED ANIMATION LOOP
+         ================================================================= */
+      let animId = null;
+      let lastTs = 0;
+
+      function tick(ts) {
+        if (!lastTs) lastTs = ts;
+        const dt = Math.min(0.05, (ts - lastTs) / 1000);
+        lastTs = ts;
+
+        drawAortaSim(dt);
+        drawBrainSim(dt);
+        drawSchumannSim(dt);
+
+        animId = requestAnimationFrame(tick);
+      }
+
+      function init() {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+        updateAortaUI();
+        selectOscillator(0);
+        updateSomaticPanel(0);
+        setSchumannMode('beta');
+
+        if (animId) cancelAnimationFrame(animId);
+        animId = requestAnimationFrame(tick);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>

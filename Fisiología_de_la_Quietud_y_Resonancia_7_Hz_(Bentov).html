@@ -1,0 +1,2570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>La Física de la Quietud — Resonancia a 7 Hz y Modelo de Itzhak Bentov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Page and surfaces: deep cosmic midnight */
+      --background: #070c17;
+      --surface-container-low: #0b1324;
+      --surface-container: #101b30;
+      --surface-container-high: #162440;
+
+      /* Text */
+      --on-surface: #eef2f6;
+      --on-surface-variant: #94a7c4;
+
+      /* Borders */
+      --outline: #2e456b;
+      --outline-variant: #1c2c47;
+
+      /* Accents: celestial gold (primary) & luminous cyan (tertiary) */
+      --primary: #e2b45e;
+      --on-primary: #070c17;
+      --primary-container: #2a2416;
+      --on-primary-container: #f7dfb0;
+      --secondary: #5d7396;
+      --tertiary: #5fd4e8;
+      --on-tertiary: #06131a;
+      --error: #f27474;
+      --on-error: #1a0606;
+
+      /* Shared semantic tokens */
+      --positive: #63d6a7;
+      --warning: #e8a754;
+      --focus: #5fd4e8;
+
+      /* Data series */
+      --data-1: #5fd4e8;
+      --data-2: #e2b45e;
+      --data-3: #63d6a7;
+      --data-4: #e07a5f;
+      --data-context: #3b4f73;
+
+      /* Fonts */
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.625rem;
+      --rounded-full: 9999px;
+
+      /* Effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(238, 242, 246, 0.06);
+      --cosmic-wash:
+        radial-gradient(ellipse 70% 55% at 82% 8%, rgba(95, 212, 232, 0.09), transparent 60%),
+        radial-gradient(ellipse 55% 45% at 15% 18%, rgba(226, 180, 94, 0.08), transparent 55%);
+      --cyan-tint: color-mix(in srgb, var(--tertiary) 13%, transparent);
+      --gold-tint: color-mix(in srgb, var(--primary) 14%, transparent);
+      --positive-tint: color-mix(in srgb, var(--positive) 13%, transparent);
+      --cyan-glow: 0 0 22px color-mix(in srgb, var(--tertiary) 26%, transparent);
+      --gold-glow: 0 0 22px color-mix(in srgb, var(--primary) 24%, transparent);
+
+      /* Typography scale (Narrative) */
+      --display-size: clamp(2.25rem, 1.4rem + 3.6vw, 4.1rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.8vw, 2.35rem);
+      --subhead-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+      --label-size: 0.75rem;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.07em;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 140ms;
+      --dur-short: 240ms;
+      --dur-long: 480ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header { position: static !important; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 68ch;
+      color: var(--on-surface-variant);
+    }
+
+    p strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    .mono-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      display: inline-block;
+    }
+
+    .mono-label--gold {
+      color: var(--primary);
+    }
+
+    .mono-label--muted {
+      color: var(--on-surface-variant);
+    }
+
+    /* Hero */
+    .hero-band {
+      position: relative;
+      background-color: var(--background);
+      background-image: var(--cosmic-wash);
+      border-bottom: var(--hairline);
+      padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+      overflow: hidden;
+    }
+
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      gap: var(--space-xl);
+    }
+
+    .hero-title {
+      font-size: var(--display-size);
+      font-weight: 600;
+      line-height: 1.06;
+      max-width: 18ch;
+    }
+
+    .hero-title .accent-cyan {
+      color: var(--tertiary);
+    }
+
+    .hero-title .accent-gold {
+      color: var(--primary);
+    }
+
+    .hero-lede {
+      font-size: var(--subhead-size);
+      line-height: 1.55;
+      color: var(--on-surface-variant);
+      max-width: 62ch;
+      margin: 0;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .metric-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .metric-value {
+      font-family: var(--font-headline);
+      font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.85rem);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.15;
+    }
+
+    .metric-value--gold { color: var(--primary); }
+    .metric-value--cyan { color: var(--tertiary); }
+
+    .metric-desc {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+
+    /* Main narrative container */
+    .page-grid {
+      display: grid;
+      gap: var(--space-3xl);
+      padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .page-grid * { min-width: 0; }
+
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .section-header {
+      display: grid;
+      gap: var(--space-xs);
+      border-left: 2px solid var(--primary);
+      padding-left: var(--space-md);
+    }
+
+    .section-header--cyan {
+      border-left-color: var(--tertiary);
+    }
+
+    .section-title {
+      font-size: var(--headline-size);
+      font-weight: 600;
+      line-height: 1.14;
+    }
+
+    .prose-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Cards & panels */
+    .panel {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    .observation-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      position: relative;
+    }
+
+    .callout-note {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-left: 3px solid var(--tertiary);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .callout-note--gold {
+      border-left-color: var(--primary);
+    }
+
+    .callout-note p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* State comparison grid */
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .state-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+      transition: transform var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .state-card--featured {
+      border-color: color-mix(in srgb, var(--tertiary) 45%, var(--outline-variant));
+      background: linear-gradient(180deg, var(--surface-container-high) 0%, var(--surface-container) 100%);
+    }
+
+    .state-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .state-card dl {
+      margin: var(--space-xs) 0 0;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .state-kv {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+      border-top: var(--hairline);
+      font-size: 0.875rem;
+    }
+
+    .state-kv dt {
+      color: var(--on-surface-variant);
+    }
+
+    .state-kv dd {
+      margin: 0;
+      font-family: var(--font-label);
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+      text-align: right;
+    }
+
+    /* Interactive simulation shells */
+    .sim-shell {
+      background: var(--surface-container);
+      border: var(--hairline-strong);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+      container-type: inline-size;
+    }
+
+    .sim-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--hairline);
+    }
+
+    .sim-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+
+    .sim-layout--equal {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+
+    .canvas-stage {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      position: relative;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .canvas-stage--tall {
+      min-height: 430px;
+    }
+
+    .canvas-stage canvas {
+      width: 100%;
+      height: 100%;
+      flex: 1 1 auto;
+      display: block;
+    }
+
+    .canvas-hud {
+      position: absolute;
+      top: var(--space-sm);
+      left: var(--space-sm);
+      right: var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      pointer-events: none;
+    }
+
+    .hud-pill {
+      background: color-mix(in srgb, var(--background) 84%, transparent);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface);
+      backdrop-filter: blur(6px);
+    }
+
+    .hud-pill--cyan {
+      border-color: color-mix(in srgb, var(--tertiary) 45%, transparent);
+      color: var(--tertiary);
+    }
+
+    .hud-pill--gold {
+      border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+      color: var(--primary);
+    }
+
+    /* Controls */
+    .control-stack {
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+
+    .control-value {
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+
+    .control-value--cyan {
+      color: var(--tertiary);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded-full);
+      border: var(--hairline);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: var(--rounded-full);
+      background: var(--tertiary);
+      border: 2px solid var(--background);
+      box-shadow: var(--cyan-glow);
+      cursor: pointer;
+    }
+
+    input[type="range"].range-gold::-webkit-slider-thumb {
+      background: var(--primary);
+      box-shadow: var(--gold-glow);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: var(--rounded-full);
+      background: var(--tertiary);
+      border: 2px solid var(--background);
+      cursor: pointer;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    button {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--surface-container-low);
+      border-color: var(--tertiary);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--on-primary-container);
+      border-color: var(--on-primary-container);
+      box-shadow: var(--gold-glow);
+    }
+
+    .btn-cyan {
+      background: var(--cyan-tint);
+      color: var(--tertiary);
+      border-color: color-mix(in srgb, var(--tertiary) 45%, transparent);
+    }
+
+    .btn-cyan:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--tertiary) 22%, transparent);
+      border-color: var(--tertiary);
+      box-shadow: var(--cyan-glow);
+    }
+
+    .btn-chip {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--background);
+      border: var(--hairline);
+      color: var(--on-surface-variant);
+      text-transform: none;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      letter-spacing: 0;
+    }
+
+    .btn-chip[aria-pressed="true"] {
+      background: var(--cyan-tint);
+      border-color: var(--tertiary);
+      color: var(--on-surface);
+    }
+
+    .btn-chip--gold[aria-pressed="true"] {
+      background: var(--gold-tint);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Telemetry readouts inside sims */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .telemetry-tile {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      display: grid;
+      gap: 2px;
+    }
+
+    .telemetry-tile .t-val {
+      font-family: var(--font-label);
+      font-size: 1.15rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    .telemetry-tile .t-val--cyan { color: var(--tertiary); }
+    .telemetry-tile .t-val--gold { color: var(--primary); }
+    .telemetry-tile .t-val--pos { color: var(--positive); }
+
+    .stage-detail-box {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .stage-detail-box h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    .stage-detail-box p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    /* Breathing phase display */
+    .breath-phase-banner {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .breath-phase-name {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--tertiary);
+      line-height: 1.2;
+    }
+
+    .breath-phase-name.is-pause {
+      color: var(--primary);
+    }
+
+    .breath-timer-digits {
+      font-family: var(--font-label);
+      font-size: 1.9rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    /* Practice checklist / log */
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .step-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+
+    .step-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      letter-spacing: var(--label-tracking);
+    }
+
+    .checklist-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      cursor: pointer;
+    }
+
+    .checklist-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--tertiary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist-row span {
+      font-size: 0.95rem;
+      color: var(--on-surface);
+    }
+
+    .field-input {
+      width: 100%;
+      background: var(--background);
+      border: var(--hairline-strong);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+    }
+
+    .status-feedback {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--positive);
+      min-height: 1.2em;
+    }
+
+    /* Sources footer */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding-top: var(--space-xl);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .sources-footer p {
+      font-size: 0.875rem;
+      max-width: 78ch;
+      margin: 0;
+    }
+
+    /* Container and viewport responsiveness */
+    @container (max-width: 780px) {
+      .sim-layout,
+      .sim-layout--equal {
+        grid-template-columns: 1fr;
+      }
+      .canvas-stage {
+        min-height: 320px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .prose-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-band {
+        padding: var(--space-xl) var(--space-md) var(--space-lg);
+      }
+      .page-grid {
+        padding: var(--space-xl) var(--space-md) var(--space-2xl);
+        gap: var(--space-2xl);
+      }
+      .sim-shell {
+        padding: var(--space-md);
+      }
+      .telemetry-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero-band">
+    <canvas id="heroWaveCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <div style="margin-bottom: 0.85rem;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(226, 180, 94, 0.45); background: rgba(226, 180, 94, 0.10); color: var(--primary); font-family: var(--font-label); font-size: 0.78rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+      </div>
+      <div>
+        <span class="mono-label">Modelo Biofísico de Itzhak Bentov · Osciladores y Coherencia</span>
+      </div>
+      <h1 class="hero-title">
+        La Física de la <span class="accent-cyan">Quietud</span> y la Resonancia a <span class="accent-gold">7 Hz</span>
+      </h1>
+      <p class="hero-lede">
+        En la década de 1970, el ingeniero biomédico e inventor Itzhak Bentov midió cómo la calma respiratoria transforma el sistema cardiovascular y nervioso en una cadena de osciladores estacionarios cercanos a 7 ciclos por segundo, acoplando el biocampo humano con la cavidad ionosférica terrestre.
+      </p>
+
+      <div class="hero-metrics" aria-label="Parámetros fundamentales del modelo de Bentov">
+        <div class="metric-card">
+          <span class="mono-label mono-label--muted">Frecuencia corporal en quietud</span>
+          <span class="metric-value metric-value--cyan">6.8 – 7.5 Hz</span>
+          <span class="metric-desc">Oscilación armónica de cuerpo entero en estado meditativo profundo.</span>
+        </div>
+        <div class="metric-card">
+          <span class="mono-label mono-label--muted">Micro-movimiento craneal</span>
+          <span class="metric-value metric-value--gold">0.005 – 0.010 mm</span>
+          <span class="metric-desc">Desplazamiento vertical del cerebro amortiguado en líquido cefalorraquídeo.</span>
+        </div>
+        <div class="metric-card">
+          <span class="mono-label mono-label--muted">Resonancia Schumann</span>
+          <span class="metric-value metric-value--cyan">~7.5 Hz</span>
+          <span class="metric-desc">Modo fundamental electromagnético de la cavidad Tierra–ionosfera.</span>
+        </div>
+        <div class="metric-card">
+          <span class="mono-label mono-label--muted">Tránsito electrostático global</span>
+          <span class="metric-value metric-value--gold">~0.143 s (1/7 s)</span>
+          <span class="metric-desc">Recorrido de una onda de 40,000 km alrededor del perímetro planetario.</span>
+        </div>
+      </div>
+
+      <div class="callout-note" id="sessionSummaryBanner">
+        <span class="mono-label mono-label--gold">Registro de práctica personal</span>
+        <p id="sessionSummaryText">Aún no registras ciclos de respiración armónica en esta sesión. Utiliza el simulador de respiración abajo para iniciar tu primera práctica.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-grid">
+
+    <!-- SECCIÓN 1: BENEFICIOS DE LA QUIETUD -->
+    <section class="section-block" aria-labelledby="sec-quietud-title">
+      <div class="section-header">
+        <span class="mono-label mono-label--gold">01 · Mecánica de la conciencia y el tiempo subjetivo</span>
+        <h2 class="section-title" id="sec-quietud-title">Por qué la quietud ensancha la percepción y detiene el ruido interno</h2>
+      </div>
+
+      <div class="prose-columns">
+        <div>
+          <p>
+            Según Bentov, nuestra conciencia no opera como un flujo continuo y sólido, sino como un <strong>interruptor oscilante de encendido y apagado («on–off»)</strong>. Durante los instantes <em>on</em> percibimos el mundo material lineal; durante los breves microinstantes <em>off</em> —el punto de reposo neutro donde el péndulo se detiene antes de invertir su dirección— el sistema nervioso queda libre de aceleración y accede a un estado de percepción ampliada sin la compresión del tiempo reloj.
+          </p>
+          <p>
+            Cuando la mente permanece agitada en frecuencias rápidas de estrés (ondas <strong>Beta</strong>), comprime el tiempo subjetivo y estrecha la atención: el sistema nervioso solo deja pasar los estímulos indispensables para la supervivencia. Al inducir quietud física y mental, desciende la tasa metabólica y el consumo de oxígeno, el cerebro migra hacia bandas <strong>Alfa y Theta (7–13 Hz)</strong>, ambos hemisferios equilibran su fase y aumenta lo que Bentov llamaba la <em>resolución del receptor</em>: la capacidad de captar intuiciones, patrones sutiles y coherencia somática.
+          </p>
+        </div>
+
+        <div class="callout-note callout-note--gold">
+          <span class="mono-label mono-label--gold">El punto neutro del péndulo</span>
+          <p>
+            Entre el final de una exhalación y el inicio de la siguiente inhalación existe una pausa natural de reposo absoluto. Habitar ese microinstante activa el freno parasimpático y reduce el ruido de la «antena» neuronal sin necesidad de forzar la mente en blanco.
+          </p>
+        </div>
+      </div>
+
+      <div class="state-grid" role="list" aria-label="Comparación de estados fisiológicos y perceptivos">
+        <article class="state-card" role="listitem">
+          <span class="mono-label mono-label--muted">Estado 01 · Vigilia reactiva</span>
+          <h3>Agitación y ruido Beta</h3>
+          <p>Respiración alta y rápida; los ecos arteriales chocan con el siguiente latido generando turbulencia mecánica y asimetría cerebral.</p>
+          <dl>
+            <div class="state-kv"><dt>Banda EEG predominante</dt><dd>14 – 30 Hz (Beta)</dd></div>
+            <div class="state-kv"><dt>Tiempo subjetivo</dt><dd>Comprimido / acelerado</dd></div>
+            <div class="state-kv"><dt>Señal corazón–aorta</dt><dd>Irregular (interferencia)</dd></div>
+          </dl>
+        </article>
+
+        <article class="state-card" role="listitem">
+          <span class="mono-label">Estado 02 · Transición vagal</span>
+          <h3>Respiración armónica 6–6</h3>
+          <p>El ciclo respiratorio lento (~0.083 Hz) sincroniza la variabilidad cardíaca y prepara al diafragma para no perturbar la onda aórtica.</p>
+          <dl>
+            <div class="state-kv"><dt>Banda EEG predominante</dt><dd>8 – 12 Hz (Alfa)</dd></div>
+            <div class="state-kv"><dt>Tiempo subjetivo</dt><dd>Estable y espacioso</dd></div>
+            <div class="state-kv"><dt>Consumo metabólico</dt><dd>En descenso gradual</dd></div>
+          </dl>
+        </article>
+
+        <article class="state-card state-card--featured" role="listitem">
+          <span class="mono-label mono-label--gold">Estado 03 · Coherencia plena</span>
+          <h3>Quietud resonante a ~7 Hz</h3>
+          <p>La aorta forma media onda estacionaria; el cráneo oscila con suavidad sinusoidal y ambos hemisferios alcanzan coherencia de fase.</p>
+          <dl>
+            <div class="state-kv"><dt>Frecuencia del sistema</dt><dd>6.8 – 7.5 Hz (Alfa–Theta)</dd></div>
+            <div class="state-kv"><dt>Amplitud balística</dt><dd>~3.0× señal basal</dd></div>
+            <div class="state-kv"><dt>Radio de biocampo</dt><dd>~50 cm (20 pulg)</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: SIMULADOR 1 — RESPIRACIÓN ARMÓNICA -->
+    <section class="section-block" aria-labelledby="sec-breath-title">
+      <div class="section-header section-header--cyan">
+        <span class="mono-label">02 · Simulador I · Inducción fisiológica</span>
+        <h2 class="section-title" id="sec-breath-title">Guía de respiración armónica 6–6 y microinstante de quietud</h2>
+      </div>
+
+      <p>
+        La puerta de entrada descrita en la «Fórmula Bentov» no exige posturas rígidas ni aislamiento extremo. Tras observar el pulso cardíaco durante un minuto como frecuencia portadora, se adopta una respiración lenta en onda sinusoidal —como el ritmo <strong>6 segundos de inhalación por 6 segundos de exhalación</strong>— deteniéndose brevemente en la <strong>micropausa natural posterior a exhalar</strong>. En ese instante la velocidad del ciclo es cero: el sistema nervioso recibe la señal biológica de seguridad y abre paso a la coherencia.
+      </p>
+
+      <div class="sim-shell" id="breathSimulator">
+        <div class="sim-topbar">
+          <div>
+            <span class="mono-label">Instrumento de entrenamiento respiratorio</span>
+            <h3 style="margin-top: var(--space-xs); font-size: 1.25rem;">Péndulo Respiratorio y Pausa Neutra</h3>
+          </div>
+          <div class="btn-row" role="group" aria-label="Patrón de respiración">
+            <button type="button" class="btn-chip" id="preset-662" aria-pressed="true" onclick="selectBreathPreset('6-6-2')">Bentov 6–6 + Pausa 2s</button>
+            <button type="button" class="btn-chip" id="preset-573" aria-pressed="false" onclick="selectBreathPreset('5-7-3')">Vagal 5–7 + Pausa 3s</button>
+            <button type="button" class="btn-chip" id="preset-441" aria-pressed="false" onclick="selectBreathPreset('4-4-1.5')">Suave 4–4 + Pausa 1.5s</button>
+          </div>
+        </div>
+
+        <div class="sim-layout">
+          <div class="canvas-stage">
+            <canvas id="breathCanvas" aria-label="Simulación visual del péndulo respiratorio y microinstante de quietud"></canvas>
+            <div class="canvas-hud">
+              <span class="hud-pill hud-pill--cyan" id="breathHudMode">Ritmo 6s · 6s · 2s</span>
+              <span class="hud-pill hud-pill--gold" id="breathHudFreq">0.071 Hz (4.3 resp/min)</span>
+            </div>
+          </div>
+
+          <div class="control-stack">
+            <div class="breath-phase-banner" aria-live="polite">
+              <div>
+                <span class="mono-label mono-label--muted" id="breathPhaseSub">Listo para comenzar</span>
+                <div class="breath-phase-name" id="breathPhaseLabel">Observa tu pulso base</div>
+              </div>
+              <div class="breath-timer-digits" id="breathCountdown">06.0s</div>
+            </div>
+
+            <div class="control-group">
+              <span class="control-label">
+                <span>Duración de la sesión</span>
+                <span class="control-value control-value--cyan" id="breathDurationVal">3 min</span>
+              </span>
+              <div class="btn-row" role="group" aria-label="Duración en minutos">
+                <button type="button" class="btn-chip" id="dur-1" aria-pressed="false" onclick="selectBreathDuration(1)">1 min</button>
+                <button type="button" class="btn-chip" id="dur-3" aria-pressed="true" onclick="selectBreathDuration(3)">3 min</button>
+                <button type="button" class="btn-chip" id="dur-5" aria-pressed="false" onclick="selectBreathDuration(5)">5 min</button>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn-primary" id="breathToggleBtn" onclick="toggleBreathSession()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"></polygon></svg>
+                <span>Iniciar práctica</span>
+              </button>
+              <button type="button" onclick="resetBreathSession()">Reiniciar</button>
+              <button type="button" class="btn-cyan" id="breathAudioBtn" aria-pressed="false" onclick="toggleBreathAudio()">
+                <span>Audio guía: Apagado</span>
+              </button>
+            </div>
+
+            <div class="telemetry-grid">
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Tiempo restante</span>
+                <span class="t-val" id="breathSessionRemain">03:00</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Ciclos completados</span>
+                <span class="t-val t-val--gold" id="breathCycleCount">0</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Coherencia vagal estimada</span>
+                <span class="t-val t-val--cyan" id="breathCoherencePct">18%</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Acumulado guardado</span>
+                <span class="t-val t-val--pos" id="breathTotalSaved">0.0 min</span>
+              </div>
+            </div>
+
+            <div class="stage-detail-box">
+              <h4 id="breathGuidanceTitle">Instrucción somática</h4>
+              <p id="breathGuidanceText">Siéntate con la espalda erguida y las palmas relajadas. Al presionar «Iniciar práctica», sigue el halo cian al inhalar y al exhalar; cuando aparezca el anillo dorado, descansa en el vacío sin forzar el siguiente aliento.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: SIMULADOR 2 — CADENA DE OSCILADORES BIOLÓGICOS A 7 HZ -->
+    <section class="section-block" aria-labelledby="sec-chain-title">
+      <div class="section-header">
+        <span class="mono-label mono-label--gold">03 · Simulador II · Modelo balistocardiográfico y neurofisiológico</span>
+        <h2 class="section-title" id="sec-chain-title">La cadena de osciladores biológicos en fase a 7 Hz</h2>
+      </div>
+
+      <div class="prose-columns">
+        <div>
+          <p>
+            Al estudiar los efectos fisiológicos de la meditación con sismógrafos corporales y electroencefalografía, Bentov descubrió que contener suavemente la respiración o volverla casi imperceptible elimina la disrupción mecánica del diafragma sobre la aorta. En ese punto, la onda de presión sanguínea que desciende desde el ventrículo izquierdo rebota en la <strong>bifurcación ilíaca</strong> y regresa en perfecta sincronía con el siguiente latido.
+          </p>
+            <p>
+              La aorta se comporta como un tubo resonante de <strong>media longitud de onda (λ/2)</strong> afinado cerca de 7 ciclos por segundo. Esa onda estacionaria triplica la amplitud de vibración corporal con un gasto energético mínimo y desencadena un efecto dominó ascendente a través de cuatro eslabones acoplados.
+            </p>
+        </div>
+        <div class="callout-note">
+          <span class="mono-label">La metáfora del durazno en almíbar</span>
+          <p>
+            Bentov comparaba el cráneo con una lata cerrada que contiene un durazno (el cerebro) suspendido en almíbar denso (líquido cefalorraquídeo y duramadre). Cuando la columna vibra a ~7 Hz, el cerebro oscila suavemente entre <strong>0.005 y 0.010 mm</strong> hacia arriba y abajo.
+          </p>
+        </div>
+      </div>
+
+      <div class="sim-shell" id="chainSimulator">
+        <div class="sim-topbar">
+          <div>
+            <span class="mono-label mono-label--gold">Cascada de resonancia somática</span>
+            <h3 style="margin-top: var(--space-xs); font-size: 1.25rem;">Acoplamiento Corazón–Aorta → Cráneo → Ventrículos → Hemisferios</h3>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn-cyan" id="chainApneaBtn" aria-pressed="false" onclick="toggleBreathHoldDemo()">
+              <span>Simular respiración imperceptible (7 Hz)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="coherenceSlider">
+            <span>Nivel de quietud y suavidad respiratoria (0% vigilia agitada → 100% resonancia 7 Hz)</span>
+            <span class="control-value" id="coherenceSliderVal">25%</span>
+          </label>
+          <input type="range" id="coherenceSlider" class="range-gold" min="0" max="100" value="25" oninput="setChainCoherence(this.value)">
+        </div>
+
+        <div class="btn-row" role="group" aria-label="Etapas de la cadena de osciladores">
+          <button type="button" class="btn-chip btn-chip--gold" id="stage-btn-0" aria-pressed="true" onclick="selectChainStage(0)">1. Corazón–Aorta (λ/2)</button>
+          <button type="button" class="btn-chip btn-chip--gold" id="stage-btn-1" aria-pressed="false" onclick="selectChainStage(1)">2. Micro-movimiento craneal</button>
+          <button type="button" class="btn-chip btn-chip--gold" id="stage-btn-2" aria-pressed="false" onclick="selectChainStage(2)">3. Ondas en ventrículos</button>
+          <button type="button" class="btn-chip btn-chip--gold" id="stage-btn-3" aria-pressed="false" onclick="selectChainStage(3)">4. Sincronía hemisférica</button>
+        </div>
+
+        <div class="sim-layout sim-layout--equal">
+          <div class="canvas-stage canvas-stage--tall">
+            <canvas id="chainAnatomyCanvas" aria-label="Esquema dinámico de la cadena de osciladores biológicos desde el corazón hasta la corteza cerebral"></canvas>
+            <div class="canvas-hud">
+              <span class="hud-pill hud-pill--gold" id="chainStageHud">Eslabón 1: Corazón–Aorta</span>
+              <span class="hud-pill hud-pill--cyan" id="chainFreqHud">~7.0 Hz · Onda estacionaria</span>
+            </div>
+          </div>
+
+          <div class="control-stack">
+            <div class="canvas-stage" style="min-height: 240px;">
+              <canvas id="chainScopeCanvas" aria-label="Osciloscopio comparativo entre pulso irregular y onda estacionaria de 7 Hz junto con fase hemisférica"></canvas>
+              <div class="canvas-hud">
+                <span class="hud-pill" id="scopeLabelTop">Sismógrafo corporal + EEG I/D</span>
+                <span class="hud-pill hud-pill--cyan" id="scopeAmpBadge">Amplitud 1.2×</span>
+              </div>
+            </div>
+
+            <div class="telemetry-grid">
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Amplitud balística</span>
+                <span class="t-val t-val--gold" id="metricAmp">1.2×</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Oscilación craneal</span>
+                <span class="t-val t-val--cyan" id="metricCranial">0.002 mm</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Pulso en ventrículos</span>
+                <span class="t-val" id="metricVentricle">Turbulento</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Sincronía EEG I/D</span>
+                <span class="t-val t-val--pos" id="metricHemisphere">32%</span>
+              </div>
+            </div>
+
+            <div class="stage-detail-box" id="chainDetailBox">
+              <h4 id="chainDetailTitle">1. Resonancia corazón–aorta (media longitud de onda)</h4>
+              <p id="chainDetailDesc">En reposo agitado, la onda de pulso choca con el eco reflejado en la bifurcación ilíaca. Al volver sutil la respiración, el corazón espera el regreso exacto del eco y ambos viajan en fase a ~7 Hz, triplicando la amplitud mecánica con mínima energía.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: SIMULADOR 3 — ACOPLAMIENTO SCHUMANN -->
+    <section class="section-block" aria-labelledby="sec-schumann-title">
+      <div class="section-header section-header--cyan">
+        <span class="mono-label">04 · Simulador III · Resonancia planetaria y arrastre rítmico</span>
+        <h2 class="section-title" id="sec-schumann-title">Acoplamiento entre el biocampo humano y la cavidad ionosférica (~7.5 Hz)</h2>
+      </div>
+
+      <div class="prose-columns">
+        <div>
+          <p>
+            En 1952, el físico alemán Winfried Otto Schumann predijo que la cavidad esférica entre la superficie de la Tierra y la ionosfera actúa como una caja de resonancia electromagnética con una frecuencia fundamental cercana a <strong>7.5 ciclos por segundo</strong>. Bentov advirtió la coincidencia: el micromovimiento armónico de un cuerpo humano en meditación profunda oscila exactamente en la banda de <strong>6.8 a 7.5 Hz</strong>.
+          </p>
+          <p>
+            Al entrar en fase con el campo electrostático terrestre, el biocampo corporal se expande hasta unas <strong>20 pulgadas (~50 cm)</strong> y genera una onda de longitud planetaria (~40,000 km) capaz de dar la vuelta al mundo en <strong>aproximadamente un séptimo de segundo (0.143 s)</strong>. Como ocurre con los péndulos de Christiaan Huygens (1665) sobre una misma viga o las luciérnagas en un arbusto, la naturaleza economiza energía sincronizando osciladores cercanos mediante <em>arrastre rítmico</em>.
+          </p>
+        </div>
+
+        <div class="callout-note callout-note--gold">
+          <span class="mono-label mono-label--gold">Evidencia de arrastre rítmico</span>
+          <p>
+            Además del experimento clásico de Huygens con relojes de péndulo, investigaciones de campo como el monitoreo cardíaco en San Pedro Manrique (2011) mostraron cómo el ritmo cardíaco de familiares observadores se sincronizaba en patrón con el de quienes caminaban sobre brasas. En quietud, un cuerpo coherente actúa como oscilador maestro.
+          </p>
+        </div>
+      </div>
+
+      <div class="sim-shell" id="schumannSimulator">
+        <div class="sim-topbar">
+          <div>
+            <span class="mono-label">Cavidad Tierra–Ionosfera (7.50 Hz)</span>
+            <h3 style="margin-top: var(--space-xs); font-size: 1.25rem;">Sintonización del Biocampo y Arrastre Colectivo</h3>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn-cyan" onclick="tuneToSchumann()">Sintonizar a 7.50 Hz</button>
+            <button type="button" class="btn-primary" onclick="emitPlanetaryPulse()">Emitir pulso planetario (40,000 km)</button>
+          </div>
+        </div>
+
+        <div class="sim-layout">
+          <div class="canvas-stage canvas-stage--tall">
+            <canvas id="schumannCanvas" aria-label="Simulación orbital del acoplamiento entre el biocampo humano y la resonancia Schumann de la ionosfera"></canvas>
+            <div class="canvas-hud">
+              <span class="hud-pill hud-pill--cyan" id="schumannLockBadge">Desfase: 1.50 Hz · Sin enganche</span>
+              <span class="hud-pill hud-pill--gold" id="schumannPulseBadge">Pulso global: En espera</span>
+            </div>
+          </div>
+
+          <div class="control-stack">
+            <div class="control-group">
+              <label class="control-label" for="bioFreqSlider">
+                <span>Frecuencia del biocampo humano</span>
+                <span class="control-value control-value--cyan" id="bioFreqVal">9.00 Hz</span>
+              </label>
+              <input type="range" id="bioFreqSlider" min="5.5" max="11.5" step="0.05" value="9.00" oninput="setBioFrequency(this.value)">
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="groupNodesSlider">
+                <span>Osciladores humanos en quietud (arrastre rítmico)</span>
+                <span class="control-value" id="groupNodesVal">4 personas</span>
+              </label>
+              <input type="range" id="groupNodesSlider" class="range-gold" min="1" max="16" step="1" value="4" oninput="setGroupNodes(this.value)">
+            </div>
+
+            <div class="telemetry-grid">
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Portadora Schumann</span>
+                <span class="t-val t-val--gold">7.50 Hz</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Acoplamiento de fase</span>
+                <span class="t-val t-val--cyan" id="couplingPct">24%</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Alcance del biocampo</span>
+                <span class="t-val" id="auraRadiusVal">18 cm (7 pulg)</span>
+              </div>
+              <div class="telemetry-tile">
+                <span class="mono-label mono-label--muted">Vuelta planetaria (40,000 km)</span>
+                <span class="t-val t-val--pos" id="transitTimerVal">0.143 s</span>
+              </div>
+            </div>
+
+            <div class="stage-detail-box">
+              <h4 id="schumannStatusTitle">Lectura de interferencia</h4>
+              <p id="schumannStatusDesc">Cuando tu frecuencia corporal difiere de los 7.5 Hz de la ionosfera, las ondas generan batimentos irregulares. Acerca el deslizador a 7.50 Hz y observa cómo los osciladores vecinos sincronizan su parpadeo por economía energética.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: PROTOCOLO PRÁCTICO Y REGISTRO -->
+    <section class="section-block" aria-labelledby="sec-protocol-title">
+      <div class="section-header">
+        <span class="mono-label mono-label--gold">05 · Aplicación cotidiana y método experimental</span>
+        <h2 class="section-title" id="sec-protocol-title">La Fórmula Bentov en cinco minutos diarios</h2>
+      </div>
+
+      <p>
+        Para Bentov, el laboratorio definitivo era el propio sistema nervioso. Al igual que en sus sesiones de concentración relajada —ya fuera en inmersión caliente («método húmedo») o mediante visualización serena («método seco»)—, propuso un protocolo minimalista para llevar la biofísica de los 7 Hz a la vida diaria y observar cómo la quietud modifica la elasticidad del tiempo subjetivo.
+      </p>
+
+      <div class="protocol-grid">
+        <article class="step-card">
+          <span class="step-num">PASO 01 · 1 MINUTO</span>
+          <h3>Escucha tu frecuencia portadora</h3>
+          <p>Siéntate cómodo, con la columna erguida y sin rigidez teatral. Cierra los ojos y percibe el pulso cardíaco sin intentar cambiar tu respiración ni reprimir pensamientos; obsérvalos pasar como nubes.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-num">PASO 02 · 2 MINUTOS</span>
+          <h3>Respiración armónica 6–6</h3>
+          <p>Inhala por la nariz durante 6 segundos y exhala suavemente durante 6 segundos como una ola continua. Este ritmo alinea el sistema nervioso autónomo y prepara la onda estacionaria aórtica.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-num">PASO 03 · 1 MINUTO</span>
+          <h3>Habita el microinstante «off»</h3>
+          <p>Al terminar la exhalación, permanece en la pausa natural antes de volver a inhalar. Allí el péndulo mental se detiene en velocidad cero y la respiración se vuelve sutil y económica.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-num">PASO 04 · EXPERIMENTO</span>
+          <h3>Prueba del reloj y tiempo elástico</h3>
+          <p>Tras estabilizar calma y visualización multisensorial, entreabre los ojos sin enfocar el segundero de un reloj analógico: observa cómo la percepción del intervalo entre tics parece dilatarse o detenerse.</p>
+        </article>
+      </div>
+
+      <div class="panel" style="display: grid; gap: var(--space-md);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+          <div>
+            <span class="mono-label">Bitácora de coherencia</span>
+            <h3 style="margin-top: var(--space-xs); font-size: 1.2rem;">Lista de práctica diaria</h3>
+          </div>
+          <button type="button" id="resetLogBtn" onclick="handleResetLog(this)">Reiniciar bitácora</button>
+        </div>
+
+        <div style="display: grid; gap: var(--space-sm);">
+          <label class="checklist-row">
+            <input type="checkbox" id="chk-1" onchange="toggleChecklistItem()">
+            <span>Observé mi pulso base durante 1 minuto sin forzar la mente.</span>
+          </label>
+          <label class="checklist-row">
+            <input type="checkbox" id="chk-2" onchange="toggleChecklistItem()">
+            <span>Completé ciclos de respiración armónica 6–6 con pausa post-exhalatoria.</span>
+          </label>
+          <label class="checklist-row">
+            <input type="checkbox" id="chk-3" onchange="toggleChecklistItem()">
+            <span>Noté la suavización de la respiración y sensación de quietud física.</span>
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="journalNoteInput">
+            <span>Observación breve de tu estado (tiempo subjetivo, claridad o sensaciones)</span>
+          </label>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: end;">
+            <input type="text" id="journalNoteInput" class="field-input" style="flex: 1 1 260px;" placeholder="Ej.: La pausa de 2 segundos dilató la percepción y bajó la tensión en hombros">
+            <button type="button" class="btn-cyan" onclick="saveJournalNote()">Guardar nota</button>
+          </div>
+          <div class="status-feedback" id="journalFeedback" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="sources-footer">
+      <span class="mono-label mono-label--muted">Fuentes y contexto del modelo</span>
+      <p>
+        Síntesis basada en los textos de Itzhak Bentov (<em>Stalking the Wild Pendulum: On the Mechanics of Consciousness</em>, 1977/1988; <em>A Brief Tour of Higher Consciousness</em>, 2000), el modelo fisio-kundalini recogido en estudios transpersonales (L. Sanella, <em>Kundalini: Psychosis or Transcendence?</em>, con citas a mediciones de coherencia EEG de J. Millay, 1976), la predicción de resonancia de cavidad ionosférica de Winfried O. Schumann (1952), la observación de arrastre rítmico de Christiaan Huygens (1665), el estudio de sincronía cardíaca en San Pedro Manrique (2011) y las guías prácticas derivadas de la «Fórmula Bentov».
+      </p>
+      <p>
+        Nota de rigor: las simulaciones representan modelos visuales y pedagógicos inspirados en las hipótesis biofísicas de Bentov y en la fisiología respiratoria vagal; los valores estimados de coherencia en tiempo real son ilustrativos y no sustituyen instrumentos médicos ni diagnósticos clínicos.
+      </p>
+
+      <div style="margin-top: 1.5rem;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(226, 180, 94, 0.45); background: rgba(226, 180, 94, 0.10); color: var(--primary); font-family: var(--font-label); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Volver al Portal Principal</a>
+      </div>
+
+      <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a> &bull; Movil: 2355-69 26 16</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    (function() {
+      'use strict';
+
+      // Palette resolved from CSS :root tokens so canvas rendering stays synchronized
+      function readCssVar(name, fallback) {
+        const val = getComputedStyle(document.documentElement).getPropertyValue(name);
+        return val && val.trim() ? val.trim() : fallback;
+      }
+
+      const PALETTE = {
+        bg: readCssVar('--background', '#070c17'),
+        surface: readCssVar('--surface-container', '#101b30'),
+        surfaceHigh: readCssVar('--surface-container-high', '#162440'),
+        text: readCssVar('--on-surface', '#eef2f6'),
+        muted: readCssVar('--on-surface-variant', '#94a7c4'),
+        outline: readCssVar('--outline', '#2e456b'),
+        outlineVar: readCssVar('--outline-variant', '#1c2c47'),
+        gold: readCssVar('--primary', '#e2b45e'),
+        cyan: readCssVar('--tertiary', '#5fd4e8'),
+        pos: readCssVar('--positive', '#63d6a7'),
+        warn: readCssVar('--warning', '#e8a754'),
+        context: readCssVar('--data-context', '#3b4f73')
+      };
+
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Global reactive state
+      const appState = {
+        breathPreset: '6-6-2',
+        breathDurationMin: 3,
+        breathRunning: false,
+        breathAudioOn: false,
+        breathElapsedSec: 0,
+        breathSessionRemainSec: 180,
+        breathCycles: 0,
+        lastPhaseKey: '',
+        totalQuietMinutes: 0,
+
+        chainCoherence: 25,
+        chainStage: 0,
+        chainApnea: false,
+
+        bioFreq: 9.0,
+        groupNodes: 4,
+        planetaryPulseActive: false,
+        planetaryPulseProgress: 0,
+
+        checklist: [false, false, false],
+        journalNote: ''
+      };
+
+      const BREATH_PRESETS = {
+        '6-6-2': { inhale: 6, exhale: 6, pause: 2, label: `Ritmo 6s · 6s · 2s` },
+        '5-7-3': { inhale: 5, exhale: 7, pause: 3, label: `Ritmo 5s · 7s · 3s` },
+        '4-4-1.5': { inhale: 4, exhale: 4, pause: 1.5, label: `Ritmo 4s · 4s · 1.5s` }
+      };
+
+      const CHAIN_STAGES = [
+        {
+          title: `1. Resonancia corazón–aorta (media longitud de onda)`,
+          desc: `En reposo agitado, la onda de pulso choca con el eco reflejado en la bifurcación ilíaca. Al volver sutil la respiración, el corazón espera el regreso exacto del eco y ambos viajan en fase a ~7 Hz, triplicando la amplitud mecánica con mínima energía.`
+        },
+        {
+          title: `2. Micro-movimiento craneal (0.005–0.010 mm)`,
+          desc: `La onda estacionaria asciende por la columna hacia el cráneo. El cerebro, suspendido en líquido cefalorraquídeo y duramadre como un «durazno en almíbar», oscila suavemente entre 0.005 y 0.010 mm en un patrón sinusoidal limpio.`
+        },
+        {
+          title: `3. Ondas en ventrículos y corteza sensorial`,
+          desc: `Los ventrículos cerebrales llenos de fluido transmiten la vibración acústica al tejido cortical, induciendo corrientes eléctricas circulares y pulsos electromagnéticos en la corteza sensorial sin estrés metabólico.`
+        },
+        {
+          title: `4. Sincronía interhemisférica (EEG 7–13 Hz)`,
+          desc: `En vigilia ordinaria, un hemisferio domina en amplitud sobre el otro. Al sostener el estado resonante cercano a 7 Hz, los hemisferios izquierdo y derecho equilibran fase y amplitud, disolviendo la sensación rígida de separación.`
+        }
+      ];
+
+      // Web Audio synthesizer for gentle breathing cue tones (no external URLs)
+      let audioCtx = null;
+      function playBreathTone(phaseKey) {
+        if (!appState.breathAudioOn) return;
+        try {
+          const AudioCtor = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtor) return;
+          if (!audioCtx) audioCtx = new AudioCtor();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          let freq = 220;
+          if (phaseKey === 'inhale') freq = 256;
+          else if (phaseKey === 'exhale') freq = 192;
+          else if (phaseKey === 'pause') freq = 324;
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(0.05, now + 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 1.15);
+        } catch (err) {
+          // Ignore audio context restriction errors silently
+        }
+      }
+
+      // Persistence via notebookAppApi
+      async function loadPersistedState() {
+        if (!window.notebookAppApi || typeof window.notebookAppApi.getAppState !== 'function') return;
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (!saved || typeof saved !== 'object') return;
+          if (saved.breathPreset && BREATH_PRESETS[saved.breathPreset]) {
+            appState.breathPreset = saved.breathPreset;
+          }
+          if (typeof saved.breathDurationMin === 'number') {
+            appState.breathDurationMin = saved.breathDurationMin;
+            appState.breathSessionRemainSec = saved.breathDurationMin * 60;
+          }
+          if (typeof saved.totalQuietMinutes === 'number') {
+            appState.totalQuietMinutes = saved.totalQuietMinutes;
+          }
+          if (typeof saved.breathCycles === 'number') {
+            appState.breathCycles = saved.breathCycles;
+          }
+          if (typeof saved.chainCoherence === 'number') {
+            appState.chainCoherence = saved.chainCoherence;
+          }
+          if (typeof saved.bioFreq === 'number') {
+            appState.bioFreq = saved.bioFreq;
+          }
+          if (typeof saved.groupNodes === 'number') {
+            appState.groupNodes = saved.groupNodes;
+          }
+          if (Array.isArray(saved.checklist) && saved.checklist.length === 3) {
+            appState.checklist = saved.checklist.map(Boolean);
+          }
+          if (typeof saved.journalNote === 'string') {
+            appState.journalNote = saved.journalNote;
+          }
+        } catch (e) {
+          // Safe fallback
+        }
+      }
+
+      async function savePersistedState() {
+        if (!window.notebookAppApi || typeof window.notebookAppApi.setAppState !== 'function') return;
+        try {
+          await window.notebookAppApi.setAppState({
+            breathPreset: appState.breathPreset,
+            breathDurationMin: appState.breathDurationMin,
+            totalQuietMinutes: Number(appState.totalQuietMinutes.toFixed(2)),
+            breathCycles: appState.breathCycles,
+            chainCoherence: appState.chainCoherence,
+            bioFreq: appState.bioFreq,
+            groupNodes: appState.groupNodes,
+            checklist: appState.checklist,
+            journalNote: appState.journalNote
+          });
+        } catch (e) {
+          // Safe fallback
+        }
+      }
+
+      function updateSummaryBanner() {
+        const bannerText = document.getElementById('sessionSummaryText');
+        const totalEl = document.getElementById('breathTotalSaved');
+        if (totalEl) totalEl.textContent = `${appState.totalQuietMinutes.toFixed(1)} min`;
+        if (!bannerText) return;
+        if (appState.totalQuietMinutes > 0 || appState.breathCycles > 0) {
+          bannerText.textContent = `Llevas ${appState.totalQuietMinutes.toFixed(1)} minutos acumulados de quietud y ${appState.breathCycles} ciclos armónicos completados.`;
+        } else {
+          bannerText.textContent = `Aún no registras ciclos de respiración armónica en esta sesión. Utiliza el simulador de respiración abajo para iniciar tu primera práctica.`;
+        }
+      }
+
+      function applyRestoredUI() {
+        selectBreathPreset(appState.breathPreset, true);
+        selectBreathDuration(appState.breathDurationMin, true);
+        setChainCoherence(appState.chainCoherence, true);
+        setBioFrequency(appState.bioFreq, true);
+        setGroupNodes(appState.groupNodes, true);
+
+        const c1 = document.getElementById('chk-1');
+        const c2 = document.getElementById('chk-2');
+        const c3 = document.getElementById('chk-3');
+        if (c1) c1.checked = appState.checklist[0];
+        if (c2) c2.checked = appState.checklist[1];
+        if (c3) c3.checked = appState.checklist[2];
+
+        const noteEl = document.getElementById('journalNoteInput');
+        if (noteEl && appState.journalNote) noteEl.value = appState.journalNote;
+
+        const cycleEl = document.getElementById('breathCycleCount');
+        if (cycleEl) cycleEl.textContent = String(appState.breathCycles);
+
+        updateSummaryBanner();
+      }
+
+      // --- BREATHING CONTROLS (Hoisted global functions) ---
+      window.selectBreathPreset = function selectBreathPreset(key, skipSave) {
+        if (!BREATH_PRESETS[key]) return;
+        appState.breathPreset = key;
+        appState.breathElapsedSec = 0;
+        appState.lastPhaseKey = '';
+
+        ['6-6-2', '5-7-3', '4-4-1.5'].forEach(function(k) {
+          const id = 'preset-' + k.replace(/\./g, '').replace(/-/g, '');
+          const btn = document.getElementById(id);
+          if (btn) btn.setAttribute('aria-pressed', String(k === key));
+        });
+
+        const cfg = BREATH_PRESETS[key];
+        const totalCycle = cfg.inhale + cfg.exhale + cfg.pause;
+        const hz = (1 / totalCycle).toFixed(3);
+        const rpm = (60 / totalCycle).toFixed(1);
+
+        const hudMode = document.getElementById('breathHudMode');
+        const hudFreq = document.getElementById('breathHudFreq');
+        if (hudMode) hudMode.textContent = cfg.label;
+        if (hudFreq) hudFreq.textContent = `${hz} Hz (${rpm} resp/min)`;
+
+        updateBreathUI(0);
+        if (!skipSave) savePersistedState();
+      };
+
+      window.selectBreathDuration = function selectBreathDuration(mins, skipSave) {
+        appState.breathDurationMin = mins;
+        appState.breathSessionRemainSec = mins * 60;
+        appState.breathRunning = false;
+        appState.breathElapsedSec = 0;
+
+        [1, 3, 5].forEach(function(m) {
+          const btn = document.getElementById('dur-' + m);
+          if (btn) btn.setAttribute('aria-pressed', String(m === mins));
+        });
+
+        const valEl = document.getElementById('breathDurationVal');
+        if (valEl) valEl.textContent = `${mins} min`;
+
+        updateToggleBtnLabel();
+        updateSessionTimerDisplay();
+        if (!skipSave) savePersistedState();
+      };
+
+      function updateToggleBtnLabel() {
+        const btn = document.getElementById('breathToggleBtn');
+        if (!btn) return;
+        if (appState.breathRunning) {
+          btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg><span>Pausar práctica</span>`;
+        } else {
+          btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"></polygon></svg><span>Iniciar práctica</span>`;
+        }
+      }
+
+      window.toggleBreathSession = function toggleBreathSession() {
+        if (appState.breathSessionRemainSec <= 0) {
+          appState.breathSessionRemainSec = appState.breathDurationMin * 60;
+          appState.breathElapsedSec = 0;
+        }
+        appState.breathRunning = !appState.breathRunning;
+        if (appState.breathRunning) {
+          appState.lastPhaseKey = '';
+        }
+        updateToggleBtnLabel();
+      };
+
+      window.resetBreathSession = function resetBreathSession() {
+        appState.breathRunning = false;
+        appState.breathElapsedSec = 0;
+        appState.breathSessionRemainSec = appState.breathDurationMin * 60;
+        appState.lastPhaseKey = '';
+        updateToggleBtnLabel();
+        updateSessionTimerDisplay();
+        updateBreathUI(0);
+      };
+
+      window.toggleBreathAudio = function toggleBreathAudio() {
+        appState.breathAudioOn = !appState.breathAudioOn;
+        const btn = document.getElementById('breathAudioBtn');
+        if (btn) {
+          btn.setAttribute('aria-pressed', String(appState.breathAudioOn));
+          btn.innerHTML = appState.breathAudioOn
+            ? `<span>Audio guía: Encendido</span>`
+            : `<span>Audio guía: Apagado</span>`;
+        }
+        if (appState.breathAudioOn) {
+          playBreathTone('pause');
+        }
+      };
+
+      function updateSessionTimerDisplay() {
+        const el = document.getElementById('breathSessionRemain');
+        if (!el) return;
+        const sec = Math.max(0, Math.ceil(appState.breathSessionRemainSec));
+        const mm = String(Math.floor(sec / 60)).padStart(2, '0');
+        const ss = String(sec % 60).padStart(2, '0');
+        el.textContent = `${mm}:${ss}`;
+      }
+
+      // Compute radial color with transparency safely from token hex or fallback
+      function drawRadialGlow(ctx, cx, cy, rInner, rOuter, colorRgbTuple, maxAlpha) {
+        const g = ctx.createRadialGradient(cx, cy, rInner, cx, cy, rOuter);
+        g.addColorStop(0, `rgba(${colorRgbTuple}, ${maxAlpha})`);
+        g.addColorStop(1, `rgba(${colorRgbTuple}, 0)`);
+        return g;
+      }
+
+      function getBreathPhaseInfo(cyclePos) {
+        const cfg = BREATH_PRESETS[appState.breathPreset];
+        if (cyclePos < cfg.inhale) {
+          return {
+            key: 'inhale',
+            name: `Inhala por la nariz`,
+            sub: `Ascenso armónico del diafragma`,
+            remain: cfg.inhale - cyclePos,
+            progress: cyclePos / cfg.inhale,
+            guide: `Toma aire despacio sin elevar los hombros. Siente cómo el pulso cardíaco acompaña la expansión suave.`
+          };
+        }
+        const exPos = cyclePos - cfg.inhale;
+        if (exPos < cfg.exhale) {
+          return {
+            key: 'exhale',
+            name: `Exhala suavemente`,
+            sub: `Descenso vagal hacia el reposo`,
+            remain: cfg.exhale - exPos,
+            progress: exPos / cfg.exhale,
+            guide: `Suelta el aire como una ola lenta que baja. Permites que la frecuencia cardíaca se desacelere de manera natural.`
+          };
+        }
+        const pausePos = exPos - cfg.exhale;
+        return {
+          key: 'pause',
+          name: `Micropausa — Quietud`,
+          sub: `Punto neutro del péndulo (instante off)`,
+          remain: Math.max(0, cfg.pause - pausePos),
+          progress: pausePos / cfg.pause,
+          guide: `No empujes ni retengas con tensión: simplemente habita este segundo de reposo absoluto donde el ruido mental cae a cero.`
+        };
+      }
+
+      function updateBreathUI(cyclePos) {
+        const info = getBreathPhaseInfo(cyclePos);
+        const phaseLabel = document.getElementById('breathPhaseLabel');
+        const phaseSub = document.getElementById('breathPhaseSub');
+        const countdown = document.getElementById('breathCountdown');
+        const guideTitle = document.getElementById('breathGuidanceTitle');
+        const guideText = document.getElementById('breathGuidanceText');
+        const cohEl = document.getElementById('breathCoherencePct');
+
+        if (appState.breathRunning) {
+          if (phaseLabel) {
+            phaseLabel.textContent = info.name;
+            phaseLabel.classList.toggle('is-pause', info.key === 'pause');
+          }
+          if (phaseSub) phaseSub.textContent = info.sub;
+          if (countdown) countdown.textContent = `${info.remain.toFixed(1)}s`;
+          if (guideTitle) guideTitle.textContent = info.key === 'pause' ? `En el microinstante de quietud` : `Durante esta fase`;
+          if (guideText) guideText.textContent = info.guide;
+
+          if (appState.lastPhaseKey !== info.key) {
+            appState.lastPhaseKey = info.key;
+            playBreathTone(info.key);
+          }
+        } else {
+          if (phaseLabel) {
+            phaseLabel.textContent = `Observa tu pulso base`;
+            phaseLabel.classList.remove('is-pause');
+          }
+          if (phaseSub) phaseSub.textContent = `Listo para comenzar`;
+          const cfg = BREATH_PRESETS[appState.breathPreset];
+          if (countdown) countdown.textContent = `${cfg.inhale.toFixed(1)}s`;
+        }
+
+        const estCoherence = Math.min(98, Math.round(18 + (appState.breathCycles * 12) + (appState.breathRunning ? 14 : 0)));
+        if (cohEl) cohEl.textContent = `${estCoherence}%`;
+      }
+
+      // --- CHAIN OF OSCILLATORS CONTROLS ---
+      window.setChainCoherence = function setChainCoherence(val, skipSave) {
+        const num = Math.max(0, Math.min(100, Number(val)));
+        appState.chainCoherence = num;
+        appState.chainApnea = num >= 92;
+
+        const slider = document.getElementById('coherenceSlider');
+        const valEl = document.getElementById('coherenceSliderVal');
+        const apneaBtn = document.getElementById('chainApneaBtn');
+        if (slider) slider.value = String(num);
+        if (valEl) valEl.textContent = `${num}%`;
+        if (apneaBtn) apneaBtn.setAttribute('aria-pressed', String(appState.chainApnea));
+
+        const cohNorm = num / 100;
+        const amp = (1 + cohNorm * 2.0).toFixed(1);
+        const cranial = (0.001 + cohNorm * 0.0085).toFixed(3);
+        const hemi = Math.round(22 + cohNorm * 76);
+
+        const mAmp = document.getElementById('metricAmp');
+        const mCranial = document.getElementById('metricCranial');
+        const mVent = document.getElementById('metricVentricle');
+        const mHemi = document.getElementById('metricHemisphere');
+        const scopeBadge = document.getElementById('scopeAmpBadge');
+
+        if (mAmp) mAmp.textContent = `${amp}×`;
+        if (mCranial) mCranial.textContent = `${cranial} mm`;
+        if (mVent) {
+          mVent.textContent = num > 75 ? `Armónico (~7 Hz)` : num > 40 ? `En transición` : `Turbulento`;
+        }
+        if (mHemi) mHemi.textContent = `${hemi}%`;
+        if (scopeBadge) scopeBadge.textContent = `Amplitud ${amp}×`;
+
+        if (!skipSave) savePersistedState();
+      };
+
+      window.toggleBreathHoldDemo = function toggleBreathHoldDemo() {
+        const target = appState.chainCoherence >= 90 ? 25 : 96;
+        setChainCoherence(target);
+      };
+
+      window.selectChainStage = function selectChainStage(idx) {
+        appState.chainStage = idx;
+        for (let i = 0; i < 4; i++) {
+          const btn = document.getElementById('stage-btn-' + i);
+          if (btn) btn.setAttribute('aria-pressed', String(i === idx));
+        }
+        const info = CHAIN_STAGES[idx];
+        const tEl = document.getElementById('chainDetailTitle');
+        const dEl = document.getElementById('chainDetailDesc');
+        const hudEl = document.getElementById('chainStageHud');
+        if (tEl && info) tEl.textContent = info.title;
+        if (dEl && info) dEl.textContent = info.desc;
+        if (hudEl && info) hudEl.textContent = `Eslabón ${idx + 1}: ${info.title.replace(/^\d+\.\s*/, '').split('(')[0].trim()}`;
+      };
+
+      // --- SCHUMANN COUPLING CONTROLS ---
+      window.setBioFrequency = function setBioFrequency(val, skipSave) {
+        const f = Math.max(5.5, Math.min(11.5, Number(val)));
+        appState.bioFreq = f;
+
+        const slider = document.getElementById('bioFreqSlider');
+        const valEl = document.getElementById('bioFreqVal');
+        if (slider) slider.value = String(f);
+        if (valEl) valEl.textContent = `${f.toFixed(2)} Hz`;
+
+        updateSchumannTelemetry();
+        if (!skipSave) savePersistedState();
+      };
+
+      window.setGroupNodes = function setGroupNodes(val, skipSave) {
+        const n = Math.max(1, Math.min(16, Math.round(Number(val))));
+        appState.groupNodes = n;
+
+        const slider = document.getElementById('groupNodesSlider');
+        const valEl = document.getElementById('groupNodesVal');
+        if (slider) slider.value = String(n);
+        if (valEl) valEl.textContent = n === 1 ? `1 persona` : `${n} personas`;
+
+        updateSchumannTelemetry();
+        if (!skipSave) savePersistedState();
+      };
+
+      window.tuneToSchumann = function tuneToSchumann() {
+        setBioFrequency(7.50);
+      };
+
+      window.emitPlanetaryPulse = function emitPlanetaryPulse() {
+        appState.planetaryPulseActive = true;
+        appState.planetaryPulseProgress = 0;
+      };
+
+      function getCouplingMetrics() {
+        const diff = Math.abs(appState.bioFreq - 7.50);
+        const freqMatch = Math.exp(-(diff * diff) / 0.55);
+        const groupBoost = 0.72 + (appState.groupNodes / 16) * 0.28;
+        const coupling = Math.min(1, freqMatch * groupBoost);
+        return { diff, coupling };
+      }
+
+      function updateSchumannTelemetry() {
+        const { diff, coupling } = getCouplingMetrics();
+        const pct = Math.round(coupling * 100);
+        const cm = Math.round(12 + coupling * 39);
+        const inch = (cm / 2.54).toFixed(0);
+
+        const cEl = document.getElementById('couplingPct');
+        const rEl = document.getElementById('auraRadiusVal');
+        const lockEl = document.getElementById('schumannLockBadge');
+        const titleEl = document.getElementById('schumannStatusTitle');
+        const descEl = document.getElementById('schumannStatusDesc');
+
+        if (cEl) cEl.textContent = `${pct}%`;
+        if (rEl) rEl.textContent = `${cm} cm (${inch} pulg)`;
+        if (lockEl) {
+          lockEl.textContent = diff < 0.25
+            ? `Desfase: ${diff.toFixed(2)} Hz · Enganche en fase`
+            : `Desfase: ${diff.toFixed(2)} Hz · Batimento activo`;
+        }
+        if (titleEl && descEl) {
+          if (pct >= 80) {
+            titleEl.textContent = `Acoplamiento resonante con la cavidad terrestre`;
+            descEl.textContent = `Tu frecuencia coincide con el modo fundamental de 7.50 Hz. El biocampo alcanza ~50 cm (20 pulg) y los ${appState.groupNodes} osciladores vibran al unísono, enviando ondas estacionarias alrededor de los 40,000 km de la ionosfera.`;
+          } else if (pct >= 45) {
+            titleEl.textContent = `Arrastre rítmico en progreso`;
+            descEl.textContent = `Los osciladores comienzan a atraer sus fases mutuas (efecto Huygens). Ajusta la frecuencia más cerca de 7.50 Hz para eliminar los batimentos destructivos.`;
+          } else {
+            titleEl.textContent = `Lectura de interferencia`;
+            descEl.textContent = `Cuando tu frecuencia corporal difiere de los 7.5 Hz de la ionosfera, las ondas generan batimentos irregulares. Acerca el deslizador a 7.50 Hz y observa cómo los osciladores vecinos sincronizan su parpadeo por economía energética.`;
+          }
+        }
+      }
+
+      // --- PRACTICE CHECKLIST & JOURNAL ---
+      window.toggleChecklistItem = function toggleChecklistItem() {
+        const c1 = document.getElementById('chk-1');
+        const c2 = document.getElementById('chk-2');
+        const c3 = document.getElementById('chk-3');
+        appState.checklist = [
+          Boolean(c1 && c1.checked),
+          Boolean(c2 && c2.checked),
+          Boolean(c3 && c3.checked)
+        ];
+        savePersistedState();
+      };
+
+      window.saveJournalNote = function saveJournalNote() {
+        const input = document.getElementById('journalNoteInput');
+        const fb = document.getElementById('journalFeedback');
+        if (!input) return;
+        appState.journalNote = input.value.trim();
+        savePersistedState();
+        if (fb) {
+          fb.textContent = appState.journalNote
+            ? `Observación guardada en la bitácora de sesión.`
+            : `Campo vacío; escribe una breve observación para registrarla.`;
+        }
+      };
+
+      window.handleResetLog = function handleResetLog(btn) {
+        if (!btn) return;
+        if (btn.dataset.armed !== 'true') {
+          btn.dataset.armed = 'true';
+          btn.textContent = `Confirmar reinicio`;
+          setTimeout(function() {
+            if (btn.dataset.armed === 'true') {
+              btn.dataset.armed = 'false';
+              btn.textContent = `Reiniciar bitácora`;
+            }
+          }, 4000);
+          return;
+        }
+        btn.dataset.armed = 'false';
+        btn.textContent = `Reiniciar bitácora`;
+
+        appState.totalQuietMinutes = 0;
+        appState.breathCycles = 0;
+        appState.checklist = [false, false, false];
+        appState.journalNote = '';
+
+        const c1 = document.getElementById('chk-1');
+        const c2 = document.getElementById('chk-2');
+        const c3 = document.getElementById('chk-3');
+        const noteEl = document.getElementById('journalNoteInput');
+        const fb = document.getElementById('journalFeedback');
+        const cycEl = document.getElementById('breathCycleCount');
+        if (c1) c1.checked = false;
+        if (c2) c2.checked = false;
+        if (c3) c3.checked = false;
+        if (noteEl) noteEl.value = '';
+        if (cycEl) cycEl.textContent = '0';
+        if (fb) fb.textContent = `Bitácora reiniciada.`;
+
+        updateSummaryBanner();
+        savePersistedState();
+      };
+
+      // --- CANVAS HELPERS & DPR SIZING ---
+      function fitCanvas(canvas) {
+        if (!canvas) return null;
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width < 10 || rect.height < 10) return null;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = Math.floor(rect.width * dpr);
+        const h = Math.floor(rect.height * dpr);
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx, w: rect.width, h: rect.height };
+      }
+
+      // 1. Hero subtle harmonic field canvas
+      function drawHeroCanvas(t) {
+        const canvas = document.getElementById('heroWaveCanvas');
+        const fit = fitCanvas(canvas);
+        if (!fit) return;
+        const { ctx, w, h } = fit;
+        ctx.clearRect(0, 0, w, h);
+
+        // Subtle grid lines
+        ctx.strokeStyle = PALETTE.outlineVar;
+        ctx.lineWidth = 0.7;
+        ctx.globalAlpha = 0.35;
+        for (let x = 80; x < w; x += 120) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, h);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+
+        // Twin harmonic waves (cyan + gold)
+        const baseY = h * 0.56;
+        for (let layer = 0; layer < 2; layer++) {
+          ctx.beginPath();
+          ctx.strokeStyle = layer === 0 ? PALETTE.cyan : PALETTE.gold;
+          ctx.globalAlpha = layer === 0 ? 0.24 : 0.20;
+          ctx.lineWidth = 1.5;
+          const speed = layer === 0 ? 0.7 : -0.5;
+          const freq = layer === 0 ? 0.011 : 0.0085;
+          const amp = layer === 0 ? 28 : 22;
+
+          for (let x = 0; x <= w; x += 6) {
+            const env = Math.sin((x / w) * Math.PI);
+            const y = baseY + Math.sin(x * freq + t * speed) * amp * env;
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      // 2. Breathing Pendulum & Harmonic Sine Canvas
+      function drawBreathCanvas(t) {
+        const canvas = document.getElementById('breathCanvas');
+        const fit = fitCanvas(canvas);
+        if (!fit) return;
+        const { ctx, w, h } = fit;
+        ctx.clearRect(0, 0, w, h);
+
+        const cfg = BREATH_PRESETS[appState.breathPreset];
+        const totalCycle = cfg.inhale + cfg.exhale + cfg.pause;
+        const cyclePos = appState.breathRunning
+          ? (appState.breathElapsedSec % totalCycle)
+          : ((t * 0.6) % totalCycle);
+
+        const info = getBreathPhaseInfo(cyclePos);
+
+        // Compute breath amplitude 0..1
+        let level = 0;
+        if (info.key === 'inhale') {
+          level = 0.5 - 0.5 * Math.cos(info.progress * Math.PI);
+        } else if (info.key === 'exhale') {
+          level = 0.5 + 0.5 * Math.cos(info.progress * Math.PI);
+        } else {
+          level = 0;
+        }
+
+        // Top region: Harmonic mandala / orb
+        const cx = w * 0.5;
+        const cy = h * 0.43;
+        const minR = Math.min(w, h) * 0.11;
+        const maxR = Math.min(w, h) * 0.27;
+        const r = minR + (maxR - minR) * level;
+
+        // Concentric reference rings
+        ctx.strokeStyle = PALETTE.outlineVar;
+        ctx.lineWidth = 1;
+        [minR, (minR + maxR) * 0.5, maxR].forEach(function(rad) {
+          ctx.beginPath();
+          ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+          ctx.stroke();
+        });
+
+        // Glow halo
+        const isPause = info.key === 'pause';
+        const grad = ctx.createRadialGradient(cx, cy, r * 0.2, cx, cy, r * 1.35);
+        if (isPause) {
+          grad.addColorStop(0, 'rgba(226, 180, 94, 0.35)');
+          grad.addColorStop(1, 'rgba(226, 180, 94, 0)');
+        } else {
+          grad.addColorStop(0, 'rgba(95, 212, 232, 0.32)');
+          grad.addColorStop(1, 'rgba(95, 212, 232, 0)');
+        }
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r * 1.35, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Main harmonic circle
+        ctx.strokeStyle = isPause ? PALETTE.gold : PALETTE.cyan;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Orbiting 7Hz harmonic filaments when in pause
+        const petalCount = 7;
+        ctx.strokeStyle = isPause ? PALETTE.gold : PALETTE.cyan;
+        ctx.globalAlpha = isPause ? 0.65 : 0.28;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        for (let a = 0; a <= Math.PI * 2 + 0.05; a += 0.05) {
+          const mod = isPause ? Math.sin(a * petalCount + t * 3) * 5 : Math.sin(a * petalCount + t * 1.2) * 2.5;
+          const px = cx + Math.cos(a) * (r * 0.72 + mod);
+          const py = cy + Math.sin(a) * (r * 0.72 + mod);
+          if (a === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // Center dot
+        ctx.fillStyle = isPause ? PALETTE.gold : PALETTE.cyan;
+        ctx.beginPath();
+        ctx.arc(cx, cy, isPause ? 5 : 3.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Bottom region: Waveform strip + zero-velocity neutral plateau
+        const stripY = h * 0.80;
+        const stripH = h * 0.14;
+        const padX = 24;
+        const plotW = w - padX * 2;
+
+        ctx.strokeStyle = PALETTE.outlineVar;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(padX, stripY + stripH * 0.5);
+        ctx.lineTo(w - padX, stripY + stripH * 0.5);
+        ctx.stroke();
+
+        // Draw one full cycle wave
+        ctx.lineWidth = 2;
+        for (let i = 0; i <= 140; i++) {
+          const u = i / 140;
+          const pos = u * totalCycle;
+          const pInfo = getBreathPhaseInfo(pos);
+          let yNorm = 0;
+          if (pInfo.key === 'inhale') yNorm = 0.5 - 0.5 * Math.cos(pInfo.progress * Math.PI);
+          else if (pInfo.key === 'exhale') yNorm = 0.5 + 0.5 * Math.cos(pInfo.progress * Math.PI);
+          else yNorm = 0;
+
+          const x = padX + u * plotW;
+          const y = stripY + stripH * (1 - yNorm) - stripH * 0.05;
+          if (i > 0) {
+            const prevU = (i - 1) / 140;
+            const prevPos = prevU * totalCycle;
+            const prevInfo = getBreathPhaseInfo(prevPos);
+            let pyNorm = 0;
+            if (prevInfo.key === 'inhale') pyNorm = 0.5 - 0.5 * Math.cos(prevInfo.progress * Math.PI);
+            else if (prevInfo.key === 'exhale') pyNorm = 0.5 + 0.5 * Math.cos(prevInfo.progress * Math.PI);
+            const px = padX + prevU * plotW;
+            const py = stripY + stripH * (1 - pyNorm) - stripH * 0.05;
+
+            ctx.strokeStyle = pInfo.key === 'pause' ? PALETTE.gold : PALETTE.cyan;
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+          }
+        }
+
+        // Playhead marker on wave
+        const cursorU = cyclePos / totalCycle;
+        const cursorX = padX + cursorU * plotW;
+        const cursorY = stripY + stripH * (1 - level) - stripH * 0.05;
+        ctx.fillStyle = isPause ? PALETTE.gold : PALETTE.text;
+        ctx.beginPath();
+        ctx.arc(cursorX, cursorY, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = PALETTE.muted;
+        ctx.font = '11px JetBrains Mono, monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('INHALA', padX, h - 10);
+        ctx.textAlign = 'center';
+        ctx.fillText('EXHALA', padX + plotW * ((cfg.inhale + cfg.exhale * 0.5) / totalCycle), h - 10);
+        ctx.fillStyle = PALETTE.gold;
+        ctx.textAlign = 'right';
+        ctx.fillText('MICROPAUSA OFF', w - padX, h - 10);
+      }
+
+      // 3. Biological Oscillator Chain Anatomy + Scope Canvases
+      function drawChainAnatomy(t) {
+        const canvas = document.getElementById('chainAnatomyCanvas');
+        const fit = fitCanvas(canvas);
+        if (!fit) return;
+        const { ctx, w, h } = fit;
+        ctx.clearRect(0, 0, w, h);
+
+        const coh = appState.chainCoherence / 100;
+        const stage = appState.chainStage;
+        const cx = w * 0.5;
+
+        // Vertical axis
+        ctx.strokeStyle = PALETTE.outlineVar;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(cx, 36);
+        ctx.lineTo(cx, h - 24);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Coordinates for the 4 anatomical nodes
+        const headY = h * 0.24;
+        const ventY = h * 0.27;
+        const heartY = h * 0.56;
+        const bifY = h * 0.85;
+
+        // Brain subtle 7 Hz vertical oscillation (visualized clearly)
+        const jitter = (1 - coh) * Math.sin(t * 21) * 3.5;
+        const harmonic = coh * Math.sin(t * 14) * 5.5;
+        const brainOffsetY = jitter + harmonic;
+
+        // 4. Cranial vault & hemispheres
+        ctx.save();
+        ctx.translate(cx, headY);
+
+        // Outer skull
+        ctx.strokeStyle = stage === 1 ? PALETTE.gold : PALETTE.outline;
+        ctx.lineWidth = stage === 1 ? 2.2 : 1.4;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 74, 58, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // CSF cushion (syrup layer)
+        ctx.fillStyle = 'rgba(95, 212, 232, 0.08)';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 68, 52, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Oscillating brain hemispheres
+        ctx.save();
+        ctx.translate(0, brainOffsetY);
+
+        // Left & Right hemispheres
+        const syncColor = coh > 0.7 ? PALETTE.cyan : PALETTE.muted;
+        ctx.strokeStyle = stage === 3 ? PALETTE.gold : syncColor;
+        ctx.lineWidth = stage === 3 ? 2.2 : 1.6;
+
+        // Left lobe
+        ctx.fillStyle = stage === 3 ? 'rgba(226, 180, 94, 0.14)' : 'rgba(95, 212, 232, 0.12)';
+        ctx.beginPath();
+        ctx.ellipse(-26, -2, 28, 38, -0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Right lobe
+        const rightLag = (1 - coh) * 0.35;
+        ctx.fillStyle = stage === 3 ? 'rgba(95, 212, 232, 0.16)' : 'rgba(95, 212, 232, 0.12)';
+        ctx.beginPath();
+        ctx.ellipse(26, -2 + rightLag * 6, 28, 38, 0.08, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Ventricles in center
+        const ventPulse = 0.5 + 0.5 * Math.sin(t * 14);
+        ctx.fillStyle = stage === 2 ? PALETTE.gold : PALETTE.cyan;
+        ctx.globalAlpha = 0.45 + 0.45 * ventPulse * coh;
+        ctx.beginPath();
+        ctx.ellipse(-6, 4, 7, 13, -0.2, 0, Math.PI * 2);
+        ctx.ellipse(6, 4, 7, 13, 0.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        ctx.restore();
+        ctx.restore();
+
+        // 1. Heart & Aorta standing wave tube
+        const aortaWidth = 10;
+        ctx.strokeStyle = stage === 0 ? PALETTE.gold : PALETTE.outline;
+        ctx.lineWidth = stage === 0 ? 2 : 1.4;
+        ctx.beginPath();
+        ctx.moveTo(cx - aortaWidth, heartY);
+        ctx.lineTo(cx - aortaWidth, bifY - 22);
+        ctx.lineTo(cx - 46, bifY + 22);
+        ctx.moveTo(cx + aortaWidth, heartY);
+        ctx.lineTo(cx + aortaWidth, bifY - 22);
+        ctx.lineTo(cx + 46, bifY + 22);
+        ctx.stroke();
+
+        // Standing wave inside aorta (lambda/2)
+        const pulseDown = ((t * 1.4) % 1);
+        const pulseUp = 1 - pulseDown;
+        const downY = heartY + pulseDown * (bifY - heartY - 12);
+        const upY = heartY + pulseUp * (bifY - heartY - 12);
+
+        // Downward pulse
+        ctx.fillStyle = PALETTE.cyan;
+        ctx.beginPath();
+        ctx.arc(cx, downY, 5.5 + coh * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Reflected echo from bifurcation
+        ctx.fillStyle = coh > 0.65 ? PALETTE.gold : PALETTE.warn;
+        ctx.globalAlpha = 0.45 + coh * 0.55;
+        ctx.beginPath();
+        ctx.arc(cx, upY, 4.5 + coh * 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        // Standing wave envelope along aorta
+        ctx.strokeStyle = coh > 0.65 ? PALETTE.gold : PALETTE.cyan;
+        ctx.globalAlpha = 0.35 + coh * 0.55;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        for (let y = heartY; y <= bifY - 14; y += 4) {
+          const norm = (y - heartY) / (bifY - 14 - heartY);
+          const standing = Math.sin(norm * Math.PI) * Math.sin(t * 14) * (4 + coh * 14);
+          const x = cx + standing;
+          if (y === heartY) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // Heart chamber symbol
+        const heartBeat = 1 + Math.sin(t * 7) * 0.08;
+        ctx.save();
+        ctx.translate(cx - 18, heartY - 8);
+        ctx.scale(heartBeat, heartBeat);
+        ctx.fillStyle = stage === 0 ? 'rgba(226, 180, 94, 0.25)' : 'rgba(95, 212, 232, 0.2)';
+        ctx.strokeStyle = stage === 0 ? PALETTE.gold : PALETTE.cyan;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(0, 0, 22, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+
+        // Ascending resonance beam heart -> brain
+        ctx.strokeStyle = PALETTE.cyan;
+        ctx.globalAlpha = 0.25 + coh * 0.55;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        for (let y = heartY - 30; y >= headY + 42; y -= 4) {
+          const wave = Math.sin(y * 0.08 - t * 14) * (2 + coh * 8);
+          if (y === heartY - 30) ctx.moveTo(cx + wave, y);
+          else ctx.lineTo(cx + wave, y);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // Labels on diagram
+        ctx.font = '11px JetBrains Mono, monospace';
+        ctx.fillStyle = PALETTE.muted;
+        ctx.textAlign = 'left';
+        ctx.fillText('CORTEZA / HEMISFERIOS', cx + 82, headY - 8);
+        ctx.fillText('VENTRÍCULOS + LCR', cx + 82, ventY + 14);
+        ctx.fillText('CORAZÓN', cx + 32, heartY - 4);
+        ctx.fillText('AORTA (λ/2)', cx + 24, (heartY + bifY) * 0.5);
+        ctx.fillText('BIFURCACIÓN ILÍACA', cx + 54, bifY + 12);
+
+        // Micron displacement indicator near skull
+        ctx.fillStyle = PALETTE.gold;
+        ctx.textAlign = 'right';
+        const mmVal = (0.001 + coh * 0.0085).toFixed(3);
+        ctx.fillText(`Δy ${mmVal} mm`, cx - 84, headY + 4);
+      }
+
+      function drawChainScope(t) {
+        const canvas = document.getElementById('chainScopeCanvas');
+        const fit = fitCanvas(canvas);
+        if (!fit) return;
+        const { ctx, w, h } = fit;
+        ctx.clearRect(0, 0, w, h);
+
+        const coh = appState.chainCoherence / 100;
+        const pad = 16;
+
+        // Split horizontal grid: Top = Ballistocardiograph 7Hz, Bottom = EEG Left vs Right
+        const topMid = h * 0.30;
+        const botMid = h * 0.74;
+
+        ctx.strokeStyle = PALETTE.outlineVar;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(pad, topMid);
+        ctx.lineTo(w - pad, topMid);
+        ctx.moveTo(pad, botMid);
+        ctx.lineTo(w - pad, botMid);
+        ctx.stroke();
+
+        // Top trace: Irregular signal blending into 3x regular ~7Hz sine wave
+        ctx.strokeStyle = coh > 0.65 ? PALETTE.gold : PALETTE.cyan;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let x = pad; x <= w - pad; x += 3) {
+          const u = (x - pad) / (w - pad * 2);
+          const clean = Math.sin(u * Math.PI * 14 - t * 9) * (12 + coh * 26);
+          const noise = (Math.sin(u * 47 + t * 13) * 11 + Math.cos(u * 29 - t * 7) * 9) * (1 - coh);
+          const y = topMid + clean + noise;
+          if (x === pad) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Bottom traces: Left (cyan) and Right (gold) EEG waves converging in phase
+        const phaseOffset = (1 - coh) * 2.1;
+        const ampRatio = 1 - (1 - coh) * 0.45;
+
+        ctx.strokeStyle = PALETTE.cyan;
+        ctx.lineWidth = 1.7;
+        ctx.beginPath();
+        for (let x = pad; x <= w - pad; x += 3) {
+          const u = (x - pad) / (w - pad * 2);
+          const y = botMid + Math.sin(u * Math.PI * 10 - t * 7) * 18;
+          if (x === pad) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        ctx.strokeStyle = PALETTE.gold;
+        ctx.lineWidth = 1.7;
+        ctx.beginPath();
+        for (let x = pad; x <= w - pad; x += 3) {
+          const u = (x - pad) / (w - pad * 2);
+          const y = botMid + Math.sin(u * Math.PI * 10 - t * 7 + phaseOffset) * (18 * ampRatio);
+          if (x === pad) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        ctx.font = '10px JetBrains Mono, monospace';
+        ctx.fillStyle = PALETTE.muted;
+        ctx.textAlign = 'left';
+        ctx.fillText('ONDA BALÍSTICA CORAZÓN-AORTA (~7 HZ)', pad, 44);
+        ctx.fillText('EEG HEMISFERIO IZQ (CIAN) VS DER (DORADO)', pad, h * 0.56);
+      }
+
+      // 4. Schumann Ionospheric Coupling Canvas
+      function drawSchumannCanvas(t) {
+        const canvas = document.getElementById('schumannCanvas');
+        const fit = fitCanvas(canvas);
+        if (!fit) return;
+        const { ctx, w, h } = fit;
+        ctx.clearRect(0, 0, w, h);
+
+        const cx = w * 0.5;
+        const cy = h * 0.52;
+        const earthR = Math.min(w, h) * 0.19;
+        const ionoR = Math.min(w, h) * 0.37;
+
+        const { diff, coupling } = getCouplingMetrics();
+
+        // Outer ionosphere cavity glow
+        const cavityGrad = ctx.createRadialGradient(cx, cy, earthR, cx, cy, ionoR * 1.15);
+        cavityGrad.addColorStop(0, 'rgba(95, 212, 232, 0.03)');
+        cavityGrad.addColorStop(0.75, `rgba(95, 212, 232, ${0.06 + coupling * 0.14})`);
+        cavityGrad.addColorStop(1, 'rgba(7, 12, 23, 0)');
+        ctx.fillStyle = cavityGrad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, ionoR * 1.15, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Ionosphere standing wave ring (~7.5 Hz Schumann mode)
+        ctx.strokeStyle = PALETTE.cyan;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        for (let a = 0; a <= Math.PI * 2 + 0.05; a += 0.05) {
+          const schumannMod = Math.sin(a * 8) * Math.sin(t * 7.5 * 0.9) * 5;
+          const r = ionoR + schumannMod;
+          const x = cx + Math.cos(a) * r;
+          const y = cy + Math.sin(a) * r;
+          if (a === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Human interference / coupled harmonic ring
+        ctx.strokeStyle = PALETTE.gold;
+        ctx.globalAlpha = 0.35 + coupling * 0.6;
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        for (let a = 0; a <= Math.PI * 2 + 0.05; a += 0.05) {
+          const beat = Math.sin(a * 8 + diff * 2) * Math.sin(t * appState.bioFreq * 0.9) * (3 + coupling * 6);
+          const r = earthR + (ionoR - earthR) * 0.52 + beat;
+          const x = cx + Math.cos(a) * r;
+          const y = cy + Math.sin(a) * r;
+          if (a === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // Earth core & meridians
+        const earthGrad = ctx.createRadialGradient(cx - earthR * 0.3, cy - earthR * 0.3, 4, cx, cy, earthR);
+        earthGrad.addColorStop(0, '#193856');
+        earthGrad.addColorStop(1, '#091529');
+        ctx.fillStyle = earthGrad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, earthR, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = PALETTE.outline;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        // Subtle latitude/longitude arcs on Earth
+        ctx.strokeStyle = 'rgba(95, 212, 232, 0.22)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, earthR, earthR * 0.34, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, earthR * 0.42, earthR, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Human oscillator nodes on the surface (entrainment visualization)
+        const n = appState.groupNodes;
+        for (let i = 0; i < n; i++) {
+          const angle = (i / n) * Math.PI * 2 - Math.PI * 0.5;
+          const nx = cx + Math.cos(angle) * (earthR + 10);
+          const ny = cy + Math.sin(angle) * (earthR + 10);
+
+          // Each oscillator locks its phase as coupling increases
+          const randomPhase = (i * 1.97) * (1 - coupling);
+          const blink = 0.5 + 0.5 * Math.sin(t * appState.bioFreq * 1.1 + randomPhase);
+          const auraR = 6 + coupling * 16 * blink;
+
+          ctx.fillStyle = coupling > 0.72 ? 'rgba(226, 180, 94, 0.22)' : 'rgba(95, 212, 232, 0.16)';
+          ctx.beginPath();
+          ctx.arc(nx, ny, auraR, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = coupling > 0.72 ? PALETTE.gold : PALETTE.cyan;
+          ctx.beginPath();
+          ctx.arc(nx, ny, 3.2 + blink * 1.4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Planetary 40,000 km pulse (1/7 second visual representation)
+        const pulseBadge = document.getElementById('schumannPulseBadge');
+        if (appState.planetaryPulseActive) {
+          const sweep = appState.planetaryPulseProgress * Math.PI * 2;
+          ctx.strokeStyle = PALETTE.gold;
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.arc(cx, cy, ionoR + 8, -Math.PI * 0.5, -Math.PI * 0.5 + sweep);
+          ctx.stroke();
+
+          const headX = cx + Math.cos(-Math.PI * 0.5 + sweep) * (ionoR + 8);
+          const headY = cy + Math.sin(-Math.PI * 0.5 + sweep) * (ionoR + 8);
+          ctx.fillStyle = PALETTE.gold;
+          ctx.beginPath();
+          ctx.arc(headX, headY, 5.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (pulseBadge) {
+            const ms = Math.round(appState.planetaryPulseProgress * 143);
+            pulseBadge.textContent = `Tránsito global: ${ms} / 143 ms`;
+          }
+        } else if (pulseBadge) {
+          pulseBadge.textContent = `Pulso global: En espera`;
+        }
+
+        ctx.font = '11px JetBrains Mono, monospace';
+        ctx.fillStyle = PALETTE.muted;
+        ctx.textAlign = 'center';
+        ctx.fillText('CAVIDAD IONOSFÉRICA · 7.50 HZ · 40,000 KM', cx, h - 12);
+      }
+
+      // Unified Animation Loop
+      let lastTime = performance.now();
+      let animId = null;
+
+      function tick(now) {
+        const dt = Math.min(0.1, (now - lastTime) / 1000);
+        lastTime = now;
+        const t = now / 1000;
+
+        // Advance breathing timer if running
+        if (appState.breathRunning) {
+          appState.breathElapsedSec += dt;
+          appState.breathSessionRemainSec -= dt;
+
+          const cfg = BREATH_PRESETS[appState.breathPreset];
+          const totalCycle = cfg.inhale + cfg.exhale + cfg.pause;
+          const newCycleCount = Math.floor(appState.breathElapsedSec / totalCycle);
+
+          if (newCycleCount > appState.breathCycles) {
+            appState.breathCycles = newCycleCount;
+            appState.totalQuietMinutes += totalCycle / 60;
+            const cycEl = document.getElementById('breathCycleCount');
+            if (cycEl) cycEl.textContent = String(appState.breathCycles);
+            updateSummaryBanner();
+            savePersistedState();
+          }
+
+          if (appState.breathSessionRemainSec <= 0) {
+            appState.breathSessionRemainSec = 0;
+            appState.breathRunning = false;
+            updateToggleBtnLabel();
+            savePersistedState();
+          }
+
+          updateSessionTimerDisplay();
+          updateBreathUI(appState.breathElapsedSec % totalCycle);
+        }
+
+        // Advance planetary pulse animation (slowed 10x visually so user sees the 1/7s arc smoothly)
+        if (appState.planetaryPulseActive) {
+          appState.planetaryPulseProgress += dt / 1.43;
+          if (appState.planetaryPulseProgress >= 1) {
+            appState.planetaryPulseActive = false;
+            appState.planetaryPulseProgress = 0;
+          }
+        }
+
+        const effectiveT = prefersReducedMotion ? 0.5 : t;
+        drawHeroCanvas(effectiveT);
+        drawBreathCanvas(effectiveT);
+        drawChainAnatomy(effectiveT);
+        drawChainScope(effectiveT);
+        drawSchumannCanvas(effectiveT);
+
+        animId = requestAnimationFrame(tick);
+      }
+
+      async function init() {
+        await loadPersistedState();
+        applyRestoredUI();
+        selectChainStage(0);
+        updateSchumannTelemetry();
+
+        if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+          window.notebookAppApi.notifyAppReady();
+        }
+
+        if (animId) cancelAnimationFrame(animId);
+        animId = requestAnimationFrame(tick);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
