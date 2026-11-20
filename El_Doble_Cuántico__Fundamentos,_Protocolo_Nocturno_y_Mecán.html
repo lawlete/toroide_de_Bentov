@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>El Doble Cuántico y el Desdoblamiento del Tiempo — Jean-Pierre Garnier Malet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Deep cosmic observatory palette */
+      --background: #050811;
+      --surface-container-low: #0a1020;
+      --surface-container: rgba(13, 21, 41, 0.74);
+      --surface-container-high: rgba(20, 32, 60, 0.88);
+      --surface-well: #03050c;
+
+      /* Typography colors (WCAG AA+ against #050811 and #0d1529) */
+      --on-surface: #eef3fb;
+      --on-surface-variant: #9db2d1;
+
+      /* Borders and structural lines */
+      --outline: #385078;
+      --outline-variant: #1c2c4a;
+      --glass-border: rgba(0, 243, 255, 0.22);
+      --glass-border-gold: rgba(255, 215, 0, 0.28);
+      --glass-catchlight: rgba(238, 243, 251, 0.06);
+
+      /* Primary & Secondary Cosmic Accents */
+      --primary: #00f3ff;
+      --on-primary: #050811;
+      --primary-container: rgba(0, 243, 255, 0.12);
+      --on-primary-container: #b5fcff;
+
+      --tertiary: #ffd700;
+      --on-tertiary: #050811;
+      --tertiary-container: rgba(255, 215, 0, 0.13);
+      --on-tertiary-container: #fff2a8;
+
+      --secondary: #6882a8;
+
+      /* Semantic */
+      --positive: #34d399;
+      --positive-tint: rgba(52, 211, 153, 0.13);
+      --warning: #fbbf24;
+      --warning-tint: rgba(251, 191, 36, 0.14);
+      --error: #f87171;
+      --on-error: #1a0505;
+      --error-tint: rgba(248, 113, 113, 0.14);
+
+      /* Data visualization tokens */
+      --data-1: #00f3ff;
+      --data-2: #ffd700;
+      --data-3: #34d399;
+      --data-4: #f87171;
+      --data-context: #4a6085;
+
+      /* Focus */
+      --focus: #00f3ff;
+
+      /* Fonts */
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      /* Narrative Type Scale */
+      --display-size: clamp(2.25rem, 1.4rem + 3.6vw, 4rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.8vw, 2.375rem);
+      --subhead-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+      --body-size: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing Scale (4pt base) */
+      --space-xxs: 0.125rem;
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.75rem;
+      --rounded-full: 9999px;
+
+      /* Effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 var(--glass-catchlight);
+      --glow-cyan: 0 0 22px color-mix(in srgb, var(--primary) 26%, transparent);
+      --glow-gold: 0 0 22px color-mix(in srgb, var(--tertiary) 26%, transparent);
+      --cosmic-wash:
+        radial-gradient(ellipse 75% 45% at 82% 8%, color-mix(in srgb, var(--primary) 11%, transparent), transparent 65%),
+        radial-gradient(ellipse 60% 45% at 15% 18%, color-mix(in srgb, var(--tertiary) 8%, transparent), transparent 65%),
+        radial-gradient(ellipse 80% 50% at 50% 85%, color-mix(in srgb, var(--primary) 6%, transparent), transparent 70%);
+      --starfield-dots:
+        radial-gradient(1px 1px at 12% 24%, color-mix(in srgb, var(--on-surface) 38%, transparent) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 34% 11%, color-mix(in srgb, var(--primary) 42%, transparent) 100%, transparent),
+        radial-gradient(1px 1px at 68% 19%, color-mix(in srgb, var(--tertiary) 40%, transparent) 100%, transparent),
+        radial-gradient(1px 1px at 87% 36%, color-mix(in srgb, var(--on-surface) 30%, transparent) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 22% 62%, color-mix(in srgb, var(--primary) 30%, transparent) 100%, transparent),
+        radial-gradient(1px 1px at 74% 78%, color-mix(in srgb, var(--tertiary) 32%, transparent) 100%, transparent);
+
+      --heading-tracking: -0.025em;
+      --label-tracking: 0.08em;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 240ms;
+      --dur-long: 480ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.64;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    body {
+      background-image: var(--cosmic-wash), var(--starfield-dots);
+      background-attachment: fixed;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-weight: 700;
+      line-height: 1.07;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-weight: 600;
+      line-height: 1.15;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    p {
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .prose {
+      max-width: 68ch;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .muted { color: var(--on-surface-variant); }
+    .accent-cyan { color: var(--primary); }
+    .accent-gold { color: var(--tertiary); }
+
+    .coord-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .deck-gold {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+    }
+
+    /* Glassmorphism panels */
+    .glass-panel {
+      background: var(--surface-container);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .glass-panel.is-gold {
+      border-color: var(--glass-border-gold);
+    }
+    .glass-panel.is-subtle {
+      border-color: var(--outline-variant);
+      background: var(--surface-container-low);
+    }
+    .observation-well {
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+
+    /* Hero section */
+    .hero-header {
+      padding-top: var(--space-xl);
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .hero-lede {
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      color: var(--on-surface-variant);
+      max-width: 66ch;
+      line-height: 1.6;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .stat-tile {
+      background: var(--surface-container);
+      backdrop-filter: blur(12px);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .stat-value {
+      font-family: var(--font-headline);
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--tertiary);
+      line-height: 1.1;
+    }
+    .stat-value.is-cyan { color: var(--primary); }
+
+    /* Section nav strip */
+    .toc-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+    }
+    .toc-link {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      color: var(--on-surface-variant);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-full);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color var(--dur-short) var(--ease-out),
+                  color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out);
+    }
+    .toc-link:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* Sections */
+    .narrative-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      border-left: 3px solid var(--primary);
+      padding-left: var(--space-md);
+    }
+    .section-head.is-gold {
+      border-left-color: var(--tertiary);
+    }
+
+    /* Split asymmetrical layouts */
+    .split-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .split-layout.is-even {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-short) var(--ease-out),
+                  border-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out),
+                  color var(--dur-short) var(--ease-out);
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--glow-cyan);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--on-primary-container);
+      box-shadow: 0 0 28px color-mix(in srgb, var(--primary) 42%, transparent);
+    }
+    .btn-gold {
+      background: var(--tertiary);
+      color: var(--on-tertiary);
+      box-shadow: var(--glow-gold);
+    }
+    .btn-gold:hover:not(:disabled) {
+      background: var(--on-tertiary-container);
+      box-shadow: 0 0 28px color-mix(in srgb, var(--tertiary) 42%, transparent);
+    }
+    .btn-ghost {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: var(--glow-cyan);
+    }
+    .btn-ghost.is-active {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: var(--glow-cyan);
+    }
+    .btn-ghost.is-gold-active {
+      background: var(--tertiary-container);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+      box-shadow: var(--glow-gold);
+    }
+
+    /* Badges & Tags */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+      background: var(--primary-container);
+      color: var(--primary);
+    }
+    .badge.is-gold {
+      border-color: color-mix(in srgb, var(--tertiary) 40%, transparent);
+      background: var(--tertiary-container);
+      color: var(--tertiary);
+    }
+    .badge.is-positive {
+      border-color: color-mix(in srgb, var(--positive) 40%, transparent);
+      background: var(--positive-tint);
+      color: var(--positive);
+    }
+    .badge.is-error {
+      border-color: color-mix(in srgb, var(--error) 40%, transparent);
+      background: var(--error-tint);
+      color: var(--error);
+    }
+
+    /* Form controls */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .text-input, .textarea-input, .select-input {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      background: var(--surface-well);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      transition: border-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out);
+    }
+    .select-input { padding-right: var(--space-xl); }
+    .textarea-input { min-height: 92px; resize: vertical; line-height: 1.5; }
+    .text-input:focus, .textarea-input:focus, .select-input:focus {
+      border-color: var(--primary);
+      box-shadow: var(--glow-cyan);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      min-height: 44px;
+      cursor: pointer;
+    }
+
+    /* Callouts & quotes */
+    .callout {
+      background: var(--surface-container-low);
+      border-left: 3px solid var(--tertiary);
+      border-top: var(--hairline);
+      border-right: var(--hairline);
+      border-bottom: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .callout.is-cyan { border-left-color: var(--primary); }
+    .callout.is-warn { border-left-color: var(--error); }
+
+    /* Telemetry grid */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(155px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .telemetry-cell {
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xxs);
+    }
+    .telemetry-key {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .telemetry-val {
+      font-family: var(--font-label);
+      font-size: 1rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    /* Simulation canvas */
+    .sim-canvas-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 360px;
+      height: 380px;
+      border-radius: var(--rounded);
+      overflow: hidden;
+      background: var(--surface-well);
+      border: var(--hairline);
+    }
+    .sim-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 7 Times Interactive Diagram */
+    .times-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .times-svg-wrap {
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      min-height: 410px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .times-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .time-node-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: border-color var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  color var(--dur-short) var(--ease-out);
+    }
+    .time-node-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .time-node-btn.is-selected {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: var(--glow-cyan);
+    }
+    .time-node-btn.is-gold.is-selected {
+      background: var(--tertiary-container);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+      box-shadow: var(--glow-gold);
+    }
+
+    /* SVG interactive nodes */
+    .svg-tier {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .svg-tier:hover { opacity: 0.95; }
+
+    /* Protocol Checklist & Timer */
+    .checklist-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-well);
+      cursor: pointer;
+      transition: border-color var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out);
+    }
+    .check-item:hover {
+      border-color: var(--outline);
+    }
+    .check-item.is-checked {
+      border-color: color-mix(in srgb, var(--positive) 55%, transparent);
+      background: var(--positive-tint);
+    }
+    .check-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--positive);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .breath-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      text-align: center;
+    }
+    .breath-orb {
+      transition: transform var(--dur-long) var(--ease-in-out), opacity var(--dur-long) var(--ease-in-out);
+      transform-origin: center;
+    }
+    .timer-readout {
+      font-family: var(--font-label);
+      font-size: 2rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--tertiary);
+    }
+
+    /* Ego vs Double Comparator */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .compare-table th, .compare-table td {
+      text-align: left;
+      padding: var(--space-md);
+      border-bottom: var(--hairline);
+      vertical-align: top;
+    }
+    .compare-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .compare-row {
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .compare-row:hover {
+      background: var(--surface-container-high);
+    }
+    .compare-row.is-active {
+      background: var(--primary-container);
+    }
+
+    /* Journal log entries */
+    .log-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .log-entry {
+      background: var(--surface-well);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .log-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+
+    /* Collapsible nuance details */
+    details.nuance-drawer {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+    }
+    details.nuance-drawer summary {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    details.nuance-drawer[open] summary {
+      margin-bottom: var(--space-sm);
+      border-bottom: var(--hairline);
+      padding-bottom: var(--space-sm);
+    }
+
+    /* Scroll reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--hairline);
+      padding-top: var(--space-xl);
+      padding-bottom: var(--space-2xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .split-layout,
+      .split-layout.is-even,
+      .times-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .glass-panel {
+        padding: var(--space-md);
+      }
+      .sim-canvas-wrap {
+        min-height: 300px;
+        height: 320px;
+      }
+      .compare-table th, .compare-table td {
+        padding: var(--space-sm);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <!-- HERO HEADER -->
+    <header class="hero-header">
+      <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 1rem;">
+        <a href="Convergencia_Bentov_y_Garnier_Malet__El_Desdoblamiento_del.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(0, 243, 255, 0.45); background: rgba(0, 243, 255, 0.10); color: #5be0f0; font-family: var(--font-label, monospace); font-size: 0.78rem; text-decoration: none; font-weight: 500;">&larr; Volver a Garnier Malet × Bentov</a>
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(239, 192, 98, 0.45); background: rgba(239, 192, 98, 0.10); color: #efc062; font-family: var(--font-label, monospace); font-size: 0.78rem; text-decoration: none; font-weight: 500;">&larr; Portal Principal</a>
+      </div>
+      <div class="coord-label">
+        <i data-lucide="orbit" width="16" height="16" aria-hidden="true"></i>
+        <span>Módulo Especializado · Física del Desdoblamiento · Dr. Jean-Pierre Garnier Malet</span>
+      </div>
+
+      <h1>El Doble Cuántico y el Desdoblamiento del Tiempo</h1>
+      <div class="deck-gold">De la mecánica de fluidos al intercambio informacional entre tiempos simultáneos</div>
+
+      <p class="hero-lede">
+        En 1988, el doctor en física Jean-Pierre Garnier Malet propuso que el tiempo no transcurre de manera continua, sino estroboscópica: entre dos instantes perceptibles existen «aperturas temporales» donde un segundo consciente coexiste con miles de millones de segundos acelerados. En ese plano ondulatorio opera nuestro Doble, explorando futuros potenciales y devolviendo la trayectoria más armónica durante el sueño paradójico.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-tile">
+          <span class="telemetry-key">Hito científico</span>
+          <span class="stat-value">1988 – 2006</span>
+          <span class="muted">Formulación de la teoría y premio <em>Best Paper Award</em> en actas del American Institute of Physics.</span>
+        </div>
+        <div class="stat-tile">
+          <span class="telemetry-key">Estructura estroboscópica</span>
+          <span class="stat-value is-cyan">24 + 1 cuadros/s</span>
+          <span class="muted">Analogía perceptual: captamos imágenes intermitentes; el instante imperceptible aloja el intercambio.</span>
+        </div>
+        <div class="stat-tile">
+          <span class="telemetry-key">Arquitectura temporal</span>
+          <span class="stat-value">7 Tiempos</span>
+          <span class="muted">Jerarquía desde el 1.er Tiempo (Origen) hasta el 7.º Tiempo (Doble), con el presente en el 4.º.</span>
+        </div>
+      </div>
+
+      <nav class="toc-strip" aria-label="Navegación por secciones del módulo">
+        <a class="toc-link" href="#sec-fisica">1. Fundamento físico</a>
+        <a class="toc-link" href="#sec-funcion">2. Función del Doble</a>
+        <a class="toc-link" href="#sec-biologia">3. Sueño REM y agua</a>
+        <a class="toc-link" href="#sec-siete-tiempos">4. Los 7 Tiempos</a>
+        <a class="toc-link" href="#sec-protocolo">5. Protocolo nocturno</a>
+        <a class="toc-link" href="#sec-errores">6. Errores y comparador</a>
+      </nav>
+    </header>
+
+    <!-- SECCIÓN 1: FUNDAMENTO FÍSICO Y SIMULADOR -->
+    <section id="sec-fisica" class="narrative-section reveal">
+      <div class="section-head">
+        <span class="coord-label">01 · Física del espacio-tiempo discretizado</span>
+        <h2>El tiempo es estroboscópico: dualidad onda-partícula y aperturas temporales</h2>
+      </div>
+
+      <div class="split-layout">
+        <div class="prose">
+          <p>
+            A diferencia de la intuición cotidiana de un río uniforme, el modelo de Garnier Malet plantea que el tiempo está discretizado en horizontes anidados que evolucionan a velocidades distintas. Nuestra biología solo registra fotogramas intermitentes —de forma análoga al cine, donde percibimos 24 imágenes por segundo mientras la número 25 permanece subliminal— creando la ilusión de continuidad.
+          </p>
+          <p>
+            Entre cada dos instantes perceptibles se abre una <strong>apertura temporal</strong> (<em>temporal opening</em>), un intervalo imperceptible donde los intercambios de información ocurren a velocidades superluminosas pero finitas. Al igual que toda partícula en física presenta simultáneamente un aspecto corpuscular y otro ondulatorio, el ser humano habita dos realidades a la vez:
+          </p>
+          <div class="card-grid">
+            <div class="glass-panel is-subtle">
+              <div class="coord-label">Cuerpo corpuscular</div>
+              <h3>Presente lento (4.º Tiempo)</h3>
+              <p class="muted">
+                Es nuestro observador físico cotidiano, sujeto a la velocidad de la luz (<em>C</em><sub>0</sub>) y a la percepción lineal de relojes, materia y decisiones ejecutivas.
+              </p>
+            </div>
+            <div class="glass-panel is-gold">
+              <div class="deck-gold">Cuerpo ondulatorio · El Doble</div>
+              <h3>Tiempo hiperacelerado</h3>
+              <p class="muted">
+                Un microsegundo en nuestro tiempo lento equivale a horas o días enteros en su escala. Como en la paradoja de los gemelos de Paul Langevin, viaja y regresa con información sintetizada sin que notemos su ausencia.
+              </p>
+            </div>
+          </div>
+          <details class="nuance-drawer">
+            <summary>Contexto astrofísico y debate con la física ortodoxa</summary>
+            <p class="muted">
+              Antes de trasladar el modelo a la experiencia humana, Garnier Malet aplicó sus ecuaciones de trayectos radiales y tangenciales a la mecánica celeste: explicó la llegada de planetoides al cinturón de Kuiper, corrigió la ley de Titius-Bode y propuso derivaciones geométricas de la constante de estructura fina y la expansión acelerada. Al mismo tiempo, la comunidad de física teórica estándar señala objeciones metodológicas: ausencia de replicación independiente en revistas de física de alto impacto (sus trabajos figuran principalmente en actas como CASYS/AIP), uso de relaciones numéricas basadas en el 7 sin sustento en el Modelo Estándar y el salto epistemológico de aplicar ecuaciones de fluidos y astrofísica a la neurobiología humana.
+            </p>
+          </details>
+        </div>
+
+        <aside class="glass-panel is-gold">
+          <div class="deck-gold">Nota física clave</div>
+          <h3>¿Por qué se habla de «hiperincursión»?</h3>
+          <p class="muted">
+            En mecánica clásica, el pasado determina el presente. En el modelo de desdoblamiento, entre el yo consciente y el yo ondulatorio se produce un intercambio bidireccional: el Doble experimenta las consecuencias de nuestros pensamientos futuros en su escala acelerada y transmite al presente una síntesis instantánea. Garnier denomina a este fenómeno <strong>hiperincursión</strong>: anticipar el presente mediante la memoria del futuro.
+          </p>
+          <div class="callout is-cyan" style="margin-top: var(--space-md);">
+            <span class="coord-label">Relación temporal</span>
+            <p>
+              «Un segundo en un tiempo consciente y miles de millones de segundos en otro tiempo imperceptible donde fabricamos futuros potenciales.»
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- INTERACTIVE TOOL 1: SIMULADOR DE LOS DOS TIEMPOS SIMULTÁNEOS -->
+      <div class="glass-panel">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <div>
+            <span class="coord-label">Simulador interactivo 01</span>
+            <h3>Dos Tiempos Simultáneos: Presente Lento vs. Tiempo Cuántico del Doble</h3>
+          </div>
+          <span class="badge" id="sim-status-badge">Canal en coherencia</span>
+        </div>
+
+        <div class="split-layout">
+          <div>
+            <div class="sim-canvas-wrap" aria-label="Simulación visual de tiempo estroboscópico, aperturas temporales y ramas de futuro exploradas por el Doble">
+              <canvas id="dual-time-canvas" class="sim-canvas"></canvas>
+            </div>
+            <div class="telemetry-grid" style="margin-top: var(--space-md);">
+              <div class="telemetry-cell">
+                <span class="telemetry-key">Cuadros conscientes</span>
+                <span class="telemetry-val accent-cyan" id="tel-frames">24 fps</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="telemetry-key">Escala acelerada</span>
+                <span class="telemetry-val accent-gold" id="tel-accel">10⁶×</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="telemetry-key">Futuros neutralizados</span>
+                <span class="telemetry-val" id="tel-erased">3 / 4 caóticos</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="telemetry-key">Retorno al presente</span>
+                <span class="telemetry-val" id="tel-signal">Intuición nítida</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="observation-well" style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <div class="field-group">
+              <span class="field-label">Modo de observación</span>
+              <div class="row-actions">
+                <button type="button" class="btn btn-ghost is-active" id="btn-mode-rem" onclick="setSimMode('rem')">Sueño Paradójico (REM)</button>
+                <button type="button" class="btn btn-ghost" id="btn-mode-wake" onclick="setSimMode('wake')">Vigilia Diurna</button>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="slider-coherence">
+                <span>Coherencia y benevolencia al dormir</span>
+                <span class="accent-cyan" id="val-coherence">82%</span>
+              </label>
+              <input type="range" id="slider-coherence" min="0" max="100" value="82" oninput="updateSimCoherence(this.value)">
+              <span class="muted" style="font-size: 0.85rem;">Valores bajos simulan ansiedad, culpa o miedo (parasitaje); valores altos permiten al Doble borrar ramas caóticas.</span>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="slider-accel">
+                <span>Apertura temporal (relación de velocidad)</span>
+                <span class="accent-gold" id="val-accel">Media (10⁶×)</span>
+              </label>
+              <input type="range" id="slider-accel" min="1" max="3" step="1" value="2" oninput="updateSimAccel(this.value)">
+            </div>
+
+            <div class="row-actions">
+              <button type="button" class="btn btn-gold" onclick="triggerHyperincursion()">
+                <i data-lucide="sparkles" width="16" height="16" aria-hidden="true"></i>
+                Lanzar pulso de hiperincursión
+              </button>
+              <button type="button" class="btn btn-ghost" onclick="toggleSimPlay()" id="btn-sim-play">
+                Pausar
+              </button>
+            </div>
+
+            <p class="muted" id="sim-narrative-note" style="font-size: 0.9rem;">
+              En fase REM con serenidad, el Doble cruza la apertura temporal, borra las ramificaciones de conflicto y devuelve una certeza tranquila al despertar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: FUNCIÓN DEL DOBLE -->
+    <section id="sec-funcion" class="narrative-section reveal">
+      <div class="section-head is-gold">
+        <span class="coord-label">02 · Navegación entre potenciales</span>
+        <h2>Qué hace el Doble: exploración, borrado de futuros caóticos e hiperincursión</h2>
+      </div>
+
+      <div class="prose">
+        <p>
+          Cada pensamiento que sostenemos durante la vigilia no se evapora: inscribe una probabilidad en el campo de potenciales futuros. Si pasas el día imaginando una catástrofe, una traición o un colapso financiero, esa coordenada queda trazada y puede terminar actualizándose en tu realidad o en la de tu entorno. La función del Doble no es cumplir caprichos mágicos, sino actuar como un explorador de rutas que verifica las consecuencias antes de que las vivas.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="glass-panel">
+          <span class="badge">Fase A · Vigilia</span>
+          <h3 style="margin-top: var(--space-sm);">1. Proyección de potenciales diurnos</h3>
+          <p class="muted" style="margin-top: var(--space-xs);">
+            Cada decisión, temor o intención sostenida abre ramificaciones en el tiempo futuro. Como el tiempo acelerado permite recorrer múltiples escenarios simultáneamente, todas las variantes quedan registradas como líneas probables.
+          </p>
+        </article>
+
+        <article class="glass-panel is-gold">
+          <span class="badge is-gold">Fase B · Tiempo acelerado</span>
+          <h3 style="margin-top: var(--space-sm);">2. Neutralización y borrado selectivo</h3>
+          <p class="muted" style="margin-top: var(--space-xs);">
+            Si le entregas tus inquietudes con serenidad y sin imponer un resultado rígido, el Doble evalúa las consecuencias de cada rama, borra los potenciales dañinos creados por el miedo del día y conserva únicamente la ruta de menor fricción.
+          </p>
+        </article>
+
+        <article class="glass-panel">
+          <span class="badge is-positive">Fase C · Retorno</span>
+          <h3 style="margin-top: var(--space-sm);">3. Selección óptima por hiperincursión</h3>
+          <p class="muted" style="margin-top: var(--space-xs);">
+            Al regresar al tiempo lento, el Doble actualiza tu memoria celular con la mejor opción disponible. No pierdes libre albedrío: recibes una orientación nítida —un impulso o claridad— que tú decides ejecutar en el presente.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: MECÁNICA BIOLÓGICA -->
+    <section id="sec-biologia" class="narrative-section reveal">
+      <div class="section-head">
+        <span class="coord-label">03 · La interfaz fisiológica</span>
+        <h2>Sueño paradójico (fase REM), el agua biológica y la intuición en vigilia</h2>
+      </div>
+
+      <div class="split-layout is-even">
+        <div class="glass-panel">
+          <div class="coord-label">Canal nocturno</div>
+          <h3>El papel irreemplazable del Sueño Paradójico</h3>
+          <p class="muted" style="margin-top: var(--space-sm);">
+            Garnier distingue el sueño convencional —donde el cerebro procesa la memoria del pasado— del <strong>sueño paradójico o fase REM</strong> (<em>Rapid Eye Movement</em>). Aunque el cuerpo físico permanece inmóvil, la actividad cerebral alcanza su punto máximo y la voluntad ejecutiva del ego se desconecta temporalmente de los sentidos externos.
+          </p>
+          <p class="muted" style="margin-top: var(--space-sm);">
+            Es en esa ventana donde el cuerpo energético intercambia información con el Doble. Si bloqueamos o alteramos sistemáticamente la fase REM con estrés crónico, nos privamos de la capacidad biológica de corregir los potenciales desarreglados durante la jornada, lo que Garnier vincula con desequilibrios emocionales y físicos.
+          </p>
+        </div>
+
+        <div class="glass-panel is-gold">
+          <div class="deck-gold">Medio de transmisión</div>
+          <h3>El agua del cuerpo como antena y memoria celular</h3>
+          <p class="muted" style="margin-top: var(--space-sm);">
+            Nuestro organismo está compuesto en torno a un 70% por agua. Según este modelo, el intercambio informacional permanente entre el cuerpo ondulatorio y el cuerpo corpuscular ocurre precisamente <strong>a través del agua biológica</strong>, que registra la huella vibratoria de nuestras preocupaciones diurnas y recibe las actualizaciones nocturnas.
+          </p>
+          <p class="muted" style="margin-top: var(--space-sm);">
+            La calidad emocional con la que nos dormimos determina la estructura de esa señal: el miedo y el resentimiento introducen distorsión; la gratitud y la calma ordenan la recepción celular.
+          </p>
+        </div>
+      </div>
+
+      <div class="glass-panel is-subtle">
+        <span class="coord-label">Manifestación al despertar</span>
+        <h3 style="margin-top: var(--space-xs);">¿Cómo se traduce esa actualización en tu día a día?</h3>
+        <div class="card-grid" style="margin-top: var(--space-md);">
+          <div>
+            <span class="badge">Instinto y prevención</span>
+            <p class="muted" style="margin-top: var(--space-xs);">
+              Un impulso repentino de volver a casa por las llaves olvidadas que, minutos después, te mantiene alejado de un choque en la ruta.
+            </p>
+          </div>
+          <div>
+            <span class="badge is-gold">Certezas espontáneas</span>
+            <p class="muted" style="margin-top: var(--space-xs);">
+              Despertar con una claridad serena sobre una negociación o decisión financiera compleja, sin euforia ni ansiedad, sabiendo qué proyecto soltar y cuál sostener.
+            </p>
+          </div>
+          <div>
+            <span class="badge is-positive">Sincronicidades oportunas</span>
+            <p class="muted" style="margin-top: var(--space-xs);">
+              Recordar de pronto a alguien con quien no hablabas hace meses y llamarlo justo en el instante en que necesitaba ayuda o abría una conversación clave.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: COSMOVISIÓN DE LOS 7 TIEMPOS -->
+    <section id="sec-siete-tiempos" class="narrative-section reveal">
+      <div class="section-head is-gold">
+        <span class="coord-label">04 · Cosmología del desdoblamiento</span>
+        <h2>La arquitectura de los 7 Tiempos: del Origen al Doble primario</h2>
+      </div>
+
+      <div class="prose">
+        <p>
+          La propuesta completa de Garnier Malet va más allá de una pareja de observadores. Plantea una jerarquía dinámica de <strong>siete tiempos sucesivos e interdependientes</strong> que evolucionan a velocidades distintas. No son siete habitaciones estáticas ni siete copias idénticas de tu persona: son posiciones relacionales donde lo que constituye futuro para un nivel actúa como presente para otro.
+        </p>
+      </div>
+
+      <!-- INTERACTIVE TOOL 2: DIAGRAMA DE LOS 7 TIEMPOS -->
+      <div class="glass-panel">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <div>
+            <span class="coord-label">Explorador estructural 02</span>
+            <h3>Diagrama Interactivo de los 7 Tiempos (y el 8.º Tiempo)</h3>
+          </div>
+          <div class="row-actions">
+            <button type="button" class="btn btn-ghost is-active" id="btn-flow-night" onclick="setTimesFlow('night')">Puente nocturno (REM)</button>
+            <button type="button" class="btn btn-ghost" id="btn-flow-origin" onclick="setTimesFlow('origin')">Jerarquía desde el Origen</button>
+          </div>
+        </div>
+
+        <div class="times-grid">
+          <div class="times-svg-wrap">
+            <svg id="seven-times-svg" viewBox="0 0 460 420" width="100%" height="100%" role="img" aria-label="Diagrama orbital interactivo de los 7 Tiempos del Desdoblamiento y el 8.º Tiempo">
+              <defs>
+                <radialGradient id="originGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="var(--tertiary)" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="var(--tertiary)" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="cyanGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Outer 8th Time anomalous ring -->
+              <g class="svg-tier" onclick="selectTimeLevel(8)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(8);}" tabindex="0" role="button" aria-label="Seleccionar 8.º Tiempo: zona de salida del ciclo">
+                <circle id="ring-t8" cx="230" cy="210" r="196" fill="none" stroke="var(--error)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.5"/>
+                <text x="230" y="25" text-anchor="middle" fill="var(--error)" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1">8.º TIEMPO · EXILIO PERCEPTUAL</text>
+              </g>
+
+              <!-- Time 7: The Double -->
+              <g class="svg-tier" onclick="selectTimeLevel(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(7);}" tabindex="0" role="button" aria-label="Seleccionar 7.º Tiempo: El Doble Primario">
+                <circle id="ring-t7" cx="230" cy="210" r="168" fill="none" stroke="var(--tertiary)" stroke-width="2" opacity="0.72"/>
+                <circle cx="230" cy="42" r="9" fill="var(--tertiary)"/>
+                <text x="230" y="65" text-anchor="middle" fill="var(--tertiary)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">7.º TIEMPO · EL DOBLE</text>
+              </g>
+
+              <!-- Time 6 & 5: Accelerated transitional bands -->
+              <g class="svg-tier" onclick="selectTimeLevel(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(6);}" tabindex="0" role="button" aria-label="Seleccionar 6.º Tiempo">
+                <circle id="ring-t6" cx="230" cy="210" r="142" fill="none" stroke="var(--outline)" stroke-width="1.5" opacity="0.8"/>
+                <text x="362" y="142" text-anchor="start" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="10">T6</text>
+              </g>
+              <g class="svg-tier" onclick="selectTimeLevel(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(5);}" tabindex="0" role="button" aria-label="Seleccionar 5.º Tiempo">
+                <circle id="ring-t5" cx="230" cy="210" r="118" fill="none" stroke="var(--outline)" stroke-width="1.5" opacity="0.8"/>
+                <text x="336" y="160" text-anchor="start" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="10">T5</text>
+              </g>
+
+              <!-- Time 4: Present Physical Observer -->
+              <g class="svg-tier" onclick="selectTimeLevel(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(4);}" tabindex="0" role="button" aria-label="Seleccionar 4.º Tiempo: Presente Consciente">
+                <circle cx="230" cy="210" r="94" fill="url(#cyanGlow)" opacity="0.35"/>
+                <circle id="ring-t4" cx="230" cy="210" r="94" fill="none" stroke="var(--primary)" stroke-width="2.5" opacity="0.95"/>
+                <circle cx="136" cy="210" r="7" fill="var(--primary)"/>
+                <text x="230" y="320" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">4.º TIEMPO · OBSERVADOR FÍSICO</text>
+              </g>
+
+              <!-- Time 3 & 2 -->
+              <g class="svg-tier" onclick="selectTimeLevel(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(3);}" tabindex="0" role="button" aria-label="Seleccionar 3.er Tiempo">
+                <circle id="ring-t3" cx="230" cy="210" r="70" fill="none" stroke="var(--outline)" stroke-width="1.5" opacity="0.8"/>
+                <text x="285" y="254" text-anchor="start" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="10">T3</text>
+              </g>
+              <g class="svg-tier" onclick="selectTimeLevel(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(2);}" tabindex="0" role="button" aria-label="Seleccionar 2.º Tiempo">
+                <circle id="ring-t2" cx="230" cy="210" r="46" fill="none" stroke="var(--outline)" stroke-width="1.5" opacity="0.8"/>
+                <text x="262" y="236" text-anchor="start" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="10">T2</text>
+              </g>
+
+              <!-- Time 1: Creator / Origin -->
+              <g class="svg-tier" onclick="selectTimeLevel(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTimeLevel(1);}" tabindex="0" role="button" aria-label="Seleccionar 1.er Tiempo: Creador u Origen">
+                <circle cx="230" cy="210" r="34" fill="url(#originGlow)"/>
+                <circle id="ring-t1" cx="230" cy="210" r="21" fill="var(--tertiary)" opacity="0.95"/>
+                <text x="230" y="214" text-anchor="middle" fill="var(--on-tertiary)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">1.º</text>
+              </g>
+
+              <!-- Information exchange bridge line -->
+              <path id="bridge-path" d="M 136 210 Q 155 95 230 42" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="5 4" opacity="0.9"/>
+            </svg>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <div class="field-group">
+              <span class="field-label">Selecciona un nivel informacional</span>
+              <div class="times-selector" role="group" aria-label="Selector de los 7 Tiempos">
+                <button type="button" class="time-node-btn is-gold" id="tbtn-1" onclick="selectTimeLevel(1)">1.º Origen</button>
+                <button type="button" class="time-node-btn" id="tbtn-2" onclick="selectTimeLevel(2)">2.º</button>
+                <button type="button" class="time-node-btn" id="tbtn-3" onclick="selectTimeLevel(3)">3.º</button>
+                <button type="button" class="time-node-btn is-selected" id="tbtn-4" onclick="selectTimeLevel(4)">4.º Presente</button>
+                <button type="button" class="time-node-btn" id="tbtn-5" onclick="selectTimeLevel(5)">5.º</button>
+                <button type="button" class="time-node-btn" id="tbtn-6" onclick="selectTimeLevel(6)">6.º</button>
+                <button type="button" class="time-node-btn is-gold" id="tbtn-7" onclick="selectTimeLevel(7)">7.º Doble</button>
+                <button type="button" class="time-node-btn" id="tbtn-8" onclick="selectTimeLevel(8)">8.º Tiempo</button>
+              </div>
+            </div>
+
+            <div class="observation-well" style="display: flex; flex-direction: column; gap: var(--space-sm);">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap;">
+                <span class="badge is-gold" id="time-badge">Nivel Central</span>
+                <span class="coord-label" id="time-speed">Velocidad: Tiempo Lento (C₀)</span>
+              </div>
+              <h3 id="time-title">4.º Tiempo — El Observador Físico Consciente</h3>
+              <p class="muted" id="time-desc">
+                Ocupa exactamente la posición intermedia entre los siete tiempos. Desde aquí percibimos la realidad tridimensional en flujo lento, ejercemos el libre albedrío y proyectamos los futuros potenciales que nuestro Doble clasificará.
+              </p>
+              <div class="callout is-cyan" style="margin-top: var(--space-xs);">
+                <span class="telemetry-key">Función informacional</span>
+                <p id="time-role" style="font-size: 0.95rem;">
+                  Nexo operativo donde la experiencia en la materia decide qué futuros se actualizan mediante el contacto nocturno con el 7.º Tiempo.
+                </p>
+              </div>
+            </div>
+
+            <p class="muted" style="font-size: 0.85rem;">
+              Nota de fidelidad documental: Garnier caracteriza explícitamente el 1.er Tiempo (Creador/Origen), el 4.º Tiempo (Presente) y el 7.º Tiempo (Doble), describiendo los tiempos 2, 3, 5 y 6 como escalas relacionales de velocidad temporal y no como compartimentos estáticos. Asimismo sitúa este esquema dentro de un gran ciclo universal de desdoblamiento de ~25.920 años (precesión de los equinoccios).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: PROTOCOLO NOCTURNO Y ASISTENTE -->
+    <section id="sec-protocolo" class="narrative-section reveal">
+      <div class="section-head">
+        <span class="coord-label">05 · Práctica aplicada en la fase hipnagógica</span>
+        <h2>Protocolo Nocturno de Conexión: cómo entregar un problema antes de dormir</h2>
+      </div>
+
+      <div class="prose">
+        <p>
+          Controlar los pensamientos durante toda la vigilia es casi imposible, pero Garnier subraya que disponemos de una ventana decisiva justo antes de conciliar el sueño: <strong>el último minuto consciente en la fase hipnagógica</strong>. En ese umbral se abre la comunicación con el Doble, siempre que se cumplan cuatro condiciones esenciales: pensamiento benevolente, entrega breve sin imponer la solución, certeza absoluta y desapego total del resultado.
+        </p>
+      </div>
+
+      <!-- INTERACTIVE TOOL 3: ASISTENTE / TEMPORIZADOR NOCTURNO -->
+      <div class="glass-panel is-gold">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <div>
+            <span class="deck-gold">Asistente interactivo 03 · Estado persistente</span>
+            <h3>Asistente del Protocolo Nocturno y Bitácora Matutina</h3>
+          </div>
+          <span class="badge is-positive" id="protocol-save-indicator">Listo para configurar</span>
+        </div>
+
+        <div class="split-layout">
+          <!-- Left column: Checklist + Formulator -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
+            <div>
+              <span class="field-label" style="margin-bottom: var(--space-sm);">1. Checklist de Benevolencia e Higiene Diurna</span>
+              <div class="checklist-list" id="checklist-container">
+                <label class="check-item" id="chk-wrap-0">
+                  <input type="checkbox" id="chk-0" onchange="toggleProtocolCheck(0)">
+                  <span><strong>Ley física de benevolencia:</strong> No pensé ni deseé para otros lo que no querría que pensaran para mí.</span>
+                </label>
+                <label class="check-item" id="chk-wrap-1">
+                  <input type="checkbox" id="chk-1" onchange="toggleProtocolCheck(1)">
+                  <span><strong>Descarga mental previa:</strong> Dejé fuera preocupaciones repetitivas o las anoté para no rumiar en la cama.</span>
+                </label>
+                <label class="check-item" id="chk-wrap-2">
+                  <input type="checkbox" id="chk-2" onchange="toggleProtocolCheck(2)">
+                  <span><strong>Renuncia a imponer el «cómo»:</strong> Entrego el problema abierto, sin exigir una solución rígida del ego.</span>
+                </label>
+                <label class="check-item" id="chk-wrap-3">
+                  <input type="checkbox" id="chk-3" onchange="toggleProtocolCheck(3)">
+                  <span><strong>Certeza y desapego:</strong> Dejo las riendas al Doble con gratitud tranquila antes de entrar al sueño REM.</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="observation-well" style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <div class="field-group">
+                <label class="field-label" for="preset-select">2. Plantilla de referencia rápida (opcional)</label>
+                <select id="preset-select" class="select-input" onchange="applyFormulationPreset(this.value)">
+                  <option value="">Elegir un ámbito para orientar tu entrega…</option>
+                  <option value="salud">Salud y equilibrio corporal</option>
+                  <option value="finanzas">Decisiones laborales o financieras</option>
+                  <option value="relaciones">Vínculos y resolución de conflictos</option>
+                  <option value="proposito">Claridad y dirección vital</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="formulation-input">Tu formulación breve para el último minuto</label>
+                <textarea id="formulation-input" class="textarea-input" placeholder="Ejemplo: Te entrego esta situación; muéstrame el mejor futuro posible para mí y para quienes me rodean, con serenidad." oninput="analyzeFormulation(this.value)"></textarea>
+              </div>
+
+              <div class="callout is-cyan" id="ego-detector-box">
+                <span class="coord-label" id="ego-detector-label">Análisis de formulación</span>
+                <p id="ego-detector-msg" style="font-size: 0.92rem;">
+                  Escribe tu entrega en tiempo presente o como apertura tranquila. Evita palabras de carencia, urgencia o imposición de resultados a terceros.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: Guided Hypnagogic Timer + Morning Log -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
+            <div class="breath-stage">
+              <div class="field-group" style="width: 100%;">
+                <label class="field-label" for="timer-duration">3. Temporizador de Fase Hipnagógica</label>
+                <select id="timer-duration" class="select-input" onchange="setTimerDuration(this.value)">
+                  <option value="60">60 segundos (el minuto clásico de Garnier)</option>
+                  <option value="120">120 segundos (2 minutos con descarga previa)</option>
+                  <option value="180">180 segundos (3 minutos de calma profunda)</option>
+                </select>
+              </div>
+
+              <svg width="160" height="160" viewBox="0 0 160 160" aria-hidden="true">
+                <circle cx="80" cy="80" r="68" fill="none" stroke="var(--outline-variant)" stroke-width="2"/>
+                <circle id="timer-progress-ring" cx="80" cy="80" r="68" fill="none" stroke="var(--primary)" stroke-width="3" stroke-dasharray="427.26" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+                <circle id="breath-orb" class="breath-orb" cx="80" cy="80" r="36" fill="var(--primary-container)" stroke="var(--tertiary)" stroke-width="1.5"/>
+              </svg>
+
+              <div class="timer-readout" id="timer-display">01:00</div>
+              <div class="coord-label" id="breath-cue">Listo para iniciar · Respiración lenta 4-2-6</div>
+              <p class="muted" id="phase-instruction" style="font-size: 0.92rem; max-width: 38ch;">
+                Al pulsar iniciar, reduce tu ritmo respiratorio, pronuncia mentalmente tu entrega breve y suelta el control para dormir.
+              </p>
+
+              <div class="row-actions" style="justify-content: center;">
+                <button type="button" class="btn btn-gold" id="btn-timer-start" onclick="toggleHypnagogicTimer()">Iniciar minuto sagrado</button>
+                <button type="button" class="btn btn-ghost" onclick="resetHypnagogicTimer()">Reiniciar</button>
+              </div>
+            </div>
+
+            <!-- Morning Synchronicity Log -->
+            <div class="observation-well" style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap;">
+                <span class="coord-label">4. Minuto al despertar · Registro</span>
+                <span class="badge" id="log-count-badge">0 registros</span>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="morning-signal-input">Anota la primera sensación, intuición o sincronicidad (antes de ver el celular)</label>
+                <textarea id="morning-signal-input" class="textarea-input" placeholder="Ejemplo: Desperté con calma inesperada y el impulso de posponer la firma hasta revisar los anexos…" style="min-height: 76px;"></textarea>
+              </div>
+
+              <div class="row-actions">
+                <button type="button" class="btn btn-primary" onclick="addMorningEntry()">Guardar señal</button>
+                <button type="button" class="btn btn-ghost" onclick="exportMorningLog()">Exportar (.txt)</button>
+                <button type="button" class="btn btn-ghost" id="btn-clear-log" onclick="clearMorningLog(this)">Limpiar bitácora</button>
+              </div>
+
+              <div id="morning-log-empty" class="muted" style="font-size: 0.9rem;">
+                Aún no hay señales registradas. Cuando despiertes tras practicar el protocolo, anota aquí tu primera intuición serena para entrenar el discernimiento.
+              </div>
+              <div id="morning-log-list" class="log-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: ERRORES CRÍTICOS Y COMPARADOR -->
+    <section id="sec-errores" class="narrative-section reveal">
+      <div class="section-head">
+        <span class="coord-label">06 · Higiene informacional y límites</span>
+        <h2>Errores críticos: parasitaje, imposición del ego e interferencia ajena</h2>
+      </div>
+
+      <div class="card-grid">
+        <article class="glass-panel">
+          <span class="badge is-error">Error crítico 01</span>
+          <h3 style="margin-top: var(--space-sm);">Parasitaje informacional</h3>
+          <p class="muted" style="margin-top: var(--space-xs);">
+            Dormirse dominado por el miedo, el rencor, la culpa o la ansiedad contamina el canal. En lugar de contactar a tu Doble, el cuerpo ondulatorio capta ruido del entorno o información de «desconocidos del futuro», multiplicando la confusión al despertar.
+          </p>
+        </article>
+
+        <article class="glass-panel">
+          <span class="badge is-error">Error crítico 02</span>
+          <h3 style="margin-top: var(--space-sm);">«Ley de atracción» rígida del ego</h3>
+          <p class="muted" style="margin-top: var(--space-xs);">
+            Pedir desde la carencia o imponer un resultado específico («quiero ese puesto exacto o a esa persona») limita la exploración del Doble, eleva la tensión y refuerza precisamente la distancia temporal con aquello que deseas.
+          </p>
+        </article>
+
+        <article class="glass-panel is-gold">
+          <span class="badge is-gold">Error crítico 03</span>
+          <h3 style="margin-top: var(--space-sm);">No interferir en potenciales ajenos</h3>
+          <p class="muted" style="margin-top: var(--space-xs);">
+            Tu Doble conoce el mejor futuro para ti, pero desconoce el de los demás. Intentar «arreglar» el futuro de otra persona sin que te lo pida puede transferir futuros ajenos y consecuencias adversas. <strong>Única excepción señalada por Garnier:</strong> el vínculo madre-hijo, cuyos dobles permanecen unidos incluso más allá de la muerte física.
+          </p>
+        </article>
+      </div>
+
+      <div class="callout is-cyan">
+        <span class="coord-label">Cuatro tropiezos frecuentes en la práctica</span>
+        <p class="muted">
+          1) <strong>Esperar resultados instantáneos:</strong> el Doble explora en tiempo acelerado, pero tú actualizas en tiempo lento. 2) <strong>Usar al Doble como amuleto pasivo:</strong> él muestra la ruta óptima, pero la acción física sigue siendo tuya. 3) <strong>Saturar el canal:</strong> obsesionarse todo el día buscando señales numéricas (como el 11:11) genera ruido mental. 4) <strong>Resistirse al cambio interno:</strong> si el Doble te muestra incomodidad ante un hábito o socio dañino y la ignoras, bloqueas la actualización.
+        </p>
+      </div>
+
+      <!-- INTERACTIVE TOOL 4: COMPARADOR VISUAL Y TEST DE DISCERNIMIENTO -->
+      <div class="glass-panel">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-md);">
+          <div>
+            <span class="coord-label">Comparador interactivo 04</span>
+            <h3>Señal Auténtica del Doble vs. Ruido o Deseo del Ego</h3>
+          </div>
+          <span class="badge is-gold" id="quiz-score-badge">Discernimiento: 0 / 5 resueltos</span>
+        </div>
+
+        <div class="split-layout">
+          <div style="overflow-x: auto;">
+            <table class="compare-table" aria-label="Comparativa entre intuición del Doble y ruido del ego">
+              <thead>
+                <tr>
+                  <th>Dimensión</th>
+                  <th>Intuición del Doble</th>
+                  <th>Ruido / Deseo del Ego</th>
+                </tr>
+              </thead>
+              <tbody id="compare-tbody">
+                <tr class="compare-row is-active" onclick="selectCompareRow(0, this)">
+                  <td><strong>Tono emocional</strong></td>
+                  <td class="accent-cyan">Serenidad neutral, certeza tranquila (incluso ante un riesgo).</td>
+                  <td class="muted">Urgencia, miedo a perder, euforia ansiosa o apego rígido.</td>
+                </tr>
+                <tr class="compare-row" onclick="selectCompareRow(1, this)">
+                  <td><strong>Sensación corporal</strong></td>
+                  <td class="accent-cyan">Ligereza física, expansión en el pecho, claridad silenciosa.</td>
+                  <td class="muted">Contracción, nudo estomacal, prisa mental o agitación.</td>
+                </tr>
+                <tr class="compare-row" onclick="selectCompareRow(2, this)">
+                  <td><strong>Contenido de la idea</strong></td>
+                  <td class="accent-cyan">Información fresca que no habías considerado; abre opciones.</td>
+                  <td class="muted">Repetición de programación pasada, excusas o guiones conocidos.</td>
+                </tr>
+                <tr class="compare-row" onclick="selectCompareRow(3, this)">
+                  <td><strong>Relación con el tiempo</strong></td>
+                  <td class="accent-cyan">Confía en el ritmo de actualización; pide orientación abierta.</td>
+                  <td class="muted">Exige inmediatez («ya mismo») y desentierra la semilla cada día.</td>
+                </tr>
+                <tr class="compare-row" onclick="selectCompareRow(4, this)">
+                  <td><strong>Libertad de elección</strong></td>
+                  <td class="accent-cyan">Sugiere sin imponer; respeta tu libre albedrío y el ajeno.</td>
+                  <td class="muted">Presiona para controlar personas externas o forzar resultados.</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="observation-well" style="margin-top: var(--space-md);">
+              <span class="coord-label" id="compare-detail-title">Detalle · Tono emocional</span>
+              <p class="muted" id="compare-detail-body" style="margin-top: var(--space-xs);">
+                Garnier enfatiza que una señal auténtica nunca llega acompañada de pánico ni urgencia desesperada. Incluso cuando implica tomar una decisión valiente o cambiar de rumbo, se percibe como una certeza calmada y sin ruido.
+              </p>
+            </div>
+          </div>
+
+          <!-- Interactive Discernment Trainer -->
+          <div class="observation-well" style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+              <span class="deck-gold" id="case-counter">Caso práctico 1 de 5</span>
+              <div class="row-actions">
+                <button type="button" class="btn btn-ghost" onclick="prevDiscernmentCase()" style="min-height: 44px; padding: var(--space-xs) var(--space-md);">Anterior</button>
+                <button type="button" class="btn btn-ghost" onclick="nextDiscernmentCase()" style="min-height: 44px; padding: var(--space-xs) var(--space-md);">Siguiente</button>
+              </div>
+            </div>
+
+            <h3 id="case-title">El impulso de inversión urgente</h3>
+            <p id="case-scenario">
+              Sueñas con una oportunidad de negocio que parece lucrativa y despiertas con una fuerte urgencia por transferir dinero hoy mismo antes de que «se cierre la puerta», sintiendo taquicardia y temor a quedarte fuera.
+            </p>
+
+            <div class="row-actions">
+              <button type="button" class="btn btn-primary" onclick="answerDiscernment('doble')">Señal del Doble</button>
+              <button type="button" class="btn btn-gold" onclick="answerDiscernment('ego')">Ruido / Deseo del Ego</button>
+            </div>
+
+            <div class="callout is-cyan" id="case-feedback-box" style="display: none;">
+              <span class="coord-label" id="case-feedback-label">Evaluación</span>
+              <p id="case-feedback-text" style="font-size: 0.94rem;"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUENTES Y CONTEXTO -->
+    <footer class="sources-footer">
+      <div class="coord-label">Fuentes y trazabilidad conceptual</div>
+      <p>
+        Contenido elaborado a partir de las obras y exposiciones del Dr. Jean-Pierre Garnier Malet y Lucile Garnier Malet (<em>Cambia tu futuro por las aperturas temporales</em>, <em>El doble... ¿cómo funciona?</em> y ponencias en el American Institute of Physics / CASYS, 2006), la entrevista publicada por Ima Sanchís en <em>La Vanguardia</em> («Nosotros, como el tiempo, también nos desdoblamos», 2010), el análisis científico sobre física estroboscópica y objeciones de la física teórica contemporánea, y guías prácticas sobre el protocolo nocturno y los siete tiempos.
+      </p>
+      <p>
+        Aviso responsable: las aplicaciones prácticas sobre bienestar, sueño y toma de decisiones aquí descritas tienen carácter exploratorio y filosófico-teórico; no sustituyen diagnósticos ni tratamientos médicos o psicológicos profesionales.
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 1.5rem;">
+        <a href="Convergencia_Bentov_y_Garnier_Malet__El_Desdoblamiento_del.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(0, 243, 255, 0.45); background: rgba(0, 243, 255, 0.10); color: #5be0f0; font-family: var(--font-label, monospace); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Volver a Garnier Malet × Bentov</a>
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.05rem; border-radius: 9999px; border: 1px solid rgba(239, 192, 98, 0.45); background: rgba(239, 192, 98, 0.10); color: #efc062; font-family: var(--font-label, monospace); font-size: 0.8rem; text-decoration: none; font-weight: 500;">&larr; Portal Principal</a>
+      </div>
+
+      <div style="text-align: center; padding: 26px 12px 18px 12px; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(94, 181, 196, 0.18); margin-top: 40px; opacity: 0.88; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <span>Realizado por <strong>VAE - IA - Consulting</strong> &bull; web: <a href="https://vae-ai-consulting.com/" target="_blank" rel="noopener noreferrer" style="color: #5eb5c4; text-decoration: none; font-weight: 600;">vae-ai-consulting.com</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // HELPER: Read CSS variables from :root so Canvas & SVG match theme tokens
+    // =========================================================================
+    function getToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    // =========================================================================
+    // STATE MANAGEMENT (with window.notebookAppApi persistence)
+    // =========================================================================
+    const appState = {
+      checklist: [false, false, false, false],
+      formulation: ``,
+      morningLogs: [],
+      discernmentSolved: {}
+    };
+
+    function updateSaveIndicator(text, isGold) {
+      const badge = document.getElementById('protocol-save-indicator');
+      if (!badge) return;
+      badge.textContent = text;
+      badge.className = isGold ? 'badge is-gold' : 'badge is-positive';
+    }
+
+    async function persistAppState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState({
+            checklist: appState.checklist,
+            formulation: appState.formulation,
+            morningLogs: appState.morningLogs,
+            discernmentSolved: appState.discernmentSolved
+          });
+          updateSaveIndicator(`Guardado en el cuaderno`, false);
+        } catch (err) {
+          updateSaveIndicator(`Guardado local temporal`, true);
+        }
+      }
+    }
+
+    function restoreUIFromState() {
+      for (let i = 0; i < 4; i++) {
+        const chk = document.getElementById('chk-' + i);
+        const wrap = document.getElementById('chk-wrap-' + i);
+        const checked = Boolean(appState.checklist[i]);
+        if (chk) chk.checked = checked;
+        if (wrap) wrap.classList.toggle('is-checked', checked);
+      }
+      const formEl = document.getElementById('formulation-input');
+      if (formEl && appState.formulation) {
+        formEl.value = appState.formulation;
+        analyzeFormulation(appState.formulation, true);
+      }
+      renderMorningLogs();
+      updateQuizScoreBadge();
+    }
+
+    // =========================================================================
+    // TOOL 1: DUAL TIME CANVAS SIMULATOR
+    // =========================================================================
+    let simMode = 'rem';
+    let simCoherence = 82;
+    let simAccel = 2;
+    let simRunning = true;
+    let simPhase = 0;
+    let hyperPulse = 0;
+    let simAnimId = null;
+
+    function setSimMode(mode) {
+      simMode = mode;
+      const btnRem = document.getElementById('btn-mode-rem');
+      const btnWake = document.getElementById('btn-mode-wake');
+      if (btnRem) btnRem.classList.toggle('is-active', mode === 'rem');
+      if (btnWake) btnWake.classList.toggle('is-active', mode === 'wake');
+      updateSimLabels();
+    }
+
+    function updateSimCoherence(val) {
+      simCoherence = Number(val);
+      const out = document.getElementById('val-coherence');
+      if (out) out.textContent = `${simCoherence}%`;
+      updateSimLabels();
+    }
+
+    function updateSimAccel(val) {
+      simAccel = Number(val);
+      const labels = {
+        1: `Baja (10³×)`,
+        2: `Media (10⁶×)`,
+        3: `Alta (10⁹×)`
+      };
+      const out = document.getElementById('val-accel');
+      const tel = document.getElementById('tel-accel');
+      if (out) out.textContent = labels[simAccel] || `Media (10⁶×)`;
+      if (tel) tel.textContent = simAccel === 1 ? `10³×` : (simAccel === 2 ? `10⁶×` : `10⁹×`);
+    }
+
+    function updateSimLabels() {
+      const badge = document.getElementById('sim-status-badge');
+      const erasedEl = document.getElementById('tel-erased');
+      const signalEl = document.getElementById('tel-signal');
+      const noteEl = document.getElementById('sim-narrative-note');
+
+      const erasedCount = simCoherence >= 70 ? `4 / 4 caóticos` : (simCoherence >= 40 ? `2 / 4 caóticos` : `0 / 4 (parasitaje)`);
+      if (erasedEl) erasedEl.textContent = erasedCount;
+
+      if (simCoherence >= 70 && simMode === 'rem') {
+        if (badge) { badge.textContent = `Canal limpio · Sueño REM`; badge.className = 'badge is-positive'; }
+        if (signalEl) signalEl.textContent = `Hiperincursión nítida`;
+        if (noteEl) noteEl.textContent = `En fase REM con serenidad, el Doble cruza la apertura temporal, borra las ramificaciones caóticas y devuelve una certeza tranquila al despertar.`;
+      } else if (simCoherence >= 40) {
+        if (badge) { badge.textContent = `Canal parcial · Filtrado moderado`; badge.className = 'badge is-gold'; }
+        if (signalEl) signalEl.textContent = simMode === 'rem' ? `Señal intermitente` : `Impulso subliminal`;
+        if (noteEl) noteEl.textContent = simMode === 'rem'
+          ? `Con serenidad intermedia, algunas ramas de preocupación persisten; conviene soltar el control del «cómo» antes de dormir.`
+          : `En vigilia, las aperturas temporales son brevísimas: percibes corazonadas fugaces entre cuadro y cuadro consciente.`;
+      } else {
+        if (badge) { badge.textContent = `Alerta · Parasitaje informacional`; badge.className = 'badge is-error'; }
+        if (signalEl) signalEl.textContent = `Ruido y ansiedad`;
+        if (noteEl) noteEl.textContent = `El miedo o la ansiedad antes de dormir contaminan la señal: las ramas caóticas no se neutralizan y se filtra ruido de futuros no armónicos.`;
+      }
+    }
+
+    function triggerHyperincursion() {
+      hyperPulse = 1.0;
+    }
+
+    function toggleSimPlay() {
+      simRunning = !simRunning;
+      const btn = document.getElementById('btn-sim-play');
+      if (btn) btn.textContent = simRunning ? `Pausar` : `Reanudar`;
+    }
+
+    function renderDualTimeCanvas() {
+      const canvas = document.getElementById('dual-time-canvas');
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w > 0 && h > 0 && (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr))) {
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+      }
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, w, h);
+
+      const cCyan = getToken('--primary') || `#00f3ff`;
+      const cGold = getToken('--tertiary') || `#ffd700`;
+      const cMuted = getToken('--on-surface-variant') || `#9db2d1`;
+      const cErr = getToken('--error') || `#f87171`;
+      const cPos = getToken('--positive') || `#34d399`;
+      const cLine = getToken('--outline-variant') || `#1c2c4a`;
+
+      if (simRunning) {
+        const speedFactor = simAccel === 1 ? 0.015 : (simAccel === 2 ? 0.032 : 0.06);
+        simPhase += speedFactor;
+        if (hyperPulse > 0) hyperPulse = Math.max(0, hyperPulse - 0.016);
+      }
+
+      // Background subtle grid
+      ctx.strokeStyle = cLine;
+      ctx.lineWidth = 1;
+      for (let gx = 40; gx < w; gx += 60) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.lineTo(gx, h);
+        ctx.stroke();
+      }
+
+      // Labels
+      ctx.font = `600 11px "JetBrains Mono", monospace`;
+      ctx.fillStyle = cGold;
+      ctx.fillText(`TIEMPO HIPERACELERADO · EL DOBLE (ONDULATORIO)`, 16, 24);
+
+      const slowY = h - 68;
+      ctx.fillStyle = cCyan;
+      ctx.fillText(`PRESENTE LENTO · CUERPO CORPUSCULAR (24 CUADROS/S)`, 16, h - 18);
+
+      // Slow stroboscopic track
+      const numFrames = 8;
+      const marginX = 48;
+      const spanX = Math.max(120, w - marginX * 2);
+      const stepX = spanX / (numFrames - 1);
+      const activeIdx = Math.floor((simPhase * 1.4) % (numFrames - 1));
+
+      for (let i = 0; i < numFrames; i++) {
+        const fx = marginX + i * stepX;
+        // Frame rectangle
+        ctx.fillStyle = i === activeIdx ? cCyan : cLine;
+        ctx.fillRect(fx - 5, slowY - 12, 10, 24);
+
+        // Temporal opening gap marker between frames
+        if (i < numFrames - 1) {
+          const gapX = fx + stepX * 0.5;
+          const isOpen = i === activeIdx;
+          ctx.beginPath();
+          ctx.arc(gapX, slowY, isOpen ? 6 + hyperPulse * 5 : 3, 0, Math.PI * 2);
+          ctx.fillStyle = isOpen ? cGold : cMuted;
+          ctx.globalAlpha = isOpen ? 0.95 : 0.35;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      // Active Temporal Opening anchor
+      const openX = marginX + activeIdx * stepX + stepX * 0.5;
+      const apexY = 66;
+
+      // Branching potential futures in accelerated time
+      const branches = [
+        { offset: -120, y: 120, chaotic: true },
+        { offset: -65,  y: 86,  chaotic: true },
+        { offset: 0,    y: apexY, chaotic: false },
+        { offset: 72,   y: 94,  chaotic: true },
+        { offset: 135,  y: 135, chaotic: true }
+      ];
+
+      const eraseThreshold = simCoherence;
+      branches.forEach((b, idx) => {
+        const targetX = Math.min(w - 28, Math.max(28, openX + b.offset));
+        const isNeutralized = b.chaotic && (eraseThreshold >= (idx + 1) * 18);
+
+        ctx.beginPath();
+        ctx.moveTo(openX, slowY - 10);
+        ctx.quadraticCurveTo(openX + b.offset * 0.4, (slowY + b.y) * 0.45, targetX, b.y);
+
+        if (!b.chaotic) {
+          ctx.strokeStyle = eraseThreshold >= 45 ? cCyan : cGold;
+          ctx.lineWidth = 2.6 + hyperPulse * 2;
+          ctx.setLineDash([]);
+        } else if (isNeutralized) {
+          ctx.strokeStyle = cLine;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([3, 5]);
+        } else {
+          ctx.strokeStyle = cErr;
+          ctx.lineWidth = 1.6;
+          ctx.setLineDash([5, 4]);
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Branch endpoint node
+        ctx.beginPath();
+        ctx.arc(targetX, b.y, b.chaotic ? 4.5 : 7, 0, Math.PI * 2);
+        if (!b.chaotic) {
+          ctx.fillStyle = cGold;
+        } else if (isNeutralized) {
+          ctx.fillStyle = cLine;
+        } else {
+          ctx.fillStyle = cErr;
+        }
+        ctx.fill();
+
+        if (!b.chaotic) {
+          ctx.font = `600 11px "JetBrains Mono", monospace`;
+          ctx.fillStyle = cGold;
+          ctx.fillText(`RAMA ÓPTIMA`, Math.min(w - 95, targetX + 12), b.y + 4);
+        }
+      });
+
+      // Travelling wave / Double Explorer packet along optimal branch
+      const waveT = (simPhase * (simMode === 'rem' ? 2.4 : 1.1)) % 1;
+      const packetY = slowY - 10 + (apexY - (slowY - 10)) * Math.sin(waveT * Math.PI);
+      ctx.beginPath();
+      ctx.arc(openX, packetY, 5 + hyperPulse * 4, 0, Math.PI * 2);
+      ctx.fillStyle = waveT < 0.5 ? cGold : cPos;
+      ctx.fill();
+
+      // Hyperincursion return flash at present
+      if (hyperPulse > 0.05) {
+        ctx.beginPath();
+        ctx.arc(openX, slowY, 14 + (1 - hyperPulse) * 28, 0, Math.PI * 2);
+        ctx.strokeStyle = cCyan;
+        ctx.globalAlpha = hyperPulse;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+
+      ctx.restore();
+      simAnimId = requestAnimationFrame(renderDualTimeCanvas);
+    }
+
+    // =========================================================================
+    // TOOL 2: SEVEN TIMES INTERACTIVE DIAGRAM
+    // =========================================================================
+    const sevenTimesData = {
+      1: {
+        badge: `Polo de Origen`,
+        speed: `Información pura · Fuente`,
+        title: `1.er Tiempo — El Creador / Origen`,
+        desc: `Representa la fuente primordial de información antes de la diferenciación en tiempos ralentizados. En la cosmología de Garnier, conserva la unidad del sistema original.`,
+        role: `Fuente de coherencia hacia la cual el 7.º Tiempo (el Doble) mantiene memoria íntegra.`
+      },
+      2: {
+        badge: `Escala de transición`,
+        speed: `Tiempo ultra-acelerado`,
+        title: `2.º Tiempo — Horizonte de desdoblamiento primario`,
+        desc: `Forma parte de la progresión dinámica entre el Origen (1.º) y el observador físico (4.º). Garnier no asigna a los tiempos 2 y 3 etiquetas estáticas cerradas, sino velocidades relacionales de propagación.`,
+        role: `Medio de transmisión y gradiente temporal entre la información original y las escalas intermedias.`
+      },
+      3: {
+        badge: `Escala de transición`,
+        speed: `Tiempo acelerado`,
+        title: `3.er Tiempo — Horizonte anterior al presente físico`,
+        desc: `Nivel intermedio previo a la cristalización de nuestra percepción tridimensional lenta. Permite que lo que es futuro en un nivel funcione como presente en otro.`,
+        role: `Articulación estructural entre la memoria original y la experiencia en la materia.`
+      },
+      4: {
+        badge: `Nivel Central`,
+        speed: `Velocidad: Tiempo Lento (C₀)`,
+        title: `4.º Tiempo — El Observador Físico Consciente`,
+        desc: `Ocupa exactamente la posición intermedia entre los siete tiempos. Desde aquí percibimos la realidad tridimensional en flujo lento, ejercemos el libre albedrío y proyectamos los futuros potenciales que nuestro Doble clasificará.`,
+        role: `Nexo operativo donde la experiencia en la materia decide qué futuros se actualizan mediante el contacto nocturno con el 7.º Tiempo.`
+      },
+      5: {
+        badge: `Escala futura intermedia`,
+        speed: `Tiempo acelerado`,
+        title: `5.º Tiempo — Primer horizonte futuro respecto al presente`,
+        desc: `Escala en la que comienzan a desplegarse las ramificaciones inmediatas de nuestros pensamientos cotidianos antes de su eventual retorno al 4.º Tiempo.`,
+        role: `Zona de flujo acelerado atravesada durante las aperturas temporales entre instantes perceptibles.`
+      },
+      6: {
+        badge: `Escala futura intermedia`,
+        speed: `Tiempo altamente acelerado`,
+        title: `6.º Tiempo — Horizonte previo al Doble primario`,
+        desc: `Nivel de alta velocidad donde convergen las simulaciones de potenciales antes de integrarse con la memoria del 7.º Tiempo.`,
+        role: `Puente dinámico de clasificación de escenarios futuros antes de su síntesis.`
+      },
+      7: {
+        badge: `Mensajero del Origen`,
+        speed: `Velocidad superluminosa`,
+        title: `7.º Tiempo — El Doble Primario`,
+        desc: `Vela por el equilibrio del observador físico conservando la memoria íntegra del 1.er Tiempo. Explora en tiempo acelerado las posibilidades generadas desde el presente y selecciona la más favorable.`,
+        role: `Interlocutor nocturno que neutraliza potenciales caóticos durante el sueño paradójico y devuelve intuiciones al 4.º Tiempo.`
+      },
+      8: {
+        badge: `Anomalía del ciclo`,
+        speed: `Desconexión de los 7 tiempos`,
+        title: `8.º Tiempo — La salida de la estructura original`,
+        desc: `Garnier propone que la humanidad habría permanecido en el futuro de su propio Doble, penetrando en un 8.º Tiempo fuera de la organización original. Desde ahí se pierde la conexión directa con el Origen y surgen interferencias («desconocidos del futuro»).`,
+        role: `Explica por qué el intercambio nocturno consciente y benevolente con el Doble del 7.º Tiempo es vital para reordenar el presente.`
+      }
+    };
+
+    let selectedTime = 4;
+
+    function selectTimeLevel(level) {
+      selectedTime = level;
+      const info = sevenTimesData[level];
+      if (!info) return;
+
+      for (let i = 1; i <= 8; i++) {
+        const btn = document.getElementById('tbtn-' + i);
+        if (btn) btn.classList.toggle('is-selected', i === level);
+
+        const ring = document.getElementById('ring-t' + i);
+        if (ring) {
+          ring.setAttribute('stroke-width', i === level ? '3.5' : (i === 4 || i === 7 ? '2' : '1.5'));
+          ring.setAttribute('opacity', i === level ? '1' : '0.42');
+        }
+      }
+
+      const badge = document.getElementById('time-badge');
+      const speed = document.getElementById('time-speed');
+      const title = document.getElementById('time-title');
+      const desc = document.getElementById('time-desc');
+      const role = document.getElementById('time-role');
+
+      if (badge) {
+        badge.textContent = info.badge;
+        badge.className = level === 8 ? 'badge is-error' : (level === 1 || level === 7 ? 'badge is-gold' : 'badge');
+      }
+      if (speed) speed.textContent = info.speed;
+      if (title) title.textContent = info.title;
+      if (desc) desc.textContent = info.desc;
+      if (role) role.textContent = info.role;
+    }
+
+    function setTimesFlow(flow) {
+      const btnNight = document.getElementById('btn-flow-night');
+      const btnOrigin = document.getElementById('btn-flow-origin');
+      const bridge = document.getElementById('bridge-path');
+      if (btnNight) btnNight.classList.toggle('is-active', flow === 'night');
+      if (btnOrigin) btnOrigin.classList.toggle('is-active', flow === 'origin');
+      if (bridge) {
+        if (flow === 'night') {
+          bridge.setAttribute('d', 'M 136 210 Q 155 95 230 42');
+          bridge.setAttribute('stroke', getToken('--primary') || '#00f3ff');
+        } else {
+          bridge.setAttribute('d', 'M 230 210 Q 260 125 230 42');
+          bridge.setAttribute('stroke', getToken('--tertiary') || '#ffd700');
+        }
+      }
+    }
+
+    // =========================================================================
+    // TOOL 3: HYPNA-PROTOCOL ASSISTANT, CHECKLIST, TIMER & LOG
+    // =========================================================================
+    function toggleProtocolCheck(index) {
+      const chk = document.getElementById('chk-' + index);
+      const wrap = document.getElementById('chk-wrap-' + index);
+      if (!chk) return;
+      appState.checklist[index] = chk.checked;
+      if (wrap) wrap.classList.toggle('is-checked', chk.checked);
+      persistAppState();
+    }
+
+    const formulationPresets = {
+      salud: `Entrego con serenidad la situación de mi cuerpo; muéstrame el camino más coherente para recuperar equilibrio y salud, y confío en tu guía.`,
+      finanzas: `Entrego esta decisión laboral y financiera sin imponer un único resultado; muéstrame la ruta más estable y clara para avanzar con paz.`,
+      relaciones: `Entrego esta tensión en mi vínculo con benevolencia; muéstrame la forma más justa y serena de responder mañana.`,
+      proposito: `Entrego mi inquietud sobre hacia dónde dirigir mis pasos; ordena los mejores potenciales disponibles y muéstrame la siguiente acción evidente.`
+    };
+
+    function applyFormulationPreset(key) {
+      if (!key || !formulationPresets[key]) return;
+      const input = document.getElementById('formulation-input');
+      if (!input) return;
+      input.value = formulationPresets[key];
+      analyzeFormulation(input.value);
+    }
+
+    function analyzeFormulation(text, skipPersist) {
+      appState.formulation = text;
+      const box = document.getElementById('ego-detector-box');
+      const label = document.getElementById('ego-detector-label');
+      const msg = document.getElementById('ego-detector-msg');
+      if (!box || !label || !msg) return;
+
+      const lower = text.toLowerCase().trim();
+      if (!lower) {
+        box.className = 'callout is-cyan';
+        label.textContent = `Análisis de formulación`;
+        msg.textContent = `Escribe tu entrega en tiempo presente o como apertura tranquila. Evita palabras de carencia, urgencia o imposición de resultados a terceros.`;
+        if (!skipPersist) persistAppState();
+        return;
+      }
+
+      const rigidPatterns = ['quiero que', 'tiene que', 'urgente', 'necesito ya', 'obligatorio', 'exactamente', 'lotería', 'haz que esa persona', 'cámbialo'];
+      const openPatterns = ['muéstrame', 'entrego', 'mejor futuro', 'claridad', 'serenidad', 'equilibrio', 'confío', 'camino'];
+
+      const foundRigid = rigidPatterns.filter(p => lower.includes(p));
+      const foundOpen = openPatterns.filter(p => lower.includes(p));
+
+      if (foundRigid.length > 0) {
+        box.className = 'callout is-warn';
+        label.textContent = `Alerta de interferencia del ego`;
+        msg.textContent = `Detectamos términos de exigencia o control («${foundRigid[0]}»). Recuerda la regla de Garnier: no impongas el «cómo» ni intentes modificar a otra persona; reforma tu frase hacia una entrega abierta.`;
+      } else if (foundOpen.length > 0) {
+        box.className = 'callout is-cyan';
+        label.textContent = `Formulación coherente para el último minuto`;
+        msg.textContent = `Tono breve, abierto y sin imposición rígida. Al repetirla mentalmente con gratitud en el último minuto consciente, entregas el timón al Doble sin bloquear las alternativas.`;
+      } else {
+        box.className = 'callout';
+        label.textContent = `Sugerencia de ajuste`;
+        msg.textContent = `Tu entrega es válida; verifica que sea breve, que no busque controlar a terceros y que puedas sostenerla con calma emocional antes de dormir.`;
+      }
+      if (!skipPersist) persistAppState();
+    }
+
+    // Guided Timer
+    let timerTotal = 60;
+    let timerRemaining = 60;
+    let timerInterval = null;
+    let timerActive = false;
+
+    function setTimerDuration(secStr) {
+      if (timerActive) resetHypnagogicTimer();
+      timerTotal = Number(secStr) || 60;
+      timerRemaining = timerTotal;
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      const disp = document.getElementById('timer-display');
+      const ring = document.getElementById('timer-progress-ring');
+      const orb = document.getElementById('breath-orb');
+      const cue = document.getElementById('breath-cue');
+      const instr = document.getElementById('phase-instruction');
+
+      const mins = String(Math.floor(timerRemaining / 60)).padStart(2, '0');
+      const secs = String(timerRemaining % 60).padStart(2, '0');
+      if (disp) disp.textContent = `${mins}:${secs}`;
+
+      if (ring) {
+        const circumference = 427.26;
+        const progress = timerTotal > 0 ? (timerTotal - timerRemaining) / timerTotal : 0;
+        ring.style.strokeDashoffset = String(circumference * (1 - progress));
+      }
+
+      if (!timerActive) return;
+
+      // 12-second breathing cycle: 0-3 inhale, 4-5 hold, 6-11 exhale
+      const elapsed = timerTotal - timerRemaining;
+      const breathMod = elapsed % 12;
+      if (orb && cue) {
+        if (breathMod < 4) {
+          orb.style.transform = `scale(1.38)`;
+          cue.textContent = `Inhala suave (4 s) · Suelta la tensión diurna`;
+        } else if (breathMod < 6) {
+          orb.style.transform = `scale(1.38)`;
+          cue.textContent = `Sostén en quietud (2 s) · Silencio mental`;
+        } else {
+          orb.style.transform = `scale(0.88)`;
+          cue.textContent = `Exhala largo (6 s) · Entrega el control`;
+        }
+      }
+
+      const ratio = elapsed / timerTotal;
+      if (instr) {
+        if (ratio < 0.34) {
+          instr.textContent = `Paso 1: Reconoce la situación que quieres resolver sin analizarla con ansiedad.`;
+        } else if (ratio < 0.72) {
+          instr.textContent = `Paso 2: Formula mentalmente tu entrega breve con benevolencia y sin imponer el «cómo».`;
+        } else {
+          instr.textContent = `Paso 3: Gratitud y desapego total. Deja las riendas al Doble y descansa con certeza.`;
+        }
+      }
+    }
+
+    function toggleHypnagogicTimer() {
+      const btn = document.getElementById('btn-timer-start');
+      if (timerActive) {
+        clearInterval(timerInterval);
+        timerActive = false;
+        if (btn) btn.textContent = `Reanudar minuto sagrado`;
+        return;
+      }
+
+      if (timerRemaining <= 0) timerRemaining = timerTotal;
+      timerActive = true;
+      if (btn) btn.textContent = `Pausar`;
+      updateTimerDisplay();
+
+      timerInterval = setInterval(() => {
+        timerRemaining -= 1;
+        if (timerRemaining <= 0) {
+          timerRemaining = 0;
+          clearInterval(timerInterval);
+          timerActive = false;
+          if (btn) btn.textContent = `Iniciar de nuevo`;
+          const cue = document.getElementById('breath-cue');
+          const instr = document.getElementById('phase-instruction');
+          const orb = document.getElementById('breath-orb');
+          if (cue) cue.textContent = `Entrega completada · Entra en reposo`;
+          if (instr) instr.textContent = `Tu trabajo consciente terminó por hoy. Confía en el intercambio durante el sueño paradójico.`;
+          if (orb) orb.style.transform = `scale(1)`;
+        }
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function resetHypnagogicTimer() {
+      clearInterval(timerInterval);
+      timerActive = false;
+      timerRemaining = timerTotal;
+      const btn = document.getElementById('btn-timer-start');
+      const cue = document.getElementById('breath-cue');
+      const instr = document.getElementById('phase-instruction');
+      const orb = document.getElementById('breath-orb');
+      if (btn) btn.textContent = `Iniciar minuto sagrado`;
+      if (cue) cue.textContent = `Listo para iniciar · Respiración lenta 4-2-6`;
+      if (instr) instr.textContent = `Al pulsar iniciar, reduce tu ritmo respiratorio, pronuncia mentalmente tu entrega breve y suelta el control para dormir.`;
+      if (orb) orb.style.transform = `scale(1)`;
+      updateTimerDisplay();
+    }
+
+    // Morning Log
+    function addMorningEntry() {
+      const input = document.getElementById('morning-signal-input');
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+
+      const now = new Date();
+      const stamp = `${now.toLocaleDateString('es-ES')} · ${now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
+      appState.morningLogs.unshift({
+        id: Date.now(),
+        date: stamp,
+        text: text
+      });
+      if (appState.morningLogs.length > 25) appState.morningLogs.pop();
+
+      input.value = ``;
+      renderMorningLogs();
+      persistAppState();
+    }
+
+    function renderMorningLogs() {
+      const list = document.getElementById('morning-log-list');
+      const empty = document.getElementById('morning-log-empty');
+      const count = document.getElementById('log-count-badge');
+      if (!list || !empty || !count) return;
+
+      count.textContent = `${appState.morningLogs.length} ${appState.morningLogs.length === 1 ? 'registro' : 'registros'}`;
+      empty.style.display = appState.morningLogs.length === 0 ? 'block' : 'none';
+
+      list.innerHTML = ``;
+      appState.morningLogs.forEach((entry) => {
+        const div = document.createElement('div');
+        div.className = 'log-entry';
+
+        const meta = document.createElement('div');
+        meta.className = 'log-meta';
+        const dateSpan = document.createElement('span');
+        dateSpan.textContent = entry.date;
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'accent-cyan';
+        tagSpan.textContent = `Recepción matutina`;
+        meta.appendChild(dateSpan);
+        meta.appendChild(tagSpan);
+
+        const body = document.createElement('p');
+        body.textContent = entry.text;
+
+        div.appendChild(meta);
+        div.appendChild(body);
+        list.appendChild(div);
+      });
+    }
+
+    function exportMorningLog() {
+      if (appState.morningLogs.length === 0) return;
+      const lines = appState.morningLogs.map(e => `[${e.date}] ${e.text}`);
+      const content = `BITÁCORA DEL PROTOCOLO NOCTURNO (GARNIER MALET)\n\n${lines.join('\n')}`;
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'bitacora_doble_cuantico.txt'
+        });
+      }
+    }
+
+    function clearMorningLog(btn) {
+      if (!btn || appState.morningLogs.length === 0) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `Confirmar borrado`;
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = `Limpiar bitácora`;
+      appState.morningLogs = [];
+      renderMorningLogs();
+      persistAppState();
+    }
+
+    // =========================================================================
+    // TOOL 4: EGO VS DOUBLE COMPARATOR & DISCERNMENT CASES
+    // =========================================================================
+    const compareDetails = [
+      {
+        title: `Detalle · Tono emocional`,
+        body: `Garnier enfatiza que una señal auténtica nunca llega acompañada de pánico ni urgencia desesperada. Incluso cuando implica tomar una decisión valiente o cambiar de rumbo, se percibe como una certeza calmada y sin ruido.`
+      },
+      {
+        title: `Detalle · Sensación corporal`,
+        body: `Al actuar el cuerpo biológico como antena mediante el agua celular, la coherencia se siente como apertura y ligereza, mientras que el parasitaje emocional produce contracción y cansancio.`
+      },
+      {
+        title: `Detalle · Contenido de la idea`,
+        body: `La mente condicionada repite los mismos miedos y argumentos del pasado. El Doble, tras explorar futuros distintos en el tiempo acelerado, aporta un ángulo fresco que no habías considerado.`
+      },
+      {
+        title: `Detalle · Relación con el tiempo`,
+        body: `El Doble explora en tiempo acelerado, pero tú actualizas en tiempo lento. Exigir inmediatez es como desenterrar una semilla cada mañana para comprobar si ya germinó.`
+      },
+      {
+        title: `Detalle · Libertad de elección`,
+        body: `La información y la libertad van juntas: el Doble nunca te obliga ni invade el libre albedrío de otras personas. Te ofrece orientación para que decidas en el presente.`
+      }
+    ];
+
+    function selectCompareRow(idx, rowEl) {
+      const rows = document.querySelectorAll('#compare-tbody .compare-row');
+      rows.forEach(r => r.classList.remove('is-active'));
+      if (rowEl) rowEl.classList.add('is-active');
+
+      const info = compareDetails[idx];
+      const titleEl = document.getElementById('compare-detail-title');
+      const bodyEl = document.getElementById('compare-detail-body');
+      if (info && titleEl && bodyEl) {
+        titleEl.textContent = info.title;
+        bodyEl.textContent = info.body;
+      }
+    }
+
+    const discernmentCases = [
+      {
+        title: `El impulso de inversión urgente`,
+        scenario: `Sueñas con una oportunidad de negocio que parece lucrativa y despiertas con una fuerte urgencia por transferir dinero hoy mismo antes de que «se cierre la puerta», sintiendo taquicardia y temor a quedarte fuera.`,
+        answer: `ego`,
+        explanation: `Ruido del Ego. La señal del Doble nunca viene cargada de pánico, prisa ni miedo a perder. Esos síntomas revelan parasitaje emocional y programación ansiosa.`
+      },
+      {
+        title: `Incomodidad serena ante un socio`,
+        scenario: `Tras entregar una duda financiera antes de dormir, los números de dos posibles socios lucen idénticos, pero al conversar con uno de ellos notas una incomodidad tranquila y clara que te lleva a elegir al otro sin drama.`,
+        answer: `doble`,
+        explanation: `Señal del Doble. Se manifiesta como una sensación corporal sutil y serena que advierte sobre consecuencias futuras exploradas en tiempo acelerado.`
+      },
+      {
+        title: `Obsesión con el reloj «11:11»`,
+        scenario: `Pasas el día entero vigilando matrículas, horas espejo y coincidencias para descifrar si debes aceptar un empleo específico que deseas con ansiedad desde hace semanas.`,
+        answer: `ego`,
+        explanation: `Ruido del Ego. Saturar el canal buscando confirmaciones externas obsesivas genera interferencia mental e impide percibir orientaciones reales en silencio.`
+      },
+      {
+        title: `Llamada espontánea sin explicación`,
+        scenario: `Mientras conduces en calma, te viene de golpe a la mente un amigo con el que no hablas hace meses; decides llamarlo sin prisa y resulta que estaba atravesando justo el momento en que necesitaba apoyo.`,
+        answer: `doble`,
+        explanation: `Señal del Doble. Es un pensamiento espontáneo y ligero que aparece en reposo mental y produce una sincronicidad precisa.`
+      },
+      {
+        title: `Pedir cambiar la decisión de un tercero`,
+        scenario: `Antes de dormir pides a tu Doble que haga cambiar de opinión a una ex pareja o a un colega específico para que haga exactamente lo que tú decidiste que es mejor.`,
+        answer: `ego`,
+        explanation: `Ruido / Imposición del Ego. Violas la regla de no interferir en potenciales ajenos e impones el «cómo»; tu Doble solo gestiona el mejor futuro para ti.`
+      }
+    ];
+
+    let currentCaseIdx = 0;
+
+    function renderDiscernmentCase() {
+      const c = discernmentCases[currentCaseIdx];
+      if (!c) return;
+      const counter = document.getElementById('case-counter');
+      const title = document.getElementById('case-title');
+      const scen = document.getElementById('case-scenario');
+      const box = document.getElementById('case-feedback-box');
+
+      if (counter) counter.textContent = `Caso práctico ${currentCaseIdx + 1} de ${discernmentCases.length}`;
+      if (title) title.textContent = c.title;
+      if (scen) scen.textContent = c.scenario;
+      if (box) box.style.display = 'none';
+    }
+
+    function prevDiscernmentCase() {
+      currentCaseIdx = (currentCaseIdx - 1 + discernmentCases.length) % discernmentCases.length;
+      renderDiscernmentCase();
+    }
+
+    function nextDiscernmentCase() {
+      currentCaseIdx = (currentCaseIdx + 1) % discernmentCases.length;
+      renderDiscernmentCase();
+    }
+
+    function answerDiscernment(choice) {
+      const c = discernmentCases[currentCaseIdx];
+      if (!c) return;
+      const isCorrect = choice === c.answer;
+      appState.discernmentSolved[currentCaseIdx] = isCorrect;
+
+      const box = document.getElementById('case-feedback-box');
+      const label = document.getElementById('case-feedback-label');
+      const text = document.getElementById('case-feedback-text');
+      if (box && label && text) {
+        box.style.display = 'flex';
+        box.className = isCorrect ? 'callout is-cyan' : 'callout is-warn';
+        label.textContent = isCorrect ? `Diagnóstico acertado` : `Revisa el criterio del modelo`;
+        text.textContent = c.explanation;
+      }
+      updateQuizScoreBadge();
+      persistAppState();
+    }
+
+    function updateQuizScoreBadge() {
+      const badge = document.getElementById('quiz-score-badge');
+      if (!badge) return;
+      const totalCorrect = Object.values(appState.discernmentSolved).filter(Boolean).length;
+      const totalAttempted = Object.keys(appState.discernmentSolved).length;
+      badge.textContent = `Discernimiento: ${totalCorrect} / ${discernmentCases.length} (${totalAttempted} evaluados)`;
+    }
+
+    // =========================================================================
+    // SCROLL REVEAL & INITIALIZATION
+    // =========================================================================
+    function initScrollReveal() {
+      const targets = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      targets.forEach(el => io.observe(el));
+    }
+
+    async function initApp() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+      initScrollReveal();
+      selectTimeLevel(4);
+      updateSimLabels();
+      updateSimAccel(2);
+      renderDiscernmentCase();
+      updateTimerDisplay();
+
+      if (simAnimId) cancelAnimationFrame(simAnimId);
+      renderDualTimeCanvas();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (Array.isArray(saved.checklist)) appState.checklist = saved.checklist;
+            if (typeof saved.formulation === 'string') appState.formulation = saved.formulation;
+            if (Array.isArray(saved.morningLogs)) appState.morningLogs = saved.morningLogs;
+            if (saved.discernmentSolved && typeof saved.discernmentSolved === 'object') {
+              appState.discernmentSolved = saved.discernmentSolved;
+            }
+            restoreUIFromState();
+          }
+        } catch (err) {
+          // Proceed cleanly with default state
+        }
+        if (typeof window.notebookAppApi.notifyAppReady === 'function') {
+          window.notebookAppApi.notifyAppReady();
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
