@@ -2126,15 +2126,27 @@
         ctx.arc(cursorX, cursorY, 4.5, 0, Math.PI * 2);
         ctx.fill();
 
+        const isNarrow = w < 380;
+        const pauseLabel = isNarrow ? 'PAUSA OFF' : 'MICROPAUSA OFF';
+        ctx.font = (isNarrow ? '9.5px' : '11px') + ' JetBrains Mono, monospace';
+
+        const inhaleW = ctx.measureText('INHALA').width;
+        const pauseW = ctx.measureText(pauseLabel).width;
+        const exhaleW = ctx.measureText('EXHALA').width;
+
+        const rawExhaleX = padX + plotW * ((cfg.inhale + cfg.exhale * 0.5) / totalCycle);
+        const minExhaleX = padX + inhaleW + 10 + exhaleW * 0.5;
+        const maxExhaleX = w - padX - pauseW - 10 - exhaleW * 0.5;
+        const safeExhaleX = Math.max(minExhaleX, Math.min(rawExhaleX, maxExhaleX));
+
         ctx.fillStyle = PALETTE.muted;
-        ctx.font = '11px JetBrains Mono, monospace';
         ctx.textAlign = 'left';
         ctx.fillText('INHALA', padX, h - 10);
         ctx.textAlign = 'center';
-        ctx.fillText('EXHALA  ', padX + plotW * ((cfg.inhale + cfg.exhale * 0.5) / totalCycle), h - 10);
+        ctx.fillText('EXHALA', safeExhaleX, h - 10);
         ctx.fillStyle = PALETTE.gold;
         ctx.textAlign = 'right';
-        ctx.fillText('  MICROPAUSA OFF', w - padX, h - 10);
+        ctx.fillText(pauseLabel, w - padX, h - 10);
       }
 
       // 3. Biological Oscillator Chain Anatomy + Scope Canvases

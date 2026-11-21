@@ -1072,6 +1072,17 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* Defensive text wrapping on narrow viewports */
+    .panel, .module-map-card, .source-card, .book-card, .pillar-item {
+      min-width: 0;
+      max-width: 100%;
+    }
+    .btn, .btn-chip, .coord-label, .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
   </style>
 </head>
 
@@ -2602,7 +2613,7 @@
         ctx.fillText(`OFF`, rightExtX, rightExtY + 22);
 
         ctx.fillStyle = isOff ? cCyan : cIvory;
-        ctx.fillText(isOff ? `VELOCIDAD = 0 · ACCESO AL ABSOLUTO` : `FASE ON · MATERIA MANIFIESTA`, pivotX, h - 14);
+        ctx.fillText(isOff ? `VELOCIDAD = 0 · ACCESO AL ABSOLUTO` : `FASE ON · MATERIA MANIFIESTA`, pivotX, h - 14, Math.max(120, w - 24));
 
         requestAnimationFrame(frame);
       }
@@ -3090,9 +3101,9 @@
         ctx.font = `500 10px "JetBrains Mono", monospace`;
         ctx.textAlign = 'center';
         ctx.fillStyle = cIvory;
-        ctx.fillText(`POLO NORTE · AGUJERO BLANCO`, cx, 20);
+        ctx.fillText(`POLO NORTE · AGUJERO BLANCO`, cx, 20, Math.max(120, w - 24));
         ctx.fillStyle = cMuted;
-        ctx.fillText(`POLO SUR · RETORNO AGUJERO NEGRO`, cx, h - 12);
+        ctx.fillText(`POLO SUR · RETORNO AGUJERO NEGRO`, cx, h - 12, Math.max(120, w - 24));
 
         if (toroidState.mode === 'meridian') {
           ctx.fillStyle = cCyan;
